@@ -1,0 +1,201 @@
+{
+  "scopeName": "source.reason",
+  "fileTypes": [
+    "re"
+  ],
+  "patterns": [
+    { "include": "#module-items" },
+    { "include": "#module-type-items" }
+  ],
+  "repository": {
+    "comment": {
+      "patterns": [
+        {
+          "contentName": "comment.block.reason",
+          "begin": "\\s*+((/\\*))",
+          "end": "(\\s*(\\*/))",
+          "captures": {
+            "1": { "name": "comment.block.reason" },
+            "2": { "name": "punctuation.definition.comment.reason" }
+          }
+        }
+      ]
+    },
+    "identifier-module": {
+      "name": "entity.name.class.reason",
+      "match": "\\b([A-Z]+[[:word:]]*)\\b"
+    },
+    "item-let-decl": {
+      "begin": "\\b(let)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "1": { "name": "storage.type.let.reason" }
+      },
+      "patterns": [
+      ]
+    },
+    "item-let-defn": {
+      "begin": "\\b(let)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "1": { "name": "storage.type.let.reason" }
+      },
+      "patterns": [
+        { "include": "#item-let-module-defn" }
+      ]
+    },
+    "item-let-module-defn": {
+      "begin": "\\b(module)\\b",
+      "end": "(?=;)",
+      "beginCaptures": {
+        "1": { "name": "storage.type.module.reason" }
+      },
+      "patterns": [
+        { "include": "#item-let-module-defn-0" },
+        { "include": "#item-let-module-defn-1" },
+        { "include": "#item-let-module-defn-2" },
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-module-defn-0": {
+      "begin": "\\b([A-Z]+[[:word:]]*)\\b",
+      "end": "(?=:|=)",
+      "beginCaptures": {
+        "1": { "name": "entity.name.class.reason" }
+      },
+      "patterns": [
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-module-defn-1": {
+      "begin": ":",
+      "end": "(?==)",
+      "patterns": [
+        {
+          "begin": "{",
+          "end": "}",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.curly.reason" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.curly.reason" }
+          },
+          "patterns": [
+            { "include": "#module-type-items" }
+          ]
+        }
+      ]
+    },
+    "item-let-module-defn-2": {
+      "begin": "=",
+      "end": "(?=;)",
+      "patterns": [
+        {
+          "begin": "{",
+          "end": "}",
+          "beginCaptures": {
+            "0": { "name": "meta.brace.curly.reason" }
+          },
+          "endCaptures": {
+            "0": { "name": "meta.brace.curly.reason" }
+          },
+          "patterns": [
+            { "include": "source.reason" }
+          ]
+        }
+      ]
+    },
+    "item-module-type-defn": {
+      "begin": "\\b(module)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "1": { "name": "storage.type.module.reason" }
+      },
+      "patterns": [
+        { "include": "#item-module-type-defn-0" },
+        { "include": "#item-module-type-defn-1" }
+      ]
+    },
+    "item-module-type-defn-0": {
+      "begin": "\\b(type)\\b",
+      "end": "(?==)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-module" }
+      ]
+    },
+    "item-module-type-defn-1": {
+      "begin": "=",
+      "end": "(?=;)",
+      "patterns": [
+        {
+          "begin": "{",
+          "end": "}",
+          "patterns": [
+            { "include": "#module-type-items" }
+          ]
+        }
+      ]
+    },
+    "item-open": {
+      "begin": "\\b(open)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "0": { "name": "keyword.control.import.include.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-module" }
+      ]
+    },
+    "item-type-defn": {
+      "name": "meta.type.reason",
+      "begin": "\\b(type)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.reason" }
+      }
+    },
+    "misc": {
+      "patterns": [
+        {
+          "begin": "\"",
+          "end": "\"|(?:[^\\\\\\n]$)",
+          "name": "string.double.reason"
+        },
+        {
+          "name": "keyword.control.reason",
+          "match": "\\b(if|switch|when)\\b"
+        },
+        {
+          "name": "storage.type.function.reason",
+          "match": "\\b(fun)\\b"
+        },
+        {
+          "name": "keyword.control.reason",
+          "match": "::"
+        }
+      ]
+    },
+    "module-items": {
+      "patterns": [
+        { "include": "#item-let-defn" },
+        { "include": "#item-module-type-defn" },
+        { "include": "#item-open" },
+        { "include": "#item-type-defn" },
+        { "include": "#comment" },
+        { "include": "#misc" }
+      ]
+    },
+    "module-type-items": {
+      "patterns": [
+        { "include": "#item-let-decl" },
+        { "include": "#item-open" },
+        { "include": "#item-type-defn" },
+        { "include": "#comment" },
+        { "include": "#misc" }
+      ]
+    }
+  }
+}
