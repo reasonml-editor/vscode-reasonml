@@ -52,7 +52,8 @@
       "patterns": [
         { "include": "#item-let-module-defn" },
         { "include": "#item-let-rec-val-defn" },
-        { "include": "#item-let-val-defn" }
+        { "include": "#item-let-val-defn" },
+        { "include": "#comment" }
       ]
     },
     "item-let-module-defn": {
@@ -94,7 +95,8 @@
           "patterns": [
             { "include": "#module-type-items" }
           ]
-        }
+        },
+        { "include": "#comment" }
       ]
     },
     "item-let-module-defn-2": {
@@ -192,7 +194,8 @@
       }
       ,
       "patterns": [
-        { "include": "#identifier-type" }
+        { "include": "#identifier-type" },
+        { "include": "#comment" }
       ]
     },
     "item-type-defn-1": {
@@ -201,7 +204,8 @@
       "patterns": [
         { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
-        { "include": "#identifier-type" }
+        { "include": "#identifier-type" },
+        { "include": "#comment" }
       ]
     },
     "item-type-defn-2": {
@@ -213,7 +217,8 @@
       "patterns": [
         { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
-        { "include": "#identifier-type" }
+        { "include": "#identifier-type" },
+        { "include": "#comment" }
       ]
     },
     "module-items": {
