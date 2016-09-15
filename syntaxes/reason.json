@@ -8,6 +8,22 @@
     { "include": "#module-type-items" }
   ],
   "repository": {
+    "bind-item-module": {
+      "patterns": [
+        { "include": "#item-let-module-defn-0" },
+        { "include": "#item-let-module-defn-1" },
+        { "include": "#item-let-module-defn-2" },
+        { "include": "#item-let-module-defn-3" },
+        { "include": "#comment" }
+      ]
+    },
+    "bind-item-type": {
+      "patterns": [
+        { "include": "#item-type-defn-0" },
+        { "include": "#item-type-defn-1" },
+        { "include": "#item-type-defn-2" }
+      ]
+    },
     "comment": {
       "patterns": [
         {
@@ -63,13 +79,14 @@
         "1": { "name": "storage.type.module.reason" }
       },
       "patterns": [
-        { "include": "#item-let-module-defn-0" },
-        { "include": "#item-let-module-defn-1" },
-        { "include": "#item-let-module-defn-2" },
-        { "include": "#comment" }
+        { "include": "#bind-item-module" }
       ]
     },
     "item-let-module-defn-0": {
+      "name": "storage.modifier.reason",
+      "match": "\\b(and|rec)\\b"
+    },
+    "item-let-module-defn-1": {
       "begin": "\\b([A-Z]+[[:word:]]*)\\b",
       "end": "(?=:|=)",
       "beginCaptures": {
@@ -79,7 +96,7 @@
         { "include": "#comment" }
       ]
     },
-    "item-let-module-defn-1": {
+    "item-let-module-defn-2": {
       "begin": ":",
       "end": "(?==)",
       "patterns": [
@@ -99,9 +116,9 @@
         { "include": "#comment" }
       ]
     },
-    "item-let-module-defn-2": {
+    "item-let-module-defn-3": {
       "begin": "=",
-      "end": "(?=;)",
+      "end": "(?=\\b(and)\\b|;)",
       "patterns": [
         {
           "begin": "{",
@@ -118,18 +135,13 @@
         }
       ]
     },
-    "item-let-rec-val-defn": {
-      "begin": "\\b(rec)\\b",
-      "end": "(?=;)",
-      "beginCaptures": {
-        "1": { "name": "storage.modifier.rec.reason" }
-      },
-      "patterns": [
-        { "include": "#item-let-val-defn" }
-      ]
-    },
     "item-let-val-defn": {
-      "patterns": []
+      "patterns": [
+        {
+          "name": "storage.modifier.rec.reason",
+          "match": "\\b(rec)\\b"
+        }
+      ]
     },
     "item-module-type-defn": {
       "begin": "\\b(module)\\b",
@@ -177,48 +189,32 @@
     },
     "item-type-defn": {
       "name": "meta.type.reason",
-      "begin": "(?=\\btype\\b)",
+      "begin": "\\b(type)\\b",
       "end": ";",
+      "beginCaptures": {
+        "1": { "name": "keyword.other.type.reason" }
+      },
       "patterns": [
-        { "include": "#item-type-defn-0" },
-        { "include": "#item-type-defn-1" },
-        { "include": "#item-type-defn-2" }
+        { "include": "#bind-item-type" }
       ]
     },
     "item-type-defn-0": {
-      "name": "meta.type.reason",
-      "begin": "\\b(type)\\b",
-      "end": "(?==)",
-      "beginCaptures": {
-        "1": { "name": "keyword.other.type.reason" }
+      "match": "\\b(and)|(nonrec)\\b",
+      "captures": {
+        "1": { "name": "keyword.other.type.reason" },
+        "2": { "name": "storage.modifier.nonrec.reason" }
       }
-      ,
-      "patterns": [
-        { "include": "#identifier-type" },
-        { "include": "#comment" }
-      ]
     },
     "item-type-defn-1": {
-      "begin": "=",
-      "end": "(?=;|\\|)",
       "patterns": [
-        { "include": "#identifier-constructor" },
-        { "include": "#identifier-module" },
-        { "include": "#identifier-type" },
-        { "include": "#comment" }
+        { "include": "#identifier-type" }
       ]
     },
     "item-type-defn-2": {
-      "begin": "\\|",
-      "end": "(?=;|\\|)",
-      "beginCaptures": {
-        "0": { "name": "keyword.other.reason" }
-      },
+      "begin": "=",
+      "end": "(?=\\b(and)\\b|;)",
       "patterns": [
-        { "include": "#identifier-constructor" },
-        { "include": "#identifier-module" },
-        { "include": "#identifier-type" },
-        { "include": "#comment" }
+        { "include": "#type-items" }
       ]
     },
     "module-items": {
@@ -235,6 +231,19 @@
         { "include": "#item-let-decl" },
         { "include": "#item-open" },
         { "include": "#item-type-defn" },
+        { "include": "#comment" }
+      ]
+    },
+    "type-items": {
+      "begin": "\\|",
+      "end": "(?=\\b(and)\\b|;|\\|)",
+      "beginCaptures": {
+        "0": { "name": "keyword.other.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-constructor" },
+        { "include": "#identifier-module" },
+        { "include": "#identifier-type" },
         { "include": "#comment" }
       ]
     }
