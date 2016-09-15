@@ -21,6 +21,11 @@
         }
       ]
     },
+    "identifier-constructor": {
+      "comment": "FIXME",
+      "name": "constant.language.constructor.reason",
+      "match": "\\b([A-Z]+[[:word:]]*)\\b(?![[:space:]]*\\.)"
+    },
     "identifier-module": {
       "name": "entity.name.class.reason",
       "match": "\\b([A-Z]+[[:word:]]*)\\b"
@@ -194,6 +199,7 @@
       "begin": "=",
       "end": "(?=;|\\|)",
       "patterns": [
+        { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
         { "include": "#identifier-type" }
       ]
@@ -205,6 +211,7 @@
         "0": { "name": "keyword.other.reason" }
       },
       "patterns": [
+        { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
         { "include": "#identifier-type" }
       ]
