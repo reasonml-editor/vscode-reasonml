@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "reasonml",
-  "displayName": "reason",
+  "displayName": "Reason",
   "description": "Reason language support",
   "version": "0.0.2",
   "publisher": "freebroccolo",
