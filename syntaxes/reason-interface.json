@@ -1,0 +1,9 @@
+{
+  "scopeName": "source.reason-interface",
+  "fileTypes": [
+    "rei"
+  ],
+  "patterns": [
+    { "include": "source.reason.common#module-type-items" }
+  ]
+}

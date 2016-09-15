@@ -28,12 +28,25 @@
   "contributes": {
     "grammars": [
       {
+        "language": "reason-common",
+        "scopeName": "source.reason.common",
+        "path": "./syntaxes/reason-common.json"
+      },
+      {
         "language": "reason",
         "scopeName": "source.reason",
         "path": "./syntaxes/reason.json"
+      },
+      {
+        "language": "reason-interface",
+        "scopeName": "source.reason-interface",
+        "path": "./syntaxes/reason-interface.json"
       }
     ],
     "languages": [
+      {
+        "id": "reason-common"
+      },
       {
         "id": "reason",
         "aliases": [
@@ -41,6 +54,16 @@
         ],
         "extensions": [
           ".re"
+        ],
+        "configuration": "./reason.configuration.json"
+      },
+      {
+        "id": "reason-interface",
+        "aliases": [
+          "Reason (Interface)"
+        ],
+        "extensions": [
+          ".rei"
         ],
         "configuration": "./reason.configuration.json"
       }
