@@ -216,35 +216,13 @@
         { "include": "#identifier-type" }
       ]
     },
-    "misc": {
-      "patterns": [
-        {
-          "begin": "\"",
-          "end": "\"|(?:[^\\\\\\n]$)",
-          "name": "string.double.reason"
-        },
-        {
-          "name": "keyword.control.reason",
-          "match": "\\b(if|switch|when)\\b"
-        },
-        {
-          "name": "storage.type.function.reason",
-          "match": "\\b(fun)\\b"
-        },
-        {
-          "name": "keyword.control.label.reason",
-          "match": "::"
-        }
-      ]
-    },
     "module-items": {
       "patterns": [
         { "include": "#item-let-defn" },
         { "include": "#item-module-type-defn" },
         { "include": "#item-open" },
         { "include": "#item-type-defn" },
-        { "include": "#comment" },
-        { "include": "#misc" }
+        { "include": "#comment" }
       ]
     },
     "module-type-items": {
@@ -252,8 +230,7 @@
         { "include": "#item-let-decl" },
         { "include": "#item-open" },
         { "include": "#item-type-defn" },
-        { "include": "#comment" },
-        { "include": "#misc" }
+        { "include": "#comment" }
       ]
     }
   }
