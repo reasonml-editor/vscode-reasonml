@@ -25,6 +25,10 @@
       "name": "entity.name.class.reason",
       "match": "\\b([A-Z]+[[:word:]]*)\\b"
     },
+    "identifier-type": {
+      "name": "entity.name.function.reason",
+      "match": "(?<!')\\b([a-z][[:word:]]*)\\b"
+    },
     "item-let-decl": {
       "begin": "\\b(let)\\b",
       "end": ";",
@@ -41,7 +45,6 @@
         "1": { "name": "storage.type.let.reason" }
       },
       "patterns": [
-        { "include": "#item-let-module-defn" }
         { "include": "#item-let-module-defn" },
         { "include": "#item-let-rec-val-defn" },
         { "include": "#item-let-val-defn" }
@@ -167,11 +170,44 @@
     },
     "item-type-defn": {
       "name": "meta.type.reason",
-      "begin": "\\b(type)\\b",
+      "begin": "(?=\\btype\\b)",
       "end": ";",
+      "patterns": [
+        { "include": "#item-type-defn-0" },
+        { "include": "#item-type-defn-1" },
+        { "include": "#item-type-defn-2" }
+      ]
+    },
+    "item-type-defn-0": {
+      "name": "meta.type.reason",
+      "begin": "\\b(type)\\b",
+      "end": "(?==)",
       "beginCaptures": {
         "1": { "name": "keyword.other.type.reason" }
       }
+      ,
+      "patterns": [
+        { "include": "#identifier-type" }
+      ]
+    },
+    "item-type-defn-1": {
+      "begin": "=",
+      "end": "(?=;|\\|)",
+      "patterns": [
+        { "include": "#identifier-module" },
+        { "include": "#identifier-type" }
+      ]
+    },
+    "item-type-defn-2": {
+      "begin": "\\|",
+      "end": "(?=;|\\|)",
+      "beginCaptures": {
+        "0": { "name": "keyword.other.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-module" },
+        { "include": "#identifier-type" }
+      ]
     },
     "misc": {
       "patterns": [
