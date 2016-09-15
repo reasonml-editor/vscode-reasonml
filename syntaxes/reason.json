@@ -64,7 +64,7 @@
       "begin": "\\b([A-Z]+[[:word:]]*)\\b",
       "end": "(?=:|=)",
       "beginCaptures": {
-        "1": { "name": "entity.name.class.reason" }
+        "1": { "name": "entity.name.class.module.reason" }
       },
       "patterns": [
         { "include": "#comment" }
@@ -136,7 +136,7 @@
       "begin": "\\b(type)\\b",
       "end": "(?==)",
       "beginCaptures": {
-        "1": { "name": "keyword.other.reason" }
+        "1": { "name": "keyword.other.type.reason" }
       },
       "patterns": [
         { "include": "#identifier-module" }
@@ -170,7 +170,7 @@
       "begin": "\\b(type)\\b",
       "end": ";",
       "beginCaptures": {
-        "1": { "name": "keyword.other.reason" }
+        "1": { "name": "keyword.other.type.reason" }
       }
     },
     "misc": {
@@ -189,7 +189,7 @@
           "match": "\\b(fun)\\b"
         },
         {
-          "name": "keyword.control.reason",
+          "name": "keyword.control.label.reason",
           "match": "::"
         }
       ]
