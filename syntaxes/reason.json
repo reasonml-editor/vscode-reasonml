@@ -50,6 +50,13 @@
       "name": "entity.name.function.reason",
       "match": "(?<!')\\b([a-z][[:word:]]*)\\b"
     },
+    "item-include": {
+      "begin": "\\b(include)\\b",
+      "end": ";",
+      "beginCaptures": {
+        "1": { "name": "keyword.control.import.include.reason" }
+      }
+    },
     "item-let-decl": {
       "begin": "\\b(let)\\b",
       "end": ";",
@@ -219,6 +226,7 @@
     },
     "module-items": {
       "patterns": [
+        { "include": "#item-include" },
         { "include": "#item-let-defn" },
         { "include": "#item-module-type-defn" },
         { "include": "#item-open" },
@@ -228,6 +236,7 @@
     },
     "module-type-items": {
       "patterns": [
+        { "include": "#item-include" },
         { "include": "#item-let-decl" },
         { "include": "#item-open" },
         { "include": "#item-type-defn" },
