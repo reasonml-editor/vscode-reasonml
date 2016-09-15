@@ -2,4 +2,4 @@
 
 Reason support for Visual Studio Code
 
-![screenshot](assets/screenshot.png)
+![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
