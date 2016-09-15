@@ -42,6 +42,9 @@
       },
       "patterns": [
         { "include": "#item-let-module-defn" }
+        { "include": "#item-let-module-defn" },
+        { "include": "#item-let-rec-val-defn" },
+        { "include": "#item-let-val-defn" }
       ]
     },
     "item-let-module-defn": {
@@ -104,6 +107,19 @@
           ]
         }
       ]
+    },
+    "item-let-rec-val-defn": {
+      "begin": "\\b(rec)\\b",
+      "end": "(?=;)",
+      "beginCaptures": {
+        "1": { "name": "storage.modifier.rec.reason" }
+      },
+      "patterns": [
+        { "include": "#item-let-val-defn" }
+      ]
+    },
+    "item-let-val-defn": {
+      "patterns": []
     },
     "item-module-type-defn": {
       "begin": "\\b(module)\\b",
