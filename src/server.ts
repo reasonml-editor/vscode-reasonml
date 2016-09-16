@@ -1,10 +1,10 @@
 import * as server from 'vscode-languageserver';
 
-let connection: server.IConnection = server.createConnection(
+const connection: server.IConnection = server.createConnection(
   new server.IPCMessageReader(process),
   new server.IPCMessageWriter(process),
 );
-let docManager = new server.TextDocuments();
+const docManager = new server.TextDocuments();
 
 namespace Debug {
   const mode: 'enabled' | 'disabled' = 'disabled';
