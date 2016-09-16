@@ -14,7 +14,8 @@
       "patterns": [
         { "include": "#item-type-defn-0" },
         { "include": "#item-type-defn-1" },
-        { "include": "#item-type-defn-2" }
+        { "include": "#item-type-defn-2" },
+        { "include": "#comment" }
       ]
     },
     "comment": {
@@ -57,6 +58,7 @@
         "1": { "name": "storage.type.let.reason" }
       },
       "patterns": [
+        { "include": "#comment" }
       ]
     },
     "item-let-defn": {
@@ -214,7 +216,8 @@
       "begin": "=",
       "end": "(?=\\b(and)\\b|;)",
       "patterns": [
-        { "include": "#type-items" }
+        { "include": "#type-items" },
+        { "include": "#comment" }
       ]
     },
     "module-items": {
