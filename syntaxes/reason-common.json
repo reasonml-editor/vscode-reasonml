@@ -145,6 +145,9 @@
     "item-let-module-defn-2": {
       "begin": ":",
       "end": "(?==)",
+      "beginCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
       "patterns": [
         {
           "begin": "{",
