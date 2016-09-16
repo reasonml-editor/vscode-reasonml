@@ -26,6 +26,40 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Reason configuration",
+      "properties": {
+        "reason.path.ocamlfind": {
+          "type": "string",
+          "default": "ocamlfind"
+        },
+        "reason.path.ocamlmerlin": {
+          "type": "string",
+          "default": "ocamlmerlin"
+        },
+        "reason.path.opam": {
+          "type": "string",
+          "default": "opam"
+        },
+        "reason.path.rebuild": {
+          "type": "string",
+          "default": "rebuild"
+        },
+        "reason.path.refmt": {
+          "type": "string",
+          "default": "refmt"
+        },
+        "reason.path.refmterr": {
+          "type": "string",
+          "default": "refmterr"
+        },
+        "reason.path.rtop": {
+          "type": "string",
+          "default": "rtop"
+        }
+      }
+    },
     "grammars": [
       {
         "language": "reason-common",
