@@ -41,23 +41,64 @@
       "match": "\\b([A-Z]+[[:word:]]*)\\b"
     },
     "identifier-type": {
-      "name": "entity.name.function.reason",
+      "name": "support.type.reason",
       "match": "(?<!')\\b([a-z][[:word:]]*)\\b"
+    },
+    "identifier-type-variable": {
+      "match": "(')\\b([a-z][[:word:]]*)\\b",
+      "captures": {
+        "2": { "name": "variable.parameter.type.reason" }
+      }
     },
     "item-include": {
       "begin": "\\b(include)\\b",
       "end": ";",
       "beginCaptures": {
         "1": { "name": "keyword.control.import.include.reason" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.operator.reason" }
       }
     },
     "item-let-decl": {
+      "comment": "FIXME: anchors",
       "begin": "\\b(let)\\b",
       "end": ";",
       "beginCaptures": {
         "1": { "name": "storage.type.let.reason" }
       },
+      "endCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
       "patterns": [
+        { "include": "#item-let-decl-0" },
+        { "include": "#item-let-decl-1" },
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-decl-0": {
+      "begin": "(?<=let)[[:space:]]+(?!\\bmodule\\b)\\b([a-z][[:word:]]*)\\b",
+      "end": "(?=:)",
+      "beginCaptures": {
+        "1": { "name": "entity.name.function.reason" }
+      },
+      "patterns": [
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-decl-1": {
+      "begin": ":",
+      "end": "(?=;)",
+      "beginCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-type" },
+        { "include": "#identifier-type-variable" },
+        {
+          "name": "keyword.operator.reason",
+          "match": "=>"
+        },
         { "include": "#comment" }
       ]
     },
@@ -66,6 +107,9 @@
       "end": ";",
       "beginCaptures": {
         "1": { "name": "storage.type.let.reason" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.operator.reason" }
       },
       "patterns": [
         { "include": "#item-let-module-defn" },
@@ -121,6 +165,9 @@
     "item-let-module-defn-3": {
       "begin": "=",
       "end": "(?=\\b(and)\\b|;)",
+      "beginCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
       "patterns": [
         {
           "begin": "{",
@@ -138,10 +185,69 @@
       ]
     },
     "item-let-val-defn": {
+      "comment": "FIXME: anchors",
       "patterns": [
         {
           "name": "storage.modifier.rec.reason",
           "match": "\\b(rec)\\b"
+        },
+        { "include": "#item-let-val-defn-0" },
+        { "include": "#item-let-val-defn-1" },
+        { "include": "#item-let-val-defn-2" },
+        { "include": "#item-let-val-defn-3" }
+      ]
+    },
+    "item-let-val-defn-0": {
+      "begin": "(?<=rec)[[:space:]]+(?!\\bmodule\\b)\\b([a-z][[:word:]]*)\\b",
+      "end": "(?=[a-z_]|\\(|=|=>)",
+      "beginCaptures": {
+        "1": { "name": "entity.name.function.reason" }
+      },
+      "patterns": [
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-val-defn-1": {
+      "comment": "FIXME",
+      "begin": "(?<=let)[[:space:]]+(?!\\bmodule|rec\\b)\\b([a-z][[:word:]]*)\\b",
+      "end": "(?==)",
+      "beginCaptures": {
+        "1": { "name": "entity.name.function.reason" }
+      },
+      "patterns": [
+        { "include": "#identifier-module" },
+        { "include": "#item-let-val-defn-2" },
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-val-defn-2": {
+      "begin": "\\b([a-z_][[:word:]]*)\\b",
+      "end": "(?=[a-z_]|\\(|{|,|}|\\)|=|=>)",
+      "beginCaptures": {
+        "1": { "name": "variable.parameter.function.reason" }
+      },
+      "patterns": [
+        { "include": "#comment" }
+      ]
+    },
+    "item-let-val-defn-3": {
+      "comment": "FIXME",
+      "begin": "=>?",
+      "end": "(?=;)",
+      "beginCaptures": {
+       "0": { "name": "keyword.operator.reason" }
+      },
+      "patterns": [
+        { "include": "#module-items" },
+        { "include": "#identifier-constructor" },
+        { "include": "#identifier-module" },
+        {
+          "name": "storage.type.let.reason",
+          "match": "\\b(let)\\b"
+        },
+        {
+          "name": "keyword.control.reason",
+          "match": "\\b(else|downto|for|if|in|not|ref|switch|then|to|when|warning|while)\\b|\\||=>?|&&|\\|\\||<=?|>=?"
         }
       ]
     },
@@ -150,6 +256,9 @@
       "end": ";",
       "beginCaptures": {
         "1": { "name": "storage.type.module.reason" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
         { "include": "#item-module-type-defn-0" },
@@ -185,6 +294,9 @@
       "beginCaptures": {
         "0": { "name": "keyword.control.import.include.reason" }
       },
+      "endCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
       "patterns": [
         { "include": "#identifier-module" }
       ]
@@ -195,6 +307,9 @@
       "end": ";",
       "beginCaptures": {
         "1": { "name": "keyword.other.type.reason" }
+      },
+      "endCaptures": {
+        "0": { "name": "keyword.operator.reason" }
       },
       "patterns": [
         { "include": "#bind-item-type" }
@@ -209,12 +324,16 @@
     },
     "item-type-defn-1": {
       "patterns": [
-        { "include": "#identifier-type" }
+        { "include": "#identifier-type" },
+        { "include": "#identifier-type-variable" }
       ]
     },
     "item-type-defn-2": {
       "begin": "=",
       "end": "(?=\\b(and)\\b|;)",
+      "beginCaptures": {
+        "0": { "name": "keyword.operator.reason" }
+      },
       "patterns": [
         { "include": "#type-items" },
         { "include": "#comment" }
@@ -249,6 +368,7 @@
         { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
         { "include": "#identifier-type" },
+        { "include": "#identifier-type-variable" },
         { "include": "#comment" }
       ]
     }
