@@ -1,131 +1,170 @@
 import * as server from 'vscode-languageserver';
+import * as merlin from './merlin';
 
 const connection: server.IConnection = server.createConnection(
   new server.IPCMessageReader(process),
   new server.IPCMessageWriter(process),
 );
-const docManager = new server.TextDocuments();
+
+const reasonManager = new server.TextDocuments();
+const merlinManager = new merlin.Session();
 
 namespace Debug {
   const mode: 'enabled' | 'disabled' = 'disabled';
   export function info(message: string): void {
     if (mode === 'enabled') {
-      connection.window.showInformationMessage(message);
+      connection.console.log(message);
     }
   }
 }
 
-connection.onCodeAction((_args) => {
-  Debug.info('server::onCodeAction');
+connection.onCodeAction((_data) => {
+  Debug.info('connection::onCodeAction');
   return new server.ResponseError(-1, "onCodeAction not implemented", undefined);
 });
 
-connection.onCodeLens((_args) => {
-  Debug.info('server::onCodeLens');
+connection.onCodeLens((_data) => {
+  Debug.info('connection::onCodeLens');
   return new server.ResponseError(-1, "onCodeLens not implemented", undefined);
 });
 
-connection.onCodeLensResolve((_args) => {
-  Debug.info('server::onCodeLensResolve');
+connection.onCodeLensResolve((_data) => {
+  Debug.info('connection::onCodeLensResolve');
   return new server.ResponseError(-1, "onCodeLensResolve not implemented", undefined);
 });
 
 connection.onCompletion((_textDocumentPosition: server.TextDocumentPositionParams): server.CompletionItem[] => {
-  Debug.info('server::onCompletion');
+  Debug.info('connection::onCompletion');
   return [];
 });
 
 connection.onCompletionResolve((_item: server.CompletionItem): server.CompletionItem => {
-  Debug.info('server::onCompletionResolve');
+  Debug.info('connection::onCompletionResolve');
   return (null as any);
 });
 
-connection.onDefinition((_args) => {
-  Debug.info('server::onDefinition');
+connection.onDefinition((_data) => {
+  Debug.info('connection::onDefinition');
   return new server.ResponseError(-1, "onDefinition not implemented", undefined);
 });
 
-connection.onDidChangeConfiguration((_args) => {
-  Debug.info('server::onDidChangeConfiguration');
+connection.onDidChangeConfiguration((_data) => {
+  Debug.info('connection::onDidChangeConfiguration');
 });
 
-connection.onDidChangeTextDocument((_args) => {
-  Debug.info('server::onDidChangeTextDocument');
+connection.onDidChangeTextDocument((_data) => {
+  Debug.info('connection::onDidChangeTextDocument');
 });
 
-connection.onDidChangeWatchedFiles((_args) => {
-  Debug.info('server::onDidChangeWatchedFiles');
+connection.onDidChangeWatchedFiles((_data) => {
+  Debug.info('connection::onDidChangeWatchedFiles');
 });
 
-connection.onDidCloseTextDocument((_args) => {
-  Debug.info('server::onDidCloseTextDocument');
+connection.onDidCloseTextDocument((_data) => {
+  Debug.info('connection::onDidCloseTextDocument');
 });
 
-connection.onDidOpenTextDocument((_args) => {
-  Debug.info('server::onDidOpenTextDocument');
+connection.onDidOpenTextDocument((_data) => {
+  Debug.info('connection::onDidOpenTextDocument');
 });
 
-connection.onDidSaveTextDocument((_args) => {
-  Debug.info('server::onDidSaveTextDocument');
+connection.onDidSaveTextDocument((_data) => {
+  Debug.info('connection::onDidSaveTextDocument');
   return new server.ResponseError(-1, "onDidSaveTextDocument not implemented", undefined);
 });
 
-connection.onDocumentFormatting((_args) => {
-  Debug.info('server::onDocumentFormatting');
+connection.onDocumentFormatting((_data) => {
+  Debug.info('connection::onDocumentFormatting');
   return new server.ResponseError(-1, "onDocumentFormatting not implemented", undefined);
 });
 
-connection.onDocumentHighlight((_args) => {
-  Debug.info('server::onDocumentHighlight');
+connection.onDocumentHighlight((_data) => {
+  Debug.info('connection::onDocumentHighlight');
   return new server.ResponseError(-1, "onDocumentHighlight not implemented", undefined);
 });
 
-connection.onDocumentOnTypeFormatting((_args) => {
-  Debug.info('server::onDocumentOnTypeFormatting');
+connection.onDocumentOnTypeFormatting((_data) => {
+  Debug.info('connection::onDocumentOnTypeFormatting');
   return new server.ResponseError(-1, "onDocumentTypeFormatting not implemented", undefined);
 });
 
-connection.onDocumentRangeFormatting((_args) => {
-  Debug.info('server::onDocumentRangeFormatting');
+connection.onDocumentRangeFormatting((_data) => {
+  Debug.info('connection::onDocumentRangeFormatting');
   return new server.ResponseError(-1, "onDocumentRangeFormatting not implemented", undefined);
 });
 
-connection.onDocumentSymbol((_args) => {
-  Debug.info('server::onDocumentSymbol');
+connection.onDocumentSymbol((_data) => {
+  Debug.info('connection::onDocumentSymbol');
   return new server.ResponseError(-1, "onDocumentSymbols not implemented", undefined);
 });
 
-connection.onExit((_args) => {
-  Debug.info('server::onExit');
+connection.onExit((_data) => {
+  Debug.info('connection::onExit');
 });
 
-connection.onHover((_args) => {
-  Debug.info('server::onHover');
-  return new server.ResponseError(-1, "onHover not implemented", undefined);
+connection.onHover(async (data) => {
+  const pos: merlin.Position = {
+    col: data.position.character,
+    line: data.position.line + 1,
+  };
+  const response = await merlinManager.sync(
+    merlin.Command.Sync.type.enclosing.at(pos),
+    data.textDocument.uri,
+  );
+  if (!(response.class === 'return')) {
+    return new server.ResponseError(-1, "onHover is not implemented", undefined);
+  }
+  const contents = response.value[0].type;
+  return { contents };
 });
 
-connection.onInitialize((): server.InitializeResult => {
-  Debug.info('server::onInitialize');
+connection.onInitialize(async (): Promise<server.InitializeResult> => {
+  Debug.info('connection::onInitialize');
+  const response = await merlinManager.sync(merlin.Command.Sync.protocol.version.set(3));
+  if (!(response.class === "return" && response.value.selected === 3)) {
+    connection.dispose();
+    throw new Error(`connection::onInitialize: failed to establish protocol v3`);
+  }
+  Debug.info('connection::onInitialize: established merlin protocol v3');
   return {
     capabilities: {
-      textDocumentSync: docManager.syncKind,
+      hoverProvider: true,
+      textDocumentSync: reasonManager.syncKind,
     },
   }
 });
 
-connection.onReferences((_args) => {
-  Debug.info('server::onReference');
+connection.onReferences((_data) => {
+  Debug.info('connection::onReference');
   return new server.ResponseError(-1, "onReferences not implemented", undefined);
 });
 
-connection.onRenameRequest((_args) => {
-  Debug.info('server::onRenameRequest');
+connection.onRenameRequest((_data) => {
+  Debug.info('connection::onRenameRequest');
   return new server.ResponseError(-1, "onRenameRequest not implemented", undefined);
 });
 
-docManager.onDidChangeContent((_args) => {
-  Debug.info('server::onDidChangeContent');
+reasonManager.onDidChangeContent(async (data) => {
+  let source = data.document.getText();
+  Debug.info(`reasonManager::onDidChangeContent: ${'\n'}${source}`);
+  let response = await merlinManager.sync(
+    merlin.Command.Sync.tell('start', 'end', source),
+    data.document.uri,
+  );
+  Debug.info(JSON.stringify(response));
 });
 
-docManager.listen(connection);
+reasonManager.onDidClose((_data) => {
+  Debug.info(`reasonManager::onDidClose`);
+});
+
+reasonManager.onDidOpen((_data) => {
+  Debug.info(`reasonManager::onDidOpen`);
+});
+
+reasonManager.onDidSave((_data) => {
+  Debug.info(`reasonManager::onDidSave`);
+});
+
+reasonManager.listen(connection);
 connection.listen();
