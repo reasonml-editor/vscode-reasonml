@@ -91,10 +91,10 @@ export type Response<T> = Promise<MerlinResponse<T>>;
 
 export namespace Command {
   export class Query<I, O> {
-    data: I;
-    constructor(data: I) {
+    query: I;
+    constructor(query: I) {
       void undefined as any as O;
-      this.data = data;
+      this.query = query;
       return this;
     }
   };
@@ -104,10 +104,10 @@ export namespace Command {
     }
   }
   export class Sync<I, O> {
-    data: I;
-    constructor(data: I) {
+    sync: I;
+    constructor(sync: I) {
       void undefined as any as O;
-      this.data = data;
+      this.sync = sync;
       return this;
     }
   };
@@ -181,10 +181,10 @@ export class Session {
   }
   query<I, O>(request: Command.Query<I, O>, path?: string): Response<O> {
     const context: ['auto', string] | undefined = path ? ['auto', path] : undefined;
-    return this.question<I, MerlinResponse<O>>(request.data, context);
+    return this.question<I, MerlinResponse<O>>(request.query, context);
   }
   sync<I, O>(request: Command.Sync<I, O>, path?: string): Response<O> {
     const context: ['auto', string] | undefined = path ? ['auto', path] : undefined;
-    return this.question<I, MerlinResponse<O>>(request.data, context);
+    return this.question<I, MerlinResponse<O>>(request.sync, context);
   }
 }
