@@ -8,6 +8,7 @@ Reason support for Visual Studio Code
 
 - [x] basic syntax highlighting
 - [ ] full syntax highlighting
+- [x] incremental document synchronization with merlin
 - [x] type-on-hover
 - [ ] `rebuild` integration
 - [ ] `refmt` integration
