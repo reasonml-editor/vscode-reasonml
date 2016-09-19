@@ -18,46 +18,46 @@ namespace Debug {
   }
 }
 
-connection.onCodeAction((_data) => {
-  Debug.info('connection::onCodeAction');
+connection.onCodeAction((data) => {
+  Debug.info(`connection::onCodeAction: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onCodeAction not implemented", undefined);
 });
 
-connection.onCodeLens((_data) => {
-  Debug.info('connection::onCodeLens');
+connection.onCodeLens((data) => {
+  Debug.info(`connection::onCodeLens: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onCodeLens not implemented", undefined);
 });
 
-connection.onCodeLensResolve((_data) => {
-  Debug.info('connection::onCodeLensResolve');
+connection.onCodeLensResolve((data) => {
+  Debug.info(`connection::onCodeLensResolve: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onCodeLensResolve not implemented", undefined);
 });
 
-connection.onCompletion((_textDocumentPosition: server.TextDocumentPositionParams): server.CompletionItem[] => {
-  Debug.info('connection::onCompletion');
+connection.onCompletion((data) => {
+  Debug.info(`connection::onCompletion: ${JSON.stringify(data)}`);
   return [];
 });
 
-connection.onCompletionResolve((_item: server.CompletionItem): server.CompletionItem => {
-  Debug.info('connection::onCompletionResolve');
+connection.onCompletionResolve((data) => {
+  Debug.info(`connection::onCompletionResolve: ${JSON.stringify(data)}`);
   return (null as any);
 });
 
-connection.onDefinition((_data) => {
-  Debug.info('connection::onDefinition');
+connection.onDefinition((data) => {
+  Debug.info(`connection::onDefinition: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDefinition not implemented", undefined);
 });
 
-connection.onDidChangeConfiguration((_data) => {
-  Debug.info('connection::onDidChangeConfiguration');
+connection.onDidChangeConfiguration((data) => {
+  Debug.info(`connection::onDidChangeConfiguration: ${JSON.stringify(data)}`);
 });
 
 connection.onDidChangeTextDocument((_data) => {
   Debug.info('connection::onDidChangeTextDocument');
 });
 
-connection.onDidChangeWatchedFiles((_data) => {
-  Debug.info('connection::onDidChangeWatchedFiles');
+connection.onDidChangeWatchedFiles((data) => {
+  Debug.info(`connection::onDidChangeWatchedFiles: ${JSON.stringify(data)}`);
 });
 
 connection.onDidCloseTextDocument((_data) => {
@@ -68,38 +68,38 @@ connection.onDidOpenTextDocument((_data) => {
   Debug.info('connection::onDidOpenTextDocument');
 });
 
-connection.onDidSaveTextDocument((_data) => {
-  Debug.info('connection::onDidSaveTextDocument');
+connection.onDidSaveTextDocument((data) => {
+  Debug.info(`connection::onDidSaveTextDocument: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDidSaveTextDocument not implemented", undefined);
 });
 
-connection.onDocumentFormatting((_data) => {
-  Debug.info('connection::onDocumentFormatting');
+connection.onDocumentFormatting((data) => {
+  Debug.info(`connection::onDocumentFormatting: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDocumentFormatting not implemented", undefined);
 });
 
-connection.onDocumentHighlight((_data) => {
-  Debug.info('connection::onDocumentHighlight');
+connection.onDocumentHighlight((data) => {
+  Debug.info(`connection::onDocumentHighlight: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDocumentHighlight not implemented", undefined);
 });
 
-connection.onDocumentOnTypeFormatting((_data) => {
-  Debug.info('connection::onDocumentOnTypeFormatting');
+connection.onDocumentOnTypeFormatting((data) => {
+  Debug.info(`connection::onDocumentOnTypeFormatting: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDocumentTypeFormatting not implemented", undefined);
 });
 
-connection.onDocumentRangeFormatting((_data) => {
-  Debug.info('connection::onDocumentRangeFormatting');
+connection.onDocumentRangeFormatting((data) => {
+  Debug.info(`connection::onDocumentRangeFormatting: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDocumentRangeFormatting not implemented", undefined);
 });
 
-connection.onDocumentSymbol((_data) => {
-  Debug.info('connection::onDocumentSymbol');
+connection.onDocumentSymbol((data) => {
+  Debug.info(`connection::onDocumentSymbol: ${JSON.stringify(data)}`);
   return new server.ResponseError(-1, "onDocumentSymbols not implemented", undefined);
 });
 
-connection.onExit((_data) => {
-  Debug.info('connection::onExit');
+connection.onExit((data) => {
+  Debug.info(`connection::onExit: ${JSON.stringify(data)}`);
 });
 
 connection.onHover(async (data) => {
@@ -134,14 +134,14 @@ connection.onInitialize(async (): Promise<server.InitializeResult> => {
   }
 });
 
-connection.onReferences((_data) => {
-  Debug.info('connection::onReference');
-  return new server.ResponseError(-1, "onReferences not implemented", undefined);
+connection.onReferences((data) => {
+  Debug.info(`connection::onReference: ${JSON.stringify(data)}`);
+  return new server.ResponseError(-1, 'onReferences not implemented', undefined);
 });
 
-connection.onRenameRequest((_data) => {
-  Debug.info('connection::onRenameRequest');
-  return new server.ResponseError(-1, "onRenameRequest not implemented", undefined);
+connection.onRenameRequest((data) => {
+  Debug.info(`connection::onRenameRequest: ${JSON.stringify(data)}`);
+  return new server.ResponseError(-1, 'onRenameRequest not implemented', undefined);
 });
 
 reasonManager.onDidChangeContent(async (data) => {
