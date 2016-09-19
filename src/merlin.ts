@@ -1,5 +1,6 @@
 import * as child_process from 'child_process';
 import * as readline from 'readline';
+import * as server from 'vscode-languageserver';
 
 export interface JSONArray extends Array<JSONValue> {
 }
@@ -44,12 +45,25 @@ export type ErrorEntry = {
   type: 'env' | 'parser' | 'type' | 'unknown' | 'warning'
 };
 
+export type PositionColumnLine = {
+  col: number;
+  line: number;
+}
+
 export type Position
   = 'start'
   | 'end'
   | number
-  | { 'line': number; 'col': number }
+  | PositionColumnLine
   ;
+export namespace Position {
+  export function fromCode({ character: col, line }: server.Position): PositionColumnLine {
+    return { col, line: line + 1 };
+  }
+  export function intoCode({ col: character, line }: PositionColumnLine): server.Position {
+    return { character, line: line - 1 };
+  }
+}
 
 export type Location = {
   start: Position;

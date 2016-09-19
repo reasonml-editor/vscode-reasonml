@@ -6,7 +6,6 @@ const connection: server.IConnection = server.createConnection(
   new server.IPCMessageWriter(process),
 );
 
-const reasonManager = new server.TextDocuments();
 const merlinManager = new merlin.Session();
 
 namespace Debug {
@@ -52,20 +51,46 @@ connection.onDidChangeConfiguration((data) => {
   Debug.info(`connection::onDidChangeConfiguration: ${JSON.stringify(data)}`);
 });
 
-connection.onDidChangeTextDocument((_data) => {
-  Debug.info('connection::onDidChangeTextDocument');
+connection.onDidChangeTextDocument(async (data) => {
+  const tasks: merlin.Response<undefined>[] = [];
+  for (const change of data.contentChanges) {
+    if (change && change.range) {
+      const startPos = merlin.Position.fromCode(change.range.start);
+      const endPos = merlin.Position.fromCode(change.range.end);
+      const request = merlin.Command.Sync.tell(startPos, endPos, change.text);
+      const path = data.textDocument.uri;
+      Debug.info(`path: ${path}`);
+      Debug.info(`change: ${JSON.stringify(change)}`);
+      Debug.info(`request: ${JSON.stringify(request)}`);
+      tasks.push(merlinManager.sync(request, path));
+    }
+  }
+  const responses = await Promise.all(tasks);
+  for (const response of responses) {
+    Debug.info(`response: ${JSON.stringify(response)}`);
+  }
 });
 
 connection.onDidChangeWatchedFiles((data) => {
   Debug.info(`connection::onDidChangeWatchedFiles: ${JSON.stringify(data)}`);
 });
 
-connection.onDidCloseTextDocument((_data) => {
-  Debug.info('connection::onDidCloseTextDocument');
+connection.onDidCloseTextDocument(async (data) => {
+  // Debug.info(`connection::onDidCloseTextDocument: ${JSON.stringify(data)}`);
+  const response = await merlinManager.sync(
+    merlin.Command.Sync.tell('start', 'end', ''),
+    data.textDocument.uri,
+  );
+  Debug.info(JSON.stringify(response));
 });
 
-connection.onDidOpenTextDocument((_data) => {
-  Debug.info('connection::onDidOpenTextDocument');
+connection.onDidOpenTextDocument(async (data) => {
+  // Debug.info(`connection::onDidOpenTextDocument: ${JSON.stringify(data)}`);
+  const response = await merlinManager.sync(
+    merlin.Command.Sync.tell('start', 'end', data.textDocument.text),
+    data.textDocument.uri,
+  );
+  Debug.info(JSON.stringify(response));
 });
 
 connection.onDidSaveTextDocument((data) => {
@@ -103,19 +128,15 @@ connection.onExit((data) => {
 });
 
 connection.onHover(async (data) => {
-  const pos: merlin.Position = {
-    col: data.position.character,
-    line: data.position.line + 1,
-  };
+  const position = merlin.Position.fromCode(data.position);
   const response = await merlinManager.sync(
-    merlin.Command.Sync.type.enclosing.at(pos),
+    merlin.Command.Sync.type.enclosing.at(position),
     data.textDocument.uri,
   );
   if (!(response.class === 'return')) {
-    return new server.ResponseError(-1, "onHover is not implemented", undefined);
+    return new server.ResponseError(-1, 'connection::onHover failed', undefined);
   }
-  const contents = response.value[0].type;
-  return { contents };
+  return { contents: response.value[0].type };
 });
 
 connection.onInitialize(async (): Promise<server.InitializeResult> => {
@@ -123,13 +144,13 @@ connection.onInitialize(async (): Promise<server.InitializeResult> => {
   const response = await merlinManager.sync(merlin.Command.Sync.protocol.version.set(3));
   if (!(response.class === "return" && response.value.selected === 3)) {
     connection.dispose();
-    throw new Error(`connection::onInitialize: failed to establish protocol v3`);
+    throw new Error('connection::onInitialize: failed to establish protocol v3');
   }
   Debug.info('connection::onInitialize: established merlin protocol v3');
   return {
     capabilities: {
       hoverProvider: true,
-      textDocumentSync: reasonManager.syncKind,
+      textDocumentSync: server.TextDocumentSyncKind.Incremental,
     },
   }
 });
@@ -144,27 +165,4 @@ connection.onRenameRequest((data) => {
   return new server.ResponseError(-1, 'onRenameRequest not implemented', undefined);
 });
 
-reasonManager.onDidChangeContent(async (data) => {
-  let source = data.document.getText();
-  Debug.info(`reasonManager::onDidChangeContent: ${'\n'}${source}`);
-  let response = await merlinManager.sync(
-    merlin.Command.Sync.tell('start', 'end', source),
-    data.document.uri,
-  );
-  Debug.info(JSON.stringify(response));
-});
-
-reasonManager.onDidClose((_data) => {
-  Debug.info(`reasonManager::onDidClose`);
-});
-
-reasonManager.onDidOpen((_data) => {
-  Debug.info(`reasonManager::onDidOpen`);
-});
-
-reasonManager.onDidSave((_data) => {
-  Debug.info(`reasonManager::onDidSave`);
-});
-
-reasonManager.listen(connection);
 connection.listen();
