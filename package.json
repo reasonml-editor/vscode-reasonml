@@ -21,6 +21,7 @@
     "Languages",
     "Linters"
   ],
+  "icon": "assets/logo.png",
   "activationEvents": [
     "onLanguage:reason"
   ],
