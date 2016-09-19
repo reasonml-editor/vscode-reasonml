@@ -113,8 +113,36 @@ export namespace Command {
     }
   };
   export namespace Query {
-    export function caseAnalysis(startPos: Position, endPos: Position) {
-      return new Query<[Position, Position], [Location, string]>([startPos, endPos]);
+    export namespace dump {
+      export namespace env {
+        export function at(pos: Position) {
+          return new Sync<['dump', 'env', 'at', Position], JSONValue>(
+            ['dump', 'env', 'at', pos]
+          );
+        }
+      }
+    }
+    export namespace type {
+      export namespace expression {
+        export function at(expr: string, pos: Position) {
+          return new Sync<
+            ['type', 'expression', string, 'at', Position],
+            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }
+          >(
+            ['type', 'expression', expr, 'at', pos]
+          );
+        }
+      }
+      export namespace enclosing {
+        export function at(pos: Position) {
+          return new Sync<
+            ['type', 'enclosing', 'at', Position],
+            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }[]
+          >(
+            ['type', 'enclosing', 'at', pos]
+          );
+        }
+      }
     }
   }
   export class Sync<I, O> {
@@ -144,28 +172,6 @@ export namespace Command {
       return new Sync<['tell', Position, Position, string], undefined>(
         ['tell', startPos, endPos, source]
       );
-    }
-    export namespace type {
-      export namespace expression {
-        export function at(expr: string, pos: Position) {
-          return new Sync<
-            ['type', 'expression', string, 'at', Position],
-            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }
-          >(
-            ['type', 'expression', expr, 'at', pos]
-          );
-        }
-      }
-      export namespace enclosing {
-        export function at(pos: Position) {
-          return new Sync<
-            ['type', 'enclosing', 'at', Position],
-            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }[]
-          >(
-            ['type', 'enclosing', 'at', pos]
-          );
-        }
-      }
     }
   }
 }
