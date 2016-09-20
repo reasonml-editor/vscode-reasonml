@@ -107,7 +107,7 @@ connection.onExit((_data) => {
 
 connection.onHover(async (data) => {
   const position = merlin.Position.fromCode(data.position);
-  const response = await merlinManager.sync(
+  const response = await session.merlin.query(
     merlin.Command.Query.type.enclosing.at(position),
     data.textDocument.uri,
   );

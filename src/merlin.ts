@@ -116,7 +116,7 @@ export namespace Command {
     export namespace dump {
       export namespace env {
         export function at(pos: Position) {
-          return new Sync<['dump', 'env', 'at', Position], JSONValue>(
+          return new Query<['dump', 'env', 'at', Position], JSONValue>(
             ['dump', 'env', 'at', pos]
           );
         }
@@ -125,7 +125,7 @@ export namespace Command {
     export namespace type {
       export namespace expression {
         export function at(expr: string, pos: Position) {
-          return new Sync<
+          return new Query<
             ['type', 'expression', string, 'at', Position],
             { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }
           >(
@@ -135,7 +135,7 @@ export namespace Command {
       }
       export namespace enclosing {
         export function at(pos: Position) {
-          return new Sync<
+          return new Query<
             ['type', 'enclosing', 'at', Position],
             { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }[]
           >(
