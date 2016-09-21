@@ -31,8 +31,20 @@ session.connection.onCodeLensResolve((_data) => {
   return new server.ResponseError(-1, 'onCodeLensResolve not implemented', undefined);
 });
 
-session.connection.onCompletion((_data) => {
-  return [];
+session.connection.onCompletion(async (data) => {
+  const method = 'getText';
+  const prefix = await session.connection.sendRequest<server.TextDocumentPositionParams, string | undefined, void>({ method }, data);
+  if (prefix == null) {
+    return [];
+  }
+  const pos = merlin.Position.fromCode(data.position);
+  const command = merlin.Command.Query.complete.prefix(prefix).at(pos).with.doc();
+  const response = await session.merlin.query(command, data.textDocument.uri);
+  if (response.class !== 'return') {
+    return new server.ResponseError(-1, 'onCompletion: failed', undefined);
+  }
+  const items = response.value.entries.map(merlin.Completion.into);
+  return items;
 });
 
 session.connection.onCompletionResolve((_data) => {
@@ -130,6 +142,7 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   }
   return {
     capabilities: {
+      completionProvider: { triggerCharacters: [ '.', '#' ] },
       hoverProvider: true,
       textDocumentSync: server.TextDocumentSyncKind.Incremental,
     },

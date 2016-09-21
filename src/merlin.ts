@@ -29,12 +29,58 @@ export namespace Completion {
   export type Context
     = null
     | ['application', { argument_type: string; labels: Label[] }];
+  export type Kind
+    = '#' | 'class' | 'constructor' | 'exn' | 'label' | 'method' | 'module' | 'signature' | 'type' | 'value' | 'variant';
+  export namespace Kind {
+    export function into(kind: Kind): server.CompletionItemKind {
+      let result: server.CompletionItemKind = server.CompletionItemKind.Value;
+      switch (kind) {
+        case '#':
+          result = server.CompletionItemKind.Method;
+          break;
+        case 'class':
+          result = server.CompletionItemKind.Class;
+          break;
+        case 'constructor':
+          result = server.CompletionItemKind.Constructor;
+          break;
+        case 'exn':
+          result = server.CompletionItemKind.Constructor;
+          break;
+        case 'label':
+          result = server.CompletionItemKind.Field;
+          break;
+        case 'method':
+          result = server.CompletionItemKind.Function;
+          break;
+        case 'module':
+          result = server.CompletionItemKind.Module;
+          break;
+        case 'signature':
+          result = server.CompletionItemKind.Interface;
+          break;
+        case 'type':
+          result = server.CompletionItemKind.Class;
+          break;
+        case 'value':
+          result = server.CompletionItemKind.Value;
+          break;
+        case 'variant':
+          result = server.CompletionItemKind.Enum;
+          break;
+      }
+      return result;
+    }
+  }
   export type Entry = {
     name: string;
-    kind: '#' | 'class' | 'constructor' | 'exn' | 'label' | 'method' | 'module' | 'signature' | 'type' | 'value' | 'variant';
+    kind: Kind;
     desc: string;
     info: string;
   };
+  export function into({ name: label, kind, desc: detail, info: documentation }: Entry): server.CompletionItem {
+    return { detail, documentation, label, kind: Kind.into(kind) }
+  }
 }
 
 export type ErrorEntry = {
