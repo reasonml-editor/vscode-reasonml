@@ -113,6 +113,26 @@ export namespace Command {
     }
   };
   export namespace Query {
+    export namespace complete {
+      export function prefix(prefix: string) {
+        return {
+          at(pos: Position) {
+            return {
+              with: {
+                doc() {
+                  return new Query<
+                    ['complete', 'prefix', string, 'at', Position, 'with', 'doc'],
+                    { entries: Completion.Entry[] }
+                  >(
+                    ['complete', 'prefix', prefix, 'at', pos, 'with', 'doc']
+                  );
+                }
+              }
+            }
+          }
+        }
+      }
+    }
     export namespace dump {
       export namespace env {
         export function at(pos: Position) {
