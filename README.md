@@ -11,6 +11,7 @@ Reason support for Visual Studio Code
 - [x] incremental document synchronization with merlin
 - [x] type-on-hover
 - [x] completion
+- [x] linting on save
 - [ ] `rebuild` integration
 - [ ] `refmt` integration
 - [ ] click-to-navigate
