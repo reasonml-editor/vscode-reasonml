@@ -55,18 +55,18 @@ session.connection.onDidChangeConfiguration((_data) => {
 });
 
 session.connection.onDidChangeTextDocument(async (data) => {
-  const tellRequests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
+  const requests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
   for (const change of data.contentChanges) {
     if (change && change.range) {
       const startPos = merlin.Position.fromCode(change.range.start);
       const endPos = merlin.Position.fromCode(change.range.end);
       const request = merlin.Command.Sync.tell(startPos, endPos, change.text);
-      tellRequests.push(request);
+      requests.push(request);
     }
   }
-  for (const tellRequest of tellRequests) {
-    if (tellRequest) {
-      await session.merlin.sync(tellRequest, data.textDocument.uri);
+  for (const request of requests) {
+    if (request) {
+      await session.merlin.sync(request, data.textDocument.uri);
     }
   }
 });
@@ -88,7 +88,12 @@ session.connection.onDidOpenTextDocument(async (data) => {
   );
 });
 
-session.connection.onDidSaveTextDocument((_data) => {
+session.connection.onDidSaveTextDocument(async (data) => {
+  const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
+  if (errorResponse.class === 'return') {
+    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+    session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
+  }
 });
 
 session.connection.onDocumentFormatting((_data) => {

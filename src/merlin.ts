@@ -77,13 +77,51 @@ export namespace Completion {
   }
 }
 
-export type ErrorEntry = {
-  start?: Position;
-  end?: Position;
+export type ErrorReport = {
+  start: PositionColumnLine;
+  end: PositionColumnLine;
   valid: boolean;
   message: string;
-  type: 'env' | 'parser' | 'type' | 'unknown' | 'warning'
+  type: ErrorReport.Type;
 };
+export namespace ErrorReport {
+  export type Type
+  = 'env'
+  | 'parser'
+  | 'type'
+  | 'unknown'
+  | 'warning'
+  ;
+  export namespace Type {
+    export function intoCode(type: Type): server.DiagnosticSeverity {
+      let result: server.DiagnosticSeverity = server.DiagnosticSeverity.Error;
+      switch (type) {
+        case 'env':
+        case 'parser':
+        case 'type':
+        case 'unknown':
+          result = server.DiagnosticSeverity.Error;
+          break;
+        case 'warning':
+          result = server.DiagnosticSeverity.Warning;
+          break;
+      }
+      return result;
+    }
+  }
+  export function intoCode(report: ErrorReport): server.Diagnostic {
+    const range = {
+      start: Position.intoCode(report.start),
+      end: Position.intoCode(report.end),
+    };
+    const message = report.message;
+    const severity = Type.intoCode(report.type);
+    const codeMatch = /^Warning\s*(\d+)?:/.exec(report.message);
+    const code = codeMatch && codeMatch.length > 1 ? codeMatch[1] : '';
+    const source = 'merlin';
+    return server.Diagnostic.create(range, message, severity, code, source);
+  }
+}
 
 export type PositionColumnLine = {
   col: number;
@@ -171,6 +209,11 @@ export namespace Command {
         >(['dump', 'env', 'at', pos]);
       }
     }
+    // errors
+    export const errors = () => new Query<
+      ['errors'],
+      ErrorReport[]
+    >(['errors']);
     // type
     export namespace type {
       export namespace expression {
