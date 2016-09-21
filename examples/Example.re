@@ -6,6 +6,7 @@ let module List: {
   let nil: t 'a;
   let cons: 'a => t 'a => t 'a;
   let append: t 'a => t 'a => t 'a;
+  let from: list 'a => t 'a;
 } = {
   type t 'a =
     | Nil
@@ -18,4 +19,8 @@ let module List: {
     | Nil => ys
     | Cons x xs => Cons x (append xs ys)
     };
+  let rec from = fun
+    | [] => Nil
+    | [x, ...xs] => Cons x (from xs)
+    ;
 };
