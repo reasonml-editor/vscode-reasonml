@@ -69,6 +69,13 @@ session.connection.onDidChangeTextDocument(async (data) => {
       await session.merlin.sync(request, data.textDocument.uri);
     }
   }
+  if (data.contentChanges.length > 1 || (data.contentChanges[0] && /[^A-Za-z0-9'_#\.]/.exec(data.contentChanges[0].text))) {
+    const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
+    if (errorResponse.class === 'return') {
+      const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+      session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
+    }
+  }
 });
 
 session.connection.onDidChangeWatchedFiles((_data) => {
@@ -88,12 +95,7 @@ session.connection.onDidOpenTextDocument(async (data) => {
   );
 });
 
-session.connection.onDidSaveTextDocument(async (data) => {
-  const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
-  if (errorResponse.class === 'return') {
-    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-    session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
-  }
+session.connection.onDidSaveTextDocument(async (_data) => {
 });
 
 session.connection.onDocumentFormatting((_data) => {
