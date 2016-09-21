@@ -4,11 +4,9 @@ import * as server from 'vscode-languageserver';
 
 export interface JSONArray extends Array<JSONValue> {
 }
-
 export interface JSONObject {
   [key: string]: JSONValue;
 }
-
 export type JSONValue
   = boolean
   | JSONArray
@@ -28,7 +26,7 @@ export namespace Completion {
   export type Kind
     = '#' | 'class' | 'constructor' | 'exn' | 'label' | 'method' | 'module' | 'signature' | 'type' | 'value' | 'variant';
   export namespace Kind {
-    export function into(kind: Kind): server.CompletionItemKind {
+    export function intoCode(kind: Kind): server.CompletionItemKind {
       let result: server.CompletionItemKind = server.CompletionItemKind.Value;
       switch (kind) {
         case '#':
@@ -74,8 +72,8 @@ export namespace Completion {
     desc: string;
     info: string;
   };
-  export function into({ name: label, kind, desc: detail, info: documentation }: Entry): server.CompletionItem {
-    return { detail, documentation, label, kind: Kind.into(kind) }
+  export function intoCode({ name: label, kind, desc: detail, info: documentation }: Entry): server.CompletionItem {
+    return { detail, documentation, label, kind: Kind.intoCode(kind) }
   }
 }
 
@@ -91,7 +89,6 @@ export type PositionColumnLine = {
   col: number;
   line: number;
 }
-
 export type Position
   = 'start'
   | 'end'
@@ -112,19 +109,16 @@ export type Location = {
   end: Position;
 };
 
-export namespace Data {
-  export type TailPosition
-    = 'call'
-    | 'no'
-    | 'position'
-    ;
-}
+export type TailPosition
+  = 'call'
+  | 'no'
+  | 'position'
+  ;
 
 export type MerlinNotification = {
   section: string;
   message: string;
 }
-
 export type MerlinResponse<T> = {
   class: 'return';
   value: T;
@@ -153,57 +147,43 @@ export namespace Command {
       this.query = query;
       return this;
     }
-  };
+  }
   export namespace Query {
+    // complete
     export namespace complete {
-      export function prefix(prefix: string) {
-        return {
-          at(pos: Position) {
-            return {
-              with: {
-                doc() {
-                  return new Query<
-                    ['complete', 'prefix', string, 'at', Position, 'with', 'doc'],
-                    { entries: Completion.Entry[] }
-                  >(
-                    ['complete', 'prefix', prefix, 'at', pos, 'with', 'doc']
-                  );
-                }
-              }
-            }
-          }
-        }
-      }
+      export const prefix = (prefix: string) => ({
+        at: (pos: Position) => ({
+          with: {
+            doc: () => new Query<
+              ['complete', 'prefix', string, 'at', Position, 'with', 'doc'],
+              { entries: Completion.Entry[] }
+            >(['complete', 'prefix', prefix, 'at', pos     , 'with', 'doc']),
+          },
+        }),
+      });
     }
+    // dump
     export namespace dump {
       export namespace env {
-        export function at(pos: Position) {
-          return new Query<['dump', 'env', 'at', Position], JSONValue>(
-            ['dump', 'env', 'at', pos]
-          );
-        }
+        export const at = (pos: Position) => new Query<
+          ['dump', 'env', 'at', Position],
+          JSONValue
+        >(['dump', 'env', 'at', pos]);
       }
     }
+    // type
     export namespace type {
       export namespace expression {
-        export function at(expr: string, pos: Position) {
-          return new Query<
-            ['type', 'expression', string, 'at', Position],
-            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }
-          >(
-            ['type', 'expression', expr, 'at', pos]
-          );
-        }
+        export const at = (expr: string, pos: Position) => new Query<
+          ['type', 'expression', string, 'at', Position],
+          { start: Position; end: Position; type: string; tail: TailPosition }
+        >(['type', 'expression', expr  , 'at', pos]);
       }
       export namespace enclosing {
-        export function at(pos: Position) {
-          return new Query<
-            ['type', 'enclosing', 'at', Position],
-            { start: Position; end: Position; type: string; tail: 'call' | 'no' | 'position' }[]
-          >(
-            ['type', 'enclosing', 'at', pos]
-          );
-        }
+        export const at = (pos: Position) => new Query<
+          ['type', 'enclosing', 'at', Position],
+          { start: Position; end: Position; type: string; tail: TailPosition }[]
+        >(['type', 'enclosing', 'at', pos]);
       }
     }
   }
@@ -214,27 +194,26 @@ export namespace Command {
       this.sync = sync;
       return this;
     }
-  };
+  }
   export namespace Sync {
+    // protocol
     export namespace protocol {
       export namespace version {
-        export function get() {
-          return new Sync<['protocol', 'version'], { selected: number; latest: number; merlin: string }>(
-            ['protocol', 'version']
-          );
-        }
-        export function set(version: number) {
-          return new Sync<['protocol', 'version', number], { selected: number; latest: number; merlin: string }>(
-            ['protocol', 'version', version]
-          );
-        }
+        export const get = () => new Sync<
+          ['protocol', 'version'],
+          { selected: number; latest: number; merlin: string }
+        >(['protocol', 'version']);
+        export const set = (version: number) => new Sync<
+          ['protocol', 'version', number],
+          { selected: number; latest: number; merlin: string }
+        >(['protocol', 'version', version]);
       }
     }
-    export function tell(startPos: Position, endPos: Position, source: string) {
-      return new Sync<['tell', Position, Position, string], undefined>(
-        ['tell', startPos, endPos, source]
-      );
-    }
+    // tell
+    export const tell = (startPos: Position, endPos: Position, source: string) => new Sync<
+      ['tell', Position, Position, string],
+      undefined
+    >(['tell', startPos, endPos  , source]);
   }
 }
 

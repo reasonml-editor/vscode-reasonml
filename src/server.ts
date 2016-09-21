@@ -11,11 +11,8 @@ class Session {
 const session = new Session();
 
 // namespace Debug {
-//   const mode: 'enabled' | 'disabled' = 'disabled';
 //   export function info(message: string): void {
-//     if (mode === 'enabled') {
-//       session.connection.console.log(message);
-//     }
+//     session.connection.console.log(message);
 //   }
 // }
 
@@ -43,8 +40,7 @@ session.connection.onCompletion(async (data) => {
   if (response.class !== 'return') {
     return new server.ResponseError(-1, 'onCompletion: failed', undefined);
   }
-  const items = response.value.entries.map(merlin.Completion.into);
-  return items;
+  return response.value.entries.map(merlin.Completion.intoCode);
 });
 
 session.connection.onCompletionResolve((_data) => {
@@ -59,18 +55,18 @@ session.connection.onDidChangeConfiguration((_data) => {
 });
 
 session.connection.onDidChangeTextDocument(async (data) => {
-  const requests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
+  const tellRequests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
   for (const change of data.contentChanges) {
     if (change && change.range) {
       const startPos = merlin.Position.fromCode(change.range.start);
       const endPos = merlin.Position.fromCode(change.range.end);
       const request = merlin.Command.Sync.tell(startPos, endPos, change.text);
-      requests.push(request);
+      tellRequests.push(request);
     }
   }
-  for (const request of requests) {
-    if (request) {
-      await session.merlin.sync(request, data.textDocument.uri);
+  for (const tellRequest of tellRequests) {
+    if (tellRequest) {
+      await session.merlin.sync(tellRequest, data.textDocument.uri);
     }
   }
 });
