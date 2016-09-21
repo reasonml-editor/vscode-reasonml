@@ -20,15 +20,15 @@ const session = new Session();
 // }
 
 session.connection.onCodeAction((_data) => {
-  return new server.ResponseError(-1, "onCodeAction not implemented", undefined);
+  return new server.ResponseError(-1, 'onCodeAction not implemented', undefined);
 });
 
 session.connection.onCodeLens((_data) => {
-  return new server.ResponseError(-1, "onCodeLens not implemented", undefined);
+  return new server.ResponseError(-1, 'onCodeLens not implemented', undefined);
 });
 
 session.connection.onCodeLensResolve((_data) => {
-  return new server.ResponseError(-1, "onCodeLensResolve not implemented", undefined);
+  return new server.ResponseError(-1, 'onCodeLensResolve not implemented', undefined);
 });
 
 session.connection.onCompletion((_data) => {
@@ -36,11 +36,11 @@ session.connection.onCompletion((_data) => {
 });
 
 session.connection.onCompletionResolve((_data) => {
-  return new server.ResponseError(-1, "onCompletionResolve not implemented", undefined);
+  return new server.ResponseError(-1, 'onCompletionResolve not implemented', undefined);
 });
 
 session.connection.onDefinition((_data) => {
-  return new server.ResponseError(-1, "onDefinition not implemented", undefined);
+  return new server.ResponseError(-1, 'onDefinition not implemented', undefined);
 });
 
 session.connection.onDidChangeConfiguration((_data) => {
@@ -85,23 +85,23 @@ session.connection.onDidSaveTextDocument((_data) => {
 });
 
 session.connection.onDocumentFormatting((_data) => {
-  return new server.ResponseError(-1, "onDocumentFormatting not implemented", undefined);
+  return new server.ResponseError(-1, 'onDocumentFormatting not implemented', undefined);
 });
 
 session.connection.onDocumentHighlight((_data) => {
-  return new server.ResponseError(-1, "onDocumentHighlight not implemented", undefined);
+  return new server.ResponseError(-1, 'onDocumentHighlight not implemented', undefined);
 });
 
 session.connection.onDocumentOnTypeFormatting((_data) => {
-  return new server.ResponseError(-1, "onDocumentTypeFormatting not implemented", undefined);
+  return new server.ResponseError(-1, 'onDocumentTypeFormatting not implemented', undefined);
 });
 
 session.connection.onDocumentRangeFormatting((_data) => {
-  return new server.ResponseError(-1, "onDocumentRangeFormatting not implemented", undefined);
+  return new server.ResponseError(-1, 'onDocumentRangeFormatting not implemented', undefined);
 });
 
 session.connection.onDocumentSymbol((_data) => {
-  return new server.ResponseError(-1, "onDocumentSymbols not implemented", undefined);
+  return new server.ResponseError(-1, 'onDocumentSymbols not implemented', undefined);
 });
 
 session.connection.onExit((_data) => {
