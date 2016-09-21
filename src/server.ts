@@ -47,7 +47,6 @@ session.connection.onDidChangeConfiguration((_data) => {
 });
 
 session.connection.onDidChangeTextDocument(async (data) => {
-  const path = data.textDocument.uri;
   const requests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
   for (const change of data.contentChanges) {
     if (change && change.range) {
@@ -59,7 +58,7 @@ session.connection.onDidChangeTextDocument(async (data) => {
   }
   for (const request of requests) {
     if (request) {
-      await session.merlin.sync(request, path);
+      await session.merlin.sync(request, data.textDocument.uri);
     }
   }
 });
@@ -113,7 +112,7 @@ session.connection.onHover(async (data) => {
     merlin.Command.Query.type.enclosing.at(position),
     data.textDocument.uri,
   );
-  if (!(response.class === 'return')) {
+  if (response.class !== 'return') {
     return new server.ResponseError(-1, 'session.connection::onHover failed0', undefined);
   }
   const markedStrings: server.MarkedString[] = [];
@@ -125,7 +124,7 @@ session.connection.onHover(async (data) => {
 
 session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   const response = await session.merlin.sync(merlin.Command.Sync.protocol.version.set(3));
-  if (!(response.class === "return" && response.value.selected === 3)) {
+  if (response.class !== 'return' || response.value.selected !== 3) {
     session.connection.dispose();
     throw new Error('session.connection::onInitialize: failed to establish protocol v3');
   }
