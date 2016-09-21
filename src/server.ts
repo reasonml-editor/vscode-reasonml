@@ -126,7 +126,7 @@ session.connection.onHover(async (data) => {
     data.textDocument.uri,
   );
   if (response.class !== 'return') {
-    return new server.ResponseError(-1, 'session.connection::onHover failed0', undefined);
+    return new server.ResponseError(-1, 'session.connection::onHover failed', undefined);
   }
   const markedStrings: server.MarkedString[] = [];
   if (response.value.length > 0) {
