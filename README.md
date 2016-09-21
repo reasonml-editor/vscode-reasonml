@@ -10,6 +10,7 @@ Reason support for Visual Studio Code
 - [ ] full syntax highlighting
 - [x] incremental document synchronization with merlin
 - [x] type-on-hover
+- [x] completion
 - [ ] `rebuild` integration
 - [ ] `refmt` integration
 - [ ] click-to-navigate
