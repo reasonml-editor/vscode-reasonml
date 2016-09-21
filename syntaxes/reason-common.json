@@ -251,7 +251,7 @@
         },
         {
           "name": "keyword.control.reason",
-          "match": "\\b(else|downto|for|if|in|not|ref|switch|then|to|when|warning|while)\\b|-|,|::?|:=|@|@@|/|\\|\\*|\\^|\\+|\\||&&|##?|%|<=?|=>?|>=?"
+          "match": "\\b(else|downto|for|if|in|not|ref|switch|then|to|when|warning|while)\\b|-|,|::?|:=|\\.\\.\\.|@@|@|/|\\|\\*|\\^|\\+|\\||&&|##?|%|<=?|=>?|>=?"
         }
       ]
     },
