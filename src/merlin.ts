@@ -17,10 +17,6 @@ export type JSONValue
   | string
   ;
 
-export namespace Context {
-  export type document = any;
-}
-
 export namespace Completion {
   export type Label = {
     name: string;
