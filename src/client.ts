@@ -25,7 +25,7 @@ export function launch(context: vscode.ExtensionContext): vscode.Disposable {
       vscode.workspace.openTextDocument(vscode.Uri.parse(data.textDocument.uri));
     const pattern = /[A-Za-z_][A-Za-z_'0-9]*(?:\.[A-Za-z_][A-Za-z_'0-9]*)*\.?$/;
     const match = pattern.exec(document.getText(range));
-    return match && match.length > 0 ? match[0] : undefined;
+    return match[0] ? match[0] : undefined;
   });
 
   return reasonClient.start();
