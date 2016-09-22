@@ -69,7 +69,7 @@ session.connection.onDidChangeTextDocument(async (data) => {
       await session.merlin.sync(request, data.textDocument.uri);
     }
   }
-  if (data.contentChanges.length > 1 || (data.contentChanges[0] && /[^A-Za-z0-9'_#\.]/.exec(data.contentChanges[0].text))) {
+  if (data.contentChanges.length > 1 || (data.contentChanges[0] && (data.contentChanges[0].text === '' || /[^A-Za-z0-9'_#\.]/.exec(data.contentChanges[0].text)))) {
     const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
     if (errorResponse.class === 'return') {
       const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
