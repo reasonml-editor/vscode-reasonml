@@ -14,7 +14,7 @@ export function launch(context: vscode.ExtensionContext): vscode.Disposable {
   const debug = { module, transport, options };
 
   const serverOptions = { run, debug };
-  const clientOptions = { documentSelector: [ 'reason', 'reason-interface' ] };
+  const clientOptions = { documentSelector: [ 'reason.module', 'reason.module.type' ] };
   const reasonClient = new client.LanguageClient('Reason', serverOptions, clientOptions);
 
   reasonClient.onRequest<client.TextDocumentPositionParams, string | undefined, void>({ method: 'getText' }, async (data) => {

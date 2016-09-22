@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.reason-interface",
+  "scopeName": "source.reason.module.type",
   "fileTypes": [
     "rei"
   ],

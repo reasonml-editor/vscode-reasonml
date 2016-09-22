@@ -388,12 +388,23 @@
       ]
     },
     "type-items": {
-      "begin": "\\|",
+      "begin": "\\G|\\|",
       "end": "(?=\\b(and)\\b|;|\\|)",
       "beginCaptures": {
         "0": { "name": "keyword.other.reason" }
       },
       "patterns": [
+        {
+          "comment": "FIXME",
+          "name": "keyword.other.type.reason",
+          "match": "\\bof\\b"
+        },
+        {
+          "match": "\\[\\]|::",
+          "captures": {
+            "0" : { "name": "constant.language.constructor.reason" }
+          }
+        },
         { "include": "#identifier-constructor" },
         { "include": "#identifier-module" },
         { "include": "#identifier-type" },

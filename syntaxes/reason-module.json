@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.reason",
+  "scopeName": "source.reason.module",
   "fileTypes": [
     "re"
   ],
