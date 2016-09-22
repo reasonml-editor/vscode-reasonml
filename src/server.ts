@@ -132,7 +132,7 @@ session.connection.onHover(async (data) => {
   }
   const markedStrings: server.MarkedString[] = [];
   if (response.value.length > 0) {
-    markedStrings.push(response.value[0].type);
+    markedStrings.push({ language: 'reason.hover', value: response.value[0].type });
   }
   return { contents: markedStrings };
 });
