@@ -1,9 +1,0 @@
-{
-  "scopeName": "source.reason.module.type",
-  "fileTypes": [
-    "rei"
-  ],
-  "patterns": [
-    { "include": "source.reason.common#module-type-items" }
-  ]
-}

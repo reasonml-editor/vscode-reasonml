@@ -1,31 +1,5 @@
 {
   "scopeName": "source.reason.hover",
   "patterns": [
-    {
-      "begin": "{",
-      "end": "}",
-      "patterns": [
-        { "include": "source.reason.module.type" }
-      ]
-    },
-    {
-      "begin": "\\b(type)\\b",
-      "end": "$",
-      "beginCaptures": {
-        "1": { "name": "keyword.other.type.reason" }
-      },
-      "endCaptures": {
-        "0": { "name": "keyword.operator.reason" }
-      },
-      "patterns": [
-        { "include": "source.reason.common#bind-item-type" }
-      ]
-    },
-    { "include": "source.reason.common#identifier-type" },
-    { "include": "source.reason.common#identifier-type-variable" },
-    {
-      "name": "keyword.operator.reason",
-      "match": "=>"
-    }
   ]
 }

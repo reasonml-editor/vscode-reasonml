@@ -1,0 +1,9 @@
+{
+  "scopeName": "source.reason.module.decls",
+  "fileTypes": [
+    "rei"
+  ],
+  "patterns": [
+    { "include": "source.reason.common#module-expression-block-item" }
+  ]
+}
