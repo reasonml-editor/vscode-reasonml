@@ -95,7 +95,12 @@ session.connection.onDidOpenTextDocument(async (data) => {
   );
 });
 
-session.connection.onDidSaveTextDocument(async (_data) => {
+session.connection.onDidSaveTextDocument(async (data) => {
+  const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
+  if (errorResponse.class === 'return') {
+    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+    session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
+  }
 });
 
 session.connection.onDocumentFormatting((_data) => {
