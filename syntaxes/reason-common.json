@@ -260,7 +260,7 @@
       ]
     },
     "module-item-let": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(let)\\b[[:space:]]*(?=[_\\(A-Za-z]|$)",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(let)\\b[[:space:]]*",
       "end": "(;)|(?=[\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -299,7 +299,7 @@
       ]
     },
     "module-item-let-module-bind-body": {
-      "begin": "(=>?)[[:space:]]*(?=[\\{A-Z]|$)",
+      "begin": "(=>?)[[:space:]]*",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -319,7 +319,7 @@
       ]
     },
     "module-item-let-module-bind-type": {
-      "begin": "(:)[[:space:]]*(?=[\\{A-Z]|$)",
+      "begin": "(:)[[:space:]]*",
       "end": "(?=\\band\\b|[;\\}=])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -369,7 +369,7 @@
       ]
     },
     "module-item-let-value-bind-body": {
-      "begin": "(=>?)[[:space:]]*(?=[_!'\"\\(\\[\\{`0-9A-Za-z]|$)",
+      "begin": "(=>?)[[:space:]]*",
       "end": "(?=\\band\\b|[;\\)\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -380,7 +380,7 @@
     },
     "module-item-let-value-bind-name-params": {
       "comment": "FIXME: determine why usual anchor doesn't work here",
-      "begin": "(?<=^|[[:space:]])\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*(?=[_:'\"\\(\\[\\{`=0-9A-Za-z]|$)",
+      "begin": "(?<=^|[[:space:]])(?!\\blazy\\b)\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
       "end": "(?<!:)(?!::)(?=[:=])",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
@@ -407,7 +407,7 @@
       ]
     },
     "module-item-let-value-bind-pattern": {
-      "begin": "(?=[A-Z])",
+      "begin": "",
       "end": "(?==)",
       "patterns": [
         { "include": "#pattern" }
@@ -425,7 +425,7 @@
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?!\\bmodule|rec\\b)(?=[_\\(A-Za-z])",
+      "begin": "(?!\\bmodule|rec\\b)",
       "end": "(?=\\band\\b|[;\\}])",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params" },
