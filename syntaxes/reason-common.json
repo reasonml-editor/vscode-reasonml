@@ -145,6 +145,7 @@
         { "include": "#comment" },
         { "include": "#module-item-include" },
         { "include": "#module-item-let" },
+        { "include": "#module-item-class-type" },
         { "include": "#module-item-module-type" },
         { "include": "#module-item-open" },
         { "include": "#module-item-type" }
@@ -156,6 +157,39 @@
         "1": { "name": "entity.name.class" },
         "2": { "name": "keyword.operator" }
       }
+    },
+    "module-item-class-type": {
+      "comment": "FIXME: proper parsing",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(class)\\b[[:space:]]*",
+      "end": "(;)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "patterns": [
+        {
+          "begin": "(?:\\G|^)[[:space:]]*\\b(type)\\b[[:space:]]*(?=[a-z])",
+          "end": "(?==)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#module-item-type-bind-name-tyvars" }
+          ]
+        },
+        {
+          "begin": "(=)[[:space:]]*(?=\\{|$)",
+          "end": "(?=;)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#class-item-method" }
+          ]
+        }
+      ]
     },
     "module-item-include": {
       "begin": "\\b(include)\\b[[:space:]]*",
