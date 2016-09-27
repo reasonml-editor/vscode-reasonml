@@ -2,10 +2,7 @@
   "scopeName": "source.reason.hover",
   "patterns": [
     { "include": "source.reason.common#module-expression" },
-    {
-      "patterns": [
-        { "include": "source.reason.common#type-expression" }
-      ]
-    }
+    { "include": "source.reason.common#module-item-type" },
+    { "include": "source.reason.common#type-expression" }
   ]
 }
