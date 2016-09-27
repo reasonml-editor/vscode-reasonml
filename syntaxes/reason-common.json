@@ -379,30 +379,12 @@
       ]
     },
     "module-item-let-value-bind-name-params": {
-      "comment": "FIXME: determine why usual anchor doesn't work here",
-      "begin": "(?<=^|[[:space:]])(?!\\blazy\\b)\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
       "end": "(?<!:)(?!::)(?=[:=])",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
       },
       "patterns": [
-        { "include": "#module-item-let-value-param" }
-      ]
-    },
-    "module-item-let-value-bind-parens-params": {
-      "begin": "(?=\\()",
-      "end": "(?!::)(?=[:=])",
-      "patterns": [
-        {
-          "begin": "\\G\\([[:space:]]*",
-          "end": "[[:space:]]*\\)[[:space:]]*",
-          "patterns": [
-            { "include": "#operator-infix-custom" },
-            { "include": "#pattern" },
-            { "include": "#pattern-parens-lhs" },
-            { "include": "#pattern-parens-rhs" }
-          ]
-        },
         { "include": "#module-item-let-value-param" }
       ]
     },
@@ -429,7 +411,6 @@
       "end": "(?=\\band\\b|[;\\}])",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params" },
-        { "include": "#module-item-let-value-bind-parens-params" },
         { "include": "#module-item-let-value-bind-pattern" },
         { "include": "#module-item-let-value-bind-type" },
         { "include": "#module-item-let-value-bind-body" }
