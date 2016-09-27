@@ -1,0 +1,9 @@
+{
+  "scopeName": "source.reason.module.defns",
+  "fileTypes": [
+    "re"
+  ],
+  "patterns": [
+    { "include": "source.reason.common#module-expression-block-item" }
+  ]
+}
