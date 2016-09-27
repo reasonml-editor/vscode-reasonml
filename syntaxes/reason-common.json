@@ -1233,6 +1233,13 @@
           }
         },
         {
+          "match": "(%)\\b(identity)\\b",
+          "captures": {
+            "1": { "name": "keyword.operator" },
+            "2": { "name": "constant.language" }
+          }
+        },
+        {
           "match": "(%)([ads])?",
           "captures": {
             "1": { "name": "keyword.operator" },
