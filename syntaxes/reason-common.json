@@ -525,7 +525,7 @@
       "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
       "end": "(;)",
       "beginCaptures": {
-        "1": { "name": "storage.type.reason" }
+        "1": { "name": "keyword.other" }
       },
       "endCaptures": {
         "1": { "name": "keyword.other" }
