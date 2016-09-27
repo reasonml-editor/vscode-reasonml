@@ -974,9 +974,17 @@
       ]
     },
     "type-expression-parens": {
+      "comment": "FIXME: proper tuple types",
       "begin": "\\(",
       "end": "\\)",
       "patterns": [
+        {
+          "match": ",",
+          "name": "keyword.other"
+        },
+        { "include": "#type-expression" }
+      ]
+    },
     "type-expression-polymorphic-variant": {
       "comment": "FIXME: proper parsing",
       "begin": "(\\[)",
