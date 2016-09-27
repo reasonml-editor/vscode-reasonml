@@ -910,6 +910,7 @@
       ]
     },
     "type-expression-object": {
+      "comment": "FIXME: separate sub-rules",
       "begin": "(<)",
       "end": "(>)",
       "beginCaptures": {
@@ -920,6 +921,14 @@
       },
       "patterns": [
         {
+          "begin": "(\\.\\.)",
+          "end": "(?=>)",
+          "beginCaptures": {
+            "1": { "name": "constant.language" }
+          }
+        },
+        {
+          "comment": "FIXME: method item",
           "begin": "(?=[_a-z])",
           "end": "(,)|(?=>)",
           "endCaptures": {
@@ -927,6 +936,7 @@
           },
           "patterns": [
             {
+              "comment": "FIXME: method name",
               "begin": "(?=[_a-z])",
               "end": "(?=:)",
               "patterns": [
@@ -939,6 +949,7 @@
               ]
             },
             {
+              "comment": "FIXME: method type",
               "begin": "(:)",
               "end": "(?=[,>])",
               "beginCaptures": {
