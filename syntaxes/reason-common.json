@@ -886,6 +886,7 @@
         { "include": "#type-expression-constructor" },
         { "include": "#type-expression-object" },
         { "include": "#type-expression-parens" },
+        { "include": "#type-expression-polymorphic-variant" },
         { "include": "#type-expression-record" },
         { "include": "#type-expression-variable" }
       ]
@@ -976,6 +977,19 @@
       "begin": "\\(",
       "end": "\\)",
       "patterns": [
+    "type-expression-polymorphic-variant": {
+      "comment": "FIXME: proper parsing",
+      "begin": "(\\[)",
+      "end": "(\\])",
+      "captures": {
+        "1": { "name": "entity.name.function" }
+      },
+      "patterns": [
+        {
+          "match": "[<>|]|\\bof\\b",
+          "name": "keyword.other"
+        },
+        { "include": "#value-expression-literal-constructor-variant-polymorphic" },
         { "include": "#type-expression" }
       ]
     },
