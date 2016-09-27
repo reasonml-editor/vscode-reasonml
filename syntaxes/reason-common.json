@@ -555,8 +555,10 @@
       ]
     },
     "module-item-type": {
+      "comment": "FIXME: the semi-colon is optional so we can re-use this for hover, which does not print the trailing ;",
       "begin": "\\b(type)\\b[[:space:]]*",
-      "end": "(;)",
+      "end": "(;)?",
+      "applyEndPatternLast": "on",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
