@@ -199,6 +199,8 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
+            { "include": "#attribute" },
+            { "include": "#comment" },
             { "include": "#class-item-inherit" },
             { "include": "#class-item-method" }
           ]
