@@ -1099,7 +1099,7 @@
       ]
     },
     "value-expression-fun-pattern-match-rule": {
-      "begin": "(?:\\G|^)[[:space:]]|(\\|)",
+      "begin": "(\\|)?",
       "end": "(?=[;\\)\\}|])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -1110,7 +1110,7 @@
       ]
     },
     "value-expression-fun-pattern-match-rule-lhs": {
-      "begin": "(?<=\\|)",
+      "begin": "",
       "end": "(?==>)",
       "patterns": [
         { "include": "#pattern-guard" },
