@@ -627,6 +627,10 @@
         { "include": "#comment" },
         { "include": "#attribute" },
         {
+          "match": "_",
+          "name": "comment.line"
+        },
+        {
           "comment": "FIXME: add separate type-variable rule",
           "match": "([+\\-])?'([_a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
           "captures": {
@@ -771,10 +775,20 @@
       ]
     },
     "pattern-variable": {
-      "match": "\\b([_a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
-      "captures": {
-        "1": { "name": "variable.parameter" }
-      }
+      "patterns": [
+        {
+          "match": "\\b(_(?:[a-z][A-Za-z0-9_']*)?)\\b(?!\\.[A-Z])",
+          "captures": {
+            "1": { "name": "comment.line" }
+          }
+        },
+        {
+          "match": "\\b([a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
+          "captures": {
+            "1": { "name": "variable.parameter" }
+          }
+        }
+      ]
     },
     "object-item": {
       "begin": "(?:\\G|(;))[[:space:]]*",
