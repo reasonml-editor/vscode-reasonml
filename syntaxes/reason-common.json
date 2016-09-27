@@ -53,6 +53,19 @@
         }
       ]
     },
+    "class-item-inherit": {
+      "begin": "\\b(inherit)\\b[[:space:]]*",
+      "end": "(;)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "patterns": [
+        { "include": "#value-expression" }
+      ]
+    },
     "class-item-method": {
       "begin": "\\b(method)\\b[[:space:]]*",
       "end": "(;)|(?=[\\}])",
@@ -186,6 +199,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
+            { "include": "#class-item-inherit" },
             { "include": "#class-item-method" }
           ]
         }
