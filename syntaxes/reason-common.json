@@ -204,7 +204,7 @@
           "patterns": [
             { "include": "#module-expression-path" },
             {
-              "match": "\\b([A-Z][A-Za-z0-9_']*)\\b[[:space:]]*",
+              "match": "\\b([A-Z][_'A-Za-z0-9]*)\\b[[:space:]]*",
               "captures": {
                 "1": { "name": "name.entity.class" }
               }
@@ -241,7 +241,7 @@
       ]
     },
     "module-expression-path": {
-      "match": "\\b([A-Z][A-Za-z0-9_']*)\\b[[:space:]]*(?:(\\.)|(?=;))",
+      "match": "\\b([A-Z][A-Za-z0-9_']*)\\b[[:space:]]*(\\.)",
       "captures": {
         "1": { "name": "entity.name.class" },
         "2": { "name": "keyword.operator" }
@@ -257,7 +257,7 @@
         "1": { "name": "keyword.other" }
       },
       "patterns": [
-        { "include": "#module-expression-path" }
+        { "include": "#module-expression" }
       ]
     },
     "module-item-let": {
@@ -551,7 +551,11 @@
         "1": { "name": "keyword.other" }
       },
       "patterns": [
-        { "include": "#module-expression-path" }
+        { "include": "#module-expression-path" },
+        {
+          "match": "[A-Z][_'A-Za-z0-9]*",
+          "name": "entity.name.class"
+        }
       ]
     },
     "module-item-type": {
