@@ -603,8 +603,8 @@
         },
         { "include": "#type-expression" },
         {
-          "match": "\\|",
-          "name": "keyword.operator"
+          "match": "[:|]|\\bof\\b",
+          "name": "keyword.other"
         },
         {
           "begin": "(\\.\\.)",
@@ -923,10 +923,7 @@
       "comment": "FIXME: separate sub-rules",
       "begin": "(<)",
       "end": "(>)",
-      "beginCaptures": {
-        "1": { "name": "entity.name.function" }
-      },
-      "endCaptures": {
+      "captures": {
         "1": { "name": "entity.name.function" }
       },
       "patterns": [
