@@ -260,7 +260,8 @@
       ]
     },
     "module-item-let": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(let)\\b[[:space:]]*",
+      "comment": "FIXME: move external to separate rule",
+      "begin": "\\b(external|let)\\b[[:space:]]*",
       "end": "(;)|(?=[\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
