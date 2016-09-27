@@ -320,6 +320,15 @@
         { "include": "#module-item-let-module-param" }
       ]
     },
+    "module-item-let-module-bind-name-params-type-body": {
+      "begin": "(?:\\G|^)[[:space:]]*(?=[A-Z])",
+      "end": "(?=\\band\\b|[;\\}])",
+      "patterns": [
+        { "include": "#module-item-let-module-bind-name-params" },
+        { "include": "#module-item-let-module-bind-type" },
+        { "include": "#module-item-let-module-bind-body" }
+      ]
+    },
     "module-item-let-module-bind-type": {
       "begin": "(:)[[:space:]]*",
       "end": "(?=\\band\\b|[;\\}=])",
@@ -328,15 +337,6 @@
       },
       "patterns": [
         { "include": "#module-expression" }
-      ]
-    },
-    "module-item-let-module-bind-name-params-type-body": {
-      "begin": "(?:\\G|^)[[:space:]]*(?=[A-Z])",
-      "end": "(?=\\band\\b|[;\\}])",
-      "patterns": [
-        { "include": "#module-item-let-module-bind-name-params" },
-        { "include": "#module-item-let-module-bind-type" },
-        { "include": "#module-item-let-module-bind-body" }
       ]
     },
     "module-item-let-module-param": {
@@ -390,6 +390,16 @@
         { "include": "#module-item-let-value-param" }
       ]
     },
+    "module-item-let-value-bind-name-params-type-body": {
+      "begin": "(?!\\bmodule|rec\\b)",
+      "end": "(?=\\band\\b|[;\\}])",
+      "patterns": [
+        { "include": "#module-item-let-value-bind-name-params" },
+        { "include": "#module-item-let-value-bind-pattern" },
+        { "include": "#module-item-let-value-bind-type" },
+        { "include": "#module-item-let-value-bind-body" }
+      ]
+    },
     "module-item-let-value-bind-pattern": {
       "begin": "",
       "end": "(?==)",
@@ -406,16 +416,6 @@
       },
       "patterns": [
         { "include": "#type-expression" }
-      ]
-    },
-    "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?!\\bmodule|rec\\b)",
-      "end": "(?=\\band\\b|[;\\}])",
-      "patterns": [
-        { "include": "#module-item-let-value-bind-name-params" },
-        { "include": "#module-item-let-value-bind-pattern" },
-        { "include": "#module-item-let-value-bind-type" },
-        { "include": "#module-item-let-value-bind-body" }
       ]
     },
     "module-item-let-value-param": {
