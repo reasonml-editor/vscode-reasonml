@@ -565,6 +565,7 @@
       },
       "patterns": [
         { "include": "#module-item-type-and" },
+        { "include": "#module-item-type-constraint" },
         { "include": "#module-item-type-bind" }
       ]
     },
@@ -587,7 +588,7 @@
     "module-item-type-bind-body": {
       "comment": "FIXME: parsing",
       "begin": "(=?)",
-      "end": "(?=\\band\\b|;)",
+      "end": "(?=\\b(and|constraint)\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -642,10 +643,33 @@
     },
     "module-item-type-bind-name-tyvars-body": {
       "begin": "(?=(\\G|^)[[:space:]]*\\b[_a-z])",
-      "end": "(?=\\band\\b|;)",
+      "end": "(?=\\b(and|constraint)\\b|;)",
       "patterns": [
         { "include": "#module-item-type-bind-name-tyvars" },
         { "include": "#module-item-type-bind-body" }
+      ]
+    },
+    "module-item-type-constraint": {
+      "comment": "FIXME: proper parsing",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(constraint)\\b[[:space:]]*",
+      "end": "(?=\\b(and|constraint)\\b|;)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "patterns": [
+        {
+          "comment": "FIXME: add separate type-variable rule",
+          "match": "([+\\-])?'([_a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
+          "captures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "variable.parameter" }
+          }
+        },
+        {
+          "match": "=",
+          "name": "keyword.other"
+        },
+        { "include": "#type-expression" }
       ]
     },
     "pattern": {
