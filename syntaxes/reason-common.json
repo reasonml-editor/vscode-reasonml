@@ -360,10 +360,28 @@
         { "include": "#module-item-let-value-bind-body" }
       ]
     },
+    "module-item-let-value-bind-parens-params": {
+      "begin": "(?=\\()",
+      "end": "(?!::)(?=[:=])",
+      "patterns": [
+        {
+          "begin": "\\G\\([[:space:]]*",
+          "end": "[[:space:]]*\\)[[:space:]]*",
+          "patterns": [
+            { "include": "#operator-infix-custom" },
+            { "include": "#pattern" },
+            { "include": "#pattern-parens-lhs" },
+            { "include": "#pattern-parens-rhs" }
+          ]
+        },
+        { "include": "#module-item-let-value-param" }
+      ]
+    },
     "module-item-let-value-bind-pattern": {
       "begin": "",
       "end": "(?==)",
       "patterns": [
+        { "include": "#module-item-let-value-bind-parens-params" },
         { "include": "#pattern" }
       ]
     },
