@@ -6,12 +6,11 @@ Reason support for Visual Studio Code
 
 ## Status
 
-- [x] basic syntax highlighting
-- [ ] full syntax highlighting
+- [x] advanced syntax highlighting
 - [x] incremental document synchronization with merlin
 - [x] type-on-hover
 - [x] completion
-- [x] linting
+- [x] linting (currently disabled)
 - [ ] `rebuild` integration
 - [ ] `refmt` integration
 - [ ] click-to-navigate
