@@ -580,6 +580,7 @@
       ]
     },
     "module-item-type-bind": {
+      "comment": "FIXME: only allow module paths before type variables",
       "patterns": [
         { "include": "#module-item-type-bind-nonrec" },
         { "include": "#module-item-type-bind-name-tyvars-body" }
@@ -587,7 +588,7 @@
     },
     "module-item-type-bind-body": {
       "comment": "FIXME: parsing",
-      "begin": "(=?)",
+      "begin": "(\\+?=)",
       "end": "(?=\\b(and|constraint)\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -605,6 +606,13 @@
           "match": "\\|",
           "name": "keyword.operator"
         },
+        {
+          "begin": "(\\.\\.)",
+          "end": "(?=;)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          }
+        },
         { "include": "#value-expression-literal-constructor-variant" }
       ]
     },
@@ -619,8 +627,8 @@
       ]
     },
     "module-item-type-bind-name-tyvars": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
-      "end": "(?=[;=])",
+      "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
+      "end": "(?=[;\\+=])",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
       },
@@ -633,7 +641,7 @@
         },
         {
           "comment": "FIXME: add separate type-variable rule",
-          "match": "([+\\-])?'([_a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
+          "match": "([+\\-])?'([a-z][A-Za-z0-9_']*)\\b(?!\\.[A-Z])",
           "captures": {
             "1": { "name": "keyword.other" },
             "2": { "name": "variable.parameter" }
@@ -642,9 +650,10 @@
       ]
     },
     "module-item-type-bind-name-tyvars-body": {
-      "begin": "(?=(\\G|^)[[:space:]]*\\b[_a-z])",
+      "begin": "(?=(\\G|^)[[:space:]]*\\b[A-Za-z])",
       "end": "(?=\\b(and|constraint)\\b|;)",
       "patterns": [
+        { "include": "#module-expression-path" },
         { "include": "#module-item-type-bind-name-tyvars" },
         { "include": "#module-item-type-bind-body" }
       ]
