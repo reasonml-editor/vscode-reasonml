@@ -1047,7 +1047,8 @@
         { "include": "#module-expression-path" },
         { "include": "#operator" },
         { "include": "#value-expression-builtin" },
-        { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-if" },
+        { "include": "#value-expression-atomic" },
         { "include": "#value-expression-record-path" }
       ]
     },
@@ -1055,7 +1056,6 @@
       "patterns": [
         { "include": "#value-expression-literal" },
         { "include": "#value-expression-literal-list" },
-        { "include": "#value-expression-if-then-else" },
         { "include": "#value-expression-for" },
         { "include": "#value-expression-fun" },
         { "include": "#value-expression-block-or-record-or-object" },
