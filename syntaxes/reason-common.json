@@ -1047,7 +1047,7 @@
         { "include": "#module-expression-path" },
         { "include": "#operator" },
         { "include": "#value-expression-builtin" },
-        { "include": "#value-expression-if" },
+        { "include": "#value-expression-if-then-else" },
         { "include": "#value-expression-atomic" },
         { "include": "#value-expression-record-path" }
       ]
@@ -1208,43 +1208,24 @@
       ]
     },
     "value-expression-if-then-else": {
-      "begin": "(?=\\bif\\b)",
-      "end": "(?<=\\})",
-      "patterns": [
-        { "include": "#value-expression-if-then" },
-        { "include": "#value-expression-if-else" }
-      ]
-    },
-    "value-expression-if-then": {
-      "begin": "(?=\\bif\\b)",
-      "end": "(?=\\belse\\b|;)",
-      "endCaptures": {
-        "1": { "name": "keyword.other" }
-      },
-      "patterns": [
-        { "include": "#value-expression-if-head" },
-        { "include": "#value-expression-block" }
-      ]
-    },
-    "value-expression-if-head": {
       "begin": "\\b(if)\\b",
-      "end": "(?=\\{)",
+      "end": "(?=[;\\)\\]\\}])",
+      "applyEndPatternLast": "on",
       "beginCaptures": {
-        "1": { "name": "keyword.control.reason" }
+        "1": { "name": "keyword.control" }
       },
       "patterns": [
-        { "include": "#value-expression-parens" }
-      ]
-    },
-    "value-expression-if-else": {
-      "begin": "\\b(else)\\b",
-      "end": "(?=\\})",
-      "beginCaptures": {
-        "1": { "name": "keyword.control.reason" }
-      },
-      "patterns": [
-        { "include": "#value-expression-if-then-else" },
-        { "include": "#value-expression-block" }
+        {
+          "begin": "\\b(else)\\b",
+          "end": "(?=[;\\)\\]\\}])",
+          "beginCaptures": {
+            "1": { "name": "keyword.control" }
+          },
+          "patterns": [
+            { "include": "#value-expression" }
+          ]
+        },
+        { "include": "#value-expression-atomic" }
       ]
     },
     "value-expression-label": {
