@@ -194,7 +194,7 @@ export namespace Command {
           with: {
             doc: () => new Query<
               ['complete', 'prefix', string, 'at', Position, 'with', 'doc'],
-              { entries: Completion.Entry[] }
+              { entries?: Completion.Entry[] }
             >(['complete', 'prefix', prefix, 'at', pos     , 'with', 'doc']),
           },
         }),

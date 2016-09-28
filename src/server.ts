@@ -56,18 +56,27 @@ const session = new Session();
 // }
 
 session.connection.onCompletion(async (data) => {
-  const method = 'getText';
-  const prefix = await session.connection.sendRequest<server.TextDocumentPositionParams, string | undefined, void>({ method }, data);
-  if (prefix == null) {
-    return [];
+  let error = undefined;
+  let prefix: string | undefined = undefined;
+
+  try {
+    const method = 'getText';
+    prefix = await session.connection.sendRequest<server.TextDocumentPositionParams, string | undefined, void>({ method }, data);
+  } catch (err) {
+    // ignore errors from completing ' .'
+    error = err;
   }
+  if (error != null || prefix == null) return [];
+
   const pos = merlin.Position.fromCode(data.position);
   const command = merlin.Command.Query.complete.prefix(prefix).at(pos).with.doc();
   const response = await session.merlin.query(command, data.textDocument.uri);
   if (response.class !== 'return') {
     return new server.ResponseError(-1, 'onCompletion: failed', undefined);
   }
-  return response.value.entries.map(merlin.Completion.intoCode);
+
+  const entries = response.value.entries ? response.value.entries : [];
+  return entries.map(merlin.Completion.intoCode);
 });
 
 session.connection.onHover(async (data) => {
