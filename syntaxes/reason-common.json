@@ -6,7 +6,7 @@
       "end": "\\]",
       "patterns": [
         {
-          "begin": "\\[(@{1,3})[[:space:]]*",
+          "begin": "\\[(@{1,3})",
           "end": "(?=[[:space:]:?\\]])",
           "applyEndPatternLast": "on",
           "beginCaptures": {
@@ -54,7 +54,7 @@
       ]
     },
     "class-item-inherit": {
-      "begin": "\\b(inherit)\\b[[:space:]]*",
+      "begin": "\\b(inherit)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -67,7 +67,7 @@
       ]
     },
     "class-item-method": {
-      "begin": "\\b(method)\\b[[:space:]]*",
+      "begin": "\\b(method)\\b",
       "end": "(;)|(?=[\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -100,7 +100,7 @@
       "end": "\\]",
       "patterns": [
         {
-          "begin": "\\[(%{1,3})[[:space:]]*",
+          "begin": "\\[(%{1,3})",
           "end": "(?=[[:space:]:?])",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -127,7 +127,7 @@
           "patterns": [
             { "include": "#module-expression-path" },
             {
-              "match": "\\b([A-Z][_'A-Za-z0-9]*)\\b[[:space:]]*",
+              "match": "\\b([A-Z][_'A-Za-z0-9]*)\\b",
               "captures": {
                 "1": { "name": "name.entity.class" }
               }
@@ -138,15 +138,15 @@
       ]
     },
     "module-expression-block": {
-      "begin": "\\{[[:space:]]*",
+      "begin": "\\{",
       "end": "\\}",
       "patterns": [
         { "include": "#module-expression-block-item" }
       ]
     },
     "module-expression-block-item": {
-      "begin": "(?:\\G|^|(;))[[:space:]]*",
-      "end": "[[:space:]]*(?=[;\\}])",
+      "begin": "(?:\\G|^|(;))",
+      "end": "(?=[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -174,7 +174,7 @@
     },
     "module-item-class-type": {
       "comment": "FIXME: proper parsing",
-      "begin": "(?:\\G|^)[[:space:]]*\\b(class)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(class)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -184,7 +184,7 @@
       },
       "patterns": [
         {
-          "begin": "(?:\\G|^)[[:space:]]*\\b(type)\\b[[:space:]]*(?=[a-z])",
+          "begin": "(?:\\G|^)[[:space:]]*\\b(type)\\b",
           "end": "(?==)",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -194,7 +194,7 @@
           ]
         },
         {
-          "begin": "(=)[[:space:]]*(?=\\{|$)",
+          "begin": "(=)",
           "end": "(?=;)",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -209,7 +209,7 @@
       ]
     },
     "module-item-include": {
-      "begin": "\\b(include)\\b[[:space:]]*",
+      "begin": "\\b(include)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -223,7 +223,7 @@
     },
     "module-item-let": {
       "comment": "FIXME: move external to separate rule",
-      "begin": "\\b(external|let)\\b[[:space:]]*",
+      "begin": "\\b(external|let)\\b",
       "end": "(;)|(?=[\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -237,7 +237,7 @@
       ]
     },
     "module-item-let-module": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?=\\b(rec|type)\\b|[A-Z]|$)",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b",
       "end": "(?=[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -249,7 +249,7 @@
       ]
     },
     "module-item-let-module-and": {
-      "begin": "\\b(and)\\b[[:space:]]*",
+      "begin": "\\b(and)\\b",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -259,7 +259,7 @@
       ]
     },
     "module-item-let-module-bind-body": {
-      "begin": "(=>?)[[:space:]]*",
+      "begin": "(=>?)",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -269,7 +269,7 @@
       ]
     },
     "module-item-let-module-bind-name-params": {
-      "begin": "\\b([A-Z][A-Za-z0-9_']*)\\b[[:space:]]*(?=[\\(|:=]|$)",
+      "begin": "\\b([A-Z][A-Za-z0-9_']*)\\b",
       "end": "(?=[:=])",
       "beginCaptures": {
         "1": { "name": "entity.name.class" }
@@ -279,7 +279,7 @@
       ]
     },
     "module-item-let-module-bind-name-params-type-body": {
-      "begin": "(?:\\G|^)[[:space:]]*(?=[A-Z])",
+      "begin": "(?:\\G|^)",
       "end": "(?=\\band\\b|[;\\}])",
       "patterns": [
         { "include": "#module-item-let-module-bind-name-params" },
@@ -288,7 +288,7 @@
       ]
     },
     "module-item-let-module-bind-type": {
-      "begin": "(:)[[:space:]]*",
+      "begin": "(:)",
       "end": "(?=\\band\\b|[;\\}=])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -302,7 +302,7 @@
       ]
     },
     "module-item-let-module-rec": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b[[:space:]]*(?=[A-Z]|$)",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
@@ -319,7 +319,7 @@
       ]
     },
     "module-item-let-value-and": {
-      "begin": "\\b(and)\\b[[:space:]]*",
+      "begin": "\\b(and)\\b",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -329,7 +329,7 @@
       ]
     },
     "module-item-let-value-bind-body": {
-      "begin": "(=>?)[[:space:]]*",
+      "begin": "(=>?)",
       "end": "(?=\\band\\b|[;\\)\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -339,7 +339,7 @@
       ]
     },
     "module-item-let-value-bind-name-params": {
-      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)\\b([_a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)\\b([_a-z][A-Za-z0-9_']*)\\b",
       "end": "(?<!:)(?!::)(?=[:=])",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
@@ -363,8 +363,8 @@
       "end": "(?!::)(?=[:=])",
       "patterns": [
         {
-          "begin": "\\G\\([[:space:]]*",
-          "end": "[[:space:]]*\\)[[:space:]]*",
+          "begin": "\\G\\(",
+          "end": "\\)",
           "patterns": [
             { "include": "#operator-infix-custom" },
             { "include": "#pattern" },
@@ -385,7 +385,7 @@
     },
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
-      "begin": "(:)[[:space:]]*",
+      "begin": "(:)",
       "end": "(?=\\band\\b|[;\\}]|=(?!>))",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
@@ -405,7 +405,7 @@
     "module-item-let-value-param-label": {
       "patterns": [
         {
-          "begin": "[[:space:]]*\\b([_a-z][_'A-Za-z0-9]*)\\b(::)",
+          "begin": "\\b([_a-z][_'A-Za-z0-9]*)\\b(::)",
           "end": "(?<=[[:space:]])",
           "beginCaptures": {
             "1": { "name": "constant.language" },
@@ -432,11 +432,11 @@
     },
     "module-item-let-value-param-module": {
       "comment": "FIXME: merge with pattern-parens",
-      "begin": "[[:space:]]*\\([[:space:]]*(?=\\bmodule\\b)",
-      "end": "[[:space:]]*\\)[[:space:]]*",
+      "begin": "\\([[:space:]]*(?=\\bmodule\\b)",
+      "end": "\\)",
       "patterns": [
         {
-          "begin": "[[:space:]]*\\b(module)\\b[[:space:]]*",
+          "begin": "\\b(module)\\b",
           "end": "(?=\\))",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -444,7 +444,7 @@
           "patterns": [
             {
               "name": "entity.name.class",
-              "match": "(?:\\G|^)[[:space:]]*\\b[A-Z][A-Za-z0-9_']*\\b"
+              "match": "\\b[A-Z][A-Za-z0-9_']*\\b"
             }
           ]
         }
@@ -452,11 +452,11 @@
     },
     "module-item-let-value-param-type": {
       "comment": "FIXME: merge with pattern-parens",
-      "begin": "[[:space:]]*\\([[:space:]]*(?=\\btype\\b)",
-      "end": "[[:space:]]*\\)[[:space:]]*",
+      "begin": "\\((?=\\btype\\b)",
+      "end": "\\)",
       "patterns": [
         {
-          "begin": "[[:space:]]*\\b(type)\\b[[:space:]]*",
+          "begin": "\\b(type)\\b",
           "end": "(?=\\))",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -464,14 +464,14 @@
           "patterns": [
             {
               "name": "support.type",
-              "match": "(?:\\G|^)[[:space:]]*\\b[a-z][A-Za-z0-9_']*\\b"
+              "match": "\\b[a-z][A-Za-z0-9_']*\\b"
             }
           ]
         }
       ]
     },
     "module-item-let-value-rec": {
-      "begin": "\\b(rec)\\b[[:space:]]*",
+      "begin": "\\b(rec)\\b",
       "end": "(?=\\band\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
@@ -497,7 +497,7 @@
       ]
     },
     "module-item-module-type": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -507,14 +507,14 @@
       },
       "patterns": [
         {
-          "begin": "(?:\\G|^)[[:space:]]*\\b(type)\\b[[:space:]]*(?=[A-Z])",
+          "begin": "(?:\\G|^)[[:space:]]*\\b(type)\\b",
           "end": "(?==)",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
           "patterns": [
             {
-              "match": "([A-Z][_'0-9A-Za-z]*)[[:space:]]*(?==|$)",
+              "match": "([A-Z][_'0-9A-Za-z]*)",
               "captures": {
                 "1": { "name": "entity.name.class" }
               }
@@ -522,7 +522,7 @@
           ]
         },
         {
-          "begin": "(=)[[:space:]]*(?=\\{|$)",
+          "begin": "(=)",
           "end": "(?=;)",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -534,7 +534,7 @@
       ]
     },
     "module-item-open": {
-      "begin": "\\b(open)\\b[[:space:]]*",
+      "begin": "\\b(open)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -552,7 +552,7 @@
     },
     "module-item-type": {
       "comment": "FIXME: the semi-colon is optional so we can re-use this for hover, which does not print the trailing ;",
-      "begin": "\\b(type)\\b[[:space:]]*",
+      "begin": "\\b(type)\\b",
       "end": "(;)?",
       "applyEndPatternLast": "on",
       "beginCaptures": {
@@ -568,7 +568,7 @@
       ]
     },
     "module-item-type-and": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(and)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(and)\\b",
       "end": "(?=\\band\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -615,7 +615,7 @@
       ]
     },
     "module-item-type-bind-nonrec": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(nonrec)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(nonrec)\\b",
       "end": "(?=\\band\\b|;)",
       "beginCaptures": {
         "1": { "name": "storage.modifier.nonrec.reason" }
@@ -625,7 +625,7 @@
       ]
     },
     "module-item-type-bind-name-tyvars": {
-      "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
+      "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([a-z][A-Za-z0-9_']*)\\b",
       "end": "(?=;|\\+?=)",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
@@ -658,7 +658,7 @@
     },
     "module-item-type-constraint": {
       "comment": "FIXME: proper parsing",
-      "begin": "(?:\\G|^)[[:space:]]*\\b(constraint)\\b[[:space:]]*",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(constraint)\\b",
       "end": "(?=\\b(and|constraint)\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -727,16 +727,16 @@
       ]
     },
     "pattern-parens": {
-      "begin": "(?=[[:space:]]*\\([[:space:]]*)",
-      "end": "[[:space:]]*\\)[[:space:]]*",
+      "begin": "(?=\\()",
+      "end": "\\)",
       "patterns": [
         { "include": "#pattern-parens-lhs" },
         { "include": "#pattern-parens-rhs" }
       ]
     },
     "pattern-parens-lhs": {
-      "begin": "[[:space:]]*(?:\\(|(,))[[:space:]]*",
-      "end": "(?=[[:space:]]*(?:[,:\\)]|\\bas\\b)[[:space:]]*)",
+      "begin": "(?:\\(|(,))",
+      "end": "(?=(?:[,:\\)]|\\bas\\b))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -751,8 +751,8 @@
       ]
     },
     "pattern-parens-rhs-alias": {
-      "begin": "[[:space:]]*\\b(as)\\b[[:space:]]*",
-      "end": "(?=[[:space:]]*[,\\)][[:space:]]*)",
+      "begin": "\\b(as)\\b",
+      "end": "(?=[,\\)])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -761,8 +761,8 @@
       ]
     },
     "pattern-parens-rhs-type": {
-      "begin": "[[:space:]]*(:)[[:space:]]*",
-      "end": "(?=[[:space:]]*\\)[[:space:]]*)",
+      "begin": "(:)",
+      "end": "(?=\\))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -771,15 +771,15 @@
       ]
     },
     "pattern-record": {
-      "begin": "[[:space:]]*\\{[[:space:]]*",
-      "end": "[[:space:]]*\\}[[:space:]]*",
+      "begin": "\\{",
+      "end": "\\}",
       "patterns": [
         { "include": "#pattern-record-item" }
       ]
     },
     "pattern-record-field": {
-      "begin": "[[:space:]]*\\b([_a-z][A-Za-z0-9_']*)[[:space:]]*",
-      "end": "[[:space:]]*(?:(,)|(?=\\}))",
+      "begin": "\\b([_a-z][A-Za-z0-9_']*)",
+      "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "constant.language.field.reason" }
       },
@@ -822,8 +822,8 @@
       ]
     },
     "object-item": {
-      "begin": "(?:\\G|(;))[[:space:]]*",
-      "end": "[[:space:]]*(?=[;\\}])",
+      "begin": "(?:\\G|(;))",
+      "end": "(?=[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -901,7 +901,7 @@
       }
     },
     "type-expression-label": {
-      "begin": "[[:space:]]*\\b([_a-z][_'A-Za-z0-9]*)\\b(::)",
+      "begin": "\\b([_a-z][_'A-Za-z0-9]*)\\b(::)",
       "end": "(?<=[[:space:]])",
       "beginCaptures": {
         "1": { "name": "constant.language" },
@@ -1005,7 +1005,7 @@
     },
     "type-expression-record-field": {
       "comment": "FIXME: proper chaining with mutable, …",
-      "begin": "(\\bmutable\\b)?[[:space:]]*\\b([_a-z][A-Za-z0-9_']*)[[:space:]]*(?=[:\\}]|$)",
+      "begin": "(\\bmutable\\b)?[[:space:]]*\\b([_a-z][A-Za-z0-9_']*)",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "keyword.other" },
@@ -1074,8 +1074,8 @@
       ]
     },
     "value-expression-block-item": {
-      "begin": "(?:\\G|^|(;))[[:space:]]*",
-      "end": "[[:space:]]*(?=[;\\}\\|])",
+      "begin": "(;)?",
+      "end": "(?=[;\\}\\|])",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1094,8 +1094,8 @@
       "patterns": [
         { "include": "#comment" },
         { "include": "#module-expression-path" },
-        { "include": "#value-expression-block-look" },
-        { "include": "#value-expression-record-item" }
+        { "include": "#value-expression-record-look" },
+        { "comment": "#value-expression-block-look" }
       ]
     },
     "value-expression-block-or-record-or-object": {
@@ -1105,8 +1105,8 @@
         { "include": "#comment" },
         { "include": "#module-expression-path" },
         { "include": "#value-expression-object-look" },
-        { "include": "#value-expression-block-look" },
-        { "include": "#value-expression-record-item" }
+        { "include": "#value-expression-record-look" },
+        { "include": "#value-expression-block-look" }
       ]
     },
     "value-expression-builtin": {
@@ -1114,8 +1114,7 @@
       "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b"
     },
     "value-expression-block-look": {
-      "comment": "FIXME: is there a better way than listing all the keywords?",
-      "begin": "(?:\\G|^)[[:space:]]*(?=['\"\\(0-9]|\\b(assert|failwith|for|fun|include|if|lazy|let|new|open|switch|try|while)\\b|\\b[_a-z][A-Za-z0-9_']*\\b[[:space:]]*[^[:space:],:\\}])",
+      "begin": "(?![[:space:]]*($|\\.\\.\\.|([A-Z][_'A-Za-z0-9]*\\.)*([a-z][_'A-Za-z0-9]*)[[:space:]]*[,:]))",
       "end": "(?=\\})",
       "patterns": [
         { "include": "#value-expression-block-item" }
@@ -1229,7 +1228,7 @@
       ]
     },
     "value-expression-label": {
-      "begin": "[[:space:]]*\\b([_a-z][_'A-Za-z0-9]*)\\b(::)(\\?)?",
+      "begin": "\\b([_a-z][_'A-Za-z0-9]*)\\b(::)(\\?)?",
       "end": "(?![[:space:]])",
       "beginCaptures": {
         "1": { "name": "constant.language" },
@@ -1332,7 +1331,7 @@
     },
     "value-expression-object-look": {
       "comment": "FIXME: is there a better way than listing all the keywords?",
-      "begin": "(?:\\G|^)[[:space:]]*(?=\\b(method)\\b)",
+      "begin": "(?:\\G|^)[[:space:]]*(?=method)",
       "end": "(?=\\})",
       "patterns": [
         { "include": "#object-item" }
@@ -1363,7 +1362,7 @@
       ]
     },
     "value-expression-record-field": {
-      "begin": "(\\.\\.\\.)?\\b([_a-z][A-Za-z0-9_']*)[[:space:]]*(?=[,:\\}]|$)",
+      "begin": "(\\.\\.\\.)?\\b([_a-z][A-Za-z0-9_']*)",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "keyword.other" },
@@ -1392,7 +1391,7 @@
       ]
     },
     "value-expression-record-path": {
-      "begin": "\\b[a-z][A-Za-z0-9_']*\\b[[:space:]]*",
+      "begin": "\\b[a-z][A-Za-z0-9_']*\\b",
       "end": "(?!\\.)",
       "patterns": [
         {
@@ -1471,6 +1470,7 @@
         "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
+        { "include": "#comment" },
         { "include": "#value-expression-block-item" }
       ]
     },
@@ -1516,6 +1516,13 @@
           "comment": "FIXME: parens; anchor",
           "include": "#value-expression"
         }
+      ]
+    },
+    "value-expression-record-look": {
+      "begin": "(?=\\.\\.\\.|([A-Z][_'A-Za-z0-9]*\\.)*([a-z][_'A-Za-z0-9]*)[[:space:]]*[,:\\}])",
+      "end": "(?=\\})",
+      "patterns": [
+        { "include": "#value-expression-record-item" }
       ]
     }
   }
