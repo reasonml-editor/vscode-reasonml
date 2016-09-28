@@ -1130,20 +1130,41 @@
       ]
     },
     "value-expression-for-head": {
-      "begin": "\\b(for)\\b",
+      "begin": "(?=\\bfor\\b)",
       "end": "(?=\\{)",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
         {
-          "comment": "FIXME: proper chaining",
-          "match": "\\b(in|downto|to)\\b",
-          "name": "keyword.control"
+          "begin": "\\b(for)\\b",
+          "end": "(?=\\bin\\b)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control" }
+          },
+          "patterns": [
+            { "include": "#pattern-variable" }
+          ]
         },
         {
-          "comment": "FIXME: parens; anchor",
-          "include": "#value-expression"
+          "begin": "\\b(in)\\b",
+          "end": "(?=(down)?to)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control" }
+          },
+          "patterns": [
+            { "include": "#value-expression" }
+          ]
+        },
+        {
+          "begin": "\\b((down)?to)\\b",
+          "end": "(?=\\{)",
+          "beginCaptures": {
+            "1": { "name": "keyword.control" }
+          },
+          "patterns": [
+            { "include": "#value-expression" }
+          ]
         }
       ]
     },
