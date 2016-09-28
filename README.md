@@ -14,7 +14,7 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 - [x] incremental document synchronization with merlin
 - [x] type-on-hover
 - [x] completion
-- [x] linting (currently disabled)
+- [x] linting
 - [ ] `rebuild` integration
 - [ ] `refmt` integration
 - [ ] click-to-navigate
