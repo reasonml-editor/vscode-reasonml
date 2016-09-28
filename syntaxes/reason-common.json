@@ -1396,6 +1396,13 @@
       "end": "(?!\\.)",
       "patterns": [
         {
+          "match": "(\\.)[[:space:]]*\\(([a-z][A-Za-z0-9_']*)\\)",
+          "captures": {
+            "1": { "name": "keyword.operator" },
+            "2": { "name": "variable.parameter" }
+          }
+        },
+        {
           "match": "(\\.)[[:space:]]*\\b([A-Z][A-Za-z0-9_']*)\\b",
           "captures": {
             "1": { "name": "keyword.operator" },
