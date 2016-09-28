@@ -3,21 +3,44 @@ import * as types from 'vscode-languageserver-types';
 import * as merlin from './merlin';
 
 class Session {
+  private config: {
+    diagnostics: {
+      delay: number;
+    };
+  } = {
+    diagnostics: {
+      delay: 250,
+    },
+  };
+  static symbol: {
+    timeout: {
+      diagnostics: symbol;
+    };
+  } = {
+    timeout: {
+      diagnostics: Symbol(),
+    },
+  };
   readonly connection: server.IConnection = server.createConnection(
     new server.IPCMessageReader(process),
     new server.IPCMessageWriter(process),
   );
   readonly docManager = new server.TextDocuments();
   readonly merlin = new merlin.Session();
-  async clearDiagnostics(event: types.TextDocumentChangeEvent): Promise<void> {
+  async diagnosticsClear(event: types.TextDocumentChangeEvent): Promise<void> {
     session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
   }
-  async refreshDiagnostics(event: types.TextDocumentChangeEvent): Promise<void> {
-    const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), event.document.uri);
-    if (errorResponse.class === 'return') {
-      const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-      session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics });
-    }
+  async diagnosticsRefresh(event: types.TextDocumentChangeEvent): Promise<void> {
+    const handle = Session.symbol.timeout.diagnostics;
+    const object: { [key: string]: number } = event.document as any;
+    clearTimeout(object[handle]);
+    object[handle] = setTimeout(async () => {
+      const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), event.document.uri);
+      if (errorResponse.class === 'return') {
+        const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+        session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics });
+      }
+    }, this.config.diagnostics.delay);
   }
   listen() {
     this.docManager.listen(this.connection);
@@ -89,11 +112,11 @@ session.connection.onRenameRequest((_data) => {
 session.docManager.onDidChangeContent(async (event) => {
   const request = merlin.Command.Sync.tell('start', 'end', event.document.getText());
   await session.merlin.sync(request, event.document.uri);
-  session.refreshDiagnostics(event);
+  session.diagnosticsRefresh(event);
 });
 
 session.docManager.onDidClose(async (event) => {
-  session.clearDiagnostics(event);
+  session.diagnosticsClear(event);
 });
 
 session.docManager.onDidOpen(async (event) => {
@@ -101,11 +124,11 @@ session.docManager.onDidOpen(async (event) => {
     merlin.Command.Sync.tell('start', 'end', event.document.getText()),
     event.document.uri,
   );
-  session.refreshDiagnostics(event);
+  session.diagnosticsRefresh(event);
 });
 
 session.docManager.onDidSave(async (event) => {
-  session.refreshDiagnostics(event);
+  session.diagnosticsRefresh(event);
 });
 
 session.listen();
