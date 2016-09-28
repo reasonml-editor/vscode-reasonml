@@ -241,9 +241,6 @@
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
-      "endCaptures": {
-        "1": { "name": "keyword.operator" }
-      },
       "patterns": [
         { "include": "#module-item-let-module-and" },
         { "include": "#module-item-let-module-rec" },
