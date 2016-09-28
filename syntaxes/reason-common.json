@@ -1088,16 +1088,6 @@
         { "include": "#value-expression" }
       ]
     },
-    "value-expression-block-or-record": {
-      "begin": "\\{",
-      "end": "\\}",
-      "patterns": [
-        { "include": "#comment" },
-        { "include": "#module-expression-path" },
-        { "include": "#value-expression-record-look" },
-        { "comment": "#value-expression-block-look" }
-      ]
-    },
     "value-expression-block-or-record-or-object": {
       "begin": "\\{",
       "end": "\\}",
