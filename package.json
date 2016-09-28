@@ -6,13 +6,13 @@
   "version": "0.0.28",
   "publisher": "freebroccolo",
   "license": "Apache-2.0",
-	"bugs": {
-		"url": "https://github.com/freebroccolo/vscode-reasonml/issues"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/freebroccolo/vscode-reasonml.git"
-	},
+  "bugs": {
+    "url": "https://github.com/freebroccolo/vscode-reasonml/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/freebroccolo/vscode-reasonml.git"
+  },
   "engines": {
     "vscode": "^1.5.0"
   },
@@ -124,6 +124,7 @@
   },
   "dependencies": {
     "vscode-languageclient": "^2.5.0",
-    "vscode-languageserver": "^2.5.0"
+    "vscode-languageserver": "^2.5.0",
+    "vscode-languageserver-types": "^1.0.3"
   }
 }

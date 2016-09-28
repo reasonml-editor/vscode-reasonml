@@ -1,4 +1,5 @@
 import * as server from 'vscode-languageserver';
+import * as types from 'vscode-languageserver-types';
 import * as merlin from './merlin';
 
 class Session {
@@ -6,7 +7,22 @@ class Session {
     new server.IPCMessageReader(process),
     new server.IPCMessageWriter(process),
   );
+  readonly docManager = new server.TextDocuments();
   readonly merlin = new merlin.Session();
+  async clearDiagnostics(event: types.TextDocumentChangeEvent): Promise<void> {
+    session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
+  }
+  async refreshDiagnostics(event: types.TextDocumentChangeEvent): Promise<void> {
+    const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), event.document.uri);
+    if (errorResponse.class === 'return') {
+      const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+      session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics });
+    }
+  }
+  listen() {
+    this.docManager.listen(this.connection);
+    this.connection.listen();
+  }
 }
 const session = new Session();
 
@@ -15,18 +31,6 @@ const session = new Session();
 //     session.connection.console.log(message);
 //   }
 // }
-
-session.connection.onCodeAction((_data) => {
-  return new server.ResponseError(-1, 'onCodeAction not implemented', undefined);
-});
-
-session.connection.onCodeLens((_data) => {
-  return new server.ResponseError(-1, 'onCodeLens not implemented', undefined);
-});
-
-session.connection.onCodeLensResolve((_data) => {
-  return new server.ResponseError(-1, 'onCodeLensResolve not implemented', undefined);
-});
 
 session.connection.onCompletion(async (data) => {
   const method = 'getText';
@@ -41,95 +45,6 @@ session.connection.onCompletion(async (data) => {
     return new server.ResponseError(-1, 'onCompletion: failed', undefined);
   }
   return response.value.entries.map(merlin.Completion.intoCode);
-});
-
-session.connection.onCompletionResolve((_data) => {
-  return new server.ResponseError(-1, 'onCompletionResolve not implemented', undefined);
-});
-
-session.connection.onDefinition((_data) => {
-  return new server.ResponseError(-1, 'onDefinition not implemented', undefined);
-});
-
-session.connection.onDidChangeConfiguration((_data) => {
-});
-
-session.connection.onDidChangeTextDocument(async (data) => {
-  const requests: merlin.Command.Sync<['tell', merlin.Position, merlin.Position, string] , undefined>[] = [];
-  for (const change of data.contentChanges) {
-    if (change && change.range) {
-      const startPos = merlin.Position.fromCode(change.range.start);
-      const endPos = merlin.Position.fromCode(change.range.end);
-      const request = merlin.Command.Sync.tell(startPos, endPos, change.text);
-      requests.push(request);
-    }
-  }
-  for (const request of requests) {
-    if (request) {
-      await session.merlin.sync(request, data.textDocument.uri);
-    }
-  }
-  // if (data.contentChanges.length > 1 || (data.contentChanges[0] && (data.contentChanges[0].text === '' || /[^A-Za-z0-9'_#\.]/.exec(data.contentChanges[0].text)))) {
-  //   const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
-  //   if (errorResponse.class === 'return') {
-  //     const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-  //     session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
-  //   }
-  // }
-});
-
-session.connection.onDidChangeWatchedFiles((_data) => {
-});
-
-session.connection.onDidCloseTextDocument(async (data) => {
-  await session.merlin.sync(
-    merlin.Command.Sync.tell('start', 'end', ''),
-    data.textDocument.uri,
-  );
-  session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics: [] });
-});
-
-session.connection.onDidOpenTextDocument(async (data) => {
-  await session.merlin.sync(
-    merlin.Command.Sync.tell('start', 'end', data.textDocument.text),
-    data.textDocument.uri,
-  );
-  const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
-  if (errorResponse.class === 'return') {
-    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-    session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
-  }
-});
-
-session.connection.onDidSaveTextDocument(async (data) => {
-  const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), data.textDocument.uri);
-  if (errorResponse.class === 'return') {
-    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-    session.connection.sendDiagnostics({ uri: data.textDocument.uri, diagnostics });
-  }
-});
-
-session.connection.onDocumentFormatting((_data) => {
-  return new server.ResponseError(-1, 'onDocumentFormatting not implemented', undefined);
-});
-
-session.connection.onDocumentHighlight((_data) => {
-  return new server.ResponseError(-1, 'onDocumentHighlight not implemented', undefined);
-});
-
-session.connection.onDocumentOnTypeFormatting((_data) => {
-  return new server.ResponseError(-1, 'onDocumentTypeFormatting not implemented', undefined);
-});
-
-session.connection.onDocumentRangeFormatting((_data) => {
-  return new server.ResponseError(-1, 'onDocumentRangeFormatting not implemented', undefined);
-});
-
-session.connection.onDocumentSymbol((_data) => {
-  return new server.ResponseError(-1, 'onDocumentSymbols not implemented', undefined);
-});
-
-session.connection.onExit((_data) => {
 });
 
 session.connection.onHover(async (data) => {
@@ -158,7 +73,7 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
     capabilities: {
       completionProvider: { triggerCharacters: [ '.', '#' ] },
       hoverProvider: true,
-      textDocumentSync: server.TextDocumentSyncKind.Incremental,
+      textDocumentSync: session.docManager.syncKind,
     },
   }
 });
@@ -171,4 +86,26 @@ session.connection.onRenameRequest((_data) => {
   return new server.ResponseError(-1, 'onRenameRequest not implemented', undefined);
 });
 
-session.connection.listen();
+session.docManager.onDidChangeContent(async (event) => {
+  const request = merlin.Command.Sync.tell('start', 'end', event.document.getText());
+  await session.merlin.sync(request, event.document.uri);
+  session.refreshDiagnostics(event);
+});
+
+session.docManager.onDidClose(async (event) => {
+  session.clearDiagnostics(event);
+});
+
+session.docManager.onDidOpen(async (event) => {
+  await session.merlin.sync(
+    merlin.Command.Sync.tell('start', 'end', event.document.getText()),
+    event.document.uri,
+  );
+  session.refreshDiagnostics(event);
+});
+
+session.docManager.onDidSave(async (event) => {
+  session.refreshDiagnostics(event);
+});
+
+session.listen();
