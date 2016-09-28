@@ -626,7 +626,7 @@
     },
     "module-item-type-bind-name-tyvars": {
       "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([a-z][A-Za-z0-9_']*)\\b[[:space:]]*",
-      "end": "(?=[;\\+=])",
+      "end": "(?=;|\\+?=)",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
       },
