@@ -1005,7 +1005,7 @@
     },
     "type-expression-record-field": {
       "comment": "FIXME: proper chaining with mutable, …",
-      "begin": "(\\bmutable\\b)?[[:space:]]*\\b([_a-z][A-Za-z0-9_']*)",
+      "begin": "(\\bmutable\\b)?[[:space:]]*(?!\\bmutable\\b)\\b([_a-z][A-Za-z0-9_']*)\\b",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "keyword.other" },
@@ -1016,7 +1016,7 @@
       },
       "patterns": [
         {
-          "begin": "\\G(:)",
+          "begin": "(:)",
           "end": "(?=[,\\}])",
           "beginCaptures": {
             "1": { "name": "keyword.operator.reason" }
