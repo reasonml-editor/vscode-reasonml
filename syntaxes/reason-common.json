@@ -497,7 +497,7 @@
       ]
     },
     "module-item-module-type": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
