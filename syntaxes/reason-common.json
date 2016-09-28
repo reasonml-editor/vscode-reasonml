@@ -1048,6 +1048,7 @@
         { "include": "#operator" },
         { "include": "#value-expression-builtin" },
         { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-record-path" }
       ]
     },
     "value-expression-atomic": {
@@ -1386,6 +1387,26 @@
       "patterns": [
         { "include": "#module-expression-path" },
         { "include": "#value-expression-record-field" }
+      ]
+    },
+    "value-expression-record-path": {
+      "begin": "\\b[a-z][A-Za-z0-9_']*\\b[[:space:]]*",
+      "end": "(?!\\.)",
+      "patterns": [
+        {
+          "match": "(\\.)[[:space:]]*\\b([A-Z][A-Za-z0-9_']*)\\b",
+          "captures": {
+            "1": { "name": "keyword.operator" },
+            "2": { "name": "entity.name.class" }
+          }
+        },
+        {
+          "match": "(\\.)[[:space:]]*\\b([a-z][A-Za-z0-9_']*)\\b",
+          "captures": {
+            "1": { "name": "keyword.operator" },
+            "2": { "name": "constant.language" }
+          }
+        }
       ]
     },
     "value-expression-switch": {
