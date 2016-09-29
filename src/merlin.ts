@@ -296,12 +296,12 @@ export namespace Command {
     >(['outline']);
     // type
     export namespace type {
-      export namespace expression {
-        export const at = (expr: string, pos: Position) => new Query<
+      export const expression = (expr: string) => ({
+        at: (pos: Position) => new Query<
           ['type', 'expression', string, 'at', Position],
-          { start: Position; end: Position; type: string; tail: TailPosition }
-        >(['type', 'expression', expr  , 'at', pos]);
-      }
+          string
+        >(['type', 'expression', expr  , 'at', pos]),
+      });
       export namespace enclosing {
         export const at = (pos: Position) => new Query<
           ['type', 'enclosing', 'at', Position],
