@@ -2,11 +2,17 @@ import * as child_process from 'child_process';
 import * as readline from 'readline';
 import * as server from 'vscode-languageserver';
 
+/**
+ * JSON data
+ */
+
 export interface JSONArray extends Array<JSONValue> {
 }
+
 export interface JSONObject {
   [key: string]: JSONValue;
 }
+
 export type JSONValue
   = boolean
   | JSONArray
@@ -14,6 +20,68 @@ export type JSONValue
   | number
   | string
   ;
+
+/**
+ * Merlin position data
+ */
+
+export type PositionColumnLine = {
+  col: number;
+  line: number;
+}
+
+export type Position
+  = 'start'
+  | 'end'
+  | number
+  | PositionColumnLine
+  ;
+export namespace Position {
+  export function fromCode({ character: col, line }: server.Position): PositionColumnLine {
+    return { col, line: line + 1 };
+  }
+  export function intoCode({ col: character, line }: PositionColumnLine): server.Position {
+    return { character, line: line - 1 };
+  }
+}
+
+export type Location = {
+  start: Position;
+  end: Position;
+};
+
+/**
+ * Merlin response data
+ */
+
+export type MerlinNotification = {
+  section: string;
+  message: string;
+}
+
+export type MerlinResponse<T> = {
+  class: 'return';
+  value: T;
+  notifications: MerlinNotification;
+} | {
+  class: 'failure';
+  value: string;
+  notifications: MerlinNotification;
+} | {
+  class: 'error';
+  value: string;
+  notifications: MerlinNotification;
+} | {
+  class: 'exception';
+  value: JSONValue;
+  notifications: MerlinNotification;
+};
+
+export type Response<T> = Promise<MerlinResponse<T>>;
+
+/**
+ * Merlin command data
+ */
 
 export namespace Completion {
   export type Label = {
@@ -118,30 +186,6 @@ export namespace ErrorReport {
   }
 }
 
-export type PositionColumnLine = {
-  col: number;
-  line: number;
-}
-export type Position
-  = 'start'
-  | 'end'
-  | number
-  | PositionColumnLine
-  ;
-export namespace Position {
-  export function fromCode({ character: col, line }: server.Position): PositionColumnLine {
-    return { col, line: line + 1 };
-  }
-  export function intoCode({ col: character, line }: PositionColumnLine): server.Position {
-    return { character, line: line - 1 };
-  }
-}
-
-export type Location = {
-  start: Position;
-  end: Position;
-};
-
 export namespace Outline {
   export type Kind
     = 'Class'
@@ -207,30 +251,6 @@ export type TailPosition
   | 'no'
   | 'position'
   ;
-
-export type MerlinNotification = {
-  section: string;
-  message: string;
-}
-export type MerlinResponse<T> = {
-  class: 'return';
-  value: T;
-  notifications: MerlinNotification;
-} | {
-  class: 'failure';
-  value: string;
-  notifications: MerlinNotification;
-} | {
-  class: 'error';
-  value: string;
-  notifications: MerlinNotification;
-} | {
-  class: 'exception';
-  value: JSONValue;
-  notifications: MerlinNotification;
-};
-
-export type Response<T> = Promise<MerlinResponse<T>>;
 
 export namespace Command {
   export class Query<I, O> {
