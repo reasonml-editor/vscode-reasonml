@@ -174,7 +174,7 @@
     },
     "module-item-class-type": {
       "comment": "FIXME: proper parsing",
-      "begin": "(?:\\G|^)[[:space:]]*\\b(class)\\b",
+      "begin": "\\b(class)\\b",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -482,7 +482,7 @@
     },
     "module-item-module": {
       "comment": "NOTE: this is to support the let-module case without the let prefix",
-      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?!\\btype\\b|$)",
+      "begin": "\\b(module)\\b[[:space:]]*(?!\\btype\\b|$)",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -497,7 +497,7 @@
       ]
     },
     "module-item-module-type": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
+      "begin": "\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -568,7 +568,7 @@
       ]
     },
     "module-item-type-and": {
-      "begin": "(?:\\G|^)[[:space:]]*\\b(and)\\b",
+      "begin": "\\b(and)\\b",
       "end": "(?=\\band\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -658,7 +658,7 @@
     },
     "module-item-type-constraint": {
       "comment": "FIXME: proper parsing",
-      "begin": "(?:\\G|^)[[:space:]]*\\b(constraint)\\b",
+      "begin": "\\b(constraint)\\b",
       "end": "(?=\\b(and|constraint)\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
