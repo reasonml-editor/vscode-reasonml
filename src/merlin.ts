@@ -142,6 +142,66 @@ export type Location = {
   end: Position;
 };
 
+export namespace Outline {
+  export type Kind
+    = 'Class'
+    | 'Constructor'
+    | 'Exn'
+    | 'Label'
+    | 'Method'
+    | 'Modtype'
+    | 'Module'
+    | 'Type'
+    | 'Value'
+    ;
+  export namespace Kind {
+    export function intoCode(kind: Kind): server.SymbolKind {
+      switch (kind) {
+        case 'Class': return server.SymbolKind.Class;
+        case 'Constructor': return server.SymbolKind.Constructor;
+        case 'Exn': return server.SymbolKind.Constructor;
+        case 'Label': return server.SymbolKind.Field;
+        case 'Method': return server.SymbolKind.Method;
+        case 'Modtype': return server.SymbolKind.Interface;
+        case 'Module': return server.SymbolKind.Module;
+        case 'Signature': return server.SymbolKind.Interface;
+        case 'Type': return server.SymbolKind.Class;
+        case 'Value': return server.SymbolKind.Variable;
+        default: throw new Error(`<unreachable>: ${kind}`);
+      }
+    }
+  }
+  export type Item = {
+    start: PositionColumnLine;
+    end: PositionColumnLine;
+    name: string;
+    kind: Kind;
+    children: Item[];
+  };
+  export function intoCode(outline: Item[], uri: string): server.SymbolInformation[] {
+    const symbols: server.SymbolInformation[] = [];
+    function traverse (children: Item[], scope: string): void {
+      for (const item of children) {
+        if (item) {
+          const kind = Kind.intoCode(item.kind);
+          const range = {
+            start: Position.intoCode(item.start),
+            end: Position.intoCode(item.end),
+          };
+          const thisParent = scope === '' ? undefined : scope;
+          const nextParent = `${scope}${scope === '' ? '' : '.'}${item.name}`;
+          const info = server.SymbolInformation.create(item.name, kind, range, uri, thisParent);
+          symbols.push(info);
+          traverse(item.children, nextParent);
+        }
+      }
+    }
+    traverse(outline, '');
+    return symbols;
+  }
+};
+export type Outline = Outline.Item[];
+
 export type TailPosition
   = 'call'
   | 'no'
@@ -209,6 +269,11 @@ export namespace Command {
       ['errors'],
       ErrorReport[]
     >(['errors']);
+    // outline
+    export const outline = () => new Query<
+      ['outline'],
+      Outline
+    >(['outline']);
     // type
     export namespace type {
       export namespace expression {

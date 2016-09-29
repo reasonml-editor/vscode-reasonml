@@ -76,6 +76,16 @@ session.connection.onCompletion(async (event) => {
   return entries.map(merlin.Completion.intoCode);
 });
 
+session.connection.onDocumentSymbol(async (event) => {
+  const request = merlin.Command.Query.outline();
+  const response = await session.merlin.query(request, event.textDocument.uri);
+  if (response.class !== 'return') {
+    return new server.ResponseError(-1, 'onDocumentSymbol: failed', undefined);
+  }
+  const symbols = merlin.Outline.intoCode(response.value, event.textDocument.uri);
+  return symbols;
+});
+
 session.connection.onHover(async (event) => {
   const position = merlin.Position.fromCode(event.position);
   const request = merlin.Command.Query.type.enclosing.at(position);
@@ -100,6 +110,7 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   return {
     capabilities: {
       completionProvider: { triggerCharacters: [ '.', '#' ] },
+      documentSymbolProvider: true,
       hoverProvider: true,
       textDocumentSync: session.docManager.syncKind,
     },
