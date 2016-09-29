@@ -11,12 +11,12 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 ## Status
 
 - [x] advanced syntax highlighting
-- [x] incremental document synchronization with merlin
-- [x] type-on-hover
 - [x] completion
 - [x] linting
-- [ ] `rebuild` integration
-- [ ] `refmt` integration
-- [ ] click-to-navigate
+- [x] outline view for symbols
+- [x] type-on-hover
+- [ ] jump-to-definition
+- [ ] build tool integration
+- [ ] formatting integration
 - [ ] debugger integration
-- [ ] `rtop` integration
+- [ ] toplevel integration
