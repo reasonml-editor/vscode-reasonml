@@ -599,11 +599,12 @@
             "1": { "name": "keyword.other" }
           }
         },
-        { "include": "#type-expression" },
         {
+          "comment": "FIXME: remove this once the pretty printer no longer outputs 'of'",
           "match": "[:|]|\\bof\\b",
           "name": "keyword.other"
         },
+        { "include": "#type-expression" },
         {
           "begin": "(\\.\\.)",
           "end": "(?=;)",
