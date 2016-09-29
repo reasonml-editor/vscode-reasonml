@@ -55,38 +55,33 @@ const session = new Session();
 //   }
 // }
 
-session.connection.onCompletion(async (data) => {
+session.connection.onCompletion(async (event) => {
   let error = undefined;
   let prefix: string | undefined = undefined;
-
   try {
     const method = 'getText';
-    prefix = await session.connection.sendRequest<server.TextDocumentPositionParams, string | undefined, void>({ method }, data);
+    prefix = await session.connection.sendRequest<server.TextDocumentPositionParams, string | undefined, void>({ method }, event);
   } catch (err) {
     // ignore errors from completing ' .'
     error = err;
   }
   if (error != null || prefix == null) return [];
-
-  const pos = merlin.Position.fromCode(data.position);
-  const command = merlin.Command.Query.complete.prefix(prefix).at(pos).with.doc();
-  const response = await session.merlin.query(command, data.textDocument.uri);
+  const position = merlin.Position.fromCode(event.position);
+  const request = merlin.Command.Query.complete.prefix(prefix).at(position).with.doc();
+  const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== 'return') {
     return new server.ResponseError(-1, 'onCompletion: failed', undefined);
   }
-
   const entries = response.value.entries ? response.value.entries : [];
   return entries.map(merlin.Completion.intoCode);
 });
 
-session.connection.onHover(async (data) => {
-  const position = merlin.Position.fromCode(data.position);
-  const response = await session.merlin.query(
-    merlin.Command.Query.type.enclosing.at(position),
-    data.textDocument.uri,
-  );
+session.connection.onHover(async (event) => {
+  const position = merlin.Position.fromCode(event.position);
+  const request = merlin.Command.Query.type.enclosing.at(position);
+  const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== 'return') {
-    return new server.ResponseError(-1, 'session.connection::onHover failed', undefined);
+    return new server.ResponseError(-1, 'onHover failed', undefined);
   }
   const markedStrings: server.MarkedString[] = [];
   if (response.value.length > 0) {
@@ -96,7 +91,8 @@ session.connection.onHover(async (data) => {
 });
 
 session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
-  const response = await session.merlin.sync(merlin.Command.Sync.protocol.version.set(3));
+  const request = merlin.Command.Sync.protocol.version.set(3);
+  const response = await session.merlin.sync(request);
   if (response.class !== 'return' || response.value.selected !== 3) {
     session.connection.dispose();
     throw new Error('session.connection::onInitialize: failed to establish protocol v3');
@@ -108,14 +104,6 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
       textDocumentSync: session.docManager.syncKind,
     },
   }
-});
-
-session.connection.onReferences((_data) => {
-  return new server.ResponseError(-1, 'onReferences not implemented', undefined);
-});
-
-session.connection.onRenameRequest((_data) => {
-  return new server.ResponseError(-1, 'onRenameRequest not implemented', undefined);
 });
 
 session.docManager.onDidChangeContent(async (event) => {

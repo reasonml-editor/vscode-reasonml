@@ -94,19 +94,14 @@ export namespace ErrorReport {
   ;
   export namespace Type {
     export function intoCode(type: Type): server.DiagnosticSeverity {
-      let result: server.DiagnosticSeverity = server.DiagnosticSeverity.Error;
       switch (type) {
-        case 'env':
-        case 'parser':
-        case 'type':
-        case 'unknown':
-          result = server.DiagnosticSeverity.Error;
-          break;
-        case 'warning':
-          result = server.DiagnosticSeverity.Warning;
-          break;
+        case 'env': return server.DiagnosticSeverity.Error;
+        case 'parser': return server.DiagnosticSeverity.Error;
+        case 'type': return server.DiagnosticSeverity.Error;
+        case 'unknown': return server.DiagnosticSeverity.Error;
+        case 'warning': return server.DiagnosticSeverity.Warning;
+        default: throw new Error(`<unreachable>: ${type}`);
       }
-      return result;
     }
   }
   export function intoCode(report: ErrorReport): server.Diagnostic {
