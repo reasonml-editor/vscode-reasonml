@@ -251,6 +251,21 @@ export type TailPosition
   | 'no'
   | 'position'
   ;
+export namespace TailPosition {
+  export function intoCode(info: TailPosition): {
+    language: string;
+    value: string;
+  } {
+    const language = 'reason.hover.info';
+    const position = (arg: string) => `position: ${arg}`;
+    switch (info) {
+      case 'call': return { language, value: position('tail (call)') };
+      case 'no': return { language, value: position('normal') };
+      case 'position': return { language, value: position('tail') };
+      default: throw new Error(`<unreachable>: ${info}`);
+    }
+  }
+}
 
 export namespace Command {
   export class Query<I, O> {

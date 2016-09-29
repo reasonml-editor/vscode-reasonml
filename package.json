@@ -69,9 +69,14 @@
         "path": "./syntaxes/reason-common.json"
       },
       {
-        "language": "reason.hover",
-        "scopeName": "source.reason.hover",
-        "path": "./syntaxes/reason-hover.json"
+        "language": "reason.hover.info",
+        "scopeName": "source.reason.hover.info",
+        "path": "./syntaxes/reason-hover-info.json"
+      },
+      {
+        "language": "reason.hover.type",
+        "scopeName": "source.reason.hover.type",
+        "path": "./syntaxes/reason-hover-type.json"
       },
       {
         "language": "reason.module.defns",
@@ -89,7 +94,10 @@
         "id": "reason.common"
       },
       {
-        "id": "reason.hover"
+        "id": "reason.hover.info"
+      },
+      {
+        "id": "reason.hover.type"
       },
       {
         "id": "reason.module.defns",

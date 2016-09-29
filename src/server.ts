@@ -96,7 +96,9 @@ session.connection.onHover(async (event) => {
   }
   const markedStrings: server.MarkedString[] = [];
   if (response.value.length > 0) {
-    markedStrings.push({ language: 'reason.hover', value: response.value[0].type });
+    const item = response.value[0];
+    markedStrings.push(merlin.TailPosition.intoCode(item.tail)); // FIXME: make configurable
+    markedStrings.push({ language: 'reason.hover.type', value: item.type });
   }
   return { contents: markedStrings };
 });

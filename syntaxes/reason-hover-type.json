@@ -1,5 +1,5 @@
 {
-  "scopeName": "source.reason.hover",
+  "scopeName": "source.reason.hover.type",
   "patterns": [
     { "include": "source.reason.common#module-expression" },
     { "include": "source.reason.common#module-item-type" },
