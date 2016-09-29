@@ -73,7 +73,8 @@ session.connection.onCompletion(async (event) => {
   if (response.class !== 'return') {
     return new server.ResponseError(-1, 'onCompletion: failed', undefined);
   }
-  const entries = response.value.entries ? response.value.entries : [];
+  const value = response.value;
+  const entries = value.entries ? value.entries : [];
   return entries.map(merlin.Completion.intoCode);
 });
 
@@ -92,11 +93,12 @@ session.connection.onHover(async (event) => {
   const request = merlin.Command.Query.type.enclosing.at(position);
   const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== 'return') {
-    return new server.ResponseError(-1, 'onHover failed', undefined);
+    return new server.ResponseError(-1, 'onHover: failed', undefined);
   }
+  const value = response.value;
   const markedStrings: server.MarkedString[] = [];
-  if (response.value.length > 0) {
-    const item = response.value[0];
+  if (value.length > 0) {
+    const item = value[0];
     markedStrings.push(merlin.TailPosition.intoCode(item.tail)); // FIXME: make configurable
     markedStrings.push({ language: 'reason.hover.type', value: item.type });
   }
@@ -108,7 +110,7 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   const response = await session.merlin.sync(request);
   if (response.class !== 'return' || response.value.selected !== 3) {
     session.connection.dispose();
-    throw new Error('session.connection::onInitialize: failed to establish protocol v3');
+    throw new Error('onInitialize: failed to establish protocol v3');
   }
   return {
     capabilities: {
@@ -131,10 +133,8 @@ session.docManager.onDidClose(async (event) => {
 });
 
 session.docManager.onDidOpen(async (event) => {
-  await session.merlin.sync(
-    merlin.Command.Sync.tell('start', 'end', event.document.getText()),
-    event.document.uri,
-  );
+  const request = merlin.Command.Sync.tell('start', 'end', event.document.getText());
+  await session.merlin.sync(request, event.document.uri);
   session.diagnosticsRefresh(event);
 });
 

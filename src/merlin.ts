@@ -277,12 +277,12 @@ export namespace Command {
     // complete
     export namespace complete {
       export const prefix = (prefix: string) => ({
-        at: (pos: Position) => ({
+        at: (position: Position) => ({
           with: {
             doc: () => new Query<
               ['complete', 'prefix', string, 'at', Position, 'with', 'doc'],
               { entries?: Completion.Entry[] }
-            >(['complete', 'prefix', prefix, 'at', pos     , 'with', 'doc']),
+            >(['complete', 'prefix', prefix, 'at', position, 'with', 'doc']),
           },
         }),
       });
@@ -290,10 +290,10 @@ export namespace Command {
     // dump
     export namespace dump {
       export namespace env {
-        export const at = (pos: Position) => new Query<
+        export const at = (position: Position) => new Query<
           ['dump', 'env', 'at', Position],
           JSONValue
-        >(['dump', 'env', 'at', pos]);
+        >(['dump', 'env', 'at', position]);
       }
     }
     // errors
@@ -309,16 +309,16 @@ export namespace Command {
     // type
     export namespace type {
       export const expression = (expr: string) => ({
-        at: (pos: Position) => new Query<
+        at: (position: Position) => new Query<
           ['type', 'expression', string, 'at', Position],
           string
-        >(['type', 'expression', expr  , 'at', pos]),
+        >(['type', 'expression', expr  , 'at', position]),
       });
       export namespace enclosing {
-        export const at = (pos: Position) => new Query<
+        export const at = (position: Position) => new Query<
           ['type', 'enclosing', 'at', Position],
           { start: Position; end: Position; type: string; tail: TailPosition }[]
-        >(['type', 'enclosing', 'at', pos]);
+        >(['type', 'enclosing', 'at', position]);
       }
     }
   }
