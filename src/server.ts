@@ -31,6 +31,7 @@ class Session {
     session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics: [] });
   }
   async diagnosticsRefresh(event: types.TextDocumentChangeEvent): Promise<void> {
+    this.diagnosticsClear(event);
     const handle = Session.symbol.timeout.diagnostics;
     const object: { [key: string]: number } = event.document as any;
     clearTimeout(object[handle]);
