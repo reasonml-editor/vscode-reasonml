@@ -252,16 +252,13 @@ export type TailPosition
   | 'position'
   ;
 export namespace TailPosition {
-  export function intoCode(info: TailPosition): {
-    language: string;
-    value: string;
-  } {
+  export function intoCode(info: TailPosition): server.MarkedString {
     const language = 'reason.hover.info';
-    const position = (arg: string) => `position: ${arg}`;
+    const position = (arg: string) => ({ language, value: `position: ${arg}` });
     switch (info) {
-      case 'call': return { language, value: position('tail (call)') };
-      case 'no': return { language, value: position('normal') };
-      case 'position': return { language, value: position('tail') };
+      case 'call': return position('tail (call)');
+      case 'no': return position('normal');
+      case 'position': return position('tail');
       default: throw new Error(`<unreachable>: ${info}`);
     }
   }

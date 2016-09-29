@@ -2,7 +2,7 @@
   "scopeName": "source.reason.hover.info",
   "patterns": [
     {
-      "begin": "\\b(call|position)\\b(:)",
+      "begin": "\\b(position)\\b(:)",
       "end": "$",
       "beginCaptures": {
         "2": { "name": "keyword.other" }
