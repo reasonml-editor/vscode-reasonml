@@ -301,6 +301,13 @@ export namespace Command {
       ['errors'],
       ErrorReport[]
     >(['errors']);
+    // locate
+    export const locate = (name: string | null, kind: 'ml' | 'mli') => ({
+      at: (position: Position) => new Query<
+        ['locate', string | null, ('ml' | 'mli'), 'at', Position],
+        { file: string; pos: PositionColumnLine }
+      >(['locate', name         , kind          , 'at', position]),
+    });
     // outline
     export const outline = () => new Query<
       ['outline'],

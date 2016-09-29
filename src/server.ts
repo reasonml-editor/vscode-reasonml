@@ -78,6 +78,26 @@ session.connection.onCompletion(async (event) => {
   return entries.map(merlin.Completion.intoCode);
 });
 
+session.connection.onDefinition(async (event) => {
+  const find = async (kind: 'ml' | 'mli'): Promise<types.Location | undefined> => {
+    const request = merlin.Command.Query.locate(null, kind).at(merlin.Position.fromCode(event.position));
+    const response = await session.merlin.query(request, event.textDocument.uri);
+    if (response.class !== 'return' || response.value.pos == null) return undefined;
+    const value = response.value;
+    const uri = value.file ? `file://${value.file}` : event.textDocument.uri;
+    const position = merlin.Position.intoCode(value.pos);
+    const range = types.Range.create(position, position);
+    const location = types.Location.create(uri, range);
+    return location;
+  };
+  const locML  = await find('ml');
+  // const locMLI = await find('mli');
+  const locations: types.Location[] = [];
+  if (locML  != null) locations.push(locML);
+  // if (locMLI != null) locations.push(locMLI);
+  return locations;
+});
+
 session.connection.onDocumentSymbol(async (event) => {
   const request = merlin.Command.Query.outline();
   const response = await session.merlin.query(request, event.textDocument.uri);
@@ -115,6 +135,7 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   return {
     capabilities: {
       completionProvider: { triggerCharacters: [ '.', '#' ] },
+      definitionProvider: true,
       documentSymbolProvider: true,
       hoverProvider: true,
       textDocumentSync: session.docManager.syncKind,
