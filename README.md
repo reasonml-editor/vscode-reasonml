@@ -13,7 +13,7 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 - [x] advanced syntax highlighting
 - [x] completion
 - [x] linting
-- [x] outline view for symbols
+- [x] outline view for symbols (⇧⌘O)
 - [x] type-on-hover
 - [ ] jump-to-definition
 - [ ] build tool integration
