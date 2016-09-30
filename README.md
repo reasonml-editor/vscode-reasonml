@@ -13,9 +13,9 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 - [x] advanced syntax highlighting
 - [x] completion
 - [x] linting
-- [x] outline view for symbols (`⇧⌘O`)
+- [x] outline view for symbols (⇧⌘O)
 - [x] type-on-hover
-- [x] jump-to-definition (*`⌃` + click* or *`⌘` + hover*)
+- [x] jump-to-definition (⌃+click or ⌘+hover)
 - [ ] formatting integration
 - [ ] build tool integration
 - [ ] debugger integration
