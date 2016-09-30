@@ -13,7 +13,7 @@ namespace Operation {
         new vscode.Position(end.line - 1, end.col)
       );
       const line = editor.document.lineAt(editor.selection.start);
-      const match = line.text.match(/^\s*(?=\|)/);
+      const match = line.text.match(/^\s*/);
       const indentation = `${match && match.length > 0 ? match[0] : ""}`; // FIXME: use use indentation settings
       let cases = content;
       cases = cases.replace(/\n$/, "");
