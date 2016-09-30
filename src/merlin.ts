@@ -274,6 +274,13 @@ export namespace Command {
         }),
       });
     }
+    // document
+    export const document = (name: string | null) => ({
+      at: (position: Position) => new Query<
+        ["document", string | null, "at", Position],
+        string
+      >(["document", name         , "at", position]),
+    });
     // dump
     export namespace dump {
       export namespace env {

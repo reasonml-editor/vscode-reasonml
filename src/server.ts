@@ -122,18 +122,43 @@ session.connection.onDocumentSymbol(async (event) => {
 });
 
 session.connection.onHover(async (event) => {
-  const position = merlin.Position.fromCode(event.position);
-  const request = merlin.Command.Query.type.enclosing.at(position);
-  const response = await session.merlin.query(request, event.textDocument.uri);
-  if (response.class !== "return") {
-    return new server.ResponseError(-1, "onHover: failed", undefined);
-  }
-  const value = response.value;
+  const getType = async (): Promise<undefined | {
+    end: merlin.Position;
+    start: merlin.Position;
+    tail: merlin.TailPosition;
+    type: string;
+  }> => {
+    const position = merlin.Position.fromCode(event.position);
+    const request = merlin.Command.Query.type.enclosing.at(position);
+    const response = await session.merlin.query(request, event.textDocument.uri);
+    if (response.class !== "return") {
+      return undefined;
+    }
+    return (response.value.length > 0) ? response.value[0] : undefined;
+  };
+  const getDoc = async (): Promise<string | undefined> => {
+    const position = merlin.Position.fromCode(event.position);
+    const request = merlin.Command.Query.document(null).at(position);
+    const response = await session.merlin.query(request, event.textDocument.uri);
+    if (response.class !== "return") {
+      return undefined;
+    }
+    return response.value;
+  };
   const markedStrings: server.MarkedString[] = [];
-  if (value.length > 0) {
-    const item = value[0];
-    markedStrings.push(merlin.TailPosition.intoCode(item.tail)); // FIXME: make configurable
-    markedStrings.push({ language: "reason.hover.type", value: item.type });
+  const itemType = await getType();
+  const itemDoc  = await getDoc();
+  const docIgnoreRx = new RegExp([
+    /^No documentation available/,
+    /^Not a valid identifier/,
+    /^Not in environment '.*'/,
+  ].map((rx) => rx.source).join("|"));
+  if (itemType != null) {
+    markedStrings.push({ language: "reason.hover.type", value: itemType.type });
+    markedStrings.push(merlin.TailPosition.intoCode(itemType.tail)); // FIXME: make configurable
+    if (itemDoc != null && !docIgnoreRx.test(itemDoc)) {
+      markedStrings.push(itemDoc);
+    }
   }
   return { contents: markedStrings };
 });
