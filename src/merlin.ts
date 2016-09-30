@@ -92,21 +92,31 @@ export namespace Completion {
     = null
     | ['application', { argument_type: string; labels: Label[] }];
   export type Kind
-    = '#' | 'class' | 'constructor' | 'exn' | 'label' | 'method' | 'module' | 'signature' | 'type' | 'value' | 'variant';
+    = '#'
+    | 'Class'
+    | 'Constructor'
+    | 'Exn'
+    | 'Label'
+    | 'Method'
+    | 'Module'
+    | 'Signature'
+    | 'Type'
+    | 'Value'
+    | 'Variant';
   export namespace Kind {
     export function intoCode(kind: Kind): server.CompletionItemKind {
       switch (kind) {
         case '#': return server.CompletionItemKind.Method;
-        case 'class': return server.CompletionItemKind.Class;
-        case 'constructor': return server.CompletionItemKind.Constructor;
-        case 'exn': return server.CompletionItemKind.Constructor;
-        case 'label': return server.CompletionItemKind.Field;
-        case 'method': return server.CompletionItemKind.Function;
-        case 'module': return server.CompletionItemKind.Module;
-        case 'signature': return server.CompletionItemKind.Interface;
-        case 'type': return server.CompletionItemKind.Class;
-        case 'value': return server.CompletionItemKind.Value;
-        case 'variant': return server.CompletionItemKind.Enum;
+        case 'Class': return server.CompletionItemKind.Class;
+        case 'Constructor': return server.CompletionItemKind.Constructor;
+        case 'Exn': return server.CompletionItemKind.Constructor;
+        case 'Label': return server.CompletionItemKind.Field;
+        case 'Method': return server.CompletionItemKind.Function;
+        case 'Module': return server.CompletionItemKind.Module;
+        case 'Signature': return server.CompletionItemKind.Interface;
+        case 'Type': return server.CompletionItemKind.Class;
+        case 'Value': return server.CompletionItemKind.Value;
+        case 'Variant': return server.CompletionItemKind.Enum;
         default: throw new Error(`<unreachable>: ${kind}`);
       }
     }
