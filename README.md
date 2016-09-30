@@ -22,6 +22,8 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 - [ ] debugger integration
 - [ ] toplevel integration
 
+The VS Code [insiders build](https://code.visualstudio.com/insiders) is recommended since it provides scrollable hovers (shown above).
+
 ### Case splitting
 
 #### Introducing a `switch`
@@ -87,5 +89,3 @@ let foo (arg: list 'a) => switch arg {
   | [_] | [_, _, ..._] => failwith "<case>"
 };
 ```
-
-The VS Code [insiders build](https://code.visualstudio.com/insiders) is recommended since it provides scrollable hovers (shown above).
