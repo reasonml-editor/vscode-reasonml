@@ -26,10 +26,11 @@ The VS Code [insiders build](https://code.visualstudio.com/insiders) is recommen
 
 ### Case splitting
 
+For the examples below, `<cursor>` represents the position of the current VS Code editor cursor.
+
 #### Introducing a `switch`
 
-Take the following code, where `<cursor>` represents the current VS Code editor cursor. In order to
-introduce a `switch`, execute the following steps:
+In order to introduce a `switch`, execute the following steps:
 
 1. select an identifier or move the cursor anywhere within its word range (as below)
 2. open the palette (⇧⌘P) and run `Reason: case split` (typing `case` should pull it up)
