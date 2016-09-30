@@ -181,6 +181,21 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   };
 });
 
+session.connection.onRequest<
+  { range: types.Range, textDocument: { uri: string }},
+  Promise<merlin.Case.Destruct>,
+  void
+>({ method: "caseAnalysis"}, async (event) => {
+  const start = merlin.Position.fromCode(event.range.start);
+  const end = merlin.Position.fromCode(event.range.end);
+  const request = merlin.Command.Query.kase.analysis.from(start).to(end);
+  const response = await session.merlin.query(request, event.textDocument.uri);
+  if (response.class !== "return") {
+    throw response.value;
+  }
+  return response.value;
+});
+
 session.docManager.onDidChangeContent(async (event) => {
   const request = merlin.Command.Sync.tell("start", "end", event.document.getText());
   await session.merlin.sync(request, event.document.uri);

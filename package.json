@@ -28,6 +28,12 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
+    "commands": [
+      {
+        "command": "reasonml.caseSplit",
+        "title": "Reason: case split"
+      }
+    ],
     "configuration": {
       "type": "object",
       "title": "Reason configuration",

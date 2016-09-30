@@ -83,6 +83,10 @@ export type Response<T> = Promise<MerlinResponse<T>>;
  * Merlin command data
  */
 
+export namespace Case {
+  export type Destruct = [{ end: PositionColumnLine; start: PositionColumnLine }, string];
+}
+
 export namespace Completion {
   export type Label = {
     name: string;
@@ -261,6 +265,17 @@ export namespace Command {
     }
   }
   export namespace Query {
+    // case
+    export namespace kase {
+      export const analysis = {
+        from: (start: Position) => ({
+          to: (end: Position) => new Query<
+            ["case", "analysis", "from", Position, "to", Position],
+            Case.Destruct
+          >(["case", "analysis", "from", start   , "to", end     ]),
+        }),
+      };
+    }
     // complete
     export namespace complete {
       export const prefix = (pre: string) => ({
