@@ -16,7 +16,9 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 - [x] outline view for symbols (`⇧⌘O`)
 - [x] type-on-hover
 - [x] jump-to-definition (*`⌃` + click* or *`⌘` + hover*)
-- [ ] build tool integration
 - [ ] formatting integration
+- [ ] build tool integration
 - [ ] debugger integration
 - [ ] toplevel integration
+
+The VS Code [insiders build](https://code.visualstudio.com/insiders) is recommended since it provides scrollable hovers (shown above).
