@@ -95,43 +95,20 @@ export namespace Completion {
     = '#' | 'class' | 'constructor' | 'exn' | 'label' | 'method' | 'module' | 'signature' | 'type' | 'value' | 'variant';
   export namespace Kind {
     export function intoCode(kind: Kind): server.CompletionItemKind {
-      let result: server.CompletionItemKind = server.CompletionItemKind.Value;
       switch (kind) {
-        case '#':
-          result = server.CompletionItemKind.Method;
-          break;
-        case 'class':
-          result = server.CompletionItemKind.Class;
-          break;
-        case 'constructor':
-          result = server.CompletionItemKind.Constructor;
-          break;
-        case 'exn':
-          result = server.CompletionItemKind.Constructor;
-          break;
-        case 'label':
-          result = server.CompletionItemKind.Field;
-          break;
-        case 'method':
-          result = server.CompletionItemKind.Function;
-          break;
-        case 'module':
-          result = server.CompletionItemKind.Module;
-          break;
-        case 'signature':
-          result = server.CompletionItemKind.Interface;
-          break;
-        case 'type':
-          result = server.CompletionItemKind.Class;
-          break;
-        case 'value':
-          result = server.CompletionItemKind.Value;
-          break;
-        case 'variant':
-          result = server.CompletionItemKind.Enum;
-          break;
+        case '#': return server.CompletionItemKind.Method;
+        case 'class': return server.CompletionItemKind.Class;
+        case 'constructor': return server.CompletionItemKind.Constructor;
+        case 'exn': return server.CompletionItemKind.Constructor;
+        case 'label': return server.CompletionItemKind.Field;
+        case 'method': return server.CompletionItemKind.Function;
+        case 'module': return server.CompletionItemKind.Module;
+        case 'signature': return server.CompletionItemKind.Interface;
+        case 'type': return server.CompletionItemKind.Class;
+        case 'value': return server.CompletionItemKind.Value;
+        case 'variant': return server.CompletionItemKind.Enum;
+        default: throw new Error(`<unreachable>: ${kind}`);
       }
-      return result;
     }
   }
   export type Entry = {
