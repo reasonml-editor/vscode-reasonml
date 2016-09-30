@@ -1,9 +1,9 @@
-import * as path from 'path';
-import * as vscode from 'vscode';
-import * as client from 'vscode-languageclient';
+import * as path from "path";
+import * as vscode from "vscode";
+import * as client from "vscode-languageclient";
 
 export function launch(context: vscode.ExtensionContext): vscode.Disposable {
-  const module = context.asAbsolutePath(path.join('out', 'src', 'server.js'));
+  const module = context.asAbsolutePath(path.join("out", "src", "server.js"));
   const transport = client.TransportKind.ipc;
   let options: client.ForkOptions;
 
@@ -14,10 +14,14 @@ export function launch(context: vscode.ExtensionContext): vscode.Disposable {
   const debug = { module, transport, options };
 
   const serverOptions = { run, debug };
-  const clientOptions = { documentSelector: [ 'reason.module.defns', 'reason.module.decls' ] };
-  const reasonClient = new client.LanguageClient('Reason', serverOptions, clientOptions);
+  const clientOptions = { documentSelector: [ "reason.module.defns", "reason.module.decls" ] };
+  const reasonClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
 
-  reasonClient.onRequest<client.TextDocumentPositionParams, string | undefined, void>({ method: 'getText' }, async (data) => {
+  reasonClient.onRequest<
+    client.TextDocumentPositionParams,
+    string | undefined,
+    void
+  >({ method: "getText" }, async (data) => {
     const range = new vscode.Range(
       new vscode.Position(data.position.line, 0),
       new vscode.Position(data.position.line, data.position.character));
