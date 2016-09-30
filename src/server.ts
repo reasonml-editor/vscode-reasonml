@@ -88,7 +88,7 @@ session.connection.onCompletion(async (event) => {
 });
 
 session.connection.onDefinition(async (event) => {
-  const find = async (kind: 'ml' | 'mli'): Promise<types.Location | undefined> => {
+  const find = async (kind: "ml" | "mli"): Promise<types.Location | undefined> => {
     const request = merlin.Command.Query.locate(null, kind).at(merlin.Position.fromCode(event.position));
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return" || response.value.pos == null) {
@@ -102,7 +102,7 @@ session.connection.onDefinition(async (event) => {
     return location;
   };
   const locML  = await find("ml");
-  // const locMLI = await find('mli');
+  // const locMLI = await find("mli"");
   const locations: types.Location[] = [];
   if (locML  != null) {
     locations.push(locML);
