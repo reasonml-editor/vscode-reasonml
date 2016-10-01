@@ -128,9 +128,10 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-    "compile": "node ./node_modules/vscode/bin/compile -watch -p ./",
-    "postinstall": "node ./node_modules/vscode/bin/install"
+    "compile": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile -watch -p ./",
+    "ocamldoc:grammar:compile": "nearleyc src/ocamldoc.ne > src/ocamldoc.js",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "vscode:prepublish": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile"
   },
   "devDependencies": {
     "tslint": "^3.13.0",
@@ -138,6 +139,7 @@
     "vscode": "^0.11.0"
   },
   "dependencies": {
+    "nearley": "^2.7.3",
     "vscode-languageclient": "^2.5.0",
     "vscode-languageserver": "^2.5.0",
     "vscode-languageserver-types": "^1.0.3"

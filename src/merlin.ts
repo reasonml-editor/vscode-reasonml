@@ -132,7 +132,14 @@ export namespace Completion {
     info: string;
   };
   export function intoCode({ name: label, kind, desc: detail, info: documentation }: Entry): types.CompletionItem {
-    return { detail, documentation, label, kind: Kind.intoCode(kind) };
+    return {
+      data: {
+        documentation,
+      },
+      detail,
+      label,
+      kind: Kind.intoCode(kind),
+    };
   }
 }
 

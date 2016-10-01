@@ -2,6 +2,30 @@ import * as merlin from "./merlin";
 import * as server from "vscode-languageserver";
 import * as types from "vscode-languageserver-types";
 
+const ocamldoc = require("./ocamldoc.js"); // tslint:disable-line
+const nearley = require("nearley"); // tslint:disable-line
+
+namespace OcamlDoc {
+  export const ignore = new RegExp([
+    /^No documentation available/,
+    /^Not a valid identifier/,
+    /^Not in environment '.*'/,
+  ].map((rx) => rx.source).join("|"));
+
+  export function intoMarkdown(ocamlDoc: string): string {
+    let result = ocamlDoc;
+    try {
+      const parser = new nearley.Parser(ocamldoc.ParserRules, ocamldoc.ParserStart);
+      const markedRes: string[] | undefined = parser.feed(ocamlDoc).finish()[0];
+      const markedDoc = markedRes && markedRes.length > 0 ? markedRes[0] : "";
+      result = markedDoc;
+    } catch (err) {
+      // Debug.info(JSON.stringify(err));
+    }
+    return result;
+  }
+}
+
 class Session {
   public readonly connection: server.IConnection = server.createConnection(
     new server.IPCMessageReader(process),
@@ -87,6 +111,19 @@ session.connection.onCompletion(async (event) => {
   return entries.map(merlin.Completion.intoCode);
 });
 
+session.connection.onCompletionResolve(async (event) => {
+  // FIXME: might want to make a separate parser to just strip ocamldoc
+  const documentation: string = event.data.documentation
+    .replace(/\{\{:.*?\}(.*?)\}/g, "$1")
+    .replace(/\{!(.*?)\}/g, "$1");
+  const markedDoc = OcamlDoc.intoMarkdown(documentation)
+    .replace(/`(.*?)`/g, "$1")
+    .replace(/\s+/g, " ")
+    .replace(/\n/g, "");
+  event.documentation = markedDoc;
+  return event;
+});
+
 session.connection.onDefinition(async (event) => {
   const find = async (kind: "ml" | "mli"): Promise<types.Location | undefined> => {
     const request = merlin.Command.Query.locate(null, kind).at(merlin.Position.fromCode(event.position));
@@ -147,17 +184,12 @@ session.connection.onHover(async (event) => {
   };
   const markedStrings: server.MarkedString[] = [];
   const itemType = await getType();
-  const itemDoc  = await getDoc();
-  const docIgnoreRx = new RegExp([
-    /^No documentation available/,
-    /^Not a valid identifier/,
-    /^Not in environment '.*'/,
-  ].map((rx) => rx.source).join("|"));
+  const ocamlDoc = await getDoc();
   if (itemType != null) {
     markedStrings.push({ language: "reason.hover.type", value: itemType.type });
     markedStrings.push(merlin.TailPosition.intoCode(itemType.tail)); // FIXME: make configurable
-    if (itemDoc != null && !docIgnoreRx.test(itemDoc)) {
-      markedStrings.push(itemDoc);
+    if (ocamlDoc != null && !OcamlDoc.ignore.test(ocamlDoc)) {
+      markedStrings.push(OcamlDoc.intoMarkdown(ocamlDoc));
     }
   }
   return { contents: markedStrings };
@@ -172,8 +204,12 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
   }
   return {
     capabilities: {
-      completionProvider: { triggerCharacters: [ ".", "#" ] },
+      completionProvider: {
+        resolveProvider: true,
+        triggerCharacters: [ ".", "#" ],
+      },
       definitionProvider: true,
+      documentFormattingProvider: true,
       documentSymbolProvider: true,
       hoverProvider: true,
       textDocumentSync: session.docManager.syncKind,
