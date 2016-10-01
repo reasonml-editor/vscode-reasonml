@@ -25,6 +25,7 @@ namespace Operation {
       result = format.trimTrailingWhitespace(result);
       result = format.removeOuterParens(result);
       result = format.indentSwitchExpression(indentation, result);
+      result = format.padRecordPatterns(result);
       result = format.fillPlaceholders(result);
       return result;
     }
@@ -38,6 +39,9 @@ namespace Operation {
           : content
             .replace(/\|/g, `${indentation}  |`)
             .replace(/}$/g, `${indentation}}`);
+      }
+      export function padRecordPatterns(content: string): string {
+        return content.replace(/{(?!\s)/g, "{ ").replace(/([^\s])}/g, "$1 }");
       }
       export function removeOuterParens(content: string): string {
         return content.replace(/^\(|\n\)$/g, "");
