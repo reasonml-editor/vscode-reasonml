@@ -10,19 +10,20 @@ Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
 
 ## Status
 
+The VS Code [insiders build](https://code.visualstudio.com/insiders) is highly recommended since it
+provides improved documentation formatting and scrollable hovers (shown above).
+
 - [x] advanced syntax highlighting
 - [x] completion
 - [x] linting
 - [x] outline view for symbols (⇧⌘O)
-- [x] type-on-hover
+- [x] type and documentation on hover
 - [x] jump-to-definition (⌃+click or ⌘+hover)
 - [x] case splitting (see below for details)
 - [ ] formatting integration
 - [ ] build tool integration
 - [ ] debugger integration
 - [ ] toplevel integration
-
-The VS Code [insiders build](https://code.visualstudio.com/insiders) is recommended since it provides scrollable hovers (shown above).
 
 ### Case splitting
 
