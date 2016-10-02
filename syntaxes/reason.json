@@ -1,5 +1,12 @@
 {
-  "scopeName": "source.reason.common",
+  "scopeName": "source.reason",
+  "fileTypes": [
+    "re",
+    "rei"
+  ],
+  "patterns": [
+    { "include": "#module-expression-block-item" }
+  ],
   "repository": {
     "attribute": {
       "begin": "(?=\\[(@{1,3})[[:space:]]*[A-Za-z])",

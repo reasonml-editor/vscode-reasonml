@@ -65,7 +65,7 @@ export function launch(context: vscode.ExtensionContext): vscode.Disposable {
   const debug = { module, transport, options };
 
   const serverOptions = { run, debug };
-  const clientOptions = { documentSelector: [ "reason.module.defns", "reason.module.decls" ] };
+  const clientOptions = { documentSelector: [ "reason" ] };
   const reasonClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
 
   reasonClient.onRequest<

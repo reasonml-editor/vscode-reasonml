@@ -23,8 +23,7 @@
   ],
   "icon": "assets/logo.png",
   "activationEvents": [
-    "onLanguage:reason.module.defns",
-    "onLanguage:reason.module.decls"
+    "onLanguage:reason"
   ],
   "main": "./out/src/extension",
   "contributes": {
@@ -70,9 +69,9 @@
     },
     "grammars": [
       {
-        "language": "reason.common",
-        "scopeName": "source.reason.common",
-        "path": "./syntaxes/reason-common.json"
+        "language": "reason",
+        "scopeName": "source.reason",
+        "path": "./syntaxes/reason.json"
       },
       {
         "language": "reason.hover.info",
@@ -83,47 +82,25 @@
         "language": "reason.hover.type",
         "scopeName": "source.reason.hover.type",
         "path": "./syntaxes/reason-hover-type.json"
-      },
-      {
-        "language": "reason.module.defns",
-        "scopeName": "source.reason.module.defns",
-        "path": "./syntaxes/reason-module-defns.json"
-      },
-      {
-        "language": "reason.module.decls",
-        "scopeName": "source.reason.module.decls",
-        "path": "./syntaxes/reason-module-decls.json"
       }
     ],
     "languages": [
       {
-        "id": "reason.common"
+        "id": "reason",
+        "aliases": [
+          "Reason"
+        ],
+        "extensions": [
+          ".re",
+          ".rei"
+        ],
+        "configuration": "./reason.configuration.json"
       },
       {
         "id": "reason.hover.info"
       },
       {
         "id": "reason.hover.type"
-      },
-      {
-        "id": "reason.module.defns",
-        "aliases": [
-          "Reason"
-        ],
-        "extensions": [
-          ".re"
-        ],
-        "configuration": "./reason.configuration.json"
-      },
-      {
-        "id": "reason.module.decls",
-        "aliases": [
-          "Reason"
-        ],
-        "extensions": [
-          ".rei"
-        ],
-        "configuration": "./reason.configuration.json"
       }
     ]
   },
