@@ -521,6 +521,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
+            { "include": "#comment" },
             {
               "match": "([A-Z][_'0-9A-Za-z]*)",
               "captures": {
@@ -536,6 +537,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
+            { "include": "#comment" },
             { "include": "#module-expression" }
           ]
         }
@@ -551,6 +553,7 @@
         "1": { "name": "keyword.other" }
       },
       "patterns": [
+        { "include": "#comment" },
         { "include": "#module-expression-path" },
         {
           "match": "[A-Z][_'0-9A-Za-z]*",
@@ -784,6 +787,7 @@
       "begin": "\\{",
       "end": "\\}",
       "patterns": [
+        { "include": "#comment" },
         { "include": "#pattern-record-item" }
       ]
     },
@@ -798,6 +802,7 @@
         "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
+        { "include": "#comment" },
         {
           "begin": "\\G(:)",
           "end": "(?=[,\\}])",
@@ -1026,6 +1031,7 @@
         "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
+        { "include": "#comment" },
         {
           "begin": "(:)",
           "end": "(?=[,\\}])",
