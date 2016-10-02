@@ -653,8 +653,8 @@
           "comment": "FIXME: add separate type-variable rule",
           "match": "([+\\-])?'(?:([_])\\b|([a-z][_'0-9A-Za-z]*)\\b)(?!\\.[A-Z])",
           "captures": {
-            "1": { "name": "comment.line" },
-            "2": { "name": "keyword.other" },
+            "1": { "name": "keyword.other" },
+            "2": { "name": "comment.line" },
             "3": { "name": "variable.parameter" }
           }
         }
