@@ -1030,6 +1030,7 @@
     },
     "type-expression-record-item": {
       "patterns": [
+        { "include": "#comment" },
         { "include": "#module-expression-path" },
         { "include": "#type-expression-record-field" }
       ]
