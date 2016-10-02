@@ -3,7 +3,7 @@
   "name": "reasonml",
   "displayName": "Reason",
   "description": "Reason language support",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "publisher": "freebroccolo",
   "license": "Apache-2.0",
   "bugs": {
