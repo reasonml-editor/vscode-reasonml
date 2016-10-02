@@ -14,7 +14,7 @@
       "patterns": [
         {
           "begin": "\\[(@{1,3})",
-          "end": "(?=[[:space:]:?\\]])",
+          "end": "(?=[^_\\.'0-9A-Za-z])",
           "applyEndPatternLast": "on",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
@@ -56,7 +56,7 @@
         },
         {
           "name": "constant.language",
-          "match": "\\b[A-Za-z][_\\'0-9A-Za-z]*\\b"
+          "match": "\\b([A-Za-z][_'0-9A-Za-z]*)\\b"
         }
       ]
     },
@@ -108,7 +108,7 @@
       "patterns": [
         {
           "begin": "\\[(%{1,3})",
-          "end": "(?=[[:space:]:?])",
+          "end": "(?=[^_\\.'0-9A-Za-z])",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
