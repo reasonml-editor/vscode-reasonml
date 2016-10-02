@@ -903,7 +903,7 @@
     },
     "type-expression-label": {
       "begin": "\\b([_a-z][_'A-Za-z0-9]*)\\b(::)",
-      "end": "(?<=[[:space:]])",
+      "end": "(?<==>)",
       "beginCaptures": {
         "1": { "name": "constant.language" },
         "2": { "name": "keyword.other" }
