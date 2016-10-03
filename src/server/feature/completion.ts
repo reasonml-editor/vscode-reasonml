@@ -9,17 +9,17 @@ import {
   CompletionItem,
 } from "vscode-languageserver-types";
 
+function getPrefix(session: Session, event: TextDocumentPositionParams): Thenable<string | undefined> {
+  const method = "getText";
+  return session.connection.sendRequest<TextDocumentPositionParams, string | undefined, void>({ method }, event);
+}
+
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, CompletionItem[], void> {
   return async (event) => {
     let error = undefined;
     let prefix: string | undefined = undefined;
     try {
-      const method = "getText";
-      prefix = await session.connection.sendRequest<
-        TextDocumentPositionParams,
-        string | undefined,
-        void
-        >({ method }, event);
+      prefix = await getPrefix(session, event);
     } catch (err) {
       // ignore errors from completing ' .'
       error = err;

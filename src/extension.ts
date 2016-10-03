@@ -10,32 +10,20 @@ export function activate(context: vscode.ExtensionContext) {
       },
       onEnterRules: [
         {
-          action: {
-            appendText: " * ",
-            indentAction: vscode.IndentAction.IndentOutdent,
-          },
+          action: { appendText: " * ", indentAction: vscode.IndentAction.IndentOutdent },
           afterText: /^\s*\*\/$/,
           beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
         },
         {
-          action: {
-            appendText: " * ",
-            indentAction: vscode.IndentAction.None,
-          },
+          action: { appendText: " * ", indentAction: vscode.IndentAction.None },
           beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
         },
         {
-          action: {
-            appendText: "* ",
-            indentAction: vscode.IndentAction.None,
-          },
+          action: { appendText: "* ", indentAction: vscode.IndentAction.None },
           beforeText: /^(\t|(\ \ ))*\ \*(\ ([^\*]|\*(?!\/))*)?$/,
         },
         {
-          action: {
-            indentAction: vscode.IndentAction.None,
-            removeText: 1,
-          },
+          action: { indentAction: vscode.IndentAction.None, removeText: 1 },
           beforeText: /^(\t|(\ \ ))*\ \*\/\s*$/,
         },
         {
