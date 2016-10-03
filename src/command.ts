@@ -9,7 +9,7 @@ export namespace CaseSplit {
     editor.edit((editBuilder) => {
       const range = new vscode.Range(
         new vscode.Position(start.line - 1, start.col),
-        new vscode.Position(end.line - 1, end.col),
+        new vscode.Position(end  .line - 1, end  .col),
       );
       const cases = CaseSplit.format(editor, content);
       editBuilder.replace(range, cases);
@@ -63,7 +63,7 @@ export namespace CaseSplit {
       try {
         const response = await reasonClient.sendRequest<
           { range: types.Range, textDocument: { uri: string } }, merlin.Case.Destruct, void
-          >({ method }, { range, textDocument });
+        >({ method }, { range, textDocument });
         CaseSplit.execute(editor, response);
       } catch (err) {
         // vscode.window.showErrorMessage(JSON.stringify(err));
@@ -73,11 +73,9 @@ export namespace CaseSplit {
 }
 export namespace GetText {
   export function register(reasonClient: client.LanguageClient): void {
-    reasonClient.onRequest<
-      client.TextDocumentPositionParams,
-      string | undefined,
-      void
-      >({ method: "getText" }, async (event) => {
+    reasonClient.onRequest<client.TextDocumentPositionParams, string | undefined, void>(
+      { method: "getText" },
+      async (event) => {
         const range = new vscode.Range(
           new vscode.Position(event.position.line, 0),
           new vscode.Position(event.position.line, event.position.character));
