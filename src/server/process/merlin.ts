@@ -1,4 +1,7 @@
-import * as types from "../../shared/merlin";
+import {
+  command,
+  response,
+} from "../../shared/merlin";
 import * as child_process from "child_process";
 import * as readline from "readline";
 
@@ -27,12 +30,12 @@ export class Session {
       });
     });
   }
-  public query<I, O>(request: types.Command.Query<I, O>, path?: string): types.Response<O> {
+  public query<I, O>(request: command.Query<I, O>, path?: string): response.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, types.MerlinResponse<O>>(request.query, context);
+    return this.question<I, response.MerlinResponse<O>>(request.query, context);
   }
-  public sync<I, O>(request: types.Command.Sync<I, O>, path?: string): types.Response<O> {
+  public sync<I, O>(request: command.Sync<I, O>, path?: string): response.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, types.MerlinResponse<O>>(request.sync, context);
+    return this.question<I, response.MerlinResponse<O>>(request.sync, context);
   }
 }

@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import * as types from "vscode-languageserver-types";
 
-export function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): void {
+export function execute(editor: vscode.TextEditor, destruct: merlin.data.Case.Destruct): void {
   const [{ end, start }, content] = destruct;
   editor.edit((editBuilder) => {
     const range = new vscode.Range(
@@ -64,7 +64,7 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
     const method = "caseAnalysis";
     try {
       const response = await reasonClient.sendRequest<
-        { range: types.Range, textDocument: { uri: string } }, merlin.Case.Destruct, void
+        { range: types.Range, textDocument: { uri: string } }, merlin.data.Case.Destruct, void
         >({ method }, { range, textDocument });
       execute(editor, response);
     } catch (err) {

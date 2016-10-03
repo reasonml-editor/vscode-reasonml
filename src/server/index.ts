@@ -63,9 +63,9 @@ class Session {
     const object: { [key: string]: number } = event.document as any;
     clearTimeout(object[handle]);
     object[handle] = setTimeout(async () => {
-      const errorResponse = await session.merlin.query(merlin.Command.Query.errors(), event.document.uri);
+      const errorResponse = await session.merlin.query(merlin.command.Query.errors(), event.document.uri);
       if (errorResponse.class === "return") {
-        const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+        const diagnostics = errorResponse.value.map(merlin.data.ErrorReport.intoCode);
         session.connection.sendDiagnostics({ uri: event.document.uri, diagnostics });
       }
     }, this.config.diagnostics.delay);
@@ -100,15 +100,15 @@ session.connection.onCompletion(async (event) => {
   if (error != null || prefix == null) {
     return [];
   }
-  const position = merlin.Position.fromCode(event.position);
-  const request = merlin.Command.Query.complete.prefix(prefix).at(position).with.doc();
+  const position = merlin.ordinal.Position.fromCode(event.position);
+  const request = merlin.command.Query.complete.prefix(prefix).at(position).with.doc();
   const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== "return") {
     return new server.ResponseError(-1, "onCompletion: failed", undefined);
   }
   const value = response.value;
   const entries = value.entries ? value.entries : [];
-  return entries.map(merlin.Completion.intoCode);
+  return entries.map(merlin.data.Completion.intoCode);
 });
 
 session.connection.onCompletionResolve(async (event) => {
@@ -126,14 +126,14 @@ session.connection.onCompletionResolve(async (event) => {
 
 session.connection.onDefinition(async (event) => {
   const find = async (kind: "ml" | "mli"): Promise<types.Location | undefined> => {
-    const request = merlin.Command.Query.locate(null, kind).at(merlin.Position.fromCode(event.position));
+    const request = merlin.command.Query.locate(null, kind).at(merlin.ordinal.Position.fromCode(event.position));
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return" || response.value.pos == null) {
       return undefined;
     }
     const value = response.value;
     const uri = value.file ? `file://${value.file}` : event.textDocument.uri;
-    const position = merlin.Position.intoCode(value.pos);
+    const position = merlin.ordinal.Position.intoCode(value.pos);
     const range = types.Range.create(position, position);
     const location = types.Location.create(uri, range);
     return location;
@@ -149,24 +149,24 @@ session.connection.onDefinition(async (event) => {
 });
 
 session.connection.onDocumentSymbol(async (event) => {
-  const request = merlin.Command.Query.outline();
+  const request = merlin.command.Query.outline();
   const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== "return") {
     return new server.ResponseError(-1, "onDocumentSymbol: failed", undefined);
   }
-  const symbols = merlin.Outline.intoCode(response.value, event.textDocument.uri);
+  const symbols = merlin.data.Outline.intoCode(response.value, event.textDocument.uri);
   return symbols;
 });
 
 session.connection.onHover(async (event) => {
   const getType = async (): Promise<undefined | {
-    end: merlin.Position;
-    start: merlin.Position;
-    tail: merlin.TailPosition;
+    end: merlin.ordinal.Position;
+    start: merlin.ordinal.Position;
+    tail: merlin.data.TailPosition;
     type: string;
   }> => {
-    const position = merlin.Position.fromCode(event.position);
-    const request = merlin.Command.Query.type.enclosing.at(position);
+    const position = merlin.ordinal.Position.fromCode(event.position);
+    const request = merlin.command.Query.type.enclosing.at(position);
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return") {
       return undefined;
@@ -174,8 +174,8 @@ session.connection.onHover(async (event) => {
     return (response.value.length > 0) ? response.value[0] : undefined;
   };
   const getDoc = async (): Promise<string | undefined> => {
-    const position = merlin.Position.fromCode(event.position);
-    const request = merlin.Command.Query.document(null).at(position);
+    const position = merlin.ordinal.Position.fromCode(event.position);
+    const request = merlin.command.Query.document(null).at(position);
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return") {
       return undefined;
@@ -187,7 +187,7 @@ session.connection.onHover(async (event) => {
   const ocamlDoc = await getDoc();
   if (itemType != null) {
     markedStrings.push({ language: "reason.hover.type", value: itemType.type });
-    markedStrings.push(merlin.TailPosition.intoCode(itemType.tail)); // FIXME: make configurable
+    markedStrings.push(merlin.data.TailPosition.intoCode(itemType.tail)); // FIXME: make configurable
     if (ocamlDoc != null && !OcamlDoc.ignore.test(ocamlDoc)) {
       markedStrings.push(OcamlDoc.intoMarkdown(ocamlDoc));
     }
@@ -196,7 +196,7 @@ session.connection.onHover(async (event) => {
 });
 
 session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
-  const request = merlin.Command.Sync.protocol.version.set(3);
+  const request = merlin.command.Sync.protocol.version.set(3);
   const response = await session.merlin.sync(request);
   if (response.class !== "return" || response.value.selected !== 3) {
     session.connection.dispose();
@@ -219,12 +219,12 @@ session.connection.onInitialize(async (): Promise<server.InitializeResult> => {
 
 session.connection.onRequest<
   { range: types.Range, textDocument: { uri: string }},
-  Promise<merlin.Case.Destruct>,
+  Promise<merlin.data.Case.Destruct>,
   void
 >({ method: "caseAnalysis"}, async (event) => {
-  const start = merlin.Position.fromCode(event.range.start);
-  const end = merlin.Position.fromCode(event.range.end);
-  const request = merlin.Command.Query.kase.analysis.from(start).to(end);
+  const start = merlin.ordinal.Position.fromCode(event.range.start);
+  const end = merlin.ordinal.Position.fromCode(event.range.end);
+  const request = merlin.command.Query.kase.analysis.from(start).to(end);
   const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== "return") {
     throw response.value;
@@ -233,7 +233,7 @@ session.connection.onRequest<
 });
 
 session.docManager.onDidChangeContent(async (event) => {
-  const request = merlin.Command.Sync.tell("start", "end", event.document.getText());
+  const request = merlin.command.Sync.tell("start", "end", event.document.getText());
   await session.merlin.sync(request, event.document.uri);
   session.diagnosticsRefresh(event);
 });
@@ -243,7 +243,7 @@ session.docManager.onDidClose(async (event) => {
 });
 
 session.docManager.onDidOpen(async (event) => {
-  const request = merlin.Command.Sync.tell("start", "end", event.document.getText());
+  const request = merlin.command.Sync.tell("start", "end", event.document.getText());
   await session.merlin.sync(request, event.document.uri);
   session.diagnosticsRefresh(event);
 });
