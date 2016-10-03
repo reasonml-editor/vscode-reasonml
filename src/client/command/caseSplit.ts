@@ -20,33 +20,33 @@ export function format(editor: vscode.TextEditor, content: string): string {
   const match = line.text.match(/^\s*/);
   const indentation = match && match.length > 0 ? match[0] : ""; // FIXME: use use indentation settings
   let result = content;
-  result = format.deleteTrailingWhitespace(result);
+  result = format.deleteWhitespace(result);
   result = format.deleteParentheses(result);
-  result = format.indentSwitchExpression(indentation, result);
-  result = format.indentRecordPatterns(result);
+  result = format.indentExpression(indentation, result);
+  result = format.indentPatterns(result);
   result = format.insertPlaceholders(result);
   return result;
 }
 
 export namespace format {
-  export function insertPlaceholders(content: string): string {
-    return content.replace(/\(\?\?\)/g, `failwith "<case>"`);
+  export function deleteParentheses(content: string): string {
+    return content.replace(/^\(|\n\)$/g, "");
   }
-  export function indentSwitchExpression(indentation: string, content: string): string {
+  export function deleteWhitespace(content: string): string {
+    return content.replace(/\n$/, "");
+  }
+  export function indentExpression(indentation: string, content: string): string {
     return !/^\bswitch\b/g.test(content)
       ? content
       : content
         .replace(/\|/g, `${indentation}  |`)
         .replace(/}$/g, `${indentation}}`);
   }
-  export function indentRecordPatterns(content: string): string {
+  export function indentPatterns(content: string): string {
     return content.replace(/{(?!\s)/g, "{ ").replace(/([^\s])}/g, "$1 }");
   }
-  export function deleteParentheses(content: string): string {
-    return content.replace(/^\(|\n\)$/g, "");
-  }
-  export function deleteTrailingWhitespace(content: string): string {
-    return content.replace(/\n$/, "");
+  export function insertPlaceholders(content: string): string {
+    return content.replace(/\(\?\?\)/g, `failwith "<case>"`);
   }
 }
 
