@@ -4,14 +4,29 @@ Reason support for Visual Studio Code
 
 ![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
 
-## Theme
+## Getting Started
 
-Syntax highlighting works with any theme but "Flatland Monokai" is recommended.
+### Editor Configuration
+
+- VS Code [insiders build](https://code.visualstudio.com/insiders)
+- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai) syntax theme
+- [Reason](https://github.com/facebook/reason#contributing-to-development) (development build)
+
+The insiders build is recommended for scrollable hovers with improved documentation formatting.
+
+### Reason Configuration
+
+For the moment, a recent development build of Reason is also recommended. Nothing is required apart
+from the standard Reason install steps linked above. As long as `opam` is configured correctly and
+`ocamlmerlin` is in your path, all features below should just work out of the box.
+
+This extension relies heavily on [Merlin](https://github.com/the-lambda-church/merlin) though so you
+will need to have your project set up for that in order to enable completion and hover info. See the
+Merlin [wiki](https://github.com/the-lambda-church/merlin/wiki/project-configuration) for details on
+how to do that. Basically you need to have a `.merlin` file in your project root which lists the
+source directories, libraries, and extensions used.
 
 ## Status
-
-The VS Code [insiders build](https://code.visualstudio.com/insiders) is highly recommended since it
-provides improved documentation formatting and scrollable hovers (shown above).
 
 - [x] advanced syntax highlighting
 - [x] completion
@@ -84,7 +99,7 @@ let foo (arg: list 'a) => switch arg {
 };
 ```
 
-##### Before
+##### After
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
