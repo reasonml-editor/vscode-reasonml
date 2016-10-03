@@ -18,11 +18,11 @@ export class Session {
       terminal: false,
     });
   }
-  public dispose() {
+  dispose() {
     this.readline.close();
     this.process.disconnect();
   }
-  public question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
+  question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
     const request = context ? { context, query } : query;
     return new Promise((resolve) => {
       this.readline.question(JSON.stringify(request), (answer) => {
@@ -30,11 +30,11 @@ export class Session {
       });
     });
   }
-  public query<I, O>(request: command.Query<I, O>, path?: string): response.Response<O> {
+  query<I, O>(request: command.Query<I, O>, path?: string): response.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
     return this.question<I, response.MerlinResponse<O>>(request.query, context);
   }
-  public sync<I, O>(request: command.Sync<I, O>, path?: string): response.Response<O> {
+  sync<I, O>(request: command.Sync<I, O>, path?: string): response.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
     return this.question<I, response.MerlinResponse<O>>(request.sync, context);
   }

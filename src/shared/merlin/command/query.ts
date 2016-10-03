@@ -3,7 +3,7 @@ import * as json from "../json";
 import * as ordinal from "../ordinal";
 
 export class Query<I, O> {
-  public query: I;
+  query: I;
   constructor(query: I) {
     void undefined as any as O; // tslint:disable-line:no-unused-expression
     this.query = query;
