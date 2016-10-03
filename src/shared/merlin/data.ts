@@ -111,6 +111,7 @@ export namespace Outline {
     | "Method"
     | "Modtype"
     | "Module"
+    | "Signature" // FIXME
     | "Type"
     | "Value"
     ;
