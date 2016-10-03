@@ -1,8 +1,8 @@
-import * as merlin from "./merlin";
+import * as merlin from "./process/merlin";
 import * as server from "vscode-languageserver";
 import * as types from "vscode-languageserver-types";
 
-const ocamldoc = require("./ocamldoc.js"); // tslint:disable-line
+const ocamldoc = require("../client/render/ocamldoc"); // tslint:disable-line
 const nearley = require("nearley"); // tslint:disable-line
 
 namespace OcamlDoc {

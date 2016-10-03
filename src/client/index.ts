@@ -4,7 +4,7 @@ import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
 export function launch(context: vscode.ExtensionContext): vscode.Disposable {
-  const module = context.asAbsolutePath(path.join("out", "src", "server.js"));
+  const module = context.asAbsolutePath(path.join("out", "src", "server", "index.js"));
   const transport = client.TransportKind.ipc;
   const run = { module, transport, options: {} };
   const debug = { module, transport, options: { execArgv: [ "--nolazy", "--debug=6004" ] } };
