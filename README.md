@@ -4,6 +4,20 @@ Reason support for Visual Studio Code
 
 ![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
 
+## Feature Status
+
+- [x] advanced syntax highlighting
+- [x] completion
+- [x] linting
+- [x] outline view for symbols (⇧⌘O)
+- [x] type and documentation on hover
+- [x] jump-to-definition (⌃+click or ⌘+hover)
+- [x] [case splitting](#case-splitting)
+- [ ] formatting integration
+- [ ] build tool integration
+- [ ] debugger integration
+- [ ] toplevel integration
+
 ## Getting Started
 
 ### Editor Configuration
@@ -18,27 +32,18 @@ The insiders build is recommended for scrollable hovers with improved documentat
 
 For the moment, a recent development build of Reason is also recommended. Nothing is required apart
 from the standard Reason install steps linked above. As long as `opam` is configured correctly and
-`ocamlmerlin` is in your path, all features below should just work out of the box.
+`ocamlmerlin` is in your path, all features below should just work out of the box if your project is
+set up for merlin.
 
-This extension relies heavily on [Merlin](https://github.com/the-lambda-church/merlin) though so you
-will need to have your project set up for that in order to enable completion and hover info. See the
+### Merlin Configuration
+
+This extension relies heavily on [merlin](https://github.com/the-lambda-church/merlin) so you will
+need to have your project set up for that in order to enable completion and hover info. See the
 Merlin [wiki](https://github.com/the-lambda-church/merlin/wiki/project-configuration) for details on
 how to do that. Basically you need to have a `.merlin` file in your project root which lists the
 source directories, libraries, and extensions used.
 
-## Status
-
-- [x] advanced syntax highlighting
-- [x] completion
-- [x] linting
-- [x] outline view for symbols (⇧⌘O)
-- [x] type and documentation on hover
-- [x] jump-to-definition (⌃+click or ⌘+hover)
-- [x] case splitting (see below for details)
-- [ ] formatting integration
-- [ ] build tool integration
-- [ ] debugger integration
-- [ ] toplevel integration
+## Advanced Features
 
 ### Case splitting
 
