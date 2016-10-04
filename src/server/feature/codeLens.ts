@@ -25,7 +25,7 @@ export function handler(session: Session): RequestHandler<CodeLensParams, CodeLe
     const symbols = merlin.data.Outline.intoCode(response.value, event.textDocument.uri);
     let codeLenses: CodeLens[] = [];
     for (const item of symbols) {
-      if (item && annotateKinds.has(item.kind)) {
+      if (item != null && annotateKinds.has(item.kind)) {
         const params = {
           position: Position.create(item.location.range.start.line, item.location.range.start.character),
           textDocument: event.textDocument,
@@ -35,9 +35,9 @@ export function handler(session: Session): RequestHandler<CodeLensParams, CodeLe
           textDoc.offsetAt(item.location.range.start),
           textDoc.offsetAt(item.location.range.end),
         );
-        if (textLine) {
-          const matches: RegExpMatchArray = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)/);
-          if (matches) {
+        if (textLine != null) {
+          const matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)/);
+          if (matches != null) {
             params.position.character += matches[1].length;
             params.position.character += matches[2].length;
             params.position.character += matches[3] ? matches[3].length : 0;

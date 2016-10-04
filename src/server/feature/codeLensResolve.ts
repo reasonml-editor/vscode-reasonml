@@ -10,7 +10,6 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<CodeLens, CodeLens, void> {
-  void session; // tslint:disable-line
   return async (event: CodeLens) => {
     const data: SymbolInformation & { event: TextDocumentPositionParams } = event.data;
     const itemType = await getType(session, data.event);
