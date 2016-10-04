@@ -10,6 +10,7 @@ const capabilities: server.ServerCapabilities = {
   },
   definitionProvider: true,
   documentFormattingProvider: true,
+  documentHighlightProvider: true,
   documentSymbolProvider: true,
   hoverProvider: true,
   textDocumentSync: server.TextDocumentSyncKind.Full,

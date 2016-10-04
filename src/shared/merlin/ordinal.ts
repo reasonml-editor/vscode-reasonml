@@ -21,6 +21,18 @@ export namespace Position {
 }
 
 export type Location = {
-  start: Position;
-  end: Position;
+  start: ColumnLine;
+  end: ColumnLine;
 };
+export namespace Location {
+  export function fromCode(range: types.Range): Location {
+    const start = Position.fromCode(range.start);
+    const end = Position.fromCode(range.end);
+    return { start, end };
+  }
+  export function intoCode(location: Location): types.Range {
+    const start = Position.intoCode(location.start);
+    const end = Position.intoCode(location.end);
+    return { start, end };
+  }
+}

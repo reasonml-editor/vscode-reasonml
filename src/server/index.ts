@@ -3,6 +3,7 @@ import { Session } from "./session";
 
 const session = new Session();
 session.connection.onInitialize(feature.initialize.handler(session));
+session.connection.onDocumentHighlight(feature.documentHighlight.handler(session));
 session.connection.onCodeLens(feature.codeLens.handler(session));
 session.connection.onCodeLensResolve(feature.codeLensResolve.handler(session));
 session.connection.onCompletion(feature.completion.handler(session));

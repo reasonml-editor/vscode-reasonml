@@ -1,6 +1,6 @@
 import * as data from "../data";
 import * as json from "../json";
-import { ColumnLine, Position } from "../ordinal";
+import { ColumnLine, Location, Position } from "../ordinal";
 
 export class Query<I, O> {
   query: I;
@@ -61,7 +61,15 @@ export namespace Query {
       ["locate", string | null, ("ml" | "mli"), "at", Position], { file: string; pos: ColumnLine }
     >(["locate", name         , kind          , "at", position]),
   });
-  });
+
+  // occurrences
+  export namespace occurrences {
+    export namespace ident {
+      export const at = (position: Position) => new Query<
+        ["occurrences", "ident", "at", Position], Location[]
+      >(["occurrences", "ident", "at", position]);
+    }
+  }
 
   // outline
   export const outline = () => new Query<["outline"], data.Outline>(["outline"]);
