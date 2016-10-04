@@ -1,5 +1,6 @@
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
+import getPrefix from "./getPrefix";
 import {
   RequestHandler,
   ResponseError,
@@ -8,11 +9,6 @@ import {
 import {
   CompletionItem,
 } from "vscode-languageserver-types";
-
-function getPrefix(session: Session, event: TextDocumentPositionParams): Thenable<string | undefined> {
-  const method = "getText";
-  return session.connection.sendRequest<TextDocumentPositionParams, string | undefined, void>({ method }, event);
-}
 
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, CompletionItem[], void> {
   return async (event) => {
