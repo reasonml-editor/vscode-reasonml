@@ -180,3 +180,10 @@ export namespace TailPosition {
     }
   }
 }
+
+export type Type = {
+  start: ordinal.Position;
+  end: ordinal.Position;
+  type: string;
+  tail: TailPosition;
+};

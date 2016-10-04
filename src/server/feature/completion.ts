@@ -25,8 +25,7 @@ export function handler(session: Session): RequestHandler<TextDocumentPositionPa
     const request = merlin.command.Query.complete.prefix(prefix).at(position).with.doc();
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return") return new ResponseError(-1, "onCompletion: failed", undefined);
-    const value = response.value;
-    const entries = value.entries ? value.entries : [];
+    const entries = response.value.entries ? response.value.entries : [];
     return entries.map(merlin.data.Completion.intoCode);
   };
 }
