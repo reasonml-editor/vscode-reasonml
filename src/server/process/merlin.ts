@@ -8,6 +8,7 @@ import * as readline from "readline";
 export * from "../../shared/merlin";
 
 export class Session {
+  private pending: Promise<void> = Promise.resolve();
   private process: child_process.ChildProcess;
   private readline: readline.ReadLine;
   constructor() {
@@ -24,11 +25,11 @@ export class Session {
   }
   question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
     const request = context ? { context, query } : query;
-    return new Promise((resolve) => {
-      this.readline.question(JSON.stringify(request), (answer) => {
-        resolve(JSON.parse(answer));
-      });
-    });
+    const promise: Promise<O> = this.pending.then(() => new Promise((resolve) => {
+      this.readline.question(JSON.stringify(request), (answer) => resolve(JSON.parse(answer)));
+    }));
+    this.pending = promise.then(() => Promise.resolve());
+    return promise;
   }
   query<I, O>(request: command.Query<I, O>, path?: string): response.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
