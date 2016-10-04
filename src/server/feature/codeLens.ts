@@ -19,6 +19,7 @@ const annotateKinds = new Set([
 
 export function handler(session: Session): RequestHandler<CodeLensParams, CodeLens[], void> {
   return async (event) => {
+    if (/\.rei$/.test(event.textDocument.uri)) return [];
     const request = merlin.command.Query.outline();
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (response.class !== "return") return new ResponseError(-1, "onCodeLens: failed", undefined);
