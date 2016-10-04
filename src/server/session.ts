@@ -31,7 +31,7 @@ export class Session {
     new server.IPCMessageWriter(process),
   );
   readonly merlin = new merlin.Session();
-  private readonly synchronizer: Synchronizer;
+  readonly synchronizer: Synchronizer;
   private readonly config: {
     diagnostics: {
       delay: number;
