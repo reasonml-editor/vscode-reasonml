@@ -10,6 +10,7 @@ Reason support for Visual Studio Code
 - [x] completion
 - [x] linting
 - [x] outline view for symbols (⇧⌘O)
+- [x] types over `let` bindings (disable with `editor.codeLens` setting)
 - [x] type and documentation on hover
 - [x] jump-to-definition (⌃+click or ⌘+hover)
 - [x] [case splitting](#case-splitting)
