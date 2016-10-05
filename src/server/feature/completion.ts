@@ -2,8 +2,10 @@ import * as method from "../method";
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import {
-  RequestHandler,
   ResponseError,
+} from "vscode-jsonrpc";
+import {
+  RequestHandler,
   TextDocumentPositionParams,
 } from "vscode-languageserver";
 import {

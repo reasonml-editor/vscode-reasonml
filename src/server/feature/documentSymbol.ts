@@ -1,9 +1,11 @@
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import {
+  ResponseError,
+} from "vscode-jsonrpc";
+import {
   DocumentSymbolParams,
   RequestHandler,
-  ResponseError,
 } from "vscode-languageserver";
 import {
   SymbolInformation,

@@ -117,6 +117,7 @@
   },
   "dependencies": {
     "nearley": "^2.7.3",
+    "vscode-jsonrpc": "^2.4.0",
     "vscode-languageclient": "^2.5.0",
     "vscode-languageserver": "^2.5.0",
     "vscode-languageserver-types": "^1.0.3"

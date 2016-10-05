@@ -1,9 +1,11 @@
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import {
+  ResponseError,
+} from "vscode-jsonrpc";
+import {
   CodeLensParams,
   RequestHandler,
-  ResponseError,
   TextDocumentPositionParams,
 } from "vscode-languageserver";
 import {
