@@ -8,8 +8,9 @@ import {
 import * as types from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, types.Location[], void> {
-  return async (event) => {
+  return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
+    if (token.isCancellationRequested) return [];
     if (occurrences == null) return [];
     const highlights = occurrences.map((loc) => {
       const uri = event.textDocument.uri;

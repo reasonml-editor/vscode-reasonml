@@ -18,6 +18,7 @@ export function handler(session: Session): RequestHandler<TextDocumentPositionPa
     let prefix: null | string = null;
     try {
       prefix = await method.getPrefix(session, event);
+      if (token.isCancellationRequested) return [];
     } catch (err) {
       // ignore errors from completing ' .'
       error = err;
@@ -26,6 +27,7 @@ export function handler(session: Session): RequestHandler<TextDocumentPositionPa
     const position = merlin.ordinal.Position.fromCode(event.position);
     const request = merlin.command.Query.complete.prefix(prefix).at(position).with.doc();
     const response = await session.merlin.query(request, event.textDocument.uri);
+    if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new ResponseError(-1, "onCompletion: failed", undefined);
     const entries = response.value.entries ? response.value.entries : [];
     return entries.map(merlin.data.Completion.intoCode);

@@ -20,10 +20,11 @@ const annotateKinds = new Set([
 ]);
 
 export function handler(session: Session): RequestHandler<CodeLensParams, CodeLens[], void> {
-  return async (event) => {
+  return async (event, token) => {
     if (/\.rei$/.test(event.textDocument.uri)) return [];
     const request = merlin.command.Query.outline();
     const response = await session.merlin.query(request, event.textDocument.uri);
+    if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new ResponseError(-1, "onCodeLens: failed", undefined);
     const symbols = merlin.data.Outline.intoCode(response.value, event.textDocument.uri);
     let codeLenses: CodeLens[] = [];

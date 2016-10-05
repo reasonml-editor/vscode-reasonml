@@ -11,12 +11,12 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<RenameParams, WorkspaceEdit, void> {
-  return async (event) => {
-    const edit: WorkspaceEdit = { changes: {} };
+  return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
-    if (occurrences == null) return edit;
+    if (token.isCancellationRequested) return { changes: {} };
+    if (occurrences == null) return { changes: {} };
     const renamings = occurrences.map((loc) => TextEdit.replace(ordinal.Location.intoCode(loc), event.newName));
-    edit.changes[event.textDocument.uri] = renamings;
+    const edit: WorkspaceEdit = { changes: { [event.textDocument.uri]: renamings } };
     return edit;
   };
 }

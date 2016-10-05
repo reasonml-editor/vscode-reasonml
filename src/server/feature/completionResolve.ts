@@ -9,7 +9,7 @@ import {
 
 export function handler(session: Session): RequestHandler<CompletionItem, CompletionItem, void> {
   void session; // tslint:disable-line
-  return async (event) => {
+  return (event) => {
     // FIXME: might want to make a separate parser to just strip ocamldoc
     const documentation: string = event.data.documentation
       .replace(/\{\{:.*?\}(.*?)\}/g, "$1")

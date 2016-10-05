@@ -11,8 +11,9 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, DocumentHighlight[], void> {
-  return async (event) => {
+  return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
+    if (token.isCancellationRequested) return [];
     if (occurrences == null) return [];
     const highlights = occurrences.map((loc) => {
       const range = ordinal.Location.intoCode(loc);

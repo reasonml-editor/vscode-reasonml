@@ -24,6 +24,7 @@ export function handler(session: Session): RequestHandler<TextDocumentPositionPa
       return location;
     };
     const locML = await find("ml");
+    if (token.isCancellationRequested) return [];
     // const locMLI = await find("mli"");
     const locations: Location[] = [];
     if (locML != null) locations.push(locML);

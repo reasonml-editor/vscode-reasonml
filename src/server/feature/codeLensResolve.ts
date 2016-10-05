@@ -10,9 +10,10 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<CodeLens, CodeLens, void> {
-  return async (event: CodeLens) => {
+  return async (event, token) => {
     const data: SymbolInformation & { event: TextDocumentPositionParams } = event.data;
     const itemType = await method.getType(session, data.event);
+    if (token.isCancellationRequested) return event;
     if (itemType == null) return event;
     const command = "";
     const title = itemType.type
