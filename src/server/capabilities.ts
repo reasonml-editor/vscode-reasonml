@@ -6,7 +6,7 @@ const capabilities: server.ServerCapabilities = {
   },
   completionProvider: {
     resolveProvider: true,
-    triggerCharacters: [".", "#"],
+    triggerCharacters: ["."],
   },
   definitionProvider: true,
   documentFormattingProvider: true,
