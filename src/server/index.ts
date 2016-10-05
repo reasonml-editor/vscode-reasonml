@@ -12,5 +12,6 @@ session.connection.onDefinition(feature.definition.handler(session));
 session.connection.onDocumentSymbol(feature.documentSymbol.handler(session));
 session.connection.onHover(feature.hover.handler(session));
 session.connection.onReferences(feature.references.handler(session));
+session.connection.onRenameRequest(feature.rename.handler(session));
 session.connection.onRequest({ method: "caseAnalysis" }, feature.caseAnalysis.handler(session));
 session.listen();

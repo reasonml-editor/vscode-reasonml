@@ -9,6 +9,7 @@ import * as documentSymbol from "./documentSymbol";
 import * as hover from "./hover";
 import * as initialize from "./initialize";
 import * as references from "./references";
+import * as rename from "./rename";
 
 export {
   caseAnalysis,
@@ -22,4 +23,5 @@ export {
   hover,
   initialize,
   references,
+  rename,
 }

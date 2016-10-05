@@ -14,6 +14,7 @@ const capabilities: server.ServerCapabilities = {
   documentSymbolProvider: true,
   hoverProvider: true,
   referencesProvider: true,
+  renameProvider: true,
   textDocumentSync: server.TextDocumentSyncKind.Full,
 };
 
