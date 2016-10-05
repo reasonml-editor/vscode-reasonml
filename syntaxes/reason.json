@@ -869,7 +869,7 @@
     },
     "operator-infix-custom": {
       "name": "keyword.operator",
-      "match": "[\\-@*/&%^+<=>$][\\-:!?.@*/&%^+<=>|~$\\\\]*"
+      "match": "[\\-@*/&%^+<=>|$][\\-:!?.@*/&%^+<=>|~$\\\\]*"
     },
     "operator-infix-custom-hash": {
       "name": "keyword.operator",
