@@ -5,10 +5,10 @@ import {
   TextDocumentPositionParams,
 } from "vscode-languageserver";
 
-export default async (session: Session, event: TextDocumentPositionParams): Promise<ordinal.Location[] | undefined> => {
+export default async (session: Session, event: TextDocumentPositionParams): Promise<null | ordinal.Location[]> => {
   const position = merlin.ordinal.Position.fromCode(event.position);
   const request = merlin.command.Query.occurrences.ident.at(position);
   const response = await session.merlin.query(request, event.textDocument.uri);
-  if (response.class !== "return") return undefined;
+  if (response.class !== "return") return null;
   return response.value;
 };

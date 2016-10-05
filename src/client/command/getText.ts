@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
 export function register(reasonClient: client.LanguageClient): void {
-  reasonClient.onRequest<client.TextDocumentPositionParams, string | undefined, void>(
+  reasonClient.onRequest<client.TextDocumentPositionParams, null | string, void>(
     { method: "getText" },
     async (event) => {
       const range = new vscode.Range(
@@ -11,6 +11,6 @@ export function register(reasonClient: client.LanguageClient): void {
       const document = await vscode.workspace.openTextDocument(vscode.Uri.parse(event.textDocument.uri));
       const pattern = /[A-Za-z_][A-Za-z_'0-9]*(?:\.[A-Za-z_][A-Za-z_'0-9]*)*\.?$/;
       const match = pattern.exec(document.getText(range));
-      return match[0] ? match[0] : undefined;
+      return match[0] ? match[0] : null;
     });
 }

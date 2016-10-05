@@ -13,9 +13,9 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, CompletionItem[], void> {
-  return async (event) => {
-    let error = undefined;
-    let prefix: string | undefined = undefined;
+  return async (event, token) => {
+    let error = null;
+    let prefix: null | string = null;
     try {
       prefix = await method.getPrefix(session, event);
     } catch (err) {

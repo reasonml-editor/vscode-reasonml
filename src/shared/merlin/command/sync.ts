@@ -3,7 +3,7 @@ import * as ordinal from "../ordinal";
 export class Sync<I, O> {
   sync: I;
   constructor(sync: I) {
-    void undefined as any as O; // tslint:disable-line:no-unused-expression
+    void null as any as O; // tslint:disable-line:no-unused-expression
     this.sync = sync;
     return this;
   }
@@ -27,6 +27,6 @@ export namespace Sync {
   // tell
   export const tell = (startPos: ordinal.Position, endPos: ordinal.Position, source: string) => new Sync<
     ["tell", ordinal.Position, ordinal.Position, string],
-    undefined
+    null
     >(["tell", startPos, endPos, source]);
 }

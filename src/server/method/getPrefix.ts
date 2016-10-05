@@ -3,7 +3,7 @@ import {
   TextDocumentPositionParams,
 } from "vscode-languageserver";
 
-export default async function(session: Session, event: TextDocumentPositionParams): Promise<string | undefined> {
+export default async function(session: Session, event: TextDocumentPositionParams): Promise<null | string> {
   const method = "getText";
-  return session.connection.sendRequest<TextDocumentPositionParams, string | undefined, void>({ method }, event);
+  return session.connection.sendRequest<TextDocumentPositionParams, null | string, void>({ method }, event);
 }

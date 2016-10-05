@@ -11,11 +11,11 @@ import {
 } from "vscode-languageserver-types";
 
 export function handler(session: Session): RequestHandler<TextDocumentPositionParams, Definition, void> {
-  return async (event) => {
-    const find = async (kind: "ml" | "mli"): Promise<Location | undefined> => {
+  return async (event, token) => {
+    const find = async (kind: "ml" | "mli"): Promise<null | Location> => {
       const request = merlin.command.Query.locate(null, kind).at(merlin.ordinal.Position.fromCode(event.position));
       const response = await session.merlin.query(request, event.textDocument.uri);
-      if (response.class !== "return" || response.value.pos == null) return undefined;
+      if (response.class !== "return" || response.value.pos == null) return null;
       const value = response.value;
       const uri = value.file ? `file://${value.file}` : event.textDocument.uri;
       const position = merlin.ordinal.Position.intoCode(value.pos);

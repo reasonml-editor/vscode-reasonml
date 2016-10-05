@@ -5,7 +5,7 @@ import { ColumnLine, Location, Position } from "../ordinal";
 export class Query<I, O> {
   query: I;
   constructor(query: I) {
-    void undefined as any as O; // tslint:disable-line:no-unused-expression
+    void null as any as O; // tslint:disable-line:no-unused-expression
     this.query = query;
     return this;
   }
@@ -37,9 +37,9 @@ export namespace Query {
   }
 
   // document
-  export const document = (name: string | null) => ({
+  export const document = (name: null | string) => ({
     at: (position: Position) => new Query<
-      ["document", string | null, "at", Position], string
+      ["document", null | string, "at", Position], string
     >(["document", name , "at", position]),
   });
 
@@ -56,9 +56,9 @@ export namespace Query {
   export const errors = () => new Query<["errors"], data.ErrorReport[]>(["errors"]);
 
   // locate
-  export const locate = (name: string | null, kind: "ml" | "mli") => ({
+  export const locate = (name: null | string, kind: "ml" | "mli") => ({
     at: (position: Position) => new Query<
-      ["locate", string | null, ("ml" | "mli"), "at", Position], { file: string; pos: ColumnLine }
+      ["locate", null | string, ("ml" | "mli"), "at", Position], { file: string; pos: ColumnLine }
     >(["locate", name         , kind          , "at", position]),
   });
 
