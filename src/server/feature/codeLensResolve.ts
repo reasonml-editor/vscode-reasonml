@@ -1,5 +1,5 @@
+import * as method from "../method";
 import { Session } from "../session";
-import getType from "./getType";
 import {
   RequestHandler,
   TextDocumentPositionParams,
@@ -12,7 +12,7 @@ import {
 export function handler(session: Session): RequestHandler<CodeLens, CodeLens, void> {
   return async (event: CodeLens) => {
     const data: SymbolInformation & { event: TextDocumentPositionParams } = event.data;
-    const itemType = await getType(session, data.event);
+    const itemType = await method.getType(session, data.event);
     if (itemType == null) return event;
     const command = "";
     const title = itemType.type

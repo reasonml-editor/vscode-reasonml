@@ -1,6 +1,6 @@
+import * as method from "../method";
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
-import getPrefix from "./getPrefix";
 import {
   RequestHandler,
   ResponseError,
@@ -15,7 +15,7 @@ export function handler(session: Session): RequestHandler<TextDocumentPositionPa
     let error = undefined;
     let prefix: string | undefined = undefined;
     try {
-      prefix = await getPrefix(session, event);
+      prefix = await method.getPrefix(session, event);
     } catch (err) {
       // ignore errors from completing ' .'
       error = err;

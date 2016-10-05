@@ -13,6 +13,7 @@ const capabilities: server.ServerCapabilities = {
   documentHighlightProvider: true,
   documentSymbolProvider: true,
   hoverProvider: true,
+  referencesProvider: true,
   textDocumentSync: server.TextDocumentSyncKind.Full,
 };
 

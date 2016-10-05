@@ -5,19 +5,16 @@ import {
   RequestHandler,
   TextDocumentPositionParams,
 } from "vscode-languageserver";
-import {
-  DocumentHighlight,
-  DocumentHighlightKind,
-} from "vscode-languageserver-types";
+import * as types from "vscode-languageserver-types";
 
-export function handler(session: Session): RequestHandler<TextDocumentPositionParams, DocumentHighlight[], void> {
+export function handler(session: Session): RequestHandler<TextDocumentPositionParams, types.Location[], void> {
   return async (event) => {
     const occurrences = await method.getOccurrences(session, event);
     if (occurrences == null) return [];
     const highlights = occurrences.map((loc) => {
+      const uri = event.textDocument.uri;
       const range = ordinal.Location.intoCode(loc);
-      const kind = DocumentHighlightKind.Write;
-      return DocumentHighlight.create(range, kind);
+      return types.Location.create(uri, range);
     });
     return highlights;
   };

@@ -8,6 +8,7 @@ import * as documentHighlight from "./documentHighlight";
 import * as documentSymbol from "./documentSymbol";
 import * as hover from "./hover";
 import * as initialize from "./initialize";
+import * as references from "./references";
 
 export {
   caseAnalysis,
@@ -20,4 +21,5 @@ export {
   documentSymbol,
   hover,
   initialize,
+  references,
 }
