@@ -41,18 +41,36 @@ export class Session {
   );
   readonly merlin = new merlin.Session();
   readonly synchronizer: Synchronizer;
+  readonly state: {
+    codeLenses: types.CodeLens[];
+    codeLensesResolved: Map<string, string>;
+    diagnostics: "clean" | "dirty";
+  } = {
+    codeLenses: [],
+    codeLensesResolved: new Map(),
+    diagnostics: "clean",
+  };
 
   constructor() {
     this.synchronizer = new Synchronizer(this);
     return this;
   }
 
-  diagnosticsRefresh = _.debounce(async (event: types.TextDocumentIdentifier): Promise<void> => { // tslint:disable-line
-    const errorResponse = await this.merlin.query(merlin.Query.errors(), event.uri);
-    if (errorResponse.class !== "return") return;
-    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+  diagnosticsRefresh = _.debounce(async (event: types.TextDocumentIdentifier) => { // tslint:disable-line
+    const diagnostics = await this.getDiagnostics(event);
     this.connection.sendDiagnostics({ diagnostics, uri: event.uri });
   }, 500, { trailing: true });
+
+  async getDiagnostics(event: types.TextDocumentIdentifier): Promise<types.Diagnostic[]> {
+    const errorResponse = await this.merlin.query(merlin.Query.errors(), event.uri);
+    if (errorResponse.class !== "return") return [];
+    this.state.diagnostics = "clean";
+    for (const report of errorResponse.value) {
+      if (report && report.type !== "warning") this.state.diagnostics = "dirty";
+    }
+    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+    return diagnostics;
+  }
 
   diagnosticsClear(event: types.TextDocumentIdentifier): void {
     const diagnostics = [];
