@@ -1,17 +1,15 @@
 import * as merlin from "../process/merlin";
 import { Session } from "../session";
-import {
-  TextDocumentPositionParams,
-} from "vscode-languageserver";
+import * as server from "vscode-languageserver";
 
-export default async (session: Session, event: TextDocumentPositionParams): Promise<null | {
-  end: merlin.ordinal.Position;
-  start: merlin.ordinal.Position;
-  tail: merlin.data.TailPosition;
+export default async (session: Session, event: server.TextDocumentPositionParams): Promise<null | {
+  end: merlin.Position;
+  start: merlin.Position;
+  tail: merlin.TailPosition;
   type: string;
 }> => {
-  const position = merlin.ordinal.Position.fromCode(event.position);
-  const request = merlin.command.Query.type.enclosing.at(position);
+  const position = merlin.Position.fromCode(event.position);
+  const request = merlin.Query.type.enclosing.at(position);
   const response = await session.merlin.query(request, event.textDocument.uri);
   if (response.class !== "return") return null;
   return (response.value.length > 0) ? response.value[0] : null;

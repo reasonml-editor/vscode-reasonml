@@ -1,17 +1,11 @@
+import * as types from "../../shared/types";
 import * as method from "../method";
 import { Session } from "../session";
-import {
-  RequestHandler,
-  TextDocumentPositionParams,
-} from "vscode-languageserver";
-import {
-  CodeLens,
-  SymbolInformation,
-} from "vscode-languageserver-types";
+import * as server from "vscode-languageserver";
 
-export function handler(session: Session): RequestHandler<CodeLens, CodeLens, void> {
+export function handler(session: Session): server.RequestHandler<types.CodeLens, types.CodeLens, void> {
   return async (event, token) => {
-    const data: SymbolInformation & { event: TextDocumentPositionParams } = event.data;
+    const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = event.data;
     const itemType = await method.getType(session, data.event);
     if (token.isCancellationRequested) return event;
     if (itemType == null) return event;

@@ -1,9 +1,7 @@
 import { Session } from "../session";
-import {
-  TextDocumentPositionParams,
-} from "vscode-languageserver";
+import * as server from "vscode-languageserver";
 
-export default async function(session: Session, event: TextDocumentPositionParams): Promise<null | string> {
+export default async function(session: Session, event: server.TextDocumentPositionParams): Promise<null | string> {
   const method = { method: "getPrefix" };
-  return session.connection.sendRequest<TextDocumentPositionParams, null | string, void>(method, event);
+  return session.connection.sendRequest<server.TextDocumentPositionParams, null | string, void>(method, event);
 }

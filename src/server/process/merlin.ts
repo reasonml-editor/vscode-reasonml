@@ -1,8 +1,6 @@
-import {
-  command,
-  response,
-} from "../../shared/merlin";
+import * as merlin from "../../shared/merlin";
 import * as child_process from "child_process";
+import * as _ from "lodash";
 import * as readline from "readline";
 
 export * from "../../shared/merlin";
@@ -25,18 +23,17 @@ export class Session {
   }
   question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
     const request = context ? { context, query } : query;
-    const promise: Promise<O> = this.pending.then(() => new Promise((resolve) => {
-      this.readline.question(JSON.stringify(request), (answer) => resolve(JSON.parse(answer)));
-    }));
+    const promise: Promise<O> = this.pending.then(() => new Promise((resolve) =>
+      this.readline.question(JSON.stringify(request), _.flow(JSON.parse, resolve))));
     this.pending = promise.then(() => Promise.resolve());
     return promise;
   }
-  query<I, O>(request: command.Query<I, O>, path?: string): response.Response<O> {
+  query<I, O>(request: merlin.Query<I, O>, path?: string): merlin.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, response.MerlinResponse<O>>(request.query, context);
+    return this.question<I, merlin.MerlinResponse<O>>(request.query, context);
   }
-  sync<I, O>(request: command.Sync<I, O>, path?: string): response.Response<O> {
+  sync<I, O>(request: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, response.MerlinResponse<O>>(request.sync, context);
+    return this.question<I, merlin.MerlinResponse<O>>(request.sync, context);
   }
 }

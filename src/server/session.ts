@@ -1,4 +1,5 @@
 import * as merlin from "./process/merlin";
+import * as _ from "lodash";
 import * as server from "vscode-languageserver";
 import * as types from "vscode-languageserver-types";
 
@@ -6,7 +7,7 @@ export class Synchronizer extends server.TextDocuments {
   constructor(session: Session) {
     super();
     this.onDidChangeContent(async (event) => {
-      const request = merlin.command.Sync.tell("start", "end", event.document.getText());
+      const request = merlin.Sync.tell("start", "end", event.document.getText());
       await session.merlin.sync(request, event.document.uri);
       session.diagnosticsRefresh(event);
     });
@@ -14,7 +15,7 @@ export class Synchronizer extends server.TextDocuments {
       session.diagnosticsClear(event);
     });
     this.onDidOpen(async (event) => {
-      const request = merlin.command.Sync.tell("start", "end", event.document.getText());
+      const request = merlin.Sync.tell("start", "end", event.document.getText());
       await session.merlin.sync(request, event.document.uri);
       session.diagnosticsRefresh(event);
     });
@@ -32,49 +33,24 @@ export class Session {
   );
   readonly merlin = new merlin.Session();
   readonly synchronizer: Synchronizer;
-  private readonly config: {
-    diagnostics: {
-      delay: number;
-    };
-  } = {
-    diagnostics: {
-      delay: 250,
-    },
-  };
-  private readonly symbol: {
-    timeout: {
-      diagnostics: symbol;
-    };
-  } = {
-    timeout: {
-      diagnostics: Symbol(),
-    },
-  };
+
+  diagnosticsRefresh = _.debounce(async (event: types.TextDocumentChangeEvent): Promise<void> => {
+    const errorResponse = await this.merlin.query(merlin.Query.errors(), event.document.uri);
+    if (errorResponse.class !== "return") return;
+    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+    const uri = event.document.uri;
+    this.connection.sendDiagnostics({ diagnostics, uri });
+  }, 500);
 
   constructor() {
     this.synchronizer = new Synchronizer(this);
     return this;
   }
 
-  async diagnosticsClear(event: types.TextDocumentChangeEvent): Promise<void> {
-    this.connection.sendDiagnostics({
-      diagnostics: [],
-      uri: event.document.uri,
-    });
-  }
-
-  async diagnosticsRefresh(event: types.TextDocumentChangeEvent): Promise<void> {
-    this.diagnosticsClear(event);
-    const handle = this.symbol.timeout.diagnostics;
-    const object: { [key: string]: number } = event.document as any;
-    clearTimeout(object[handle]);
-    object[handle] = setTimeout(async () => {
-      const errorResponse = await this.merlin.query(merlin.command.Query.errors(), event.document.uri);
-      if (errorResponse.class === "return") {
-        const diagnostics = errorResponse.value.map(merlin.data.ErrorReport.intoCode);
-        this.connection.sendDiagnostics({ uri: event.document.uri, diagnostics });
-      }
-    }, this.config.diagnostics.delay);
+  diagnosticsClear(event: types.TextDocumentChangeEvent): void {
+    const diagnostics = [];
+    const uri = event.document.uri;
+    this.connection.sendDiagnostics({ diagnostics, uri });
   }
 
   listen() {

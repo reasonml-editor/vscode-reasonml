@@ -1,22 +1,16 @@
-import * as ordinal from "../../shared/merlin/ordinal";
+import * as merlin from "../../shared/merlin";
+import * as types from "../../shared/types";
 import * as method from "../method";
 import { Session } from "../session";
-import {
-  RenameParams,
-  RequestHandler,
-} from "vscode-languageserver";
-import {
-  TextEdit,
-  WorkspaceEdit,
-} from "vscode-languageserver-types";
+import * as server from "vscode-languageserver";
 
-export function handler(session: Session): RequestHandler<RenameParams, WorkspaceEdit, void> {
+export function handler(session: Session): server.RequestHandler<server.RenameParams, types.WorkspaceEdit, void> {
   return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
     if (token.isCancellationRequested) return { changes: {} };
     if (occurrences == null) return { changes: {} };
-    const renamings = occurrences.map((loc) => TextEdit.replace(ordinal.Location.intoCode(loc), event.newName));
-    const edit: WorkspaceEdit = { changes: { [event.textDocument.uri]: renamings } };
+    const renamings = occurrences.map((loc) => types.TextEdit.replace(merlin.Location.intoCode(loc), event.newName));
+    const edit: types.WorkspaceEdit = { changes: { [event.textDocument.uri]: renamings } };
     return edit;
   };
 }

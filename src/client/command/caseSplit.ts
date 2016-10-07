@@ -1,15 +1,14 @@
 import * as merlin from "../../shared/merlin";
+import * as types from "../../shared/types";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import * as types from "vscode-languageserver-types";
 
-export function execute(editor: vscode.TextEditor, destruct: merlin.data.Case.Destruct): void {
+export function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): void {
   const [{ end, start }, content] = destruct;
   editor.edit((editBuilder) => {
     const range = new vscode.Range(
       new vscode.Position(start.line - 1, start.col),
-      new vscode.Position(end.line - 1, end.col),
-    );
+      new vscode.Position(end.line - 1, end.col));
     const cases = format(editor, content);
     editBuilder.replace(range, cases);
   });
@@ -54,18 +53,15 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
   context.subscriptions.push(vscode.commands.registerCommand("reasonml.caseSplit", async () => {
     const editor = vscode.window.activeTextEditor;
     const textDocument = { uri: editor.document.uri.toString() };
-    if (editor.selection.isEmpty) {
-      await vscode.commands.executeCommand("expand_region");
-    }
+    if (editor.selection.isEmpty) await vscode.commands.executeCommand("expand_region");
     const range = types.Range.create(
       editor.selection.start.line, editor.selection.start.character,
       editor.selection.end.line, editor.selection.end.character,
     );
-    const method = "caseAnalysis";
+    const method = { method: "caseAnalysis" };
+    const params = { range, textDocument };
     try {
-      const response = await reasonClient.sendRequest<
-        { range: types.Range, textDocument: { uri: string } }, merlin.data.Case.Destruct, void
-        >({ method }, { range, textDocument });
+      const response = await reasonClient.sendRequest<types.DocumentRange, merlin.Case.Destruct, void>(method, params);
       execute(editor, response);
     } catch (err) {
       // vscode.window.showErrorMessage(JSON.stringify(err));

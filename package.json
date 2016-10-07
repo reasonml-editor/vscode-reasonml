@@ -120,11 +120,13 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.36",
     "tslint": "^3.13.0",
     "typescript": "^2.0.3",
     "vscode": "^0.11.0"
   },
   "dependencies": {
+    "lodash": "^4.15.0",
     "nearley": "^2.7.3",
     "vscode-jsonrpc": "^2.4.0",
     "vscode-languageclient": "^2.5.0",
