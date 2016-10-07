@@ -1,9 +1,10 @@
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
-export function register(reasonClient: client.LanguageClient): void {
+export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
+  void context; // tslint:disable-line
   reasonClient.onRequest<client.TextDocumentPositionParams, null | string, void>(
-    { method: "getText" },
+    { method: "getPrefix" },
     async (event) => {
       const range = new vscode.Range(
         new vscode.Position(event.position.line, 0),
