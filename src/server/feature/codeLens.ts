@@ -12,15 +12,10 @@ const annotateKinds = new Set([
 export function handler(session: session.Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
   return async (event, token) => {
     if (/\.rei$/.test(event.textDocument.uri)) return [];
-
-    await session.getDiagnostics(event.textDocument);
-    if (session.state.diagnostics === "dirty") return session.state.codeLenses;
-
     const request = merlin.Query.outline();
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
-
     const textDocData = await method.getTextDocument(session, event.textDocument);
     const textDoc = types.TextDocument.create(
       event.textDocument.uri,
@@ -28,7 +23,6 @@ export function handler(session: session.Session): server.RequestHandler<server.
       textDocData.version,
       textDocData.content);
     if (token.isCancellationRequested) return [];
-
     const symbols = merlin.Outline.intoCode(response.value, event.textDocument.uri);
     let codeLenses: types.CodeLens[] = [];
     for (const item of symbols) {
@@ -39,7 +33,8 @@ export function handler(session: session.Session): server.RequestHandler<server.
         };
         const textLine = textDoc.getText().substring(
           textDoc.offsetAt(item.location.range.start),
-          textDoc.offsetAt(item.location.range.end));
+          textDoc.offsetAt(item.location.range.end),
+        );
         if (textLine != null) {
           const matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)/);
           if (matches != null) {
@@ -59,6 +54,6 @@ export function handler(session: session.Session): server.RequestHandler<server.
         }
       }
     }
-    return (session.state.codeLenses = codeLenses);
+    return codeLenses;
   };
 }

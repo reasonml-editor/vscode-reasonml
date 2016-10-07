@@ -2,7 +2,6 @@ import * as feature from "./feature";
 import { Session } from "./session";
 
 const session = new Session();
-session.listen();
 session.connection.onInitialize(feature.initialize.handler(session));
 session.connection.onDocumentHighlight(feature.documentHighlight.handler(session));
 session.connection.onCodeLens(feature.codeLens.handler(session));
@@ -15,3 +14,4 @@ session.connection.onHover(feature.hover.handler(session));
 session.connection.onReferences(feature.references.handler(session));
 session.connection.onRenameRequest(feature.rename.handler(session));
 session.connection.onRequest({ method: "caseAnalysis" }, feature.caseAnalysis.handler(session));
+session.listen();
