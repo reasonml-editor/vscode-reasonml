@@ -1,4 +1,5 @@
 import * as types from "../../shared/types";
+import * as method from "../method";
 import * as merlin from "../process/merlin";
 import * as session from "../session";
 import * as rpc from "vscode-jsonrpc";
@@ -15,6 +16,13 @@ export function handler(session: session.Session): server.RequestHandler<server.
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
+    const textDocData = await method.getTextDocument(session, event.textDocument);
+    const textDoc = types.TextDocument.create(
+      event.textDocument.uri,
+      textDocData.languageId,
+      textDocData.version,
+      textDocData.content);
+    if (token.isCancellationRequested) return [];
     const symbols = merlin.Outline.intoCode(response.value, event.textDocument.uri);
     let codeLenses: types.CodeLens[] = [];
     for (const item of symbols) {
@@ -23,7 +31,6 @@ export function handler(session: session.Session): server.RequestHandler<server.
           position: types.Position.create(item.location.range.start.line, item.location.range.start.character),
           textDocument: event.textDocument,
         };
-        const textDoc = session.synchronizer.get(event.textDocument.uri);
         const textLine = textDoc.getText().substring(
           textDoc.offsetAt(item.location.range.start),
           textDoc.offsetAt(item.location.range.end),

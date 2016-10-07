@@ -61,7 +61,7 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
     const method = { method: "caseAnalysis" };
     const params = { range, textDocument };
     try {
-      const response = await reasonClient.sendRequest<types.DocumentRange, merlin.Case.Destruct, void>(method, params);
+      const response = await reasonClient.sendRequest<types.TextDocumentRange, merlin.Case.Destruct, void>(method, params);
       execute(editor, response);
     } catch (err) {
       // vscode.window.showErrorMessage(JSON.stringify(err));

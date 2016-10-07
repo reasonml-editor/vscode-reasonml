@@ -3,26 +3,34 @@ import * as _ from "lodash";
 import * as server from "vscode-languageserver";
 import * as types from "vscode-languageserver-types";
 
-export class Synchronizer extends server.TextDocuments {
+export class Synchronizer {
+  private session: Session;
   constructor(session: Session) {
-    super();
-    this.onDidChangeContent(async (event) => {
-      const request = merlin.Sync.tell("start", "end", event.document.getText());
-      await session.merlin.sync(request, event.document.uri);
-      session.diagnosticsRefresh(event);
-    });
-    this.onDidClose(async (event) => {
-      session.diagnosticsClear(event);
-    });
-    this.onDidOpen(async (event) => {
-      const request = merlin.Sync.tell("start", "end", event.document.getText());
-      await session.merlin.sync(request, event.document.uri);
-      session.diagnosticsRefresh(event);
-    });
-    this.onDidSave(async (event) => {
-      session.diagnosticsRefresh(event);
-    });
+    this.session = session;
     return this;
+  }
+  listen() {
+    this.session.connection.onDidCloseTextDocument((event) => {
+      this.session.diagnosticsClear(event.textDocument);
+    });
+
+    this.session.connection.onDidOpenTextDocument(async (event) => {
+      const request = merlin.Sync.tell("start", "end", event.textDocument.text);
+      await this.session.merlin.sync(request, event.textDocument.uri);
+      this.session.diagnosticsRefresh(event.textDocument);
+    });
+
+    this.session.connection.onDidChangeTextDocument(async (event) => {
+      for (const change of event.contentChanges) {
+        if (change && change.range) {
+          const startPos = merlin.Position.fromCode(change.range.start);
+          const endPos = merlin.Position.fromCode(change.range.end);
+          const request = merlin.Sync.tell(startPos, endPos, change.text);
+          await this.session.merlin.sync(request, event.textDocument.uri);
+        }
+      }
+      this.session.diagnosticsRefresh(event.textDocument);
+    });
   }
 }
 
@@ -34,27 +42,26 @@ export class Session {
   readonly merlin = new merlin.Session();
   readonly synchronizer: Synchronizer;
 
-  diagnosticsRefresh = _.debounce(async (event: types.TextDocumentChangeEvent): Promise<void> => {
-    const errorResponse = await this.merlin.query(merlin.Query.errors(), event.document.uri);
-    if (errorResponse.class !== "return") return;
-    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
-    const uri = event.document.uri;
-    this.connection.sendDiagnostics({ diagnostics, uri });
-  }, 500);
-
   constructor() {
     this.synchronizer = new Synchronizer(this);
     return this;
   }
 
-  diagnosticsClear(event: types.TextDocumentChangeEvent): void {
+  diagnosticsRefresh = _.debounce(async (event: types.TextDocumentIdentifier): Promise<void> => { // tslint:disable-line
+    const errorResponse = await this.merlin.query(merlin.Query.errors(), event.uri);
+    if (errorResponse.class !== "return") return;
+    const diagnostics = errorResponse.value.map(merlin.ErrorReport.intoCode);
+    this.connection.sendDiagnostics({ diagnostics, uri: event.uri });
+  }, 500, { trailing: true });
+
+  diagnosticsClear(event: types.TextDocumentIdentifier): void {
     const diagnostics = [];
-    const uri = event.document.uri;
+    const uri = event.uri;
     this.connection.sendDiagnostics({ diagnostics, uri });
   }
 
   listen() {
-    this.synchronizer.listen(this.connection);
+    this.synchronizer.listen();
     this.connection.listen();
   }
 }

@@ -15,7 +15,7 @@ const capabilities: server.ServerCapabilities = {
   hoverProvider: true,
   referencesProvider: true,
   renameProvider: true,
-  textDocumentSync: server.TextDocumentSyncKind.Full,
+  textDocumentSync: server.TextDocumentSyncKind.Incremental,
 };
 
 export default capabilities;
