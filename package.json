@@ -102,7 +102,16 @@
       {
         "id": "reason.hover.type"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "reasonml.caseSplit",
+          "group": "reasonml",
+          "when": "editorTextFocus && resourceLangId == reason"
+        }
+      ]
+    }
   },
   "scripts": {
     "compile": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile -watch -p ./",
