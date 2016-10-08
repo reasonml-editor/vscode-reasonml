@@ -14,7 +14,7 @@ Reason support for Visual Studio Code
 - [x] type and documentation on hover
 - [x] jump-to-definition (⌃+click or ⌘+hover)
 - [x] [case splitting](#case-splitting)
-- [ ] formatting integration
+- [x] formatting integration
 - [ ] build tool integration
 - [ ] debugger integration
 - [ ] toplevel integration
