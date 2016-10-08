@@ -10,6 +10,7 @@ export default function(session: Session): server.RequestHandler<server.Document
     if (token.isCancellationRequested) return [];
     const otxt = await method.getFormatted(idoc);
     if (token.isCancellationRequested) return [];
+    if (otxt == null) return [];
     const edits: types.TextEdit[] = [];
     edits.push(
       types.TextEdit.replace(
