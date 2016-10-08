@@ -1,10 +1,10 @@
 import * as ordinal from "../../shared/merlin/ordinal";
+import * as types from "../../shared/types";
 import * as method from "../method";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
-import * as types from "vscode-languageserver-types";
 
-export function handler(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.Location[], void> {
+export default function(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.Location[], void> {
   return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
     if (token.isCancellationRequested) return [];

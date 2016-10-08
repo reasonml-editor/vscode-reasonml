@@ -3,7 +3,7 @@ import * as types from "../../shared/types";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<types.CompletionItem, types.CompletionItem, void> {
+export default function(session: Session): server.RequestHandler<types.CompletionItem, types.CompletionItem, void> {
   void session; // tslint:disable-line
   return (event) => {
     // FIXME: might want to make a separate parser to just strip ocamldoc

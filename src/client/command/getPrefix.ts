@@ -11,6 +11,6 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
       new vscode.Position(event.position.line, 0),
       new vscode.Position(event.position.line, event.position.character));
     const match = pattern.exec(document.getText(range));
-    return match[0] ? match[0] : null;
+    return match[0] || null;
   });
 }

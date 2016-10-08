@@ -1,9 +1,9 @@
+import * as merlin from "../../shared/merlin";
 import capabilities from "../capabilities";
-import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<server.InitializeParams, server.InitializeResult, server.InitializeError> {
+export default function(session: Session): server.RequestHandler<server.InitializeParams, server.InitializeResult, server.InitializeError> {
   return async () => {
     const request = merlin.Sync.protocol.version.set(3);
     const response = await session.merlin.sync(request);

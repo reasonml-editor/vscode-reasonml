@@ -4,7 +4,7 @@ import * as method from "../method";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<server.RenameParams, types.WorkspaceEdit, void> {
+export default function(session: Session): server.RequestHandler<server.RenameParams, types.WorkspaceEdit, void> {
   return async (event, token) => {
     const occurrences = await method.getOccurrences(session, event);
     if (token.isCancellationRequested) return { changes: {} };

@@ -1,7 +1,8 @@
-import * as merlin from "./process/merlin";
+import * as merlin from "../shared/merlin";
+import * as types from "../shared/types";
+import * as processes from "./processes";
 import * as _ from "lodash";
 import * as server from "vscode-languageserver";
-import * as types from "vscode-languageserver-types";
 
 export class Synchronizer {
   private session: Session;
@@ -39,7 +40,7 @@ export class Session {
     new server.IPCMessageReader(process),
     new server.IPCMessageWriter(process),
   );
-  readonly merlin = new merlin.Session();
+  readonly merlin = new processes.Merlin();
   readonly synchronizer: Synchronizer;
 
   constructor() {

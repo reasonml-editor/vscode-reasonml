@@ -1,6 +1,6 @@
+import * as merlin from "../../shared/merlin";
 import * as types from "../../shared/types";
 import * as method from "../method";
-import * as merlin from "../process/merlin";
 import * as session from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
@@ -9,7 +9,7 @@ const annotateKinds = new Set([
   types.SymbolKind.Variable,
 ]);
 
-export function handler(session: session.Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
+export default function(session: session.Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
   return async (event, token) => {
     if (/\.rei$/.test(event.textDocument.uri)) return [];
     const request = merlin.Query.outline();

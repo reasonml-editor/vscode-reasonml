@@ -1,11 +1,11 @@
+import * as merlin from "../../shared/merlin";
+import * as types from "../../shared/types";
 import * as method from "../method";
-import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
-import * as types from "vscode-languageserver-types";
 
-export function handler(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.CompletionItem[], void> {
+export default function(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.CompletionItem[], void> {
   return async (event, token) => {
     let prefix: null | string = null;
     try {
@@ -20,7 +20,7 @@ export function handler(session: Session): server.RequestHandler<server.TextDocu
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new rpc.ResponseError(-1, "onCompletion: failed", undefined);
-    const entries = response.value.entries ? response.value.entries : [];
+    const entries = response.value.entries || [];
     return entries.map(merlin.Completion.intoCode);
   };
 }

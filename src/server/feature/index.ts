@@ -1,15 +1,18 @@
-import * as caseAnalysis from "./caseAnalysis";
-import * as codeLens from "./codeLens";
-import * as codeLensResolve from "./codeLensResolve";
-import * as completion from "./completion";
-import * as completionResolve from "./completionResolve";
-import * as definition from "./definition";
-import * as documentHighlight from "./documentHighlight";
-import * as documentSymbol from "./documentSymbol";
-import * as hover from "./hover";
-import * as initialize from "./initialize";
-import * as references from "./references";
-import * as rename from "./rename";
+import caseAnalysis from "./caseAnalysis";
+import codeLens from "./codeLens";
+import codeLensResolve from "./codeLensResolve";
+import completion from "./completion";
+import completionResolve from "./completionResolve";
+import definition from "./definition";
+import documentFormatting from "./documentFormatting";
+import documentHighlight from "./documentHighlight";
+import documentOnTypeFormatting from "./documentOnTypeFormatting";
+import documentRangeFormatting from "./documentRangeFormatting";
+import documentSymbol from "./documentSymbol";
+import hover from "./hover";
+import initialize from "./initialize";
+import references from "./references";
+import rename from "./rename";
 
 export {
   caseAnalysis,
@@ -18,7 +21,10 @@ export {
   completion,
   completionResolve,
   definition,
+  documentFormatting,
   documentHighlight,
+  documentOnTypeFormatting,
+  documentRangeFormatting,
   documentSymbol,
   hover,
   initialize,

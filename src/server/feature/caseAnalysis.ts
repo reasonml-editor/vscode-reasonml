@@ -1,9 +1,9 @@
+import * as merlin from "../../shared/merlin";
 import * as types from "../../shared/types";
-import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<types.TextDocumentRange, Promise<null | merlin.Case.Destruct>, void> {
+export default function (session: Session): server.RequestHandler<types.TextDocumentRange, Promise<null | merlin.Case.Destruct>, void> {
   return async (event, token) => {
     const start = merlin.Position.fromCode(event.range.start);
     const end = merlin.Position.fromCode(event.range.end);

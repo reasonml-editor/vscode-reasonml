@@ -1,10 +1,10 @@
+import * as merlin from "../../shared/merlin";
 import * as types from "../../shared/types";
-import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<server.DocumentSymbolParams, types.SymbolInformation[], void> {
+export default function(session: Session): server.RequestHandler<server.DocumentSymbolParams, types.SymbolInformation[], void> {
   return async (event, token) => {
     const request = merlin.Query.outline();
     const response = await session.merlin.query(request, event.textDocument.uri);

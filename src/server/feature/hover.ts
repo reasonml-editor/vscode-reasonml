@@ -1,11 +1,11 @@
+import * as merlin from "../../shared/merlin";
 import * as ocamldoc from "../../shared/ocamldoc";
 import * as types from "../../shared/types";
 import * as method from "../method";
-import * as merlin from "../process/merlin";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.Hover, void> {
+export default function(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.Hover, void> {
   return async (event, token) => {
     const markedStrings: types.MarkedString[] = [];
     const itemType = await method.getType(session, event);

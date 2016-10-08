@@ -3,9 +3,7 @@ import * as child_process from "child_process";
 import * as _ from "lodash";
 import * as readline from "readline";
 
-export * from "../../shared/merlin";
-
-export class Session {
+export default class Merlin {
   private pending: Promise<void> = Promise.resolve();
   private process: child_process.ChildProcess;
   private readline: readline.ReadLine;

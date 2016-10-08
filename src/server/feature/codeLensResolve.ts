@@ -3,7 +3,7 @@ import * as method from "../method";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
-export function handler(session: Session): server.RequestHandler<types.CodeLens, types.CodeLens, void> {
+export default function(session: Session): server.RequestHandler<types.CodeLens, types.CodeLens, void> {
   return async (event, token) => {
     const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = event.data;
     const itemType = await method.getType(session, data.event);
