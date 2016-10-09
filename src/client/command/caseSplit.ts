@@ -50,7 +50,7 @@ export namespace format {
 }
 
 export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
-  context.subscriptions.push(vscode.commands.registerCommand("reasonml.caseSplit", async () => {
+  context.subscriptions.push(vscode.commands.registerCommand("reason.caseSplit", async () => {
     const editor = vscode.window.activeTextEditor;
     const textDocument = { uri: editor.document.uri.toString() };
     const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);

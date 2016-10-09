@@ -29,7 +29,7 @@
   "contributes": {
     "commands": [
       {
-        "command": "reasonml.caseSplit",
+        "command": "reason.caseSplit",
         "title": "Reason: case split"
       }
     ],
@@ -106,12 +106,18 @@
     "menus": {
       "editor/context": [
         {
-          "command": "reasonml.caseSplit",
-          "group": "reasonml",
+          "command": "reason.caseSplit",
+          "group": "reason",
           "when": "editorTextFocus && resourceLangId == reason"
         }
       ]
-    }
+    },
+		"snippets": [
+			{
+				"language": "reason",
+				"path": "./snippets/reason.json"
+			}
+		]
   },
   "scripts": {
     "compile": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile -watch -p ./",

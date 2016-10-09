@@ -7,7 +7,7 @@ Reason support for Visual Studio Code
 ## Feature Status
 
 - [x] advanced syntax highlighting
-- [x] completion
+- [x] completion and snippets
 - [x] linting
 - [x] outline view for symbols (⇧⌘O) (type `:` in list to sort items)
 - [x] types over `let` bindings (disable with `editor.codeLens` setting)

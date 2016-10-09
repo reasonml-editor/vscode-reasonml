@@ -86,22 +86,23 @@
         { "include": "#module-item-let-value-bind-name-params-type-body" }
       ]
     },
-    "comment": {
-      "patterns": [
-        {
-          "contentName": "comment.block.reason",
-          "begin": "\\s*+((/\\*))",
-          "end": "(\\s*(\\*/))",
-          "captures": {
-            "1": { "name": "comment.block.reason" },
-            "2": { "name": "punctuation.definition.comment.reason" }
-          },
-          "patterns": [
-            { "include": "#comment" }
-          ]
-        }
-      ]
-    },
+		"comment": {
+			"name": "comment.ts",
+			"patterns": [
+				{ "include": "#comment-block-doc" },
+				{	"include": "#comment-block"	}
+			]
+		},
+		"comment-block": {
+			"begin": "/\\*",
+			"end": "\\*/",
+			"name": "comment.block.reason"
+		},
+		"comment-block-doc": {
+			"begin": "/\\*\\*(?!/)",
+			"end": "\\*/",
+			"name": "comment.block.documentation.reason"
+		},
     "extension-node": {
       "begin": "(?=\\[(%{1,3})[[:space:]]*[A-Za-z])",
       "end": "\\]",
