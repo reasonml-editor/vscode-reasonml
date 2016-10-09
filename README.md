@@ -9,7 +9,7 @@ Reason support for Visual Studio Code
 - [x] advanced syntax highlighting
 - [x] completion
 - [x] linting
-- [x] outline view for symbols (⇧⌘O)
+- [x] outline view for symbols (⇧⌘O) (type `:` in list to sort items)
 - [x] types over `let` bindings (disable with `editor.codeLens` setting)
 - [x] type and documentation on hover
 - [x] jump-to-definition (⌃+click or ⌘+hover)
