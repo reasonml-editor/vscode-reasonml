@@ -53,18 +53,19 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
   context.subscriptions.push(vscode.commands.registerCommand("reasonml.caseSplit", async () => {
     const editor = vscode.window.activeTextEditor;
     const textDocument = { uri: editor.document.uri.toString() };
-    if (editor.selection.isEmpty) await vscode.commands.executeCommand("expand_region");
-    const range = types.Range.create(
-      editor.selection.start.line, editor.selection.start.character,
-      editor.selection.end.line, editor.selection.end.character,
-    );
+    const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);
+    const range = types.Range.create(rangeCode.start, rangeCode.end);
     const method = { method: "caseAnalysis" };
     const params = { range, textDocument };
     try {
       const response = await reasonClient.sendRequest<types.TextDocumentRange, merlin.Case.Destruct, void>(method, params);
       execute(editor, response);
-    } catch (err) {
+    } catch (err) { // FIXME: clean this up
       // vscode.window.showErrorMessage(JSON.stringify(err));
+      const pattern = /Destruct not allowed on non-immediate type/;
+      if (pattern.test(err)) {
+        vscode.window.showWarningMessage("More type info needed for case split; try adding an annotation somewhere, e.g., (pattern: type).");
+      }
     }
   }));
 }

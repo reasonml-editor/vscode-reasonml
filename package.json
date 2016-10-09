@@ -132,5 +132,7 @@
     "vscode-languageclient": "^2.5.0",
     "vscode-languageserver": "^2.5.0",
     "vscode-languageserver-types": "^1.0.3"
-  }
+  },
+  "extensionDependencies": [
+  ]
 }
