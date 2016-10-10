@@ -129,6 +129,91 @@
         }
       ]
     },
+    "jsx": {
+      "comment": "(<)([_A-Za-z][_'0-9A-Za-z]*(?:\\.[_A-Za-z][_'0-9A-Za-z]*)*)",
+      "begin": "(<)(?=[_A-Za-z])",
+      "end": "(/>)|(?:(</)([_A-Za-z][_'0-9A-Za-z]*(?:\\.[_A-Za-z][_'0-9A-Za-z]*)*)(>))",
+      "applyEndPatternLast": true,
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" },
+        "2": { "name": "entity.name.function" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.operator" },
+        "2": { "name": "keyword.operator" },
+        "3": { "name": "entity.name.function" },
+        "4": { "name": "keyword.operator" }
+      },
+      "patterns": [
+        {
+          "begin": "\\G",
+          "end": "(?=[[:space:]>])",
+          "patterns": [
+            {
+              "begin": "\\b([A-Z][_'0-9A-Za-z]*)\\b[[:space:]]*(\\.)",
+              "end": "(?=[[:space:]/>])",
+              "beginCaptures": {
+                "1": { "name": "entity.name.class" },
+                "2": { "name": "keyword.operator" }
+              },
+              "patterns": [
+                {
+                  "comment": "FIXME: make into named pattern",
+                  "match": "(?:\\G|^)[[:space:]]*\\b([_A-Z][_'0-9A-Za-z]*)\\b",
+                  "name": "name.entity.class"
+                },
+                {
+                  "comment": "FIXME: make into named pattern",
+                  "match": "(?:\\G|^)[[:space:]]*\\b([_a-z][_'0-9A-Za-z]*)\\b",
+                  "name": "name.entity.function"
+                }
+              ]
+            },
+            {
+              "comment": "FIXME: make into named pattern",
+              "match": "(?:\\G|^)[[:space:]]*\\b([_A-Z][_'0-9A-Za-z]*)\\b",
+              "name": "name.entity.class"
+            },
+            {
+              "comment": "FIXME: make into named pattern",
+              "match": "(?:\\G|^)[[:space:]]*\\b([_a-z][_'0-9A-Za-z]*)\\b",
+              "name": "name.entity.function"
+            }
+          ]
+        },
+        { "include": "#jsx-attributes" },
+        { "include": "#jsx-body" }
+      ]
+    },
+    "jsx-attributes": {
+      "patterns": [
+        {
+          "begin": "\\b([a-z][_'0-9A-Za-z]*)\\b[[:space:]]*(=)",
+          "end": "(?<![=])(?=[/>a-z])",
+          "beginCaptures": {
+            "1": { "name": "constant.language" },
+            "2": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#value-expression-atomic" }
+          ]
+        },
+        {
+          "match": "\\b([a-z][_'0-9A-Za-z]*)\\b",
+          "name": "constant.language"
+        }
+      ]
+    },
+    "jsx-body": {
+      "begin": "(>)",
+      "end": "(?=</)",
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" }
+      },
+      "patterns": [
+        { "include": "#value-expression" }
+      ]
+    },
     "module-expression": {
       "patterns": [
         {
@@ -1064,6 +1149,7 @@
         { "include": "#comment" },
         { "include": "#extension-node" },
         { "include": "#module-expression-path" },
+        { "include": "#jsx" },
         { "include": "#operator" },
         { "include": "#value-expression-builtin" },
         { "include": "#value-expression-if-then-else" },
