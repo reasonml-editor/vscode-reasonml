@@ -1291,7 +1291,7 @@
       },
       "patterns": [
         { "include": "#value-expression-literal-list-seperator" },
-        { "include": "#value-expression-literal" },
+        { "include": "#value-expression" },
         { "include": "#value-expression-literal-list" }
       ]
     },
