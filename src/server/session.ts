@@ -57,7 +57,8 @@ export class Synchronizer {
     this.session.connection.onDidOpenTextDocument(async (event): Promise<void> => {
       const request = merlin.Sync.tell("start", "end", event.textDocument.text);
       await this.session.merlin.sync(request, event.textDocument.uri);
-      this.session.diagnostics.refreshWorkspace(event.textDocument);
+      this.session.diagnostics.refresh(event.textDocument);
+      // this.session.diagnostics.refreshWorkspace(event.textDocument);
     });
 
     this.session.connection.onDidChangeTextDocument(async (event): Promise<void> => {
@@ -73,7 +74,8 @@ export class Synchronizer {
     });
 
     this.session.connection.onDidSaveTextDocument(async (event): Promise<void> => {
-      this.session.diagnostics.refreshWorkspace(event.textDocument);
+      this.session.diagnostics.refresh(event.textDocument);
+      // this.session.diagnostics.refreshWorkspace(event.textDocument);
     });
   }
 }
