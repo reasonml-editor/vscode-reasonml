@@ -82,9 +82,9 @@ const reasonConfiguration = {
   wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g,
 };
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
-  context.subscriptions.push(client.launch(context));
+  await client.launch(context);
 }
 
 export function deactivate() {
