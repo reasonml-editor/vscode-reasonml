@@ -126,6 +126,7 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
   "devDependencies": {
+    "@types/glob": "^5.0.30",
     "@types/lodash": "^4.14.36",
     "@types/node": "^6.0.40",
     "tslint": "^3.13.0",
@@ -133,6 +134,7 @@
     "vscode": "^1.0.0"
   },
   "dependencies": {
+    "glob": "^7.0.6",
     "lodash": "^4.15.0",
     "nearley": "^2.7.3",
     "vscode-jsonrpc": "^2.4.0",

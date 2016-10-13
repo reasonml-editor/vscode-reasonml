@@ -74,6 +74,22 @@ export namespace Query {
   // outline
   export const outline = () => new Query<["outline"], data.Outline>(["outline"]);
 
+  // path
+  export namespace path {
+    export namespace list {
+      export const source = () => new Query<
+        ["path", "list", "source"], string[]
+      >(["path", "list", "source"]);
+    }
+  }
+
+  // project
+  export namespace project {
+    export const get = () => new Query<
+      ["project", "get"], { result: string[] }
+    >(["project", "get"]);
+  }
+
   // type
   export namespace type {
     export const expression = (expr: string) => ({
