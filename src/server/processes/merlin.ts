@@ -1,4 +1,4 @@
-import * as merlin from "../../shared/merlin";
+import { merlin } from "../../shared";
 import * as child_process from "child_process";
 import * as _ from "lodash";
 import * as readline from "readline";

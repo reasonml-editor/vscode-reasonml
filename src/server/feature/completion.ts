@@ -1,6 +1,5 @@
-import * as merlin from "../../shared/merlin";
-import * as types from "../../shared/types";
-import * as method from "../method";
+import { merlin, types } from "../../shared";
+import * as command from "../command";
 import { Session } from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
@@ -9,7 +8,7 @@ export default function(session: Session): server.RequestHandler<server.TextDocu
   return async (event, token) => {
     let prefix: null | string = null;
     try {
-      prefix = await method.getPrefix(session, event);
+      prefix = await command.getPrefix(session, event);
       if (token.isCancellationRequested) return [];
     } catch (err) {
       // ignore errors from completing ' .'

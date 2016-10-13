@@ -1,4 +1,4 @@
-import getDocs from "./getDocs";
+import getDocumentation from "./getDocumentation";
 import getFormatted from "./getFormatted";
 import getMerlinFiles from "./getMerlinFiles";
 import getModules from "./getModules";
@@ -8,7 +8,7 @@ import getTextDocument from "./getTextDocument";
 import getType from "./getType";
 
 export {
-  getDocs,
+  getDocumentation,
   getFormatted,
   getMerlinFiles,
   getModules,

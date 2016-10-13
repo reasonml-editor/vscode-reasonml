@@ -1,4 +1,4 @@
-import * as types from "../../shared/types";
+import { types } from "../../shared";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 

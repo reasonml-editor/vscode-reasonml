@@ -1,5 +1,4 @@
-import * as merlin from "../../shared/merlin";
-import * as types from "../../shared/types";
+import { merlin, types } from "../../shared";
 import { Session } from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";

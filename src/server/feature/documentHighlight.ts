@@ -1,16 +1,15 @@
-import * as shared from "../../shared";
-import * as types from "../../shared/types";
-import * as method from "../method";
+import { merlin, types } from "../../shared";
+import * as command from "../command";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
 export default function(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.DocumentHighlight[], void> {
   return async (event, token) => {
-    const occurrences = await method.getOccurrences(session, event);
+    const occurrences = await command.getOccurrences(session, event);
     if (token.isCancellationRequested) return [];
     if (occurrences == null) return [];
     const highlights = occurrences.map((loc) => {
-      const range = shared.merlin.Location.intoCode(loc);
+      const range = merlin.Location.intoCode(loc);
       const kind = types.DocumentHighlightKind.Write;
       return types.DocumentHighlight.create(range, kind);
     });

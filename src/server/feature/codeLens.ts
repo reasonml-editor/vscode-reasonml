@@ -1,6 +1,5 @@
-import * as merlin from "../../shared/merlin";
-import * as types from "../../shared/types";
-import * as method from "../method";
+import { merlin, types } from "../../shared";
+import * as command from "../command";
 import * as session from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
@@ -16,7 +15,7 @@ export default function(session: session.Session): server.RequestHandler<server.
     const response = await session.merlin.query(request, event.textDocument.uri);
     if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
-    const textDocData = await method.getTextDocument(session, event.textDocument);
+    const textDocData = await command.getTextDocument(session, event.textDocument);
     const textDoc = types.TextDocument.create(
       event.textDocument.uri,
       textDocData.languageId,

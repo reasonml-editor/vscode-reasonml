@@ -1,7 +1,11 @@
+import { remote } from "../shared";
 import * as feature from "./feature";
+import * as request from "./request";
 import { Session } from "./session";
 
 const session = new Session();
+
+// vscode features
 session.connection.onInitialize(feature.initialize(session));
 session.connection.onDocumentHighlight(feature.documentHighlight(session));
 session.connection.onCodeLens(feature.codeLens(session));
@@ -16,5 +20,9 @@ session.connection.onDocumentSymbol(feature.documentSymbol(session));
 session.connection.onHover(feature.hover(session));
 session.connection.onReferences(feature.references(session));
 session.connection.onRenameRequest(feature.rename(session));
-session.connection.onRequest({ method: "caseAnalysis" }, feature.caseAnalysis(session));
+
+// vscode-reasonml features
+session.connection.onRequest(remote.server.giveCaseAnalysis, request.giveCaseAnalysis(session));
+session.connection.onRequest(remote.server.giveMerlinFiles, request.giveMerlinFiles(session));
+
 session.listen();

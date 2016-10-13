@@ -1,5 +1,4 @@
-import * as shared from "../../shared";
-import * as types from "../../shared/types";
+import { ocamldoc, types } from "../../shared";
 import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
@@ -10,7 +9,7 @@ export default function(session: Session): server.RequestHandler<types.Completio
     const documentation: string = event.data.documentation
       .replace(/\{\{:.*?\}(.*?)\}/g, "$1")
       .replace(/\{!(.*?)\}/g, "$1");
-    const markedDoc = shared.ocamldoc.intoMarkdown(documentation)
+    const markedDoc = ocamldoc.intoMarkdown(documentation)
       .replace(/`(.*?)`/g, "$1")
       .replace(/\s+/g, " ")
       .replace(/\n/g, "");

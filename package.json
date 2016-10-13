@@ -31,6 +31,10 @@
       {
         "command": "reason.caseSplit",
         "title": "Reason: case split"
+      },
+      {
+        "command": "reason.showMerlinFiles",
+        "title": "Reason: show merlin files"
       }
     ],
     "configuration": {

@@ -1,4 +1,5 @@
 import * as command from "./command";
+import * as request from "./request";
 import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
@@ -12,5 +13,6 @@ export function launch(context: vscode.ExtensionContext): vscode.Disposable {
   const clientOptions = { documentSelector: [ "reason" ] };
   const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
   command.registerAll(context, languageClient);
+  request.registerAll(context, languageClient);
   return languageClient.start();
 }

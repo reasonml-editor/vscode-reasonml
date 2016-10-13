@@ -1,4 +1,3 @@
-import caseAnalysis from "./caseAnalysis";
 import codeLens from "./codeLens";
 import codeLensResolve from "./codeLensResolve";
 import completion from "./completion";
@@ -15,7 +14,6 @@ import references from "./references";
 import rename from "./rename";
 
 export {
-  caseAnalysis,
   codeLens,
   codeLensResolve,
   completion,

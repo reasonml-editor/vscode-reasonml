@@ -1,4 +1,4 @@
-import * as types from "../../shared/types";
+import { types } from "../../shared";
 import * as processes from "../processes";
 
 export default async (idoc: types.TextDocument, range?: types.Range): Promise<null | string> => {

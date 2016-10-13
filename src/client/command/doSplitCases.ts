@@ -1,11 +1,10 @@
-import * as merlin from "../../shared/merlin";
-import * as types from "../../shared/types";
+import { merlin, remote, types } from "../../shared";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
-export function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): void {
+async function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): Promise<boolean> {
   const [{ end, start }, content] = destruct;
-  editor.edit((editBuilder) => {
+  return editor.edit((editBuilder) => {
     const range = new vscode.Range(
       new vscode.Position(start.line - 1, start.col),
       new vscode.Position(end.line - 1, end.col));
@@ -50,16 +49,15 @@ export namespace format {
 }
 
 export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
-  context.subscriptions.push(vscode.commands.registerCommand("reason.caseSplit", async () => {
-    const editor = vscode.window.activeTextEditor;
+  // FIXME: using the edit builder passed in to the command doesn't seem to work
+  context.subscriptions.push(vscode.commands.registerTextEditorCommand("reason.caseSplit", async (editor): Promise<void> => {
     const textDocument = { uri: editor.document.uri.toString() };
     const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);
     const range = types.Range.create(rangeCode.start, rangeCode.end);
-    const method = { method: "caseAnalysis" };
     const params = { range, textDocument };
     try {
-      const response = await reasonClient.sendRequest<types.TextDocumentRange, merlin.Case.Destruct, void>(method, params);
-      execute(editor, response);
+      const response = await reasonClient.sendRequest(remote.server.giveCaseAnalysis, params);
+      if (response != null) await execute(editor, response);
     } catch (err) { // FIXME: clean this up
       // vscode.window.showErrorMessage(JSON.stringify(err));
       const pattern = /Destruct not allowed on non-immediate type/;
