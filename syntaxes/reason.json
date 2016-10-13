@@ -9,13 +9,13 @@
   ],
   "repository": {
     "attribute": {
-      "begin": "(?=\\[(@{1,3})[[:space:]]*[A-Za-z])",
+      "begin": "(?=\\[(@{1,3})[[:space:]]*[[:alpha:]])",
       "end": "\\]",
       "patterns": [
         {
           "begin": "\\[(@{1,3})",
-          "end": "(?=[^_\\.'0-9A-Za-z])",
-          "applyEndPatternLast": "on",
+          "end": "(?=[^_\\.'[:word:]])",
+          "applyEndPatternLast": true,
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
@@ -48,7 +48,7 @@
     "attribute-identifier": {
       "patterns": [
         {
-          "match": "\\b([A-Za-z][_'0-9A-Za-z]*)\\b[[:space:]]*(?:(\\.))",
+          "match": "\\b([[:alpha:]][[:word:]]*)\\b[[:space:]]*(?:(\\.))",
           "captures": {
             "1": { "name": "entity.name.class" },
             "2": { "name": "keyword.operator" }
@@ -56,7 +56,7 @@
         },
         {
           "name": "constant.language",
-          "match": "\\b([A-Za-z][_'0-9A-Za-z]*)\\b"
+          "match": "\\b([[:alpha:]][[:word:]]*)\\b"
         }
       ]
     },
@@ -87,7 +87,7 @@
       ]
     },
 		"comment": {
-			"name": "comment.ts",
+			"name": "comment.reason",
 			"patterns": [
 				{ "include": "#comment-block-doc" },
 				{	"include": "#comment-block"	}
@@ -96,7 +96,10 @@
 		"comment-block": {
 			"begin": "/\\*",
 			"end": "\\*/",
-			"name": "comment.block.reason"
+			"name": "comment.block.reason",
+      "patterns": [
+        { "include": "#comment" }
+      ]
 		},
 		"comment-block-doc": {
 			"begin": "/\\*\\*(?!/)",
@@ -104,12 +107,12 @@
 			"name": "comment.block.documentation.reason"
 		},
     "extension-node": {
-      "begin": "(?=\\[(%{1,3})[[:space:]]*[A-Za-z])",
+      "begin": "(?=\\[(%{1,3})[[:space:]]*[[:alpha:]])",
       "end": "\\]",
       "patterns": [
         {
           "begin": "\\[(%{1,3})",
-          "end": "(?=[^_\\.'0-9A-Za-z])",
+          "end": "(?=[^_\\.'[:word:]])",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
@@ -130,9 +133,9 @@
       ]
     },
     "jsx": {
-      "comment": "(<)([_A-Za-z][_'0-9A-Za-z]*(?:\\.[_A-Za-z][_'0-9A-Za-z]*)*)",
-      "begin": "(<)(?=[_A-Za-z])",
-      "end": "(/>)|(?:(</)([_A-Za-z][_'0-9A-Za-z]*(?:\\.[_A-Za-z][_'0-9A-Za-z]*)*)(>))",
+      "comment": "(<)([_[:alpha:]][[:word:]]*(?:\\.[_[:alpha:]][[:word:]]*)*)",
+      "begin": "(<)(?=[_[:alpha:]])",
+      "end": "(/>)|(?:(</)([_[:alpha:]][[:word:]]*(?:\\.[_[:alpha:]][[:word:]]*)*)(>))",
       "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.operator" },
@@ -150,7 +153,7 @@
           "end": "(?=[[:space:]>])",
           "patterns": [
             {
-              "begin": "\\b([A-Z][_'0-9A-Za-z]*)\\b[[:space:]]*(\\.)",
+              "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(\\.)",
               "end": "(?=[[:space:]/>])",
               "beginCaptures": {
                 "1": { "name": "entity.name.class" },
@@ -159,24 +162,24 @@
               "patterns": [
                 {
                   "comment": "FIXME: make into named pattern",
-                  "match": "(?:\\G|^)[[:space:]]*\\b([_A-Z][_'0-9A-Za-z]*)\\b",
+                  "match": "(?:\\G|^)[[:space:]]*\\b([_[:upper:]][[:word:]]*)\\b",
                   "name": "name.entity.class"
                 },
                 {
                   "comment": "FIXME: make into named pattern",
-                  "match": "(?:\\G|^)[[:space:]]*\\b([_a-z][_'0-9A-Za-z]*)\\b",
+                  "match": "(?:\\G|^)[[:space:]]*\\b([_[:lower:]][[:word:]]*)\\b",
                   "name": "name.entity.function"
                 }
               ]
             },
             {
               "comment": "FIXME: make into named pattern",
-              "match": "(?:\\G|^)[[:space:]]*\\b([_A-Z][_'0-9A-Za-z]*)\\b",
+              "match": "(?:\\G|^)[[:space:]]*\\b([_[:upper:]][[:word:]]*)\\b",
               "name": "name.entity.class"
             },
             {
               "comment": "FIXME: make into named pattern",
-              "match": "(?:\\G|^)[[:space:]]*\\b([_a-z][_'0-9A-Za-z]*)\\b",
+              "match": "(?:\\G|^)[[:space:]]*\\b([_[:lower:]][[:word:]]*)\\b",
               "name": "name.entity.function"
             }
           ]
@@ -188,8 +191,8 @@
     "jsx-attributes": {
       "patterns": [
         {
-          "begin": "\\b([a-z][_'0-9A-Za-z]*)\\b[[:space:]]*(=)",
-          "end": "(?<![=])(?=[/>a-z])",
+          "begin": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*(=)",
+          "end": "(?<![=])(?=[/>[:lower:]])",
           "beginCaptures": {
             "1": { "name": "constant.language" },
             "2": { "name": "keyword.other" }
@@ -199,7 +202,7 @@
           ]
         },
         {
-          "match": "\\b([a-z][_'0-9A-Za-z]*)\\b",
+          "match": "\\b([[:lower:]][[:word:]]*)\\b",
           "name": "constant.language"
         }
       ]
@@ -220,7 +223,7 @@
           "patterns": [
             { "include": "#module-expression-path" },
             {
-              "match": "\\b([A-Z][_'0-9A-Za-z]*)\\b",
+              "match": "\\b([[:upper:]][[:word:]]*)\\b",
               "captures": {
                 "1": { "name": "name.entity.class" }
               }
@@ -259,7 +262,7 @@
       ]
     },
     "module-expression-path": {
-      "match": "\\b([A-Z][_'0-9A-Za-z]*)\\b[[:space:]]*(\\.)",
+      "match": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(\\.)",
       "captures": {
         "1": { "name": "entity.name.class" },
         "2": { "name": "keyword.operator" }
@@ -343,7 +346,7 @@
     },
     "module-item-let-module-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=\\band\\b|[;\\}])",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -353,7 +356,7 @@
     },
     "module-item-let-module-bind-body": {
       "begin": "(=>?)",
-      "end": "(?=\\band\\b|[;\\}])",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -362,7 +365,7 @@
       ]
     },
     "module-item-let-module-bind-name-params": {
-      "begin": "\\b([A-Z][_'0-9A-Za-z]*)\\b",
+      "begin": "\\b([[:upper:]][[:word:]]*)\\b",
       "end": "(?=[:=])",
       "beginCaptures": {
         "1": { "name": "entity.name.class" }
@@ -373,7 +376,7 @@
     },
     "module-item-let-module-bind-name-params-type-body": {
       "begin": "(?:\\G|^)",
-      "end": "(?=\\band\\b|[;\\}])",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "patterns": [
         { "include": "#module-item-let-module-bind-name-params" },
         { "include": "#module-item-let-module-bind-type" },
@@ -382,7 +385,7 @@
     },
     "module-item-let-module-bind-type": {
       "begin": "(:)",
-      "end": "(?=\\band\\b|[;\\}=])",
+      "end": "(?=\\b(and)\\b|[;\\}=])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -396,7 +399,7 @@
     },
     "module-item-let-module-rec": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b",
-      "end": "(?=\\band\\b|[;\\}])",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
       },
@@ -413,7 +416,7 @@
     },
     "module-item-let-value-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=\\band\\b|[;\\}])",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -423,7 +426,7 @@
     },
     "module-item-let-value-bind-body": {
       "begin": "(=>?)",
-      "end": "(?=\\band\\b|[;\\)\\}])",
+      "end": "(?=\\b(and)\\b|[;\\)\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -432,7 +435,7 @@
       ]
     },
     "module-item-let-value-bind-name-params": {
-      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)(?:\\b([_][_'0-9A-Za-z]+)\\b|\\b([a-z][_'0-9A-Za-z]+)\\b)",
+      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)(?!\\blet\\b)(?:\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]+)\\b)",
       "end": "(?<!:)(?!::)(?=[:=])",
       "beginCaptures": {
         "1": { "name": "comment.line" },
@@ -443,8 +446,8 @@
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?!\\bmodule|rec\\b)",
-      "end": "(?=\\band\\b|[;\\}])",
+      "begin": "(?!\\b(module|rec)\\b)",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params" },
         { "include": "#module-item-let-value-bind-pattern" },
@@ -480,7 +483,7 @@
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
       "begin": "(:)",
-      "end": "(?=\\band\\b|[;\\}]|=(?!>))",
+      "end": "(?=\\b(and)\\b|[;\\}]|=(?!>))",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -499,7 +502,7 @@
     "module-item-let-value-param-label": {
       "patterns": [
         {
-          "begin": "\\b([a-z][_'0-9A-Za-z]*)\\b(::)",
+          "begin": "\\b([[:lower:]][[:word:]]*)\\b(::)",
           "end": "(?<=[[:space:]])",
           "beginCaptures": {
             "1": { "name": "constant.language" },
@@ -526,7 +529,7 @@
     },
     "module-item-let-value-param-module": {
       "comment": "FIXME: merge with pattern-parens",
-      "begin": "\\([[:space:]]*(?=\\bmodule\\b)",
+      "begin": "\\([[:space:]]*(?=\\b(module)\\b)",
       "end": "\\)",
       "patterns": [
         {
@@ -538,7 +541,7 @@
           "patterns": [
             {
               "name": "entity.name.class",
-              "match": "\\b[A-Z][_'0-9A-Za-z]*\\b"
+              "match": "\\b[[:upper:]][[:word:]]*\\b"
             }
           ]
         }
@@ -546,7 +549,7 @@
     },
     "module-item-let-value-param-type": {
       "comment": "FIXME: merge with pattern-parens",
-      "begin": "\\((?=\\btype\\b)",
+      "begin": "\\((?=\\b(type)\\b)",
       "end": "\\)",
       "patterns": [
         {
@@ -558,15 +561,15 @@
           "patterns": [
             {
               "name": "support.type",
-              "match": "\\b[a-z][_'0-9A-Za-z]*\\b"
+              "match": "\\b[[:lower:]][[:word:]]*\\b"
             }
           ]
         }
       ]
     },
     "module-item-let-value-rec": {
-      "begin": "\\b(rec)\\b",
-      "end": "(?=\\band\\b|[;\\}])",
+      "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b",
+      "end": "(?=\\b(and)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
       },
@@ -576,7 +579,7 @@
     },
     "module-item-module": {
       "comment": "NOTE: this is to support the let-module case without the let prefix",
-      "begin": "\\b(module)\\b[[:space:]]*(?!\\btype\\b|$)",
+      "begin": "\\b(module)\\b[[:space:]]*(?!\\b(type)\\b|$)",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
@@ -591,7 +594,7 @@
       ]
     },
     "module-item-module-type": {
-      "begin": "\\b(module)\\b[[:space:]]*(?=\\btype\\b|$)",
+      "begin": "\\b(module)\\b[[:space:]]*(?=\\b(type)\\b|$)",
       "end": "(;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
@@ -609,7 +612,7 @@
           "patterns": [
             { "include": "#comment" },
             {
-              "match": "([A-Z][_'0-9A-Za-z]*)",
+              "match": "([[:upper:]][[:word:]]*)",
               "captures": {
                 "1": { "name": "entity.name.class" }
               }
@@ -642,7 +645,7 @@
         { "include": "#comment" },
         { "include": "#module-expression-path" },
         {
-          "match": "[A-Z][_'0-9A-Za-z]*",
+          "match": "[[:upper:]][[:word:]]*",
           "name": "entity.name.class"
         }
       ]
@@ -651,7 +654,7 @@
       "comment": "FIXME: the semi-colon is optional so we can re-use this for hover, which does not print the trailing ;",
       "begin": "\\b(type)\\b",
       "end": "(;)?",
-      "applyEndPatternLast": "on",
+      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -666,7 +669,7 @@
     },
     "module-item-type-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=\\band\\b|;)",
+      "end": "(?=\\b(and)\\b|;)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -698,7 +701,7 @@
         },
         {
           "comment": "FIXME: remove this once the pretty printer no longer outputs 'of'",
-          "match": "[:|]|\\bof\\b",
+          "match": "[:|]|\\b(of)\\b",
           "name": "keyword.other"
         },
         { "include": "#type-expression" },
@@ -714,7 +717,7 @@
     },
     "module-item-type-bind-nonrec": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(nonrec)\\b",
-      "end": "(?=\\band\\b|;)",
+      "end": "(?=\\b(and)\\b|;)",
       "beginCaptures": {
         "1": { "name": "storage.modifier.nonrec.reason" }
       },
@@ -723,7 +726,7 @@
       ]
     },
     "module-item-type-bind-name-tyvars": {
-      "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([a-z][_'0-9A-Za-z]*)\\b",
+      "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([[:lower:]][[:word:]]*)\\b",
       "end": "(?=;|\\+?=)",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
@@ -737,7 +740,7 @@
         },
         {
           "comment": "FIXME: add separate type-variable rule",
-          "match": "([+\\-])?'(?:([_])\\b|([a-z][_'0-9A-Za-z]*)\\b)(?!\\.[A-Z])",
+          "match": "([+\\-])?(?:(_)|'([[:lower:]][[:word:]]*)\\b)(?!\\.[[:upper:]])",
           "captures": {
             "1": { "name": "keyword.other" },
             "2": { "name": "comment.line" },
@@ -747,7 +750,7 @@
       ]
     },
     "module-item-type-bind-name-tyvars-body": {
-      "begin": "(?=(\\G|^)[[:space:]]*\\b[A-Za-z])",
+      "begin": "(?=(\\G|^)[[:space:]]*\\b[[:alpha:]])",
       "end": "(?=\\b(and|constraint)\\b|;)",
       "patterns": [
         { "include": "#module-expression-path" },
@@ -765,7 +768,7 @@
       "patterns": [
         {
           "comment": "FIXME: add separate type-variable rule",
-          "match": "([+\\-])?'([_a-z][_'0-9A-Za-z]*)\\b(?!\\.[A-Z])",
+          "match": "([+\\-])?'([_[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
           "captures": {
             "1": { "name": "keyword.other" },
             "2": { "name": "variable.parameter" }
@@ -821,7 +824,7 @@
         "1": { "name": "constant.language.list.reason" }
       },
       "patterns": [
-        { "include": "#value-expression-literal-list-seperator" },
+        { "include": "#value-expression-literal-list-separator" },
         { "include": "#pattern" }
       ]
     },
@@ -835,7 +838,7 @@
     },
     "pattern-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[,:\\)]|\\bas\\b))",
+      "end": "(?=(?:[,:\\)]|\\b(as)\\b))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -878,7 +881,7 @@
       ]
     },
     "pattern-record-field": {
-      "begin": "\\b([_][_'0-9A-Za-z]*)\\b|\\b([a-z][_'0-9A-Za-z]*)\\b",
+      "begin": "\\b([_][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "comment.line" },
@@ -910,13 +913,13 @@
     "pattern-variable": {
       "patterns": [
         {
-          "match": "\\b(_(?:[a-z][_'0-9A-Za-z]*)?)\\b(?!\\.[A-Z])",
+          "match": "\\b(_(?:[[:lower:]][[:word:]]*)?)\\b(?!\\.[[:upper:]])",
           "captures": {
             "1": { "name": "comment.line" }
           }
         },
         {
-          "match": "\\b([a-z][_'0-9A-Za-z]*)\\b(?!\\.[A-Z])",
+          "match": "\\b([[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
           "captures": {
             "1": { "name": "variable.parameter" }
           }
@@ -996,14 +999,14 @@
       "match": "=>"
     },
     "type-expression-constructor": {
-      "match": "(_)(?![0-9A-Za-z])|\\b([_a-z][_'0-9A-Za-z]*)\\b(?!\\.[A-Z])",
+      "match": "(_)(?![[:alnum:]])|\\b([_[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
       "captures": {
         "1": { "name": "variable.parameter" },
         "2": { "name": "support.type" }
       }
     },
     "type-expression-label": {
-      "begin": "\\b([_a-z][_'0-9A-Za-z]*)\\b(::)",
+      "begin": "\\b([_[:lower:]][[:word:]]*)\\b(::)",
       "end": "(?<==>)",
       "beginCaptures": {
         "1": { "name": "constant.language" },
@@ -1036,7 +1039,7 @@
         },
         {
           "comment": "FIXME: method item",
-          "begin": "(?=[_a-z])",
+          "begin": "(?=[_[:lower:]])",
           "end": "(,)|(?=>)",
           "endCaptures": {
             "1": { "name": "keyword.other" }
@@ -1044,11 +1047,11 @@
           "patterns": [
             {
               "comment": "FIXME: method name",
-              "begin": "(?=[_a-z])",
+              "begin": "(?=[_[:lower:]])",
               "end": "(?=:)",
               "patterns": [
                 {
-                  "match": "\\b([_a-z][_'0-9A-Za-z]*)\\b",
+                  "match": "\\b([_[:lower:]][[:word:]]*)\\b",
                   "captures": {
                     "1": { "name": "constant.language" }
                   }
@@ -1091,7 +1094,7 @@
       },
       "patterns": [
         {
-          "match": "[<>|]|\\bof\\b",
+          "match": "[<>|]|\\b(of)\\b",
           "name": "keyword.other"
         },
         { "include": "#value-expression-literal-constructor-variant-polymorphic" },
@@ -1107,7 +1110,7 @@
     },
     "type-expression-record-field": {
       "comment": "FIXME: proper chaining with mutable, …",
-      "begin": "(\\bmutable\\b)?[[:space:]]*(?!\\bmutable\\b)\\b([_a-z][_'0-9A-Za-z]*)\\b",
+      "begin": "(\\bmutable\\b)?[[:space:]]*(?!\\bmutable\\b)\\b([_[:lower:]][[:word:]]*)\\b",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "keyword.other" },
@@ -1138,7 +1141,7 @@
       ]
     },
     "type-expression-variable": {
-      "match": "'([_a-z][_'0-9A-Za-z]*)\\b(?!\\.[A-Z])",
+      "match": "'([_[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
       "captures": {
         "1": { "name": "parameter.variable" }
       }
@@ -1193,6 +1196,13 @@
         { "include": "#value-expression" }
       ]
     },
+    "value-expression-block-look": {
+      "begin": "(?![[:space:]]*($|\\.\\.\\.|([[:upper:]][[:word:]]*\\.)*([[:lower:]][[:word:]]*)[[:space:]]*[,:]))",
+      "end": "(?=\\})",
+      "patterns": [
+        { "include": "#value-expression-block-item" }
+      ]
+    },
     "value-expression-block-or-record-or-object": {
       "begin": "\\{",
       "end": "\\}",
@@ -1208,15 +1218,8 @@
       "name": "keyword.operator",
       "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b"
     },
-    "value-expression-block-look": {
-      "begin": "(?![[:space:]]*($|\\.\\.\\.|([A-Z][_'0-9A-Za-z]*\\.)*([a-z][_'0-9A-Za-z]*)[[:space:]]*[,:]))",
-      "end": "(?=\\})",
-      "patterns": [
-        { "include": "#value-expression-block-item" }
-      ]
-    },
     "value-expression-for": {
-      "begin": "(?=\\bfor\\b)",
+      "begin": "(?=\\b(for)\\b)",
       "end": "\\}",
       "patterns": [
         { "include": "#value-expression-for-head" },
@@ -1224,7 +1227,7 @@
       ]
     },
     "value-expression-for-head": {
-      "begin": "(?=\\bfor\\b)",
+      "begin": "(?=\\b(for)\\b)",
       "end": "(?=\\{)",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
@@ -1232,7 +1235,7 @@
       "patterns": [
         {
           "begin": "\\b(for)\\b",
-          "end": "(?=\\bin\\b)",
+          "end": "(?=\\b(in)\\b)",
           "beginCaptures": {
             "1": { "name": "keyword.control" }
           },
@@ -1304,7 +1307,7 @@
     "value-expression-if-then-else": {
       "begin": "\\b(if)\\b",
       "end": "(?=[;\\)\\]\\}])",
-      "applyEndPatternLast": "on",
+      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.control" }
       },
@@ -1323,7 +1326,7 @@
       ]
     },
     "value-expression-label": {
-      "begin": "\\b([_a-z][_'0-9A-Za-z]*)\\b(::)(\\?)?",
+      "begin": "\\b([_[:lower:]][[:word:]]*)\\b(::)(\\?)?",
       "end": "(?![[:space:]])",
       "beginCaptures": {
         "1": { "name": "constant.language" },
@@ -1341,7 +1344,8 @@
         { "include": "#value-expression-literal-numeric" },
         { "include": "#value-expression-literal-string" },
         { "include": "#value-expression-literal-constructor-variant" },
-        { "include": "#value-expression-literal-constructor-variant-polymorphic" }
+        { "include": "#value-expression-literal-constructor-variant-polymorphic" },
+        { "include": "#value-expression-literal-unit" }
       ]
     },
     "value-expression-literal-boolean": {
@@ -1349,18 +1353,17 @@
       "match": "\\b(false|true)\\b"
     },
     "value-expression-literal-char": {
-			"name": "constant.character",
-			"begin": "'",
-			"end": "'|(?:[^\\\\\\n]$)"
+      "match": "'([[:graph:]]|\\\\[\\\\\"'ntbr ]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7])'",
+      "name": "constant.character"
     },
     "value-expression-literal-constructor-variant": {
-      "match": "\\b([A-Z][_'0-9A-Za-z]*)\\b(?!\\.)",
+      "match": "\\b([[:upper:]][[:word:]]*)\\b(?!\\.)",
       "captures": {
         "1": { "name": "constant.language.reason" }
       }
     },
     "value-expression-literal-constructor-variant-polymorphic": {
-      "match": "(`)([A-Z][_'0-9A-Za-z]*)\\b(?!\\.)",
+      "match": "(`)([[:upper:]][[:word:]]*)\\b(?!\\.)",
       "captures": {
         "1": { "name": "variable.parameter" },
         "2": { "name": "constant.language.reason" }
@@ -1376,12 +1379,12 @@
         "1": { "name": "constant.language.list.reason" }
       },
       "patterns": [
-        { "include": "#value-expression-literal-list-seperator" },
+        { "include": "#value-expression-literal-list-separator" },
         { "include": "#value-expression" },
         { "include": "#value-expression-literal-list" }
       ]
     },
-    "value-expression-literal-list-seperator": {
+    "value-expression-literal-list-separator": {
       "match": "(,)|(\\.\\.\\.)",
       "captures": {
         "1": { "name": "keyword.operator" },
@@ -1421,8 +1424,8 @@
       ]
     },
     "value-expression-literal-unit": {
-      "name": "constant.language.unit.reason",
-      "match": "\\(\\)"
+      "match": "\\(\\)",
+      "name": "constant.language.unit.reason"
     },
     "value-expression-object-look": {
       "comment": "FIXME: is there a better way than listing all the keywords?",
@@ -1441,7 +1444,7 @@
     },
     "value-expression-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[,:\\)]|\\bas\\b))",
+      "end": "(?=(?:[,:\\)]|\\b(as)\\b))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1457,7 +1460,7 @@
       ]
     },
     "value-expression-record-field": {
-      "begin": "(\\.\\.\\.)?\\b([_a-z][_'0-9A-Za-z]*)",
+      "begin": "(\\.\\.\\.)?\\b([_[:lower:]][[:word:]]*)",
       "end": "(?:(,)|(?=\\}))",
       "beginCaptures": {
         "1": { "name": "keyword.other" },
@@ -1486,25 +1489,25 @@
       ]
     },
     "value-expression-record-path": {
-      "begin": "\\b[a-z][_'0-9A-Za-z]*\\b",
+      "begin": "\\b[[:lower:]][[:word:]]*\\b",
       "end": "(?!\\.)",
       "patterns": [
         {
-          "match": "(\\.)[[:space:]]*\\(([a-z][_'0-9A-Za-z]*)\\)",
+          "match": "(\\.)[[:space:]]*\\(([[:lower:]][[:word:]]*)\\)",
           "captures": {
             "1": { "name": "keyword.operator" },
             "2": { "name": "variable.parameter" }
           }
         },
         {
-          "match": "(\\.)[[:space:]]*\\b([A-Z][_'0-9A-Za-z]*)\\b",
+          "match": "(\\.)[[:space:]]*\\b([[:upper:]][[:word:]]*)\\b",
           "captures": {
             "1": { "name": "keyword.operator" },
             "2": { "name": "entity.name.class" }
           }
         },
         {
-          "match": "(\\.)[[:space:]]*\\b([a-z][_'0-9A-Za-z]*)\\b",
+          "match": "(\\.)[[:space:]]*\\b([[:lower:]][[:word:]]*)\\b",
           "captures": {
             "1": { "name": "keyword.operator" },
             "2": { "name": "constant.language" }
@@ -1513,7 +1516,7 @@
       ]
     },
     "value-expression-switch": {
-      "begin": "(?=\\bswitch\\b)",
+      "begin": "(?=\\b(switch)\\b)",
       "end": "\\}",
       "patterns": [
         { "include": "#value-expression-switch-head" },
@@ -1570,7 +1573,7 @@
       ]
     },
     "value-expression-try": {
-      "begin": "(?=\\btry\\b)",
+      "begin": "(?=\\b(try)\\b)",
       "end": "\\}",
       "patterns": [
         { "include": "#value-expression-try-head" },
@@ -1593,7 +1596,7 @@
       ]
     },
     "value-expression-while": {
-      "begin": "(?=\\bwhile\\b)",
+      "begin": "(?=\\b(while)\\b)",
       "end": "\\}",
       "patterns": [
         { "include": "#value-expression-while-head" },
@@ -1614,7 +1617,7 @@
       ]
     },
     "value-expression-record-look": {
-      "begin": "(?=\\.\\.\\.|([A-Z][_'0-9A-Za-z]*\\.)*([a-z][_'0-9A-Za-z]*)[[:space:]]*[,:\\}])",
+      "begin": "(?=\\.\\.\\.|([[:upper:]][[:word:]]*\\.)*([[:lower:]][[:word:]]*)[[:space:]]*[,:\\}])",
       "end": "(?=\\})",
       "patterns": [
         { "include": "#value-expression-record-item" }
