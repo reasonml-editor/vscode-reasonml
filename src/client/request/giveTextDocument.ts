@@ -10,7 +10,7 @@ async function handler(event: types.TextDocumentIdentifier): Promise<types.TextD
   return { content, languageId, version };
 }
 
-export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
+export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   void context; // tslint:disable-line
-  reasonClient.onRequest(remote.client.giveTextDocument, handler);
+  languageClient.onRequest(remote.client.giveTextDocument, handler);
 }

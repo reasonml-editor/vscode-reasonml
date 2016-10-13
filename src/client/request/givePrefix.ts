@@ -12,7 +12,7 @@ async function handler(event: client.TextDocumentPositionParams): Promise<null |
   return match ? match[0] : null;
 };
 
-export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
+export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   void context; // tslint:disable-line
-  reasonClient.onRequest(remote.client.givePrefix, handler);
+  languageClient.onRequest(remote.client.givePrefix, handler);
 }

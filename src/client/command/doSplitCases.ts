@@ -48,7 +48,7 @@ export namespace format {
   }
 }
 
-export function register(context: vscode.ExtensionContext, reasonClient: client.LanguageClient): void {
+export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   // FIXME: using the edit builder passed in to the command doesn't seem to work
   context.subscriptions.push(vscode.commands.registerTextEditorCommand("reason.caseSplit", async (editor): Promise<void> => {
     const textDocument = { uri: editor.document.uri.toString() };
@@ -56,7 +56,7 @@ export function register(context: vscode.ExtensionContext, reasonClient: client.
     const range = types.Range.create(rangeCode.start, rangeCode.end);
     const params = { range, textDocument };
     try {
-      const response = await reasonClient.sendRequest(remote.server.giveCaseAnalysis, params);
+      const response = await languageClient.sendRequest(remote.server.giveCaseAnalysis, params);
       if (response != null) await execute(editor, response);
     } catch (err) { // FIXME: clean this up
       // vscode.window.showErrorMessage(JSON.stringify(err));
