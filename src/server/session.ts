@@ -15,13 +15,13 @@ export class Synchronizer {
       this.session.diagnosticsClear(event.textDocument);
     });
 
-    this.session.connection.onDidOpenTextDocument(async (event) => {
+    this.session.connection.onDidOpenTextDocument(async (event): Promise<void> => {
       const request = merlin.Sync.tell("start", "end", event.textDocument.text);
       await this.session.merlin.sync(request, event.textDocument.uri);
       this.session.diagnosticsRefresh(event.textDocument);
     });
 
-    this.session.connection.onDidChangeTextDocument(async (event) => {
+    this.session.connection.onDidChangeTextDocument(async (event): Promise<void> => {
       for (const change of event.contentChanges) {
         if (change && change.range) {
           const startPos = merlin.Position.fromCode(change.range.start);

@@ -112,24 +112,25 @@
         }
       ]
     },
-		"snippets": [
-			{
-				"language": "reason",
-				"path": "./snippets/reason.json"
-			}
-		]
+    "snippets": [
+      {
+        "language": "reason",
+        "path": "./snippets/reason.json"
+      }
+    ]
   },
   "scripts": {
-    "compile": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile -watch -p ./",
+    "compile": "npm run ocamldoc:grammar:compile && tsc -watch -p ./",
     "ocamldoc:grammar:compile": "mkdir -p out/src/shared/ocamldoc/compile && nearleyc src/shared/ocamldoc/compile/markdown.ne > out/src/shared/ocamldoc/compile/markdown.js",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run ocamldoc:grammar:compile && node ./node_modules/vscode/bin/compile"
+    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.36",
+    "@types/node": "^6.0.40",
     "tslint": "^3.13.0",
     "typescript": "^2.0.3",
-    "vscode": "^0.11.0"
+    "vscode": "^1.0.0"
   },
   "dependencies": {
     "lodash": "^4.15.0",
@@ -139,6 +140,5 @@
     "vscode-languageserver": "^2.5.0",
     "vscode-languageserver-types": "^1.0.3"
   },
-  "extensionDependencies": [
-  ]
+  "extensionDependencies": []
 }
