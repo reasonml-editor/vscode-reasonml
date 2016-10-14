@@ -52,6 +52,11 @@ export namespace Query {
     }
   }
 
+  // enclosing
+  export const enclosing = (position: Position) => new Query<
+    ["enclosing", Position], Location[]
+  >(["enclosing", position]);
+
   // errors
   export const errors = () => new Query<["errors"], data.ErrorReport[]>(["errors"]);
 
