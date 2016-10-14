@@ -1290,8 +1290,7 @@
       "begin": "",
       "end": "(?==>)",
       "patterns": [
-        { "include": "#pattern-guard" },
-        { "include": "#pattern" }
+        { "include": "#module-item-let-value-param" }
       ]
     },
     "value-expression-fun-pattern-match-rule-rhs": {
