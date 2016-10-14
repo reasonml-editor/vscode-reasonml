@@ -53,7 +53,7 @@ const reasonConfiguration = {
       }
     },
     {
-      beforeText: /^.*\btype\b.*=.*$/,
+      beforeText: /^.*\btype\b.*=.*[^;]\s*$/,
       action: {
         indentAction: vscode.IndentAction.None,
         appendText: "  | ",
