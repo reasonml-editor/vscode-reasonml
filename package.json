@@ -23,6 +23,7 @@
   ],
   "icon": "assets/logo.png",
   "activationEvents": [
+    "onLanguage:ocaml",
     "onLanguage:reason"
   ],
   "main": "./out/src/extension",
@@ -73,6 +74,21 @@
     },
     "grammars": [
       {
+        "language": "ocaml.merlin",
+        "scopeName": "source.ocaml.merlin",
+        "path": "./syntaxes/merlin.json"
+      },
+      {
+        "language": "ocaml.ocamlbuild",
+        "scopeName": "source.ocaml.ocamlbuild",
+        "path": "./syntaxes/ocamlbuild.json"
+      },
+      {
+        "language": "ocaml.opam",
+        "scopeName": "source.ocaml.opam",
+        "path": "./syntaxes/opam.json"
+      },
+      {
         "language": "reason",
         "scopeName": "source.reason",
         "path": "./syntaxes/reason.json"
@@ -89,6 +105,33 @@
       }
     ],
     "languages": [
+      {
+        "id": "ocaml.merlin",
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          "merlin"
+        ]
+      },
+      {
+        "id": "ocaml.ocamlbuild",
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          "_tags"
+        ]
+      },
+      {
+        "id": "ocaml.opam",
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          "opam"
+        ]
+      },
       {
         "id": "reason",
         "aliases": [
