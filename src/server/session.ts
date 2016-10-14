@@ -27,7 +27,7 @@ export class Diagnostics {
 
   async refresh(event: types.TextDocumentIdentifier): Promise<void> {
     const document = await command.getTextDocument(this.session, event);
-    const request = merlin.Sync.tell("start", "end", document.content);
+    const request = merlin.Sync.tell("start", "end", document.getText());
     await this.session.merlin.sync(request, event.uri);
     const response = await this.session.merlin.query(merlin.Query.errors(), event.uri);
     if (response.class !== "return") return;

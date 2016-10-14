@@ -6,7 +6,7 @@ import * as server from "vscode-languageserver";
 export default function(session: Session): server.RequestHandler<server.DocumentFormattingParams, types.TextEdit[], void> {
   return async (event, token) => {
     const itxt = await command.getTextDocument(session, event.textDocument);
-    const idoc = types.TextDocument.create(event.textDocument.uri, itxt.languageId, itxt.version, itxt.content);
+    const idoc = types.TextDocument.create(event.textDocument.uri, itxt.languageId, itxt.version, itxt.getText());
     if (token.isCancellationRequested) return [];
     const otxt = await command.getFormatted(idoc);
     if (token.isCancellationRequested) return [];
@@ -16,7 +16,7 @@ export default function(session: Session): server.RequestHandler<server.Document
       types.TextEdit.replace(
         types.Range.create(
           idoc.positionAt(0),
-          idoc.positionAt(itxt.content.length)),
+          idoc.positionAt(itxt.getText().length)),
       otxt));
     return edits;
   };
