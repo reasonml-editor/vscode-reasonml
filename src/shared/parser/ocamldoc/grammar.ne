@@ -1,16 +1,17 @@
 @builtin "number.ne"
+@builtin "whitespace.ne"
 
 main -> SENTENCE
 
 FORMAT_CODE -> "[" FORMAT_CODE:* "]" {% (data) => `[${data[1].join("")}]` %}
              | [^\[\]]:+ {% (data) => data[0].join("") %}
 
-LIST_ITEM -> "{- " SPACE:* SENTENCE SPACE:* "}" {% (data) => data[2] %}
-           | [ \f\n\t\v]:+ {% () => "" %}
+LIST_ITEM -> "{- " _ SENTENCE _ "}" {% (data) => data[2] %}
+           | __ {% () => "" %}
 
 SENTENCE -> WORD:* {% (data) => data[0].join("") %}
 
-SPACE -> [ \f\n\t\v] {% id %}
+SPACE -> wschar
 
 WORD -> "{{:" SENTENCE "}" SENTENCE "}" {% (data) => `[${data[3]}](${data[1]})` %}
       | "{^"            SENTENCE    "}" {% (data) =>  `{^${data[1]}}` %}
@@ -25,6 +26,6 @@ WORD -> "{{:" SENTENCE "}" SENTENCE "}" {% (data) => `[${data[3]}](${data[1]})` 
       | "{v"      SPACE .:*  SPACE "v}" {% (data) =>   `${data[2].join("")}` %}
       |  "[" FORMAT_CODE:*         "]"  {% (data) => `\`${data[1].join("")}\`` %}
       | "{[" FORMAT_CODE:*         "]}" {% (data) => `${"\n"}\`\`\`ocaml${"\n"}${data[1].join("")}${"\n"}\`\`\`${"\n"}` %}
-      | SPACE:+                         {% (data) => data[0].join("") %}
+      | __
       | decimal                         {% (data) => `\`${data[0]}\`` %}
       | [^ \f\n\t\v{}\[\]0-9]:+         {% (data) => data[0].join("") %}

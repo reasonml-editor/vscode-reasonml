@@ -168,7 +168,7 @@
   },
   "scripts": {
     "compile": "npm run ocamldoc:grammar:compile && tsc -watch -p ./",
-    "ocamldoc:grammar:compile": "mkdir -p out/src/shared/ocamldoc/compile && nearleyc src/shared/ocamldoc/compile/markdown.ne > out/src/shared/ocamldoc/compile/markdown.js",
+    "ocamldoc:grammar:compile": "mkdir -p out/src/shared/parser/ocamldoc && nearleyc src/shared/parser/ocamldoc/grammar.ne > out/src/shared/parser/ocamldoc/grammar.js",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
