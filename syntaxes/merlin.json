@@ -4,11 +4,17 @@
     "merlin"
   ],
   "patterns": [
+    { "include": "#comment" },
     { "include": "#directory" },
     { "include": "#flag" },
     { "include": "#package" }
   ],
   "repository": {
+    "comment": {
+      "begin": "#",
+      "end": "$",
+      "name": "comment.line"
+    },
     "directory": {
       "begin": "\\b(B|S)\\b",
       "end": "$",
@@ -17,7 +23,7 @@
       },
       "patterns": [
         {
-          "match": "(?<![\\-\\+])(?:(\\b[[:word:]]+\\b)|([*]+))[[:space:]]*([\\./])?",
+          "match": "(?<![\\-\\+])(?:(\\b[-[:word:]]+\\b)|([\\.*]+))[[:space:]]*([\\./])?",
           "captures": {
             "1": { "name": "string.double" },
             "2": { "name": "constant.language" },
