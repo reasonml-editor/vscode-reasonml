@@ -4,20 +4,29 @@ Reason support for Visual Studio Code
 
 ![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
 
-## Feature Status
+## Features
 
-- [x] advanced syntax highlighting
-- [x] completion and snippets
-- [x] linting
-- [x] outline view for symbols (⇧⌘O) (type `:` in list to sort items)
-- [x] types over `let` bindings (disable with `editor.codeLens` setting)
-- [x] type and documentation on hover
-- [x] jump-to-definition (⌃+click or ⌘+hover)
-- [x] [case splitting](#case-splitting)
-- [x] formatting integration
-- [ ] build tool integration
-- [ ] debugger integration
-- [ ] toplevel integration
+- highlighting
+  - [x] advanced syntax highlighting for reason
+  - [x] basic highlighting for merlin, ocamlbuild, and opam files
+
+- editing
+  - [x] document formatting
+  - [x] completion and snippets
+  - [x] rename symbol (F2 or right click)
+  - [x] [case splitting](#case-splitting)
+
+- navigation
+  - [x] outline view for symbols (⇧⌘O) (type `:` in list to sort items)
+  - [x] jump-to-definition (⌃+click) and code preview (⌘+hover)
+  - [x] find references (⇧F12 or right click)
+
+- static analysis
+  - [x] merlin integration with incremental edit synchronization
+  - [x] online linting and compiler diagnostics
+  - [x] display types over definitions (disable with `editor.codeLens` setting)
+  - [x] display types and markdown-rendered docs on hover
+
 
 ## Getting Started
 
