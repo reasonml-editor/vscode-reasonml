@@ -32,11 +32,8 @@ Reason support for Visual Studio Code
 
 ### Editor Configuration
 
-- VS Code [insiders build](https://code.visualstudio.com/insiders)
 - [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai) syntax theme
 - [Reason](https://github.com/facebook/reason#contributing-to-development) (development build)
-
-The insiders build is recommended for scrollable hovers with improved documentation formatting.
 
 ### Reason Configuration
 
