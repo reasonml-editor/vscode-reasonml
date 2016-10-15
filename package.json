@@ -87,6 +87,21 @@
     },
     "grammars": [
       {
+        "language": "ocaml",
+        "scopeName": "source.ocaml",
+        "path": "./syntaxes/ocaml.json"
+      },
+      {
+        "language": "ocaml.hover.info",
+        "scopeName": "source.ocaml.hover.info",
+        "path": "./syntaxes/ocaml-hover-info.json"
+      },
+      {
+        "language": "ocaml.hover.type",
+        "scopeName": "source.ocaml.hover.type",
+        "path": "./syntaxes/ocaml-hover-type.json"
+      },
+      {
         "language": "ocaml.merlin",
         "scopeName": "source.ocaml.merlin",
         "path": "./syntaxes/merlin.json"
@@ -118,6 +133,21 @@
       }
     ],
     "languages": [
+      {
+        "id": "ocaml",
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+        ],
+        "configuration": "./ocaml.configuration.json"
+      },
+      {
+        "id": "ocaml.hover.info"
+      },
+      {
+        "id": "ocaml.hover.type"
+      },
       {
         "id": "ocaml.merlin",
         "aliases": [
