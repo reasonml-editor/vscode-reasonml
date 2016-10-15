@@ -24,7 +24,16 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const run = { module, transport, options: {} };
   const debug = { module, transport, options: { execArgv: [ "--nolazy", "--debug=6004" ] } };
   const serverOptions = { run, debug };
-  const clientOptions = { documentSelector: [ "reason" ] };
+  const clientOptions: client.LanguageClientOptions = {
+    diagnosticCollectionName: "Reason",
+    documentSelector: [ "reason" ],
+    outputChannelName: "Reason",
+    stdioEncoding: "utf8",
+    synchronize: {
+      configurationSection: "reason",
+      fileEvents: vscode.workspace.createFileSystemWatcher("**/.merlin"),
+    },
+  };
   const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
   command.registerAll(context, languageClient);
   request.registerAll(context, languageClient);

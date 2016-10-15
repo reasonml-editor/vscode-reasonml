@@ -42,6 +42,11 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.debounce.linter": {
+          "type": "integer",
+          "default": 500,
+          "description": "How long to idle (in milliseconds) after keypress before refreshing linter diagnostics. A smaller value will refresh diagnostics more quickly."
+        },
         "reason.path.ocamlfind": {
           "type": "string",
           "default": "ocamlfind"

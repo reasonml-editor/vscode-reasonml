@@ -3,6 +3,7 @@ import codeLensResolve from "./codeLensResolve";
 import completion from "./completion";
 import completionResolve from "./completionResolve";
 import definition from "./definition";
+import didChangeConfiguration from "./didChangeConfiguration";
 import documentFormatting from "./documentFormatting";
 import documentHighlight from "./documentHighlight";
 import documentOnTypeFormatting from "./documentOnTypeFormatting";
@@ -19,6 +20,7 @@ export {
   completion,
   completionResolve,
   definition,
+  didChangeConfiguration,
   documentFormatting,
   documentHighlight,
   documentOnTypeFormatting,

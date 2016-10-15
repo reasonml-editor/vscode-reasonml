@@ -1,4 +1,5 @@
 import { merlin } from "../../shared";
+import * as session from "../session";
 import * as child_process from "child_process";
 import * as _ from "lodash";
 import * as readline from "readline";
@@ -7,8 +8,8 @@ export default class Merlin {
   private pending: Promise<void> = Promise.resolve();
   private process: child_process.ChildProcess;
   private readline: readline.ReadLine;
-  constructor() {
-    this.process = child_process.spawn("ocamlmerlin", []);
+  constructor(settings: session.ISettings) {
+    this.process = child_process.spawn(settings.reason.path.ocamlmerlin, []);
     this.readline = readline.createInterface({
       input: this.process.stdout,
       output: this.process.stdin,

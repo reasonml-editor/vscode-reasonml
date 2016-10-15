@@ -7,6 +7,7 @@ const session = new Session();
 
 // vscode features
 session.connection.onInitialize(feature.initialize(session));
+session.connection.onDidChangeConfiguration(feature.didChangeConfiguration(session));
 session.connection.onDocumentHighlight(feature.documentHighlight(session));
 session.connection.onCodeLens(feature.codeLens(session));
 session.connection.onCodeLensResolve(feature.codeLensResolve(session));
