@@ -159,7 +159,7 @@ export class Session {
   }
 
   log(data: any): void {
-    this.connection.console.log(JSON.stringify(data)); // tslint:disable-line
+    this.connection.console.log(JSON.stringify(data, null as any, 2)); // tslint:disable-line
   }
 
   onDidChangeConfiguration({ settings }: server.DidChangeConfigurationParams): void {
