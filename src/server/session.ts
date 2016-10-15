@@ -101,6 +101,9 @@ export class Synchronizer {
 
 export interface ISettings {
   reason: {
+    codelens: {
+      unicode: boolean;
+    };
     debounce: {
       linter: number;
     };
@@ -122,6 +125,9 @@ export interface ISettings {
 export class Session {
   public settings: ISettings = {
     reason: {
+      codelens: {
+        unicode: true,
+      },
       debounce: {
         linter: 500,
       },

@@ -42,6 +42,11 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.codelens.unicode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use unicode symbols in codelens"
+        },
         "reason.server.languages": {
           "type": "array",
           "items": { "enum": [ "ocaml", "reason" ] },

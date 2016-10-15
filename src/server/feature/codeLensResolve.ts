@@ -9,9 +9,18 @@ export default function(session: Session): server.RequestHandler<types.CodeLens,
     const itemType = await command.getType(session, data.event);
     if (token.isCancellationRequested) return event;
     if (itemType == null) return event;
-    const title = itemType.type
-      .replace(/=>/g, "⇒")
-      .replace(/ : /g, ": ");
+    let title = itemType.type;
+    if (session.settings.reason.codelens.unicode) {
+      if (/\.ml$/.test(data.event.textDocument.uri)) {
+        title = title.replace(/->/g, "→");
+      }
+      if (/\.re$/.test(data.event.textDocument.uri)) {
+        title = title.replace(/=>/g, "⇒");
+      }
+    }
+    if (/\.re$/.test(data.event.textDocument.uri)) {
+      title = title.replace(/ : /g, ": ");
+    }
     event.command = { command: "", title };
     return event;
   };
