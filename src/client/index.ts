@@ -19,6 +19,7 @@ class ClientWindow implements vscode.Disposable {
 }
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
+  const reasonConfig = vscode.workspace.getConfiguration("reason");
   const module = context.asAbsolutePath(path.join("out", "src", "server", "index.js"));
   const transport = client.TransportKind.ipc;
   const run = { module, transport, options: {} };
@@ -26,7 +27,7 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const serverOptions = { run, debug };
   const clientOptions: client.LanguageClientOptions = {
     diagnosticCollectionName: "Reason",
-    documentSelector: [ "reason" ],
+    documentSelector: reasonConfig.get<string[]>("server.languages", [ "reason" ]),
     outputChannelName: "Reason",
     stdioEncoding: "utf8",
     synchronize: {

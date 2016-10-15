@@ -113,6 +113,9 @@ export interface ISettings {
       refmterr: string;
       rtop: string;
     };
+    server: {
+      languages: ("ocaml" | "reason")[];
+    };
   };
 }
 
@@ -130,6 +133,9 @@ export class Session {
         refmt: "refmt",
         refmterr: "refmterr",
         rtop: "rtop",
+      },
+      server: {
+        languages: [ "reason" ],
       },
     },
   };

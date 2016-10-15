@@ -42,6 +42,14 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.server.languages": {
+          "type": "array",
+          "items": { "enum": [ "ocaml", "reason" ] },
+          "default": [ "reason" ],
+          "maxItems": 2,
+          "uniqueItems": true,
+          "description": "The list of languages to activate support for in the server session"
+        },
         "reason.debounce.linter": {
           "type": "integer",
           "default": 500,
