@@ -13,12 +13,12 @@ Reason support for Visual Studio Code
 - editing
   - [x] document formatting
   - [x] completion and snippets
-  - [x] rename symbol (F2 or right click)
+  - [x] [rename symbol](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol) (F2 or right click)
   - [x] [case splitting](#case-splitting)
 
 - navigation
-  - [x] outline view for symbols (⇧⌘O) (type `:` in list to sort items)
-  - [x] jump-to-definition (⌃+click) and code preview (⌘+hover)
+  - [x] [outline view](https://code.visualstudio.com/docs/editor/editingevolved#_goto-symbol) (⇧⌘O) (type `:` in list to sort items)
+  - [x] [jump-to-definition](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition) (⌃+click) and [code preview](https://code.visualstudio.com/docs/editor/editingevolved#_peek) (⌘+hover)
   - [x] find references (⇧F12 or right click)
 
 - static analysis
