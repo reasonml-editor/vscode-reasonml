@@ -302,11 +302,26 @@
       ]
     },
     "module-expression-path": {
-      "match": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(\\.)",
-      "captures": {
-        "1": { "name": "entity.name.class" },
-        "2": { "name": "keyword.operator" }
-      }
+      "begin": "\\b([[:upper:]][[:word:]]*)\\b",
+      "end": "(\\.)|(?=[^[:space:].\\(])",
+      "beginCaptures": {
+        "1": { "name": "entity.name.class" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.operator" }
+      },
+      "patterns": [
+        {
+          "begin": "(\\()",
+          "end": "(\\))",
+          "captures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#module-expression-path" }
+          ]
+        }
+      ]
     },
     "module-item-class-type": {
       "comment": "FIXME: proper parsing",
