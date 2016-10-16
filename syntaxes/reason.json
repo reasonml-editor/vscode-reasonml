@@ -462,7 +462,26 @@
       ]
     },
     "module-item-let-module-param": {
+      "begin": "(?=\\()",
+      "end": "\\)",
       "patterns": [
+        {
+          "begin": "\\(",
+          "end": "(?=[:])",
+          "patterns": [
+            { "include": "#module-expression-path" }
+          ]
+        },
+        {
+          "begin": "(:)",
+          "end": "(?=\\))",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#module-expression" }
+          ]
+        }
       ]
     },
     "module-item-let-module-rec": {
