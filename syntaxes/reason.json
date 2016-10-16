@@ -221,13 +221,39 @@
       "end": "(?=[;])",
       "patterns": [
         {
-          "begin": "\\([[:space:]]*\\b(val)\\b",
-          "end": "\\)",
-          "beginCaptures": {
-            "1": { "name": "keyword.other" }
-          },
+          "begin": "(?<=\\()",
+          "end": "(?=\\))",
           "patterns": [
-            { "include": "#module-expression-path" }
+            {
+              "begin": "\\b(val)\\b",
+              "end": "(?=\\))",
+              "beginCaptures": {
+                "1": { "name": "keyword.other" }
+              },
+              "patterns": [
+                { "include": "#module-expression-path" }
+              ]
+            },
+            {
+              "begin": "",
+              "end": "(?=[:])",
+              "patterns": [
+                {
+                  "match": "\\b([[:upper:]][[:word:]]*)\\b",
+                  "name": "entity.name.class"
+                }
+              ]
+            },
+            {
+              "begin": "([:])",
+              "end": "(?=[\\)])",
+              "beginCaptures": {
+                "1": { "name": "keyword.other" }
+              },
+              "patterns": [
+                { "include": "#signature-expression" }
+              ]
+            }
           ]
         },
         {
@@ -244,11 +270,11 @@
         { "include": "#module-expression-block" },
         {
           "begin": "(?=\\b(with))",
-          "end": "(?=[;])",
+          "end": "(?=[;\\)])",
           "patterns": [
             {
               "begin": "\\b(and|with)\\b",
-              "end": "(?=\\b(and|with)\\b|[;])",
+              "end": "(?=\\b(and|with)\\b|[;\\)])",
               "beginCaptures": {
                 "1": { "name": "storage.modifier" }
               },
@@ -256,7 +282,7 @@
                 { "include": "#module-item-type" },
                 {
                   "begin": "(?=\\b(module)\\b)",
-                  "end": "(?=\\b(and|with)\\b|[;])",
+                  "end": "(?=\\b(and|with)\\b|[;\\)])",
                   "patterns": [
                     {
                       "begin": "\\b(module)\\b",
@@ -269,12 +295,12 @@
                         }
                       ],
                       "beginCaptures": {
-                        "1": { "name": "keyword.other" }
+                        "1": { "name": "storage.type" }
                       }
                     },
                     {
                       "begin": "(:=)",
-                      "end": "(?=\\b(and|with)\\b|[;])",
+                      "end": "(?=\\b(and|with)\\b|[;\\)])",
                       "patterns": [
                         { "include": "#module-expression" }
                       ],
@@ -312,8 +338,8 @@
       ]
     },
     "module-expression-path": {
-      "begin": "\\b([[:upper:]][[:word:]]*)\\b",
-      "end": "(\\.)|(?=[^[:space:].\\(])",
+      "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(?=[\\.\\(])",
+      "end": "(\\.)|(?=[^[:space:]\\.\\(])",
       "beginCaptures": {
         "1": { "name": "entity.name.class" }
       },
@@ -934,7 +960,7 @@
       "end": "\\)",
       "patterns": [
         { "include": "#pattern-parens-lhs" },
-        { "include": "#pattern-parens-rhs" }
+        { "include": "#type-annotation-rhs" }
       ]
     },
     "pattern-parens-lhs": {
@@ -950,7 +976,7 @@
     "pattern-parens-rhs": {
       "patterns": [
         { "include": "#pattern-parens-rhs-alias" },
-        { "include": "#pattern-parens-rhs-type" }
+        { "include": "#type-annotation-rhs" }
       ]
     },
     "pattern-parens-rhs-alias": {
@@ -961,16 +987,6 @@
       },
       "patterns": [
         { "include": "#pattern-variable" }
-      ]
-    },
-    "pattern-parens-rhs-type": {
-      "begin": "(:)",
-      "end": "(?=\\))",
-      "beginCaptures": {
-        "1": { "name": "keyword.operator" }
-      },
-      "patterns": [
-        { "include": "#type-expression" }
       ]
     },
     "pattern-record": {
@@ -1101,7 +1117,33 @@
             }
           ]
         },
+        {
+          "begin": "\\b(module)\\b[[:space:]]*\\b(type)\\b([[:space:]]*\\b(of)\\b)?",
+          "end": "(?=[;\\)\\}]|\\b(with)\\b)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" },
+            "2": { "name": "keyword.other" },
+            "3": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#module-expression-path" },
+            {
+              "match": "\\b([[:upper:]][[:word:]]*)\\b",
+              "name": "entity.name.class"
+            }
+          ]
+        },
         { "include": "#module-expression" }
+      ]
+    },
+    "type-annotation-rhs": {
+      "begin": "(:)",
+      "end": "(?=\\))",
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" }
+      },
+      "patterns": [
+        { "include": "#type-expression" }
       ]
     },
     "type-expression": {
@@ -1562,7 +1604,8 @@
       "begin": "(?=\\()",
       "end": "\\)",
       "patterns": [
-        { "include": "#value-expression-parens-lhs" }
+        { "include": "#value-expression-parens-lhs" },
+        { "include": "#type-annotation-rhs" }
       ]
     },
     "value-expression-parens-lhs": {
