@@ -1499,6 +1499,7 @@
           }
         },
         {
+          "comment": "FIXME: don't highlight in external strings",
           "match": "(%)([ads])?",
           "captures": {
             "1": { "name": "keyword.operator" },
