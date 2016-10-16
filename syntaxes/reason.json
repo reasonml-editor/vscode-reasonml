@@ -221,6 +221,13 @@
       "end": "(?=[;])",
       "patterns": [
         {
+          "begin": "(?=\\()",
+          "end": "(?=[;])",
+          "patterns": [
+            { "include": "#module-expression-path" }
+          ]
+        },
+        {
           "patterns": [
             { "include": "#module-expression-path" },
             {
@@ -458,7 +465,7 @@
         "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
-        { "include": "#module-expression" }
+        { "include": "#signature-expression" }
       ]
     },
     "module-item-let-module-param": {
@@ -1065,6 +1072,35 @@
     "operator-prefix-label-token": {
       "name": "keyword.operator",
       "match": "[?~][\\-:!?.@*/&%^+<=>|~$]+"
+    },
+    "signature-expression": {
+      "patterns": [
+        {
+          "comment": "FIXME: scan for an :upper: to avoid parsing (val); need to split rules to do this properly",
+          "begin": "(?=\\([[:space:]]*[[:upper:]])",
+          "end": "(?=[;])",
+          "patterns": [
+            {
+              "begin": "",
+              "end": "(?==>)",
+              "patterns": [
+                { "include": "#module-item-let-module-param" }
+              ]
+            },
+            {
+              "begin": "(=>)",
+              "end": "(?=[;])",
+              "beginCaptures": {
+                "1": { "name": "keyword.other" }
+              },
+              "patterns": [
+                { "include": "#module-expression-block" }
+              ]
+            }
+          ]
+        },
+        { "include": "#module-expression" }
+      ]
     },
     "type-expression": {
       "comments": "FIXME: higher-rank, objects, poly-variants, etc.",
