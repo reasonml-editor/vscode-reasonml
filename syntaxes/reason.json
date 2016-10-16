@@ -221,8 +221,11 @@
       "end": "(?=[;])",
       "patterns": [
         {
-          "begin": "(?=\\()",
-          "end": "(?=[;])",
+          "begin": "\\([[:space:]]*\\b(val)\\b",
+          "end": "\\)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
           "patterns": [
             { "include": "#module-expression-path" }
           ]
