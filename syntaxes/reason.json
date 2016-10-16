@@ -328,7 +328,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
-            { "include": "#module-expression-path" }
+            { "include": "#module-expression" }
           ]
         }
       ]
@@ -750,7 +750,7 @@
     "module-item-type": {
       "comment": "FIXME: the semi-colon is optional so we can re-use this for hover, which does not print the trailing ;",
       "begin": "\\b(type)\\b",
-      "end": "(?=([;]))|(?=\\b(with)\\b)",
+      "end": "(?=([;]))|(?=[\\}]|\\b(with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -765,7 +765,7 @@
     },
     "module-item-type-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=\\b(and|with)\\b|[;])",
+      "end": "(?=\\b(and|with)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -783,7 +783,7 @@
     "module-item-type-bind-body": {
       "comment": "FIXME: parsing",
       "begin": "(\\+?=)",
-      "end": "(?=\\b(and|constraint|with)\\b|[;])",
+      "end": "(?=\\b(and|constraint|with)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -808,7 +808,7 @@
         { "include": "#type-expression" },
         {
           "begin": "(\\.\\.)",
-          "end": "(?=[;]|\\b(with)\\b)",
+          "end": "(?=[;\\}]|\\b(with)\\b)",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           }
@@ -818,7 +818,7 @@
     },
     "module-item-type-bind-nonrec": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(nonrec)\\b",
-      "end": "(?=\\b(and|with)\\b|[;])",
+      "end": "(?=\\b(and|with)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "storage.modifier.nonrec.reason" }
       },
@@ -828,7 +828,7 @@
     },
     "module-item-type-bind-name-tyvars": {
       "begin": "(?<=\\G|^|\\.)[[:space:]]*\\b([[:lower:]][[:word:]]*)\\b",
-      "end": "(?=\\+?=|[;]|\\b(with)\\b)",
+      "end": "(?=\\+?=|[;\\}]|\\b(with)\\b)",
       "beginCaptures": {
         "1": { "name": "entity.name.function" }
       },
@@ -852,7 +852,7 @@
     },
     "module-item-type-bind-name-tyvars-body": {
       "begin": "(?=(\\G|^)[[:space:]]*\\b[[:alpha:]])",
-      "end": "(?=\\b(and|constraint|with)\\b|[;])",
+      "end": "(?=\\b(and|constraint|with)\\b|[;\\}])",
       "patterns": [
         { "include": "#module-expression-path" },
         { "include": "#module-item-type-bind-name-tyvars" },
@@ -862,7 +862,7 @@
     "module-item-type-constraint": {
       "comment": "FIXME: proper parsing",
       "begin": "\\b(constraint)\\b",
-      "end": "(?=\\b(and|constraint|with)\\b|[;])",
+      "end": "(?=\\b(and|constraint|with)\\b|[;\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
