@@ -35,6 +35,7 @@ export default function(session: session.Session): server.RequestHandler<server.
           position: types.Position.create(item.location.range.start.line, item.location.range.start.character),
           textDocument: event.textDocument,
         };
+        let matches: null | RegExpMatchArray = null;
         // reason requires computing some offsets first
         if (/\.re$/.test(event.textDocument.uri)) {
           const textLine = textDoc.getText().substring(
@@ -42,7 +43,7 @@ export default function(session: session.Session): server.RequestHandler<server.
             textDoc.offsetAt(item.location.range.end),
           );
           if (textLine != null) {
-            const matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)/);
+            matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)/);
             if (matches != null) {
               params.position.character += matches[1].length;
               params.position.character += matches[2].length;
@@ -51,14 +52,16 @@ export default function(session: session.Session): server.RequestHandler<server.
             }
           }
         }
-        const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = {
-          containerName: item.containerName,
-          event: params,
-          kind: item.kind,
-          location: item.location,
-          name: item.name,
-        };
-        codeLenses.push({ data, range: item.location.range });
+        if (matches || /\.ml$/.test(event.textDocument.uri)) {
+          const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = {
+            containerName: item.containerName,
+            event: params,
+            kind: item.kind,
+            location: item.location,
+            name: item.name,
+          };
+          codeLenses.push({ data, range: item.location.range });
+        }
       }
     }
     return codeLenses;
