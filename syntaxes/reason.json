@@ -1079,8 +1079,7 @@
     "signature-expression": {
       "patterns": [
         {
-          "comment": "FIXME: scan for an :upper: to avoid parsing (val); need to split rules to do this properly",
-          "begin": "(?=\\([[:space:]]*[[:upper:]])",
+          "begin": "(?=\\()",
           "end": "(?=[;])",
           "patterns": [
             {
