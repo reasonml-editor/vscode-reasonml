@@ -252,6 +252,7 @@
       "patterns": [
         { "include": "#attribute" },
         { "include": "#comment" },
+        { "include": "#module-item-exception" },
         { "include": "#module-item-include" },
         { "include": "#module-item-let" },
         { "include": "#module-item-class-type" },
@@ -302,6 +303,19 @@
             { "include": "#class-item-method" }
           ]
         }
+      ]
+    },
+    "module-item-exception": {
+      "begin": "\\b(exception)\\b",
+      "end": "(;)",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "patterns": [
+        { "include": "#module-item-type-bind-body-item" }
       ]
     },
     "module-item-include": {
@@ -691,6 +705,11 @@
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
+      "patterns": [
+        { "include": "#module-item-type-bind-body-item" }
+      ]
+    },
+    "module-item-type-bind-body-item": {
       "patterns": [
         {
           "comment": "FIXME: add separate rule; parsing",
