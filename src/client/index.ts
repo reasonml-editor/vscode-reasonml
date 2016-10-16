@@ -5,7 +5,7 @@ import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
 class ClientWindow implements vscode.Disposable {
-  readonly merlin: vscode.StatusBarItem;
+  public readonly merlin: vscode.StatusBarItem;
   constructor() {
     this.merlin = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);
     this.merlin.text = "$(hubot) [loading]";
@@ -13,7 +13,7 @@ class ClientWindow implements vscode.Disposable {
     this.merlin.show();
     return this;
   }
-  dispose() {
+  public dispose() {
     this.merlin.dispose();
   }
 }
@@ -32,7 +32,11 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
     stdioEncoding: "utf8",
     synchronize: {
       configurationSection: "reason",
-      fileEvents: vscode.workspace.createFileSystemWatcher("**/.merlin"),
+      fileEvents: [
+        vscode.workspace.createFileSystemWatcher("**/.merlin"),
+        vscode.workspace.createFileSystemWatcher("**/*.ml"),
+        vscode.workspace.createFileSystemWatcher("**/*.re"),
+      ],
     },
   };
   const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);

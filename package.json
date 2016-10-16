@@ -49,8 +49,15 @@
         },
         "reason.server.languages": {
           "type": "array",
-          "items": { "enum": [ "ocaml", "reason" ] },
-          "default": [ "reason" ],
+          "items": {
+            "enum": [
+              "ocaml",
+              "reason"
+            ]
+          },
+          "default": [
+            "reason"
+          ],
           "maxItems": 2,
           "uniqueItems": true,
           "description": "The list of languages to activate support for in the server session"
@@ -223,6 +230,7 @@
   "devDependencies": {
     "@types/glob": "^5.0.30",
     "@types/lodash": "^4.14.36",
+    "@types/lokijs": "^1.2.30",
     "@types/node": "^6.0.40",
     "@types/pegjs": "0.0.28",
     "tslint": "^3.13.0",
@@ -232,6 +240,7 @@
   "dependencies": {
     "glob": "^7.0.6",
     "lodash": "^4.15.0",
+    "lokijs": "^1.4.1",
     "pegjs": "^0.10.0",
     "vscode-jsonrpc": "^2.4.0",
     "vscode-languageclient": "^2.5.0",

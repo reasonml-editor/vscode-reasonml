@@ -4,6 +4,7 @@ import completion from "./completion";
 import completionResolve from "./completionResolve";
 import definition from "./definition";
 import didChangeConfiguration from "./didChangeConfiguration";
+import didChangeWatchedFiles from "./didChangeWatchedFiles";
 import documentFormatting from "./documentFormatting";
 import documentHighlight from "./documentHighlight";
 import documentOnTypeFormatting from "./documentOnTypeFormatting";
@@ -13,6 +14,7 @@ import hover from "./hover";
 import initialize from "./initialize";
 import references from "./references";
 import rename from "./rename";
+import workspaceSymbol from "./workspaceSymbol";
 
 export {
   codeLens,
@@ -21,6 +23,7 @@ export {
   completionResolve,
   definition,
   didChangeConfiguration,
+  didChangeWatchedFiles,
   documentFormatting,
   documentHighlight,
   documentOnTypeFormatting,
@@ -30,4 +33,5 @@ export {
   initialize,
   references,
   rename,
+  workspaceSymbol,
 }

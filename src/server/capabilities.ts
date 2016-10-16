@@ -17,6 +17,7 @@ const capabilities: server.ServerCapabilities = {
   referencesProvider: true,
   renameProvider: true,
   textDocumentSync: server.TextDocumentSyncKind.Incremental,
+  workspaceSymbolProvider: true,
 };
 
 export default capabilities;

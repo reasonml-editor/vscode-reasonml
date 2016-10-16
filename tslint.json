@@ -3,7 +3,6 @@
   "rules": {
     "curly": false,
     "max-line-length": [ false ],
-    "member-access": false,
     "no-namespace": false
   }
 }

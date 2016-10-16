@@ -16,23 +16,23 @@ export default class Merlin {
       terminal: false,
     });
   }
-  dispose() {
+  public dispose() {
     this.readline.close();
     this.process.disconnect();
   }
-  question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
+  public query<I, O>(request: merlin.Query<I, O>, path?: string): merlin.Response<O> {
+    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
+    return this.question<I, merlin.MerlinResponse<O>>(request.query, context);
+  }
+  public sync<I, O>(request: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
+    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
+    return this.question<I, merlin.MerlinResponse<O>>(request.sync, context);
+  }
+  private question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
     const request = context ? { context, query } : query;
     const promise: Promise<O> = this.pending.then(() => new Promise((resolve) =>
       this.readline.question(JSON.stringify(request), _.flow(JSON.parse, resolve))));
     this.pending = promise.then(() => Promise.resolve());
     return promise;
-  }
-  query<I, O>(request: merlin.Query<I, O>, path?: string): merlin.Response<O> {
-    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, merlin.MerlinResponse<O>>(request.query, context);
-  }
-  sync<I, O>(request: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
-    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, merlin.MerlinResponse<O>>(request.sync, context);
   }
 }

@@ -4,7 +4,8 @@ import { Session } from "../session";
 import * as server from "vscode-languageserver";
 
 export default function(session: Session): server.RequestHandler<server.InitializeParams, server.InitializeResult, server.InitializeError> {
-  return async () => {
+  return async (event) => {
+    session.initConf = event;
     const request = merlin.Sync.protocol.version.set(3);
     const response = await session.merlin.sync(request);
     if (response.class !== "return" || response.value.selected !== 3) {
