@@ -1,7 +1,6 @@
-import { merlin, remote, types } from "../shared";
-// import * as command from "./command";
+import { merlin, types } from "../shared";
+import * as command from "./command";
 import * as processes from "./processes";
-import { Glob } from "glob";
 import * as _ from "lodash";
 import * as path from "path";
 import Loki = require("lokijs");
@@ -38,7 +37,7 @@ export class Index {
   public async indexSymbols({ uri }: types.TextDocumentIdentifier): Promise<void | server.ResponseError<void>> {
     const request = merlin.Query.outline();
     const response = await this.session.merlin.query(request, uri);
-    if (response.class !== "return") return new rpc.ResponseError(-1, "refreshSymbolsForUri: failed", undefined);
+    if (response.class !== "return") return new rpc.ResponseError(-1, "indexSymbols: failed", undefined);
     for (const item of merlin.Outline.intoCode(response.value, uri)) {
       const prefix = item.containerName ? `${item.containerName}.` : "";
       item.name = `${prefix}${item.name}`;
@@ -50,11 +49,11 @@ export class Index {
   public async populate(origin: types.TextDocumentIdentifier): Promise<void> {
     if (!this.populated) {
       this.populated = true;
-      const modules = await this.session.getModules(origin);
+      const modules = await command.getModules(this.session, origin);
       for (const id of modules) {
         if (/\.(ml|re)i$/.test(id.uri)) continue;
-        const data = await this.session.connection.sendRequest(remote.client.giveTextDocument, id);
-        await this.session.merlin.sync(merlin.Sync.tell("start", "end", data.content), id.uri);
+        const document = await command.getTextDocument(this.session, id);
+        await this.session.merlin.sync(merlin.Sync.tell("start", "end", document.getText()), id.uri);
         await this.refreshSymbols(id);
       }
     }
@@ -105,9 +104,9 @@ export class Diagnostics {
 
   public refreshWithKind(syncKind: server.TextDocumentSyncKind): (event: types.TextDocumentIdentifier) => Promise<void> {
     return async (id) => {
-      const data = await this.session.connection.sendRequest(remote.client.giveTextDocument, id);
+      const document = await command.getTextDocument(this.session, id);
       if (syncKind === server.TextDocumentSyncKind.Full) {
-        await this.session.merlin.sync(merlin.Sync.tell("start", "end", data.content), id.uri);
+        await this.session.merlin.sync(merlin.Sync.tell("start", "end", document.getText()), id.uri);
       }
       const errors = await this.session.merlin.query(merlin.Query.errors(), id.uri);
       if (errors.class !== "return") return;
@@ -237,25 +236,6 @@ export class Session {
     this.diagnostics = new Diagnostics(this);
     this.synchronizer = new Synchronizer(this);
     return this;
-  }
-
-  public async getModules(event: server.TextDocumentIdentifier): Promise<server.TextDocumentIdentifier[]> {
-    const request = merlin.Query.path.list.source();
-    const response = await this.merlin.query(request, event.uri);
-    if (response.class !== "return") return [];
-    const projectDirs: Set<string> = new Set();
-    const projectMods: server.TextDocumentIdentifier[] = [];
-    for (const cwd of response.value) {
-      if (cwd && !(/\.opam\b/.test(cwd) || projectDirs.has(cwd))) {
-        projectDirs.add(cwd);
-        const mods = new Glob("*.re?(i)", { cwd, realpath: true, sync: true }).found;
-        for (const mod of mods) {
-          const uri = `file://${mod}`;
-          projectMods.push({ uri });
-        }
-      }
-    }
-    return projectMods;
   }
 
   public listen(): void {
