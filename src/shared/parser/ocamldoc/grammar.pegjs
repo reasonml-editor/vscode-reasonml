@@ -156,10 +156,12 @@ word
   / s:[-+]? d0:[0-9]+ p:"."? d1:[0-9]*
 {
   let buffer = "";
+  buffer += "`";
   buffer += s || "";
-  buffer += d0;
+  for (const d of d0) buffer += d;
   buffer += p || "";
-  buffer += d1;
+  for (const d of d1) buffer += d;
+  buffer += "`";
   return buffer;
 }
   / chars:[^ \f\n\r\t\v{}\[\]0-9]+
