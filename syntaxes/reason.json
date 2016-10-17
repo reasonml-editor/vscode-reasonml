@@ -224,6 +224,7 @@
     "module-expression": {
       "end": "(?=[;])",
       "patterns": [
+        { "include": "#comment" },
         {
           "begin": "(?<=\\()",
           "end": "(?=\\))",
@@ -498,6 +499,7 @@
         "1": { "name": "entity.name.class" }
       },
       "patterns": [
+        { "include": "#comment" },
         { "include": "#module-item-let-module-param" }
       ]
     },
@@ -505,6 +507,7 @@
       "begin": "(?:\\G|^)",
       "end": "(?=\\b(and)\\b|[;\\}])",
       "patterns": [
+        { "include": "#comment" },
         { "include": "#module-item-let-module-bind-name-params" },
         { "include": "#module-item-let-module-bind-type" },
         { "include": "#module-item-let-module-bind-body" }
@@ -528,6 +531,7 @@
           "begin": "\\(",
           "end": "(?=[:])",
           "patterns": [
+            { "include": "#comment" },
             { "include": "#module-expression-path" }
           ]
         },
