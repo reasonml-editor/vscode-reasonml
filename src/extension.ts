@@ -60,7 +60,7 @@ const reasonConfiguration = {
       }
     },
     {
-      beforeText: /^(\t|(\ \ ))*(\|$)|(\|\s.*[^=][^>]\s*$)/,
+      beforeText: /^(\t|(\ \ ))*(\|$)|(\|\s.*[^=][^;>]\s*$)/,
       action: {
         indentAction: vscode.IndentAction.None,
         appendText: "| ",
