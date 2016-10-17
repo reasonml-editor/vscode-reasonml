@@ -42,15 +42,15 @@ export default class Merlin {
     });
   }
 
-  public query<I, O>({ query }: merlin.Query<I, O>, path?: string): merlin.Response<O> {
+  public query<I, O>({ query }: merlin.Query<I, O>, path?: string, priority: number = 0): merlin.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
     const request = context ? { context, query } : query;
-    return new Promise((resolve) => this.queue.push([request], 0, resolve));
+    return new Promise((resolve) => this.queue.push([request], priority, resolve));
   }
 
-  public sync<I, O>({ sync: query }: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
+  public sync<I, O>({ sync: query }: merlin.Sync<I, O>, path?: string, priority: number = 0): merlin.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
     const request = context ? { context, query } : query;
-    return new Promise((resolve) => this.queue.push([request], 0, resolve));
+    return new Promise((resolve) => this.queue.push([request], priority, resolve));
   }
 }

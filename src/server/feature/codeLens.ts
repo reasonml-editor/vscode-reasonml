@@ -20,7 +20,7 @@ export default function(session: Session): server.RequestHandler<server.CodeLens
     if (pattern.test(event.textDocument.uri)) return [];
 
     const request = merlin.Query.outline();
-    const response = await session.merlin.query(request, event.textDocument.uri);
+    const response = await session.merlin.query(request, event.textDocument.uri, 1);
     if (token.isCancellationRequested) return [];
 
     if (response.class !== "return") return new rpc.ResponseError(-1, "onCodeLens: failed", undefined);

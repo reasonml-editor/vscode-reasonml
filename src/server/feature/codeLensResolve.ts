@@ -6,7 +6,7 @@ import * as server from "vscode-languageserver";
 export default function(session: Session): server.RequestHandler<types.CodeLens, types.CodeLens, void> {
   return async (event, token) => {
     const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = event.data;
-    const itemType = await command.getType(session, data.event);
+    const itemType = await command.getType(session, data.event, 1);
     if (token.isCancellationRequested) return event;
     if (itemType == null) return event;
     let title = itemType.type;

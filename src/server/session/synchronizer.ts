@@ -23,7 +23,7 @@ export default class Synchronizer {
 
     this.session.connection.onDidOpenTextDocument(async (event): Promise<void> => {
       const request = merlin.Sync.tell("start", "end", event.textDocument.text);
-      await this.session.merlin.sync(request, event.textDocument.uri);
+      await this.session.merlin.sync(request, event.textDocument.uri, Infinity);
       this.session.analyzer.refreshImmediate(event.textDocument);
       // this.session.indexer.refreshSymbols(event.textDocument);
       await this.session.indexer.populate(event.textDocument);
@@ -36,7 +36,7 @@ export default class Synchronizer {
           const startPos = merlin.Position.fromCode(change.range.start);
           const endPos = merlin.Position.fromCode(change.range.end);
           const request = merlin.Sync.tell(startPos, endPos, change.text);
-          await this.session.merlin.sync(request, event.textDocument.uri);
+          await this.session.merlin.sync(request, event.textDocument.uri, Infinity);
         }
       }
       this.session.analyzer.refreshDebounced(event.textDocument);
