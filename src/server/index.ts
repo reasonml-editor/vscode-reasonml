@@ -1,7 +1,7 @@
 import { remote } from "../shared";
 import * as feature from "./feature";
 import * as request from "./request";
-import { Session } from "./session";
+import Session from "./session";
 
 const session = new Session();
 

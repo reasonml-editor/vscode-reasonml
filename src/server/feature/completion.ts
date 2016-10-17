@@ -1,6 +1,6 @@
 import { merlin, types } from "../../shared";
 import * as command from "../command";
-import { Session } from "../session";
+import Session from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
 

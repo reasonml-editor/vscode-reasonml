@@ -1,6 +1,6 @@
 import { merlin, types } from "../../shared";
 import * as command from "../command";
-import * as session from "../session";
+import Session from "../session";
 import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
 
@@ -8,7 +8,7 @@ const annotateKinds = new Set([
   types.SymbolKind.Variable,
 ]);
 
-export default function(session: session.Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
+export default function(session: Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
   return async (event, token) => {
     const languages: Set<string> = new Set(session.settings.reason.server.languages);
     if (languages.size === 0) return [];

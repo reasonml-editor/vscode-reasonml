@@ -1,10 +1,10 @@
-import * as session from "../session";
+import Session from "../session";
 import { ChildProcess } from "child_process";
 import * as childProcess from "child_process";
 
 export default class ReFMT {
   readonly child: ChildProcess;
-  constructor(session: session.Session, uri: string = ".re", argsOpt?: string[], ) {
+  constructor(session: Session, uri: string = ".re", argsOpt?: string[], ) {
     const path = session.settings.reason.path.refmt;
     const args = argsOpt || [
       "-use-stdin", "true",

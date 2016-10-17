@@ -1,8 +1,8 @@
 import { types } from "../../shared";
 import * as processes from "../processes";
-import * as session from "../session";
+import Session from "../session";
 
-export default async (session: session.Session, idoc: types.TextDocument, range?: types.Range): Promise<null | string> => {
+export default async (session: Session, idoc: types.TextDocument, range?: types.Range): Promise<null | string> => {
   const text = idoc.getText().substring(
     range ? idoc.offsetAt(range.start) : 0,
     range ? idoc.offsetAt(range.end) : undefined);

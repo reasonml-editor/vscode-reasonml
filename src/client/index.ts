@@ -1,4 +1,3 @@
-// import { ISettings } from "../shared";
 import * as command from "./command";
 import * as request from "./request";
 import * as path from "path";

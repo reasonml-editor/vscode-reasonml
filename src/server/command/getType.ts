@@ -1,5 +1,5 @@
 import { merlin } from "../../shared";
-import { Session } from "../session";
+import Session from "../session";
 import * as server from "vscode-languageserver";
 
 export default async (session: Session, event: server.TextDocumentPositionParams): Promise<null | {
