@@ -1,4 +1,4 @@
-import { merlin, types } from "../shared";
+import { ISettings, merlin, types } from "../shared";
 import * as command from "./command";
 import * as processes from "./processes";
 import * as _ from "lodash";
@@ -46,6 +46,10 @@ export class Index {
     }
   };
 
+  public async initialize(): Promise<void> {
+    return;
+  }
+
   public async populate(origin: types.TextDocumentIdentifier): Promise<void> {
     if (!this.populated) {
       this.populated = true;
@@ -82,7 +86,6 @@ export class Diagnostics {
 
   constructor(session: Session) {
     this.session = session;
-    this.onDidChangeConfiguration();
     return this;
   }
 
@@ -91,6 +94,10 @@ export class Diagnostics {
       diagnostics: [],
       uri: event.uri,
     });
+  }
+
+  public async initialize(): Promise<void> {
+    this.onDidChangeConfiguration();
   }
 
   public onDidChangeConfiguration(): void {
@@ -132,6 +139,10 @@ export class Synchronizer {
     return this;
   }
 
+  public async initialize(): Promise<void> {
+    return;
+  }
+
   public listen(): void {
     this.session.connection.onDidCloseTextDocument((event) => {
       this.session.diagnostics.clear(event.textDocument);
@@ -170,72 +181,33 @@ export class Synchronizer {
 }
 
 /**
- * Structured configuration settings for the session.
- */
-export interface ISettings {
-  reason: {
-    codelens: {
-      unicode: boolean;
-    };
-    debounce: {
-      linter: number;
-    };
-    path: {
-      ocamlfind: string;
-      ocamlmerlin: string;
-      opam: string;
-      rebuild: string;
-      refmt: string;
-      refmterr: string;
-      rtop: string;
-    };
-    server: {
-      languages: ("ocaml" | "reason")[];
-    };
-  };
-}
-
-/**
  * Manager for the session. Launched on client connection.
  */
 export class Session {
   public initConf: server.InitializeParams;
-  public settings: ISettings = {
-    reason: {
-      codelens: {
-        unicode: true,
-      },
-      debounce: {
-        linter: 500,
-      },
-      path: {
-        ocamlfind: "ocamlfind",
-        ocamlmerlin: "ocamlmerlin",
-        opam: "opam",
-        rebuild: "rebuild",
-        refmt: "refmt",
-        refmterr: "refmterr",
-        rtop: "rtop",
-      },
-      server: {
-        languages: [ "reason" ],
-      },
-    },
-  };
+  public settings: ISettings = ({} as any);
   public readonly connection: server.IConnection = server.createConnection(
     new server.IPCMessageReader(process),
     new server.IPCMessageWriter(process),
   );
   public readonly diagnostics: Diagnostics;
   public readonly index: Index;
-  public readonly merlin = new processes.Merlin(this.settings);
+  public readonly merlin: processes.Merlin;
   public readonly synchronizer: Synchronizer;
 
   constructor() {
-    this.index = new Index(this);
     this.diagnostics = new Diagnostics(this);
+    this.index = new Index(this);
+    this.merlin = new processes.Merlin(this);
     this.synchronizer = new Synchronizer(this);
     return this;
+  }
+
+  public async initialize(): Promise<void> {
+    await this.merlin.initialize();
+    await this.index.initialize();
+    await this.synchronizer.initialize();
+    await this.diagnostics.initialize();
   }
 
   public listen(): void {

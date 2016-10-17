@@ -1,3 +1,4 @@
+// import { ISettings } from "../shared";
 import * as command from "./command";
 import * as request from "./request";
 import * as path from "path";
@@ -18,6 +19,15 @@ class ClientWindow implements vscode.Disposable {
   }
 }
 
+class ErrorHandler {
+  public closed(): client.CloseAction {
+    return client.CloseAction.DoNotRestart;
+  }
+  public error(): client.ErrorAction {
+    return client.ErrorAction.Shutdown;
+  }
+}
+
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
   const module = context.asAbsolutePath(path.join("out", "src", "server", "index.js"));
@@ -28,6 +38,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const clientOptions: client.LanguageClientOptions = {
     diagnosticCollectionName: "Reason",
     documentSelector: reasonConfig.get<string[]>("server.languages", [ "reason" ]),
+    errorHandler: new ErrorHandler(),
+    initializationOptions: reasonConfig,
     outputChannelName: "Reason",
     stdioEncoding: "utf8",
     synchronize: {
