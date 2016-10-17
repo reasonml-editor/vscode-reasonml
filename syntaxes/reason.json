@@ -1154,7 +1154,8 @@
     "signature-expression": {
       "patterns": [
         {
-          "begin": "(?=\\()",
+          "comment": "FIXME: scan for :upper: to disambiguate type/signature in hover",
+          "begin": "(?=\\([[:space:]]*[[:upper:]])",
           "end": "(?=[;])",
           "patterns": [
             {
