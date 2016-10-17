@@ -1160,7 +1160,7 @@
             },
             {
               "begin": "(=>)",
-              "end": "(?=[;])",
+              "end": "(?=[;\\(])",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
