@@ -150,7 +150,7 @@
       "patterns": [
         {
           "begin": "\\G",
-          "end": "(?=[[:space:]>])",
+          "end": "(?=[[:space:]/>])",
           "patterns": [
             {
               "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(\\.)",
@@ -214,6 +214,10 @@
         "1": { "name": "keyword.operator" }
       },
       "patterns": [
+        {
+          "comment": "FIXME: seems necessary in order to properly tokenize `[[:word:]]</` boundary",
+          "match": "[[:lower:]][[:word:]]*"
+        },
         { "include": "#value-expression" }
       ]
     },
