@@ -1165,7 +1165,7 @@
                 "1": { "name": "keyword.other" }
               },
               "patterns": [
-                { "include": "#module-expression-block" }
+                { "include": "#module-expression" }
               ]
             }
           ]
