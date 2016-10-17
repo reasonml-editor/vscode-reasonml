@@ -300,7 +300,7 @@
               "patterns": [
                 {
                   "begin": "\\b(module)\\b",
-                  "end": "(?=:=)",
+                  "end": "(?=:?=)",
                   "patterns": [
                     { "include": "#module-expression-path" },
                     {
@@ -809,10 +809,12 @@
       ]
     },
     "module-item-type-and": {
-      "begin": "\\b(and)\\b",
+      "comment": "FIXME: the optional `type` is for module constraints",
+      "begin": "\\b(and)\\b([[:space:]]*type)?",
       "end": "(?=\\b(and|with)\\b|[;\\)\\}])",
       "beginCaptures": {
-        "1": { "name": "keyword.other" }
+        "1": { "name": "keyword.other" },
+        "2": { "name": "keyword.other" }
       },
       "patterns": [
         { "include": "#module-item-type-bind-name-tyvars-body" }
