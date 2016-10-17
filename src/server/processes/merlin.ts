@@ -1,17 +1,22 @@
 import { merlin } from "../../shared";
 import Session from "../session";
+import * as async from "async";
 import * as child_process from "child_process";
 import * as _ from "lodash";
 import * as readline from "readline";
 
 export default class Merlin {
-  private pending: Promise<void> = Promise.resolve();
-  private process: child_process.ChildProcess;
+  private readonly queue: AsyncPriorityQueue<any>;
   private readline: readline.ReadLine;
-  private session: Session;
+  private process: child_process.ChildProcess;
+  private readonly session: Session;
 
   constructor(session: Session) {
     this.session = session;
+    this.queue = async.priorityQueue((task, callback) => {
+      this.readline.question(JSON.stringify(task), _.flow(JSON.parse, callback));
+    }, 1);
+    return this;
   }
 
   public dispose(): void {
@@ -37,21 +42,15 @@ export default class Merlin {
     });
   }
 
-  public query<I, O>(request: merlin.Query<I, O>, path?: string): merlin.Response<O> {
+  public query<I, O>({ query }: merlin.Query<I, O>, path?: string): merlin.Response<O> {
     const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, merlin.MerlinResponse<O>>(request.query, context);
-  }
-
-  public sync<I, O>(request: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
-    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
-    return this.question<I, merlin.MerlinResponse<O>>(request.sync, context);
-  }
-
-  private question<I, O>(query: I, context?: ["auto", string]): Promise<O> {
     const request = context ? { context, query } : query;
-    const promise: Promise<O> = this.pending.then(() => new Promise((resolve) =>
-      this.readline.question(JSON.stringify(request), _.flow(JSON.parse, resolve))));
-    this.pending = promise.then(() => Promise.resolve());
-    return promise;
+    return new Promise((resolve) => this.queue.push([request], 0, resolve));
+  }
+
+  public sync<I, O>({ sync: query }: merlin.Sync<I, O>, path?: string): merlin.Response<O> {
+    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
+    const request = context ? { context, query } : query;
+    return new Promise((resolve) => this.queue.push([request], 0, resolve));
   }
 }

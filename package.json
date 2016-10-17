@@ -150,8 +150,7 @@
         "aliases": [
           "OCaml"
         ],
-        "extensions": [
-        ],
+        "extensions": [],
         "configuration": "./ocaml.configuration.json"
       },
       {
@@ -228,6 +227,7 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
   "devDependencies": {
+    "@types/async": "^2.0.32",
     "@types/glob": "^5.0.30",
     "@types/lodash": "^4.14.36",
     "@types/lokijs": "^1.2.30",
@@ -238,6 +238,7 @@
     "vscode": "^1.0.0"
   },
   "dependencies": {
+    "async": "^2.0.1",
     "glob": "^7.0.6",
     "lodash": "^4.15.0",
     "lokijs": "^1.4.1",
