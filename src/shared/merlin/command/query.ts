@@ -3,7 +3,7 @@ import * as json from "../json";
 import { ColumnLine, Location, Position } from "../ordinal";
 
 export class Query<I, O> {
-  query: I;
+  public query: I;
   constructor(query: I) {
     void null as any as O; // tslint:disable-line:no-unused-expression
     this.query = query;

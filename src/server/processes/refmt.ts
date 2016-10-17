@@ -3,7 +3,7 @@ import { ChildProcess } from "child_process";
 import * as childProcess from "child_process";
 
 export default class ReFMT {
-  readonly child: ChildProcess;
+  public readonly child: ChildProcess;
   constructor(session: Session, uri: string = ".re", argsOpt?: string[], ) {
     const path = session.settings.reason.path.refmt;
     const args = argsOpt || [

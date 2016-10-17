@@ -1,7 +1,7 @@
 import * as ordinal from "../ordinal";
 
 export class Sync<I, O> {
-  sync: I;
+  public sync: I;
   constructor(sync: I) {
     void null as any as O; // tslint:disable-line:no-unused-expression
     this.sync = sync;
