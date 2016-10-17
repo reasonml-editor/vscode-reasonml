@@ -602,7 +602,7 @@
       ]
     },
     "module-item-let-value-bind-parens-params": {
-      "begin": "(?=\\()",
+      "begin": "(?=\\([^\\)])",
       "end": "(?!::)(?=[:=])",
       "patterns": [
         {
@@ -974,8 +974,8 @@
             "1": { "name": "keyword.other" }
           }
         },
-        { "include": "#pattern-parens" },
-        { "include": "#pattern-atomic" }
+        { "include": "#pattern-atomic" },
+        { "include": "#pattern-parens" }
       ]
     },
     "pattern-atomic": {
