@@ -1,0 +1,8 @@
+{
+	"recommendations": [
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "eg2.tslint",
+    "stkb.rewrap"
+	]
+}
