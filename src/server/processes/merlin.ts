@@ -29,7 +29,7 @@ export default class Merlin {
       : "";
     const ocamlmerlin = this.session.settings.reason.path.ocamlmerlin;
     const command = `${dependencyEnv}${ocamlmerlin}`;
-    this.process = child_process.exec(command, []);
+    this.process = child_process.spawn("sh", ["-c", command]);
     this.process.on("error", (error: Error & { code: string }) => {
       if (error.code === "ENOENT") {
         const msg = `Cannot find merlin binary at "${ocamlmerlin}".`;
