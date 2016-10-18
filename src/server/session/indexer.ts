@@ -23,6 +23,10 @@ export default class Indexer {
     return this;
   }
 
+  public dispose(): void {
+    return;
+  }
+
   public findSymbols(query: LokiQuery): types.SymbolInformation[] {
     let result: types.SymbolInformation[] = [];
     try {

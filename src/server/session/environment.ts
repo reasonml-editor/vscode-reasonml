@@ -22,6 +22,10 @@ export default class Environment {
     return this;
   }
 
+  public dispose(): void {
+    return;
+  }
+
   public async initialize(): Promise<void> {
     return;
   }

@@ -21,7 +21,6 @@ export default class Merlin {
 
   public dispose(): void {
     this.readline.close();
-    this.process.disconnect();
   }
 
   public initialize(): void {
@@ -32,6 +31,7 @@ export default class Merlin {
         const msg = `Cannot find merlin binary at "${ocamlmerlin}".`;
         this.session.connection.window.showWarningMessage(msg);
         this.session.connection.window.showWarningMessage(`Double check your path or try configuring "reason.path.ocamlmerlin" under "User Settings".`);
+        this.dispose();
         throw error;
      }
     });

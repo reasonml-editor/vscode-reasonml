@@ -36,6 +36,14 @@ export default class Session {
     return this;
   }
 
+  public dispose(): void {
+    this.analyzer.dispose();
+    this.environment.dispose();
+    this.indexer.dispose();
+    this.merlin.dispose();
+    this.synchronizer.dispose();
+  }
+
   public async initialize(): Promise<void> {
     await this.environment.initialize();
     await this.merlin.initialize();

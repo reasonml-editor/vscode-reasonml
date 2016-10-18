@@ -1,12 +1,17 @@
 import { remote } from "../shared";
 import * as feature from "./feature";
+import * as lifecycle from "./lifecycle";
 import * as request from "./request";
 import Session from "./session";
 
 const session = new Session();
 
+// vsocde server lifecycle
+session.connection.onExit(lifecycle.exit(session));
+session.connection.onInitialize(lifecycle.initialize(session));
+session.connection.onShutdown(lifecycle.shutdown(session));
+
 // vscode features
-session.connection.onInitialize(feature.initialize(session));
 session.connection.onDidChangeConfiguration(feature.didChangeConfiguration(session));
 session.connection.onDocumentHighlight(feature.documentHighlight(session));
 session.connection.onCodeLens(feature.codeLens(session));

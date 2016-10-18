@@ -12,6 +12,10 @@ export default class Synchronizer {
     return this;
   }
 
+  public dispose(): void {
+    return;
+  }
+
   public async initialize(): Promise<void> {
     return;
   }

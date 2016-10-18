@@ -24,6 +24,10 @@ export default class Analyzer {
     });
   }
 
+  public dispose(): void {
+    return;
+  }
+
   public async initialize(): Promise<void> {
     this.onDidChangeConfiguration();
   }

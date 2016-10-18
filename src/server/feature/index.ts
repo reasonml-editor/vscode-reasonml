@@ -11,7 +11,6 @@ import documentOnTypeFormatting from "./documentOnTypeFormatting";
 import documentRangeFormatting from "./documentRangeFormatting";
 import documentSymbol from "./documentSymbol";
 import hover from "./hover";
-import initialize from "./initialize";
 import references from "./references";
 import rename from "./rename";
 import workspaceSymbol from "./workspaceSymbol";
@@ -30,7 +29,6 @@ export {
   documentRangeFormatting,
   documentSymbol,
   hover,
-  initialize,
   references,
   rename,
   workspaceSymbol,
