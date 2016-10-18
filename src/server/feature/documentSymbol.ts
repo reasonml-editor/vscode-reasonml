@@ -6,10 +6,10 @@ import * as server from "vscode-languageserver";
 export default function(session: Session): server.RequestHandler<server.DocumentSymbolParams, types.SymbolInformation[], void> {
   return async (event, token) => {
     const request = merlin.Query.outline();
-    const response = await session.merlin.query(request, event.textDocument.uri, Infinity);
+    const response = await session.merlin.query(request, event.textDocument, Infinity);
     if (token.isCancellationRequested) return [];
     if (response.class !== "return") return new rpc.ResponseError(-1, "onDocumentSymbol: failed", undefined);
-    const symbols = merlin.Outline.intoCode(response.value, event.textDocument.uri);
+    const symbols = merlin.Outline.intoCode(response.value, event.textDocument);
     return symbols;
   };
 }

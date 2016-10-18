@@ -6,7 +6,7 @@ export default function(session: Session): server.RequestHandler<server.TextDocu
   return async (event, token) => {
     const find = async (kind: "ml" | "mli"): Promise<null | types.Location> => {
       const request = merlin.Query.locate(null, kind).at(merlin.Position.fromCode(event.position));
-      const response = await session.merlin.query(request, event.textDocument.uri);
+      const response = await session.merlin.query(request, event.textDocument);
       if (response.class !== "return" || response.value.pos == null) return null;
       const value = response.value;
       const uri = value.file ? `file://${value.file}` : event.textDocument.uri;

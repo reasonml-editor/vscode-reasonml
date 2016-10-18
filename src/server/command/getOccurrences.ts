@@ -5,7 +5,7 @@ import * as server from "vscode-languageserver";
 export default async (session: Session, event: server.TextDocumentPositionParams, priority: number = 0): Promise<null | merlin.Location[]> => {
   const position = merlin.Position.fromCode(event.position);
   const request = merlin.Query.occurrences.ident.at(position);
-  const response = await session.merlin.query(request, event.textDocument.uri, priority);
+  const response = await session.merlin.query(request, event.textDocument, priority);
   if (response.class !== "return") return null;
   return response.value;
 };

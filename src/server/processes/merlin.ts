@@ -1,4 +1,4 @@
-import { merlin } from "../../shared";
+import { merlin, types } from "../../shared";
 import Session from "../session";
 import * as async from "async";
 import * as child_process from "child_process";
@@ -42,14 +42,14 @@ export default class Merlin {
     });
   }
 
-  public query<I, O>({ query }: merlin.Query<I, O>, path?: string, priority: number = 0): merlin.Response<O> {
-    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
+  public query<I, O>({ query }: merlin.Query<I, O>, id?: types.TextDocumentIdentifier, priority: number = 0): merlin.Response<O> {
+    const context: ["auto", string] | undefined = id ? ["auto", id.uri] : undefined;
     const request = context ? { context, query } : query;
     return new Promise((resolve) => this.queue.push([request], priority, resolve));
   }
 
-  public sync<I, O>({ sync: query }: merlin.Sync<I, O>, path?: string, priority: number = 0): merlin.Response<O> {
-    const context: ["auto", string] | undefined = path ? ["auto", path] : undefined;
+  public sync<I, O>({ sync: query }: merlin.Sync<I, O>, id?: types.TextDocumentIdentifier, priority: number = 0): merlin.Response<O> {
+    const context: ["auto", string] | undefined = id ? ["auto", id.uri] : undefined;
     const request = context ? { context, query } : query;
     return new Promise((resolve) => this.queue.push([request], priority, resolve));
   }

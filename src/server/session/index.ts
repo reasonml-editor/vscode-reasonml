@@ -3,8 +3,13 @@ import { Merlin } from "../processes";
 import * as server from "vscode-languageserver";
 
 import Analyzer from "./analyzer";
+import Environment from "./environment";
 import Indexer from "./indexer";
 import Synchronizer from "./synchronizer";
+
+export {
+  Environment
+}
 
 /**
  * Manager for the session. Launched on client connection.
@@ -17,12 +22,14 @@ export default class Session {
     new server.IPCMessageWriter(process),
   );
   public readonly analyzer: Analyzer;
+  public readonly environment: Environment;
   public readonly indexer: Indexer;
   public readonly merlin: Merlin;
   public readonly synchronizer: Synchronizer;
 
   constructor() {
     this.analyzer = new Analyzer(this);
+    this.environment = new Environment(this);
     this.indexer = new Indexer(this);
     this.merlin = new Merlin(this);
     this.synchronizer = new Synchronizer(this);
@@ -30,6 +37,7 @@ export default class Session {
   }
 
   public async initialize(): Promise<void> {
+    await this.environment.initialize();
     await this.merlin.initialize();
     await this.indexer.initialize();
     await this.synchronizer.initialize();

@@ -10,7 +10,7 @@ export default async (session: Session, event: server.TextDocumentPositionParams
 }> => {
   const position = merlin.Position.fromCode(event.position);
   const request = merlin.Query.type.enclosing.at(position);
-  const response = await session.merlin.query(request, event.textDocument.uri, priority);
+  const response = await session.merlin.query(request, event.textDocument, priority);
   if (response.class !== "return") return null;
   return (response.value.length > 0) ? response.value[0] : null;
 };

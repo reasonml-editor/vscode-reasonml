@@ -139,7 +139,7 @@ export namespace Outline {
     kind: Kind;
     children: Item[];
   };
-  export function intoCode(outline: Item[], uri: string): types.SymbolInformation[] {
+  export function intoCode(outline: Item[], id: types.TextDocumentIdentifier): types.SymbolInformation[] {
     const symbols: types.SymbolInformation[] = [];
     function traverse (children: Item[], scope: string): void {
       for (const item of children) {
@@ -151,7 +151,7 @@ export namespace Outline {
           };
           const thisParent = scope === "" ? undefined : scope;
           const nextParent = `${scope}${scope === "" ? "" : "."}${item.name}`;
-          const info = types.SymbolInformation.create(item.name, kind, range, uri, thisParent);
+          const info = types.SymbolInformation.create(item.name, kind, range, id.uri, thisParent);
           symbols.push(info);
           traverse(item.children, nextParent);
         }

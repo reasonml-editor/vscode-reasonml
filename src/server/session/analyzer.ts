@@ -41,9 +41,9 @@ export default class Analyzer {
     return async (id) => {
       const document = await command.getTextDocument(this.session, id);
       if (syncKind === server.TextDocumentSyncKind.Full) {
-        await this.session.merlin.sync(merlin.Sync.tell("start", "end", document.getText()), id.uri);
+        await this.session.merlin.sync(merlin.Sync.tell("start", "end", document.getText()), id);
       }
-      const errors = await this.session.merlin.query(merlin.Query.errors(), id.uri);
+      const errors = await this.session.merlin.query(merlin.Query.errors(), id);
       if (errors.class !== "return") return;
       const diagnostics = errors.value.map(merlin.ErrorReport.intoCode);
       this.session.connection.sendDiagnostics({ diagnostics, uri: id.uri });
