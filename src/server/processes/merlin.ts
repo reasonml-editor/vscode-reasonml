@@ -24,8 +24,12 @@ export default class Merlin {
   }
 
   public initialize(): void {
+    const dependencyEnv = this.session.environment.isRebelProject
+      ? `eval $((${this.session.environment.workspaceRoot()}/node_modules/.bin/dependencyEnv) || true) && `
+      : "";
     const ocamlmerlin = this.session.settings.reason.path.ocamlmerlin;
-    this.process = child_process.spawn(this.session.settings.reason.path.ocamlmerlin, []);
+    const command = `${dependencyEnv}${ocamlmerlin}`;
+    this.process = child_process.exec(command, []);
     this.process.on("error", (error: Error & { code: string }) => {
       if (error.code === "ENOENT") {
         const msg = `Cannot find merlin binary at "${ocamlmerlin}".`;
