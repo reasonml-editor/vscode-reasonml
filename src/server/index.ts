@@ -27,6 +27,7 @@ session.connection.onDocumentSymbol(feature.documentSymbol(session));
 session.connection.onHover(feature.hover(session));
 session.connection.onReferences(feature.references(session));
 session.connection.onRenameRequest(feature.rename(session));
+session.connection.onSignatureHelp(feature.signatureHelp(session));
 session.connection.onWorkspaceSymbol(feature.workspaceSymbol(session));
 
 // vscode-reasonml features

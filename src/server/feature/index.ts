@@ -13,6 +13,7 @@ import documentSymbol from "./documentSymbol";
 import hover from "./hover";
 import references from "./references";
 import rename from "./rename";
+import signatureHelp from "./signatureHelp";
 import workspaceSymbol from "./workspaceSymbol";
 
 export {
@@ -31,5 +32,6 @@ export {
   hover,
   references,
   rename,
+  signatureHelp,
   workspaceSymbol,
 }

@@ -221,10 +221,12 @@
     ]
   },
   "scripts": {
-    "compile": "npm run ocamldoc:grammar:compile && tsc -watch -p ./",
-    "ocamldoc:grammar:compile": "mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
+    "compile": "npm run parser:compile:all && tsc -watch -p ./",
+    "parser:compile:all": "npm run parser:ocamldoc:compile && npm run parser:signature:compile",
+    "parser:ocamldoc:compile": "mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
+    "parser:signature:compile": "mkdir -p out/src/shared/parser/signature && pegjs -o out/src/shared/parser/signature/grammar.js src/shared/parser/signature/grammar.pegjs",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
+    "vscode:prepublish": "npm run parser:compile:all && tsc -p ./"
   },
   "devDependencies": {
     "@types/async": "^2.0.32",

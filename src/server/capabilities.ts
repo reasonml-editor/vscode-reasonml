@@ -16,6 +16,9 @@ const capabilities: server.ServerCapabilities = {
   hoverProvider: true,
   referencesProvider: true,
   renameProvider: true,
+  signatureHelpProvider: {
+    triggerCharacters: [ " " ],
+  },
   textDocumentSync: server.TextDocumentSyncKind.Incremental,
   workspaceSymbolProvider: true,
 };
