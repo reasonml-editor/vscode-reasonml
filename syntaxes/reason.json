@@ -1569,7 +1569,7 @@
       ]
     },
     "value-expression-label": {
-      "begin": "\\b([_[:lower:]][[:word:]]*)\\b(::)(\\?)?",
+      "begin": "\\b([_[:lower:]][[:word:]]*)\\b[[:space:]]*(::)(\\?)?",
       "end": "(?![[:space:]])",
       "beginCaptures": {
         "1": { "name": "constant.language" },
