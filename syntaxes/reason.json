@@ -1644,6 +1644,11 @@
 			"end": "\"|(?:[^\\\\\\n]$)",
       "patterns": [
         {
+          "comment": "FIXME: make escapes into separate rule",
+          "match": "\\\\[\\\\\"'ntbr ]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7]",
+          "name": "constant.character"
+        },
+        {
           "match": "(@)([ \\[\\],.]|\\\\n)",
           "captures": {
             "1": { "name": "keyword.operator" },
