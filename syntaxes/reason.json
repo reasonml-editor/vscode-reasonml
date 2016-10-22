@@ -971,25 +971,23 @@
     },
     "pattern": {
       "patterns": [
-        { "include": "#comment" },
-        { "include": "#module-expression-path-prefix-simple" },
+        { "include": "#pattern-atomic" },
         {
-          "comment": "FIXME",
-          "match": "\\b(lazy)\\b",
+          "match": "[[:space:]]*+(\\bas\\b|\\|)[[:space:]]*+",
           "captures": {
             "1": { "name": "keyword.other" }
           }
-        },
-        { "include": "#pattern-atomic" },
-        { "include": "#pattern-parens" }
+        }
       ]
     },
     "pattern-atomic": {
       "patterns": [
+        { "include": "#module-expression-path-prefix-simple" },
         { "include": "#value-expression-literal" },
         { "include": "#pattern-list" },
         { "include": "#pattern-record" },
-        { "include": "#pattern-variable" }
+        { "include": "#pattern-variable" },
+        { "include": "#pattern-parens" }
       ]
     },
     "pattern-guard": {
@@ -1026,7 +1024,7 @@
     },
     "pattern-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[,:\\)]|\\b(as)\\b))",
+      "end": "(?=(?:[,:\\)]))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1036,18 +1034,7 @@
     },
     "pattern-parens-rhs": {
       "patterns": [
-        { "include": "#pattern-parens-rhs-alias" },
         { "include": "#type-annotation-rhs" }
-      ]
-    },
-    "pattern-parens-rhs-alias": {
-      "begin": "\\b(as)\\b",
-      "end": "(?=[,\\)])",
-      "beginCaptures": {
-        "1": { "name": "keyword.other" }
-      },
-      "patterns": [
-        { "include": "#pattern-variable" }
       ]
     },
     "pattern-record": {
@@ -1570,6 +1557,13 @@
         { "include": "#value-expression-atomic" }
       ]
     },
+    "value-expression-lazy": {
+      "comment": "FIXME",
+      "match": "\\b(lazy)\\b",
+      "captures": {
+        "1": { "name": "keyword.other" }
+      }
+    },
     "value-expression-label": {
       "begin": "\\b([_[:lower:]][[:word:]]*)\\b[[:space:]]*(::)(\\?)?",
       "end": "(?![[:space:]])",
@@ -1586,10 +1580,11 @@
       "patterns": [
         { "include": "#value-expression-literal-boolean" },
         { "include": "#value-expression-literal-char" },
-        { "include": "#value-expression-literal-numeric" },
-        { "include": "#value-expression-literal-string" },
         { "include": "#value-expression-literal-constructor-variant" },
         { "include": "#value-expression-literal-constructor-variant-polymorphic" },
+        { "include": "#value-expression-lazy" },
+        { "include": "#value-expression-literal-numeric" },
+        { "include": "#value-expression-literal-string" },
         { "include": "#value-expression-literal-unit" }
       ]
     },
