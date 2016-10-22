@@ -345,7 +345,7 @@
       ]
     },
     "module-expression-path-prefix": {
-      "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(?=[\\.\\(])",
+      "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(?=(\\(.*\\))*\\.)",
       "end": "(\\.)|(?=[;\\)])",
       "beginCaptures": {
         "1": { "name": "entity.name.class" }
