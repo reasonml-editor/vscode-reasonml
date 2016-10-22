@@ -1443,7 +1443,7 @@
       ]
     },
     "value-expression-block-look": {
-      "begin": "(?![[:space:]]*($|\\.\\.\\.|([[:upper:]][[:word:]]*\\.)*([[:lower:]][[:word:]]*)[[:space:]]*[,:]))",
+      "begin": "(?![[:space:]]*($|\\.\\.\\.|([[:upper:]][[:word:]]*\\.)*([[:lower:]][[:word:]]*)[[:space:]]*(?:,|:(?![=]))))",
       "end": "(?=\\})",
       "patterns": [
         { "include": "#value-expression-block-item" }
