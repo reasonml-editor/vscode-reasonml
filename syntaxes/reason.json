@@ -15,7 +15,6 @@
         {
           "begin": "\\[(@{1,3})",
           "end": "(?=[^_\\.'[:word:]])",
-          "applyEndPatternLast": true,
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
