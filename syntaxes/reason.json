@@ -1836,7 +1836,7 @@
     },
     "value-expression-try": {
       "begin": "(?=\\b(try)\\b)",
-      "end": "(?<=\\})",
+      "end": "\\}",
       "patterns": [
         { "include": "#value-expression-try-head" },
         { "include": "#value-expression-try-body" }
@@ -1845,7 +1845,6 @@
     "value-expression-try-head": {
       "begin": "\\b(try)\\b",
       "end": "(?=\\{)",
-      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
