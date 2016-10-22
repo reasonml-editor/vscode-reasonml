@@ -104,7 +104,10 @@
 		"comment-block-doc": {
 			"begin": "/\\*\\*(?!/)",
 			"end": "\\*/",
-			"name": "comment.block.documentation.reason"
+			"name": "comment.block.documentation.reason",
+      "patterns": [
+        { "include": "#comment" }
+      ]
 		},
     "extension-node": {
       "begin": "(?=\\[(%{1,3})[[:space:]]*[[:alpha:]])",
