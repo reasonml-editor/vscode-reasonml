@@ -33,15 +33,16 @@ Reason support for Visual Studio Code
 
 ### Editor Configuration
 
-- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai) syntax theme
-- [Reason](https://github.com/facebook/reason#contributing-to-development) (development build)
+- [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula) syntax theme (recommended)
+- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai) syntax theme (recommended)
+- [Reason](https://github.com/facebook/reason#installing-via-opam) (`1.4.0` or newer)
 
 ### Reason Configuration
 
-For the moment, a recent development build of Reason is also recommended. Nothing is required apart
-from the standard Reason install steps linked above. As long as `opam` is configured correctly and
-`ocamlmerlin` is in your path, all features below should just work out of the box if your project is
-set up for merlin.
+Nothing is required apart from the standard Reason install steps linked above.
+As long as `opam` is configured correctly and `ocamlmerlin` is in your path, all
+features below should just work out of the box if your project is set up for
+merlin.
 
 ### Merlin Configuration
 
