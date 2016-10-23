@@ -12,6 +12,7 @@ session.connection.onInitialize(lifecycle.initialize(session));
 session.connection.onShutdown(lifecycle.shutdown(session));
 
 // vscode features
+session.connection.onCodeAction(feature.codeAction(session));
 session.connection.onDidChangeConfiguration(feature.didChangeConfiguration(session));
 session.connection.onDocumentHighlight(feature.documentHighlight(session));
 session.connection.onCodeLens(feature.codeLens(session));

@@ -1,3 +1,4 @@
+import codeAction from "./codeAction";
 import codeLens from "./codeLens";
 import codeLensResolve from "./codeLensResolve";
 import completion from "./completion";
@@ -16,6 +17,7 @@ import rename from "./rename";
 import workspaceSymbol from "./workspaceSymbol";
 
 export {
+  codeAction,
   codeLens,
   codeLensResolve,
   completion,

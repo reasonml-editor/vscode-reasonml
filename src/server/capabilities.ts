@@ -1,6 +1,7 @@
 import * as server from "vscode-languageserver";
 
 const capabilities: server.ServerCapabilities = {
+  codeActionProvider: true,
   codeLensProvider: {
     resolveProvider: true,
   },
