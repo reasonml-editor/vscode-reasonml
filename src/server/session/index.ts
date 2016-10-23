@@ -8,7 +8,7 @@ import Indexer from "./indexer";
 import Synchronizer from "./synchronizer";
 
 export {
-  Environment
+  Environment,
 }
 
 /**
@@ -57,7 +57,7 @@ export default class Session {
     this.connection.listen();
   }
 
-  log(data: any): void {
+  public log(data: any): void {
     this.connection.console.log(JSON.stringify(data, null as any, 2)); // tslint:disable-line
   }
 

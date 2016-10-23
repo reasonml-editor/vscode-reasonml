@@ -53,9 +53,4 @@ export default class Analyzer {
       this.session.connection.sendDiagnostics({ diagnostics, uri: id.uri });
     };
   }
-
-  // public async refreshWorkspace(event: types.TextDocumentIdentifier): Promise<void> {
-  //   const workspaceMods = await command.getModules(this.session, event);
-  //   for (const uri of workspaceMods) this.refreshImmediate(uri);
-  // }
 }
