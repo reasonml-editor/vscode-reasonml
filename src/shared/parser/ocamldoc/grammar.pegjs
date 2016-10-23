@@ -2,9 +2,9 @@ sentence
   = data:(_ word)* _
 {
   let buffer = "";
-  for (const item of data) {
-    buffer += item[0];
-    buffer += item[1];
+  for (let i = 0; i < data.length; i++) {
+    buffer += data[i][0];
+    buffer += data[i][1];
   }
   return buffer;
 }
@@ -14,14 +14,14 @@ code
 {
   let buffer = "";
   buffer += "[";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   buffer += "]";
   return buffer;
 }
   / chars:[^\[\]]+
 {
   let buffer = "";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   return buffer;
 }
 
@@ -123,9 +123,9 @@ word
   / "{ul" __ items:(item _)* "}"
 {
   let buffer = "";
-  for (const item of items) {
+  for (let i = 0; i < items.length; i++) {
     buffer += "\n- ";
-    buffer += item[0];
+    buffer += items[i][0];
   }
   return buffer;
 }
@@ -133,7 +133,7 @@ word
 {
   let buffer = "";
   buffer += w0;
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   return buffer;
 }
   / "{[" w0:_ chars:code* _ "]}"
@@ -141,7 +141,7 @@ word
   let buffer = "";
   buffer += "\n```ocaml";
   buffer += w0;
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   buffer += "```\n";
   return buffer;
 }
@@ -149,7 +149,7 @@ word
 {
   let buffer = "";
   buffer += "`";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   buffer += "`";
   return buffer;
 }
@@ -158,16 +158,16 @@ word
   let buffer = "";
   buffer += "`";
   buffer += s || "";
-  for (const d of d0) buffer += d;
+  for (let i = 0; i < d0.length; i++) buffer += d0[i];
   buffer += p || "";
-  for (const d of d1) buffer += d;
+  for (let i = 0; i < d1.length; i++) buffer += d1[i];
   buffer += "`";
   return buffer;
 }
   / chars:[^ \f\n\r\t\v{}\[\]0-9]+
 {
   let buffer = "";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   return buffer;
 }
 
@@ -175,7 +175,7 @@ _ "whitespace"
   = chars:[ \f\n\r\t\v]*
 {
   let buffer = "";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i++) buffer += chars[i];
   return buffer;
 }
 
@@ -183,6 +183,6 @@ __ "whitespace"
   = chars:[ \f\n\r\t\v]+
 {
   let buffer = "";
-  for (const c of chars) buffer += c;
+  for (let i = 0; i < chars.length; i ++) buffer += chars[i];
   return buffer;
 }
