@@ -6,6 +6,10 @@ export const givePrefix: rpc.RequestType<client.TextDocumentPositionParams, null
   method: "reason.client.givePrefix",
 };
 
+export const giveText: rpc.RequestType<client.Location, string, void> = {
+  method: "reason.client.giveText",
+};
+
 export const giveTextDocument: rpc.RequestType<client.TextDocumentIdentifier, types.TextDocumentData, void> = {
   method: "reason.client.giveTextDocument",
 };
