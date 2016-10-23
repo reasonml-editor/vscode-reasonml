@@ -1,3 +1,5 @@
+import * as command from "../../server/command";
+import Session from "../../server/session";
 import * as ordinal from "./ordinal";
 import * as types from "vscode-languageserver-types";
 
@@ -88,15 +90,32 @@ export namespace ErrorReport {
       }
     }
   }
-  export function intoCode(report: ErrorReport): types.Diagnostic {
+  async function improveMessage(session: Session, { uri, range  }: types.Location, original: string): Promise<string> {
+    if (original === "Invalid statement") {
+      const location = types.Location.create(uri, range);
+      const text = await command.getText(session, location);
+      if (text === "=") {
+        return "Functions must be defined with => instead of the = symbol.";
+      }
+    }
+    if (original === "Statement has to end with a semicolon") {
+      return "Statements must be terminated with a semicolon.";
+    }
+    return original;
+  }
+  function getCode(message: string): string {
+    const codeMatch = /^Warning\s*(\d+)?:/.exec(message);
+    return codeMatch && codeMatch.length > 1 ? codeMatch[1] : "";
+  }
+  export async function intoCode(session: Session, { uri }: types.TextDocumentIdentifier, { end, message: original, start, type }: ErrorReport): Promise<types.Diagnostic> {
     const range = {
-      end: ordinal.Position.intoCode(report.end),
-      start: ordinal.Position.intoCode(report.start),
+      end: ordinal.Position.intoCode(end),
+      start: ordinal.Position.intoCode(start),
     };
-    const message = report.message;
-    const severity = Type.intoCode(report.type);
-    const codeMatch = /^Warning\s*(\d+)?:/.exec(report.message);
-    const code = codeMatch && codeMatch.length > 1 ? codeMatch[1] : "";
+    const location = { range, uri };
+    const message = await improveMessage(session, location, original);
+    const code = getCode(original);
+    const severity = Type.intoCode(type);
     const source = "merlin";
     return types.Diagnostic.create(range, message, severity, code, source);
   }

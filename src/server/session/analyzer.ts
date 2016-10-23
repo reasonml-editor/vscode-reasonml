@@ -41,7 +41,7 @@ export default class Analyzer {
     );
   }
 
-  public refreshWithKind(syncKind: server.TextDocumentSyncKind): (event: types.TextDocumentIdentifier) => Promise<void> {
+  public refreshWithKind(syncKind: server.TextDocumentSyncKind): (id: types.TextDocumentIdentifier) => Promise<void> {
     return async (id) => {
       if (syncKind === server.TextDocumentSyncKind.Full) {
         const document = await command.getTextDocument(this.session, id);
@@ -49,7 +49,8 @@ export default class Analyzer {
       }
       const errors = await this.session.merlin.query(merlin.Query.errors(), id);
       if (errors.class !== "return") return;
-      const diagnostics = errors.value.map(merlin.ErrorReport.intoCode);
+      const diagnostics: types.Diagnostic[] = [];
+      for (const report of errors.value) diagnostics.push(await merlin.ErrorReport.intoCode(this.session, id, report));
       this.session.connection.sendDiagnostics({ diagnostics, uri: id.uri });
     };
   }
