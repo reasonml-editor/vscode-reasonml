@@ -437,7 +437,7 @@
         "1": { "name": "keyword.other" }
       },
       "patterns": [
-        { "include": "#module-expression" }
+        { "include": "#signature-expression" }
       ]
     },
     "module-item-let": {
