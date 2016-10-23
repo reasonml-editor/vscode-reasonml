@@ -24,10 +24,12 @@ Reason support for Visual Studio Code
 
 - static analysis
   - [x] merlin integration with incremental edit synchronization
-  - [x] online linting and compiler diagnostics
   - [x] display types over definitions (disable with `editor.codeLens` setting)
   - [x] display types and markdown-rendered docs on hover
-
+  - [x] [online linting and compiler diagnostics with suggested fixes](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
+    - ⇧⌘M to toggle diagnostics panel
+    - F8 to loop through diagnostics for current file
+    - Click on lightbulb icon for suggested fixes
 
 ## Getting Started
 
