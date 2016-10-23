@@ -43,7 +43,7 @@ export default function(session: Session): server.RequestHandler<server.CodeLens
             textDoc.offsetAt(item.location.range.end),
           );
           if (textLine != null) {
-            matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(\b\w+\b|\(.+\))\s*[^\s:]/);
+            matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(?:(?:(\b\w+\b)(?:\s*::\s*(?:(\b\w+\b)|\((\b\w+\b):.*?\)=(\b\w+\b)))?|\((\b\w+\b)(?::.*?)?\))\s*)((?:(?:(\b\w+\b)(?:\s*::\s*(?:(\b\w+\b)|\((\b\w+\b):.*?\)=(\b\w+\b)))?|\((\b\w+\b)(?::.*?)?\))\s*)|:(?=[^:])(.*?=>)*(.*?=)\s*[^\s=;]+?\s*;?$)/m);
             if (matches != null) {
               params.position.character += matches[1].length;
               params.position.character += matches[2].length;
