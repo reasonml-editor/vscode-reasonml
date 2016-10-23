@@ -1500,7 +1500,7 @@
     },
     "value-expression-fun": {
       "begin": "\\b(fun)\\b",
-      "end": "(?=[;\\)\\}])",
+      "end": "(?=[;\\)\\}]|\\b(and)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1510,7 +1510,7 @@
     },
     "value-expression-fun-pattern-match-rule": {
       "begin": "(\\|)?",
-      "end": "(?=[;\\)\\}\\|])",
+      "end": "(?=[;\\)\\}\\|]|\\b(and)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1520,7 +1520,7 @@
       ]
     },
     "value-expression-fun-pattern-match-rule-lhs": {
-      "begin": "",
+      "begin": "(?<=fun|[\\|])",
       "end": "(?==>)",
       "patterns": [
         { "include": "#module-item-let-value-param" }
@@ -1528,7 +1528,7 @@
     },
     "value-expression-fun-pattern-match-rule-rhs": {
       "begin": "(=>)",
-      "end": "(?=[;\\)\\}\\|])",
+      "end": "(?=[;\\)\\}\\|]|\\b(and)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
