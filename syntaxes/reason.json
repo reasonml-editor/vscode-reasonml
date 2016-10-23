@@ -135,59 +135,9 @@
       ]
     },
     "jsx": {
-      "comment": "(<)([_[:alpha:]][[:word:]]*(?:\\.[_[:alpha:]][[:word:]]*)*)",
-      "begin": "(<)(?=[_[:alpha:]])",
-      "end": "(/>)|(?:(</)([_[:alpha:]][[:word:]]*(?:\\.[_[:alpha:]][[:word:]]*)*)(>))",
-      "applyEndPatternLast": true,
-      "beginCaptures": {
-        "1": { "name": "keyword.operator" },
-        "2": { "name": "entity.name.function" }
-      },
-      "endCaptures": {
-        "1": { "name": "keyword.operator" },
-        "2": { "name": "keyword.operator" },
-        "3": { "name": "entity.name.function" },
-        "4": { "name": "keyword.operator" }
-      },
       "patterns": [
-        {
-          "begin": "\\G",
-          "end": "(?=[[:space:]/>])",
-          "patterns": [
-            {
-              "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(\\.)",
-              "end": "(?=[[:space:]/>])",
-              "beginCaptures": {
-                "1": { "name": "entity.name.class" },
-                "2": { "name": "keyword.operator" }
-              },
-              "patterns": [
-                {
-                  "comment": "FIXME: make into named pattern",
-                  "match": "(?:\\G|^)[[:space:]]*\\b([_[:upper:]][[:word:]]*)\\b",
-                  "name": "name.entity.class"
-                },
-                {
-                  "comment": "FIXME: make into named pattern",
-                  "match": "(?:\\G|^)[[:space:]]*\\b([_[:lower:]][[:word:]]*)\\b",
-                  "name": "name.entity.function"
-                }
-              ]
-            },
-            {
-              "comment": "FIXME: make into named pattern",
-              "match": "(?:\\G|^)[[:space:]]*\\b([_[:upper:]][[:word:]]*)\\b",
-              "name": "name.entity.class"
-            },
-            {
-              "comment": "FIXME: make into named pattern",
-              "match": "(?:\\G|^)[[:space:]]*\\b([_[:lower:]][[:word:]]*)\\b",
-              "name": "name.entity.function"
-            }
-          ]
-        },
-        { "include": "#jsx-attributes" },
-        { "include": "#jsx-body" }
+        { "include": "#jsx-head" },
+        { "include": "#jsx-tail" }
       ]
     },
     "jsx-attributes": {
@@ -221,6 +171,49 @@
           "match": "[[:lower:]][[:word:]]*"
         },
         { "include": "#value-expression" }
+      ]
+    },
+    "jsx-head": {
+      "begin": "(<)(?=[_[:alpha:]])",
+      "end": "(?=(/>)|(</))",
+      "applyEndPatternLast": true,
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" },
+        "2": { "name": "entity.name.function" }
+      },
+      "patterns": [
+        {
+          "begin": "\\G",
+          "end": "(?=[[:space:]/>])",
+          "patterns": [
+            { "include": "#module-expression-path" },
+            {
+              "match": "\\b[[:lower:]][[:word:]]*\\b",
+              "name": "entity.name.function"
+            }
+          ]
+        },
+        { "include": "#jsx-attributes" },
+        { "include": "#jsx-body" }
+      ]
+    },
+    "jsx-tail": {
+      "begin": "\\G(/>)|(</)",
+      "end": "(>)",
+      "applyEndPatternLast": true,
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" },
+        "2": { "name": "keyword.operator" }
+      },
+      "endCaptures": {
+        "1": { "name": "keyword.operator" }
+      },
+      "patterns": [
+        { "include": "#module-expression-path" },
+        {
+          "match": "\\b[[:lower:]][[:word:]]*\\b",
+          "name": "entity.name.function"
+        }
       ]
     },
     "module-expression": {
