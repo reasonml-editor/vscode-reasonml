@@ -43,8 +43,8 @@ export default class Analyzer {
 
   public refreshWithKind(syncKind: server.TextDocumentSyncKind): (event: types.TextDocumentIdentifier) => Promise<void> {
     return async (id) => {
-      const document = await command.getTextDocument(this.session, id);
       if (syncKind === server.TextDocumentSyncKind.Full) {
+        const document = await command.getTextDocument(this.session, id);
         await this.session.merlin.sync(merlin.Sync.tell("start", "end", document.getText()), id);
       }
       const errors = await this.session.merlin.query(merlin.Query.errors(), id);
