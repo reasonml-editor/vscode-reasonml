@@ -1301,7 +1301,7 @@
           "patterns": [
             {
               "begin": "(?=[[:upper:]])",
-              "end": "(?=\\b(with)\\b)",
+              "end": "(?=[\\)]|\\b(with)\\b)",
               "patterns": [
                 {
                   "match": "\\b([[:upper:]][[:word:]]*)\\b",
