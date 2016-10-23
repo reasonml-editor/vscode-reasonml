@@ -8,7 +8,7 @@ export default function(_: Session): server.RequestHandler<server.CodeActionPara
     let matches: null | RegExpMatchArray = null;
     for (const { message, range } of context.diagnostics) {
       if (message === "Functions must be defined with => instead of the = symbol.") {
-        const title = "fix: change = to =>";
+        const title = "change = to =>";
         const command = "reason.codeAction.fixEqualsShouldBeArrow";
         const location = types.Location.create(uri, range);
         const args = [location];
@@ -17,7 +17,7 @@ export default function(_: Session): server.RequestHandler<server.CodeActionPara
         continue;
       }
       if (message === "Statements must be terminated with a semicolon.") {
-        const title = "fix: insert missing semicolon";
+        const title = "insert missing semicolon";
         const command = "reason.codeAction.fixMissingSemicolon";
         const location = types.Location.create(uri, range);
         const args = [location];
@@ -26,7 +26,7 @@ export default function(_: Session): server.RequestHandler<server.CodeActionPara
         continue;
       }
       if ((matches = message.match(/Warning (?:26|27): unused variable\s+\b(\w+)\b/)) != null) { // tslint:disable-line
-        const title = "fix: ignore unused variable";
+        const title = "ignore unused variable";
         const command = "reason.codeAction.fixUnusedVariable";
         const location = types.Location.create(uri, range);
         const args = [location, matches[1]];
