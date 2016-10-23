@@ -1603,7 +1603,7 @@
       }
     },
     "value-expression-literal-constructor-variant-polymorphic": {
-      "match": "(`)([[:upper:]][[:word:]]*)\\b(?!\\.)",
+      "match": "(`)([[:alpha:]][[:word:]]*)\\b(?!\\.)",
       "captures": {
         "1": { "name": "variable.parameter" },
         "2": { "name": "constant.language.reason" }
