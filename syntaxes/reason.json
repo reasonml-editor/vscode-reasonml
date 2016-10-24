@@ -1410,7 +1410,7 @@
     },
     "value-expression-block": {
       "begin": "\\{",
-      "end": "(?=\\})",
+      "end": "\\}",
       "patterns": [
         { "include": "#value-expression-block-item" }
       ]
@@ -1446,7 +1446,7 @@
     },
     "value-expression-for": {
       "begin": "(?=\\b(for)\\b)",
-      "end": "\\}",
+      "end": "(?<=\\})",
       "patterns": [
         { "include": "#value-expression-for-head" },
         { "include": "#value-expression-block" }
@@ -1807,29 +1807,30 @@
       ]
     },
     "value-expression-switch": {
-      "begin": "(?=\\b(switch)\\b)",
-      "end": "\\}",
+      "begin": "\\b(switch)\\b",
+      "end": "(?<=\\})",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
       "patterns": [
         { "include": "#value-expression-switch-head" },
         { "include": "#value-expression-switch-body" }
       ]
     },
     "value-expression-switch-head": {
-      "begin": "\\b(switch)\\b",
-      "end": "(?=\\{)",
+      "begin": "(?<=switch)[[:space:]]*+",
+      "end": "(?<=[[:space:]\\)\\}])",
+      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
-        {
-          "comment": "FIXME: parens; anchor",
-          "include": "#value-expression"
-        }
+        { "include": "#value-expression-atomic" }
       ]
     },
     "value-expression-switch-body": {
       "begin": "\\{",
-      "end": "(?=\\})",
+      "end": "\\}",
       "patterns": [
         { "include": "#comment" },
         { "include": "#value-expression-switch-pattern-match-rule" }
@@ -1859,55 +1860,51 @@
         "1": { "name": "keyword.operator.reason" }
       },
       "patterns": [
-        { "include": "#comment" },
         { "include": "#value-expression-block-item" }
       ]
     },
     "value-expression-try": {
-      "begin": "(?=\\b(try)\\b)",
-      "end": "\\}",
+      "begin": "\\b(try)\\b",
+      "end": "(?<=\\})",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
       "patterns": [
         { "include": "#value-expression-try-head" },
-        { "include": "#value-expression-try-body" }
+        { "include": "#value-expression-switch-body" }
       ]
     },
     "value-expression-try-head": {
-      "begin": "\\b(try)\\b",
-      "end": "(?=\\{)",
+      "begin": "(?<=try)[[:space:]]*+",
+      "end": "(?<=[[:space:]\\)\\}])",
+      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
-        { "include": "#value-expression" }
-      ]
-    },
-    "value-expression-try-body": {
-      "begin": "\\{",
-      "end": "(?=\\})",
-      "patterns": [
-        { "include": "#comment" },
-        { "include": "#value-expression-switch-pattern-match-rule" }
+        { "include": "#value-expression-atomic" }
       ]
     },
     "value-expression-while": {
-      "begin": "(?=\\b(while)\\b)",
-      "end": "\\}",
+      "begin": "\\b(while)\\b",
+      "end": "(?<=\\})",
+      "beginCaptures": {
+        "1": { "name": "keyword.other" }
+      },
       "patterns": [
         { "include": "#value-expression-while-head" },
         { "include": "#value-expression-block" }
       ]
     },
     "value-expression-while-head": {
-      "begin": "\\b(while)\\b",
-      "end": "(?=\\{)",
+      "begin": "(?<=while)[[:space:]]*+",
+      "end": "(?<=[[:space:]\\)\\}])",
+      "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
-        {
-          "comment": "FIXME: parens; anchor",
-          "include": "#value-expression"
-        }
+        { "include": "#value-expression-atomic" }
       ]
     },
     "value-expression-record-look": {
