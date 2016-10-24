@@ -1530,7 +1530,7 @@
     },
     "value-expression-fun": {
       "begin": "\\b(fun)\\b",
-      "end": "(?=[;\\)\\}]|\\b(and)\\b)",
+      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1540,7 +1540,7 @@
     },
     "value-expression-fun-pattern-match-rule": {
       "begin": "(\\|)?",
-      "end": "(?=[;\\)\\}\\|]|\\b(and)\\b)",
+      "end": "(?=[;\\)\\}\\|]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1551,7 +1551,7 @@
     },
     "value-expression-fun-pattern-match-rule-lhs": {
       "begin": "(?<=fun|[\\|])",
-      "end": "(?==>)",
+      "end": "(?==>)|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
       "patterns": [
         { "include": "#module-item-let-value-param" }
       ]
