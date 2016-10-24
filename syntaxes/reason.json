@@ -186,7 +186,7 @@
           "begin": "\\G",
           "end": "(?=[[:space:]/>])",
           "patterns": [
-            { "include": "#module-expression-path" },
+            { "include": "#module-path-simple" },
             {
               "match": "\\b[[:lower:]][[:word:]]*\\b",
               "name": "entity.name.function"
@@ -209,7 +209,7 @@
         "1": { "name": "keyword.operator" }
       },
       "patterns": [
-        { "include": "#module-expression-path" },
+        { "include": "#module-path-simple" },
         {
           "match": "\\b[[:lower:]][[:word:]]*\\b",
           "name": "entity.name.function"
@@ -217,7 +217,6 @@
       ]
     },
     "module-expression": {
-      "end": "(?=[;])",
       "patterns": [
         { "include": "#comment" },
         {
@@ -225,13 +224,17 @@
           "end": "(?=\\))",
           "patterns": [
             {
+              "comment": "FIXME: might need to refactor this or include more expressions",
+              "include": "#module-expression-block"
+            },
+            {
               "begin": "\\b(val)\\b",
               "end": "(?=\\))",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
               "patterns": [
-                { "include": "#module-expression-path" }
+                { "include": "#module-path-simple" }
               ]
             },
             {
@@ -256,7 +259,7 @@
             }
           ]
         },
-        { "include": "#module-expression-path" },
+        { "include": "#module-path-simple" },
         { "include": "#module-expression-block" },
         { "include": "#module-expression-constraints" }
       ]
@@ -302,7 +305,7 @@
                   "begin": "\\b(module)\\b",
                   "end": "(?=:?=)",
                   "patterns": [
-                    { "include": "#module-expression-path" },
+                    { "include": "#module-path-simple" },
                     {
                       "match": "[[:upper:]][[:word:]]*",
                       "name": "entity.name.class"
@@ -328,54 +331,85 @@
         }
       ]
     },
-    "module-expression-path": {
+    "module-name-extended": {
       "patterns": [
-        { "include": "#module-expression-path-prefix" },
+        { "include": "#module-name-simple" },
         {
-          "match": "\\b[[:upper:]][[:word:]]*\\b",
-          "name": "entity.name.class"
-        }
-      ]
-    },
-    "module-expression-path-prefix": {
-      "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(?=(\\(.*\\))*\\.)",
-      "end": "(\\.)|(?=[;\\)])",
-      "beginCaptures": {
-        "1": { "name": "entity.name.class" }
-      },
-      "endCaptures": {
-        "1": { "name": "keyword.operator" }
-      },
-      "patterns": [
-        {
-          "begin": "(\\()",
-          "end": "(\\))",
+          "begin": "([\\(])",
+          "end": "([\\)])",
           "captures": {
-            "1": { "name": "keyword.other" }
+            "1": { "name": "constant.language" }
           },
           "patterns": [
-            { "comment": "FIXME: make a new rule for these" },
-            { "include": "#module-expression-path" },
-            { "include": "#module-expression-block" },
-            { "include": "#module-expression-constraints" }
+            { "include": "#module-path-extended" }
           ]
         }
       ]
     },
-    "module-expression-path-prefix-simple": {
-      "begin": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*(?=[\\.])",
-      "end": "(\\.)",
-      "beginCaptures": {
-        "1": { "name": "entity.name.class" }
-      },
+    "module-name-simple": {
+      "match": "\\b[[:upper:]][[:word:]]*\\b",
+      "name": "entity.name.class"
+    },
+    "module-path-extended": {
+      "patterns": [
+        { "include": "#module-name-extended" },
+        {
+          "begin": "([\\.])",
+          "end": "(?<=[[:word:]\\)])",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            {
+              "begin": "\\G",
+              "end": "(?<=[[:word:]])",
+              "patterns": [
+                { "include": "#module-name-extended" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "module-path-simple": {
+      "patterns": [
+        { "include": "#module-name-simple" },
+        {
+          "begin": "([\\.])",
+          "end": "(?<=[[:word:]])",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            {
+              "begin": "\\G",
+              "end": "(?<=[[:word:]])",
+              "patterns": [
+                { "include": "#module-name-simple" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "module-prefix-extended": {
+      "begin": "(?=[[:upper:]])",
+      "end": "([\\.])",
       "endCaptures": {
-        "1": { "name": "keyword.operator" }
+        "1": { "name": "keyword.other" }
       },
       "patterns": [
-        {
-          "match": "\\b[[:upper:]][[:word:]]*\\b",
-          "name": "entity.name.class"
-        }
+        { "include": "#module-path-extended" }
+      ]
+    },
+    "module-prefix-simple": {
+      "begin": "(?=[[:upper:]])",
+      "end": "([\\.])",
+      "endCaptures": {
+        "1": { "name": "keyword.other" }
+      },
+      "patterns": [
+        { "include": "#module-path-simple" }
       ]
     },
     "module-item-class-type": {
@@ -527,7 +561,7 @@
           "end": "(?=[:])",
           "patterns": [
             { "include": "#comment" },
-            { "include": "#module-expression-path" }
+            { "include": "#module-name-simple" }
           ]
         },
         {
@@ -537,7 +571,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
-            { "include": "#module-expression" }
+            { "include": "#signature-expression" }
           ]
         }
       ]
@@ -788,7 +822,7 @@
       },
       "patterns": [
         { "include": "#comment" },
-        { "include": "#module-expression-path" },
+        { "include": "#module-path" },
         {
           "match": "[[:upper:]][[:word:]]*",
           "name": "entity.name.class"
@@ -844,6 +878,13 @@
     "module-item-type-bind-body-item": {
       "patterns": [
         {
+          "comment": "FIXME: specialized version of variant rule that also scans for (",
+          "match": "\\b([[:upper:]][[:word:]]*)\\b(?![[:space:]]*[\\.\\(])",
+          "captures": {
+            "1": { "name": "constant.language.reason" }
+          }
+        },
+        {
           "comment": "FIXME: add separate rule; parsing",
           "match": "(?:\\G|^)[[:space:]]*\\b(private)\\b",
           "captures": {
@@ -858,19 +899,13 @@
           }
         },
         {
-          "begin": "([\\|])",
+          "begin": "([\\|])[[:space:]]*",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
           "end": "(?=\\b(and|constraint|with)\\b|[;\\)\\}\\|])",
           "patterns": [
-            {
-              "begin": "(?<=[=\\|])",
-              "end": "\\b([[:upper:]][[:word:]]*)\\b[[:space:]]*+",
-              "endCaptures": {
-                "1": { "name": "constant.language" }
-              }
-            },
+            { "include": "#value-expression-literal-constructor-variant" },
             {
               "begin": "[[:space:]]*+",
               "end": "(?=\\b(and|constraint|with)\\b|[;\\)\\}\\|])",
@@ -892,8 +927,7 @@
           "match": "[:|]|\\b(of)\\b",
           "name": "keyword.other"
         },
-        { "include": "#type-expression" },
-        { "include": "#value-expression-literal-constructor-variant" }
+        { "include": "#type-expression" }
       ]
     },
     "module-item-type-bind-nonrec": {
@@ -934,7 +968,7 @@
       "begin": "(?=(\\G|^)[[:space:]]*\\b[[:alpha:]])",
       "end": "(?=\\b(and|constraint|with)\\b|[;\\)\\}])",
       "patterns": [
-        { "include": "#module-expression-path-prefix" },
+        { "include": "#module-prefix-simple" },
         { "include": "#module-item-type-bind-name-tyvars" },
         { "include": "#module-item-type-bind-body" }
       ]
@@ -975,8 +1009,8 @@
     },
     "pattern-atomic": {
       "patterns": [
-        { "include": "#module-expression-path-prefix-simple" },
         { "include": "#value-expression-literal" },
+        { "include": "#module-prefix-simple" },
         { "include": "#pattern-list" },
         { "include": "#pattern-record" },
         { "include": "#pattern-variable" },
@@ -1064,7 +1098,7 @@
     },
     "pattern-record-item": {
       "patterns": [
-        { "include": "#module-expression-path-prefix-simple" },
+        { "include": "#module-prefix-simple" },
         { "include": "#pattern-record-field" }
       ]
     },
@@ -1172,7 +1206,7 @@
             "3": { "name": "keyword.other" }
           },
           "patterns": [
-            { "include": "#module-expression-path" },
+            { "include": "#module-path-simple" },
             {
               "match": "\\b([[:upper:]][[:word:]]*)\\b",
               "name": "entity.name.class"
@@ -1197,7 +1231,7 @@
       "patterns": [
         { "include": "#attribute" },
         { "include": "#comment" },
-        { "include": "#module-expression-path-prefix" },
+        { "include": "#module-prefix-extended" },
         { "include": "#type-expression-label" },
         { "include": "#type-expression-arrow" },
         { "include": "#type-expression-constructor" },
@@ -1370,7 +1404,7 @@
     "type-expression-record-item": {
       "patterns": [
         { "include": "#comment" },
-        { "include": "#module-expression-path-prefix" },
+        { "include": "#module-prefix-simple" },
         { "include": "#type-expression-record-field" }
       ]
     },
@@ -1385,12 +1419,12 @@
         { "include": "#attribute" },
         { "include": "#comment" },
         { "include": "#extension-node" },
-        { "include": "#module-expression-path-prefix-simple" },
         { "include": "#jsx" },
         { "include": "#operator" },
         { "include": "#value-expression-builtin" },
         { "include": "#value-expression-if-then-else" },
         { "include": "#value-expression-atomic" },
+        { "include": "#module-prefix-simple" },
         { "include": "#value-expression-record-path" }
       ]
     },
@@ -1434,7 +1468,7 @@
       "end": "\\}",
       "patterns": [
         { "include": "#comment" },
-        { "include": "#module-expression-path-prefix-simple" },
+        { "include": "#module-prefix-simple" },
         { "include": "#value-expression-object-look" },
         { "include": "#value-expression-record-look" },
         { "include": "#value-expression-block-look" }
@@ -1590,7 +1624,7 @@
       "name": "constant.character"
     },
     "value-expression-literal-constructor-variant": {
-      "match": "\\b([[:upper:]][[:word:]]*)\\b(?!\\.)",
+      "match": "\\b([[:upper:]][[:word:]]*)\\b(?![[:space:]]*[\\.])",
       "captures": {
         "1": { "name": "constant.language.reason" }
       }
@@ -1737,7 +1771,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
-            { "include": "#module-expression-path" }
+            { "include": "#module-path-simple" }
           ]
         },
         { "include": "#value-expression" }
@@ -1775,7 +1809,7 @@
     },
     "value-expression-record-item": {
       "patterns": [
-        { "include": "#module-expression-path-prefix-simple" },
+        { "include": "#module-prefix-simple" },
         { "include": "#value-expression-record-field" }
       ]
     },
