@@ -822,11 +822,7 @@
       },
       "patterns": [
         { "include": "#comment" },
-        { "include": "#module-path" },
-        {
-          "match": "[[:upper:]][[:word:]]*",
-          "name": "entity.name.class"
-        }
+        { "include": "#module-path-simple" }
       ]
     },
     "module-item-type": {
