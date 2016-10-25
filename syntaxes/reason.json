@@ -286,11 +286,11 @@
     },
     "signature-expression-constraints": {
       "begin": "(?=\\b(with))",
-      "end": "(?=[;\\)])",
+      "end": "(?=[;\\)\\}])",
       "patterns": [
         {
           "begin": "\\b(and|with)\\b",
-          "end": "(?=\\b(and|with)\\b|[;\\)])",
+          "end": "(?=[;\\)\\}]|\\b(and|with)\\b)",
           "beginCaptures": {
             "1": { "name": "storage.modifier" }
           },
@@ -310,11 +310,11 @@
             },
             {
               "begin": "(?=\\b(module)\\b)",
-              "end": "(?=\\b(and|with)\\b|[;\\)])",
+              "end": "(?=[;\\)\\}]|\\b(and|with)\\b)",
               "patterns": [
                 {
                   "begin": "\\b(module)\\b",
-                  "end": "(?=:?=)",
+                  "end": "(?=:?=|[;\\)\\}])",
                   "patterns": [
                     { "include": "#module-path-simple" },
                     {
@@ -328,7 +328,7 @@
                 },
                 {
                   "begin": "(:=)",
-                  "end": "(?=\\b(and|with)\\b|[;\\)])",
+                  "end": "(?=[;\\)\\}]|\\b(and|with)\\b|)",
                   "patterns": [
                     { "include": "#module-expression" }
                   ],
