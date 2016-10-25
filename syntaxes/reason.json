@@ -220,7 +220,7 @@
       "patterns": [
         { "include": "#comment" },
         {
-          "begin": "(?<=\\()",
+          "begin": "(?<=[\\(])",
           "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
           "patterns": [
             {
@@ -234,17 +234,17 @@
                 "1": { "name": "keyword.other" }
               },
               "patterns": [
-                { "include": "#module-path-simple" }
+                {
+                  "match": "\\b([[:lower:]][[:word:]]*)\\b",
+                  "name": "entity.name.class"
+                }
               ]
             },
             {
-              "begin": "",
+              "begin": "(?<=[\\(])",
               "end": "(?=[:])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
               "patterns": [
-                {
-                  "match": "\\b([[:upper:]][[:word:]]*)\\b",
-                  "name": "entity.name.class"
-                }
+                { "include": "#module-path-simple" }
               ]
             },
             {
@@ -260,8 +260,7 @@
           ]
         },
         { "include": "#module-path-simple" },
-        { "include": "#module-expression-block" },
-        { "include": "#module-expression-constraints" }
+        { "include": "#module-expression-block" }
       ]
     },
     "module-expression-block": {
@@ -285,7 +284,7 @@
         { "include": "#module-item-type" }
       ]
     },
-    "module-expression-constraints": {
+    "signature-expression-constraints": {
       "begin": "(?=\\b(with))",
       "end": "(?=[;\\)])",
       "patterns": [
@@ -296,7 +295,19 @@
             "1": { "name": "storage.modifier" }
           },
           "patterns": [
-            { "include": "#module-item-type" },
+            {
+              "comment": "FIXME: special version of #module-item-type with non-consuming `;`. Atom seems to need this to work.",
+              "begin": "\\b(type)\\b",
+              "end": "(?=[;\\)\\}]|\\b(with)\\b)",
+              "beginCaptures": {
+                "1": { "name": "keyword.other" }
+              },
+              "patterns": [
+                { "include": "#module-item-type-and" },
+                { "include": "#module-item-type-constraint" },
+                { "include": "#module-item-type-bind" }
+              ]
+            },
             {
               "begin": "(?=\\b(module)\\b)",
               "end": "(?=\\b(and|with)\\b|[;\\)])",
@@ -631,7 +642,7 @@
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?=[^[:space:]])(?!\\b(class|constraint|include|inherit|let|nonrec|open|private|rec|type)\\b)",
+      "begin": "(?<=and|let|method|rec)",
       "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
       "patterns": [
         { "include": "#comment" },
@@ -651,15 +662,14 @@
           "patterns": [
             { "include": "#operator-infix-custom" },
             { "include": "#pattern" },
-            { "include": "#pattern-parens-lhs" },
-            { "include": "#pattern-parens-rhs" }
+            { "include": "#pattern-parens" }
           ]
         },
         { "include": "#module-item-let-value-param" }
       ]
     },
     "module-item-let-value-bind-pattern": {
-      "begin": "",
+      "begin": "(?<=and|let)",
       "end": "(?==)",
       "patterns": [
         { "include": "#module-item-let-value-bind-parens-params" },
@@ -835,7 +845,7 @@
     "module-item-type": {
       "comment": "FIXME: the semi-colon is optional so we can re-use this for hover, which does not print the trailing ;",
       "begin": "\\b(type)\\b",
-      "end": "(?=([;]))|(?=[\\)\\}]|\\b(with)\\b)",
+      "end": "([;])|(?=[\\)\\}]|\\b(with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -1062,11 +1072,6 @@
         { "include": "#pattern" }
       ]
     },
-    "pattern-parens-rhs": {
-      "patterns": [
-        { "include": "#type-annotation-rhs" }
-      ]
-    },
     "pattern-record": {
       "begin": "\\{",
       "end": "\\}",
@@ -1177,30 +1182,6 @@
     "signature-expression": {
       "patterns": [
         {
-          "comment": "FIXME: scan for :upper: to disambiguate type/signature in hover",
-          "begin": "(?=\\([[:space:]]*[[:upper:]][[:word:]]*[[:space:]]*:)",
-          "end": "(?=[;])",
-          "patterns": [
-            {
-              "begin": "",
-              "end": "(?==>)",
-              "patterns": [
-                { "include": "#module-item-let-module-param" }
-              ]
-            },
-            {
-              "begin": "(=>)",
-              "end": "(?=[;\\(])",
-              "beginCaptures": {
-                "1": { "name": "keyword.other" }
-              },
-              "patterns": [
-                { "include": "#module-expression" }
-              ]
-            }
-          ]
-        },
-        {
           "begin": "\\b(module)\\b[[:space:]]*\\b(type)\\b([[:space:]]*\\b(of)\\b)?",
           "end": "(?=[;\\)\\}]|\\b(with)\\b)",
           "beginCaptures": {
@@ -1216,6 +1197,7 @@
             }
           ]
         },
+        { "include": "#signature-expression-constraints" },
         { "include": "#module-expression" }
       ]
     },
@@ -1336,17 +1318,8 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
-            {
-              "begin": "(?=[[:upper:]])",
-              "end": "(?=[\\)]|\\b(with)\\b)",
-              "patterns": [
-                {
-                  "match": "\\b([[:upper:]][[:word:]]*)\\b",
-                  "name": "entity.name.class"
-                }
-              ]
-            },
-            { "include": "#module-expression-constraints" }
+            { "include": "#module-path-extended" },
+            { "include": "#signature-expression-constraints" }
           ]
         },
         {
