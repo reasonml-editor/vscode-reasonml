@@ -12,7 +12,7 @@ const reasonConfiguration = {
     {
       beforeText: /^.*\b(switch)\b[^\{]*{\s*$/,
       action: {
-        indentAction: vscode.IndentAction.Outdent,
+        indentAction: vscode.IndentAction.IndentOutdent,
         appendText: "| ",
       }
     },
