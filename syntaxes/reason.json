@@ -221,7 +221,7 @@
         { "include": "#comment" },
         {
           "begin": "(?<=\\()",
-          "end": "(?=\\))",
+          "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
           "patterns": [
             {
               "comment": "FIXME: might need to refactor this or include more expressions",
@@ -229,7 +229,7 @@
             },
             {
               "begin": "\\b(val)\\b",
-              "end": "(?=\\))",
+              "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
@@ -239,7 +239,7 @@
             },
             {
               "begin": "",
-              "end": "(?=[:])",
+              "end": "(?=[:])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
               "patterns": [
                 {
                   "match": "\\b([[:upper:]][[:word:]]*)\\b",
@@ -249,7 +249,7 @@
             },
             {
               "begin": "([:])",
-              "end": "(?=[\\)])",
+              "end": "(?=[\\)])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
