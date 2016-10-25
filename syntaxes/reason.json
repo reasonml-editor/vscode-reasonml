@@ -221,7 +221,7 @@
         { "include": "#comment" },
         {
           "begin": "(?<=[\\(])",
-          "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+          "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
           "patterns": [
             {
               "comment": "FIXME: might need to refactor this or include more expressions",
@@ -229,7 +229,7 @@
             },
             {
               "begin": "\\b(val)\\b",
-              "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+              "end": "(?=\\))|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
@@ -242,7 +242,7 @@
             },
             {
               "begin": "(?<=[\\(])",
-              "end": "(?=[:])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+              "end": "(?=[:])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
               "patterns": [
                 { "include": "#module-path-simple" }
               ]
@@ -409,7 +409,7 @@
     },
     "module-prefix-extended": {
       "begin": "(?=[[:upper:]])",
-      "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "endCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -419,7 +419,7 @@
     },
     "module-prefix-simple": {
       "begin": "(?=[[:upper:]])",
-      "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "endCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -492,7 +492,7 @@
     "module-item-let": {
       "comment": "FIXME: move external to separate rule",
       "begin": "\\b(external|let)\\b",
-      "end": "(;)|(?=[\\}]|\\b(class|constraint|include|inherit|let|nonrec|open|private|type)\\b)",
+      "end": "(;)|(?=[\\}]|\\b(class|constraint|include|inherit|let|nonrec|open|private|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -506,7 +506,7 @@
     },
     "module-item-let-module": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b",
-      "end": "(?=[;\\}]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|type)\\b)",
+      "end": "(?=[;\\}]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -519,7 +519,7 @@
     },
     "module-item-let-module-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -529,7 +529,7 @@
     },
     "module-item-let-module-bind-body": {
       "begin": "(=>?)",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -539,7 +539,7 @@
     },
     "module-item-let-module-bind-name-params": {
       "begin": "\\b([[:upper:]][[:word:]]*)\\b",
-      "end": "(?=[;:\\}=]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;:\\}=]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "entity.name.class" }
       },
@@ -550,7 +550,7 @@
     },
     "module-item-let-module-bind-name-params-type-body": {
       "begin": "(?:\\G|^)",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "patterns": [
         { "include": "#comment" },
         { "include": "#module-item-let-module-bind-name-params" },
@@ -594,7 +594,7 @@
     },
     "module-item-let-module-rec": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
       },
@@ -611,7 +611,7 @@
     },
     "module-item-let-value-and": {
       "begin": "\\b(and)\\b",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.type.reason" }
       },
@@ -621,7 +621,7 @@
     },
     "module-item-let-value-bind-body": {
       "begin": "(=>?)",
-      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -631,7 +631,7 @@
     },
     "module-item-let-value-bind-name-params": {
       "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)(?!\\blet\\b)(?:\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]*)\\b)",
-      "end": "(?<!:)(?!::)(?=[;:\\}=]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?<!:)(?!::)(?=[;:\\}=]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "comment.line" },
         "2": { "name": "entity.name.function" }
@@ -643,7 +643,7 @@
     },
     "module-item-let-value-bind-name-params-type-body": {
       "begin": "(?<=and|external|let|method|rec)",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params" },
         { "include": "#module-item-let-value-bind-pattern" },
@@ -653,7 +653,7 @@
     },
     "module-item-let-value-bind-parens-params": {
       "begin": "(?=\\([^\\)])",
-      "end": "(?!::)(?=[:=])|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?!::)(?=[:=])|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "patterns": [
         {
           "begin": "\\G\\(",
@@ -679,7 +679,7 @@
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
       "begin": "(:)",
-      "end": "(?==(?!>)|[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?==(?!>)|[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -765,7 +765,7 @@
     },
     "module-item-let-value-rec": {
       "begin": "(?:\\G|^)[[:space:]]*\\b(rec)\\b",
-      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "storage.modifier.rec.reason" }
       },
@@ -1056,7 +1056,7 @@
     },
     "pattern-parens": {
       "begin": "(?=\\()",
-      "end": "\\)|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "\\)|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "patterns": [
         { "include": "#pattern-parens-lhs" },
         { "include": "#type-annotation-rhs" }
@@ -1064,7 +1064,7 @@
     },
     "pattern-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[,:\\)]))|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=(?:[,:\\)]))|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1128,7 +1128,7 @@
     },
     "object-item": {
       "begin": "(?:\\G|(;))",
-      "end": "(?=[;\\}]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|type)\\b)",
+      "end": "(?=[;\\}]|\\b(class|constraint|include|inherit|let|module|nonrec|open|private|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1203,7 +1203,7 @@
     },
     "type-annotation-rhs": {
       "begin": "(:)",
-      "end": "(?=\\))|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=\\))|(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
@@ -1503,7 +1503,7 @@
     },
     "value-expression-fun": {
       "begin": "\\b(fun)\\b",
-      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1513,7 +1513,7 @@
     },
     "value-expression-fun-pattern-match-rule": {
       "begin": "(\\|)?",
-      "end": "(?=[;\\)\\}\\|]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?=[;\\)\\}\\|]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
@@ -1524,7 +1524,7 @@
     },
     "value-expression-fun-pattern-match-rule-lhs": {
       "begin": "(?<=fun|[\\|])",
-      "end": "(?==>)|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
+      "end": "(?==>)|(?=[;\\)\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "patterns": [
         { "include": "#module-item-let-value-param" }
       ]
