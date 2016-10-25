@@ -830,7 +830,7 @@
     },
     "module-item-open": {
       "begin": "\\b(open)\\b",
-      "end": "(;)",
+      "end": "(;)|(?=[\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
