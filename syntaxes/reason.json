@@ -1854,7 +1854,7 @@
     },
     "value-expression-switch-pattern-match-rule-lhs": {
       "begin": "(\\|)",
-      "end": "(?==>)",
+      "end": "(?==>|[;\\)\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
