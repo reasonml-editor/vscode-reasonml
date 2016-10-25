@@ -10,6 +10,13 @@ const reasonConfiguration = {
   },
   onEnterRules: [
     {
+      beforeText: /^.*\b(switch)\b[^\{]*{\s*$/,
+      action: {
+        indentAction: vscode.IndentAction.Outdent,
+        appendText: "| ",
+      }
+    },
+    {
       beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
       afterText: /^\s*\*\/$/,
       action: {
@@ -49,7 +56,7 @@ const reasonConfiguration = {
       beforeText: /^.*\bfun\b\s*$/,
       action: {
         indentAction: vscode.IndentAction.None,
-        appendText: "  | ",
+        appendText: "| ",
       }
     },
     {
@@ -60,7 +67,7 @@ const reasonConfiguration = {
       }
     },
     {
-      beforeText: /^(\t|(\ \ ))*(\|$)|(\|\s*.*?\s*=>\s*[^\s\{]$)/,
+      beforeText: /^(\t|[ ]{2})*[\|]([^=])*(?:$|=>.*[^\s;\{]\s*$)/m,
       action: {
         indentAction: vscode.IndentAction.None,
         appendText: "| ",
