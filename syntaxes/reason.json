@@ -642,7 +642,7 @@
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?<=and|let|method|rec)",
+      "begin": "(?<=and|external|let|method|rec)",
       "end": "(?=[;\\}]|\\b(and|class|constraint|include|inherit|let|module|nonrec|open|private|rec|type)\\b)",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params" },
@@ -668,7 +668,7 @@
       ]
     },
     "module-item-let-value-bind-pattern": {
-      "begin": "(?<=and|let|method|rec)",
+      "begin": "(?<=and|external|let|method|rec)",
       "end": "(?==)",
       "patterns": [
         { "include": "#comment" },
