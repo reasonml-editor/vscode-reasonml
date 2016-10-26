@@ -1409,7 +1409,11 @@
         { "include": "#value-expression-if-then-else" },
         { "include": "#value-expression-atomic" },
         { "include": "#module-prefix-simple" },
-        { "include": "#value-expression-record-path" }
+        { "include": "#value-expression-record-path" },
+        {
+          "match": "[:?]",
+          "name": "keyword.operator"
+        }
       ]
     },
     "value-expression-atomic": {
