@@ -666,7 +666,7 @@
           "begin": "\\G\\(",
           "end": "\\)",
           "patterns": [
-            { "include": "#operator-infix-custom" },
+            { "include": "#operator" },
             { "include": "#pattern-parens-lhs" },
             { "include": "#type-annotation-rhs" },
             { "include": "#pattern" }
