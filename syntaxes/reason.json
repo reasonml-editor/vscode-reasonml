@@ -1736,7 +1736,7 @@
     },
     "value-expression-parens": {
       "begin": "(?=\\()",
-      "end": "\\)",
+      "end": "\\)|(?=[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
         { "include": "#value-expression-parens-lhs" },
         { "include": "#type-annotation-rhs" }
@@ -1744,7 +1744,7 @@
     },
     "value-expression-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[,:\\)]|\\b(as)\\b))",
+      "end": "(?=(?:[,:\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b))",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
