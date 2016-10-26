@@ -1485,7 +1485,7 @@
     },
     "value-expression-for": {
       "begin": "(?=\\b(for)\\b)",
-      "end": "(?<=\\})",
+      "end": "(?<=[\\}])",
       "patterns": [
         { "include": "#value-expression-for-head" },
         { "include": "#value-expression-block" }
@@ -1493,7 +1493,7 @@
     },
     "value-expression-for-head": {
       "begin": "(?=\\b(for)\\b)",
-      "end": "(?=\\{)",
+      "end": "(?=[\\{])",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
@@ -1927,7 +1927,7 @@
     },
     "value-expression-switch": {
       "begin": "\\b(switch)\\b",
-      "end": "(?<=\\})",
+      "end": "(?<=[\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -1939,8 +1939,7 @@
     },
     "value-expression-switch-head": {
       "begin": "(?<=switch)[[:space:]]*+",
-      "end": "(?<=[[:space:]\\)\\}])",
-      "applyEndPatternLast": true,
+      "end": "(?=[\\{])",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
@@ -1985,7 +1984,7 @@
     },
     "value-expression-try": {
       "begin": "\\b(try)\\b",
-      "end": "(?<=\\})",
+      "end": "(?<=[\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -1997,8 +1996,7 @@
     },
     "value-expression-try-head": {
       "begin": "(?<=try)[[:space:]]*+",
-      "end": "(?<=[[:space:]\\)\\}])",
-      "applyEndPatternLast": true,
+      "end": "(?=[\\{])",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
@@ -2008,7 +2006,7 @@
     },
     "value-expression-while": {
       "begin": "\\b(while)\\b",
-      "end": "(?<=\\})",
+      "end": "(?<=[\\}])",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -2019,8 +2017,7 @@
     },
     "value-expression-while-head": {
       "begin": "(?<=while)[[:space:]]*+",
-      "end": "(?<=[[:space:]\\)\\}])",
-      "applyEndPatternLast": true,
+      "end": "(?=[\\{])",
       "beginCaptures": {
         "1": { "name": "keyword.control.reason" }
       },
@@ -2031,7 +2028,7 @@
     },
     "value-expression-record-look": {
       "begin": "(?=\\.\\.\\.|([[:upper:]][[:word:]]*\\.)*([[:lower:]][[:word:]]*)[[:space:]]*[,:\\}])",
-      "end": "(?=\\})",
+      "end": "(?=[\\}])",
       "patterns": [
         { "include": "#value-expression-record-item" }
       ]
