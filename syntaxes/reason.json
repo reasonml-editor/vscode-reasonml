@@ -739,7 +739,8 @@
                 "1": { "name": "storage.type" }
               },
               "patterns": [
-                { "include": "#value-expression" }
+                { "include": "#value-expression-atomic" },
+                { "include": "#value-expression-record-suffix" }
               ]
             }
           ]
@@ -1429,7 +1430,8 @@
         {
           "match": "[:?]",
           "name": "keyword.operator"
-        }
+        },
+        { "include": "#value-expression-record-path" }
       ]
     },
     "value-expression-atomic": {
@@ -1443,8 +1445,7 @@
         { "include": "#value-expression-parens" },
         { "include": "#value-expression-switch" },
         { "include": "#value-expression-try" },
-        { "include": "#value-expression-while" },
-        { "include": "#value-expression-record-path" }
+        { "include": "#value-expression-while" }
       ]
     },
     "value-expression-block": {
@@ -1588,7 +1589,8 @@
             { "include": "#value-expression" }
           ]
         },
-        { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-atomic" },
+        { "include": "#value-expression-record-path" }
       ]
     },
     "value-expression-lazy": {
@@ -1881,45 +1883,46 @@
       "end": "(?=[^[:space:]\\.])(?!/\\*)",
       "patterns": [
         { "include": "#comment" },
+        { "include": "#value-expression-record-suffix" }
+      ]
+    },
+    "value-expression-record-suffix": {
+      "begin": "(\\.)",
+      "end": "(\\))|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+      "beginCaptures": {
+        "1": { "name": "keyword.operator" }
+      },
+      "endCaptures": {
+        "1": { "name": "entity.name.function" },
+        "2": { "name": "entity.name.class" },
+        "3": { "name": "constant.language" }
+      },
+      "patterns": [
+        { "include": "#comment" },
         {
-          "begin": "(\\.)",
-          "end": "(\\))|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+          "begin": "([\\(])",
+          "end": "(?=[\\)])",
           "beginCaptures": {
-            "1": { "name": "keyword.operator" }
-          },
-          "endCaptures": {
-            "1": { "name": "entity.name.function" },
-            "2": { "name": "entity.name.class" },
-            "3": { "name": "constant.language" }
+            "1": { "name": "entity.name.function" }
           },
           "patterns": [
             { "include": "#comment" },
             {
-              "begin": "([\\(])",
-              "end": "(?=[\\)])",
-              "beginCaptures": {
-                "1": { "name": "entity.name.function" }
-              },
-              "patterns": [
-                { "include": "#comment" },
-                {
-                  "match": "\\b([[:lower:]][[:word:]]*)\\b(?=.*([\\.]))",
-                  "captures": {
-                    "1": { "name": "constant.language" },
-                    "2": { "name": "keyword.other" }
-                  }
-                },
-                {
-                  "match": "([\\.])",
-                  "name": "keyword.other"
-                },
-                {
-                  "match": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*",
-                  "captures": {
-                    "1": { "name": "variable.parameter" }
-                  }
-                }
-              ]
+              "match": "\\b([[:lower:]][[:word:]]*)\\b(?=.*([\\.]))",
+              "captures": {
+                "1": { "name": "constant.language" },
+                "2": { "name": "keyword.other" }
+              }
+            },
+            {
+              "match": "([\\.])",
+              "name": "keyword.other"
+            },
+            {
+              "match": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*",
+              "captures": {
+                "1": { "name": "variable.parameter" }
+              }
             }
           ]
         }
@@ -1944,7 +1947,8 @@
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
-        { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-atomic" },
+        { "include": "#value-expression-record-path" }
       ]
     },
     "value-expression-switch-body": {
@@ -2001,7 +2005,8 @@
         "1": { "name": "keyword.control.reason" }
       },
       "patterns": [
-        { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-atomic" },
+        { "include": "#value-expression-record-path" }
       ]
     },
     "value-expression-while": {
