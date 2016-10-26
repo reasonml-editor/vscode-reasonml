@@ -1776,24 +1776,72 @@
       ]
     },
     "value-expression-record-field": {
-      "begin": "(\\.\\.\\.)?\\b([_[:lower:]][[:word:]]*)",
-      "end": "(?:(,)|(?=\\}))",
-      "beginCaptures": {
-        "1": { "name": "keyword.other" },
-        "2": { "name": "constant.language.field.reason" }
-      },
-      "endCaptures": {
-        "1": { "name": "keyword.operator.reason" }
-      },
       "patterns": [
         {
-          "begin": "\\G(:)",
-          "end": "(?=[,\\}])",
+          "begin": "(\\.\\.\\.)",
+          "end": "(?:(,)|(?=\\}))",
           "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "endCaptures": {
             "1": { "name": "keyword.operator.reason" }
           },
           "patterns": [
-            { "include": "#value-expression" }
+            { "include": "#comment" },
+            { "include": "#module-prefix-simple" },
+            {
+              "match": "\\b[[:lower:]][[:word:]]*\\b",
+              "name": "constant.language"
+            },
+            {
+              "begin": "(:)",
+              "end": "(?=[,\\}])",
+              "beginCaptures": {
+                "1": { "name": "keyword.operator.reason" }
+              },
+              "patterns": [
+                { "include": "#value-expression" }
+              ]
+            }
+          ]
+        },
+        {
+          "begin": "\\b[[:upper:]][[:word:]]*\\b",
+          "end": "(?:(,)|(?=\\}))",
+          "beginCaptures": {
+            "1": { "name": "entity.name.class" }
+          },
+          "patterns": [
+            { "include": "#module-prefix-simple" },
+            {
+              "begin": "(:)",
+              "end": "(?=[,\\}])",
+              "beginCaptures": {
+                "1": { "name": "keyword.operator.reason" }
+              },
+              "patterns": [
+                { "include": "#value-expression" }
+              ]
+            }
+          ]
+        },
+        {
+          "begin": "\\b([[:lower:]][[:word:]]*)\\b",
+          "end": "(?:(,)|(?=\\}))",
+          "beginCaptures": {
+            "1": { "name": "constant.language" }
+          },
+          "patterns": [
+            {
+              "begin": "(:)",
+              "end": "(?=[,\\}])",
+              "beginCaptures": {
+                "1": { "name": "keyword.operator.reason" }
+              },
+              "patterns": [
+                { "include": "#value-expression" }
+              ]
+            }
           ]
         }
       ]
