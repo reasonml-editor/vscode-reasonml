@@ -1,7 +1,7 @@
 import { merlin, types } from "../../shared";
 import * as command from "../command";
 import Session from "../session";
-import * as rpc from "vscode-jsonrpc";
+// import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
 
 export default function(session: Session): server.RequestHandler<server.TextDocumentPositionParams, types.CompletionItem[], void> {
@@ -18,7 +18,8 @@ export default function(session: Session): server.RequestHandler<server.TextDocu
     const request = merlin.Query.complete.prefix(prefix).at(position).with.doc();
     const response = await session.merlin.query(request, event.textDocument, Infinity);
     if (token.isCancellationRequested) return [];
-    if (response.class !== "return") return new rpc.ResponseError(-1, "onCompletion: failed", undefined);
+    if (response.class !== "return") return [];
+    // new rpc.ResponseError(-1, "onCompletion: failed", undefined);
     const entries = response.value.entries || [];
     return entries.map(merlin.Completion.intoCode);
   };
