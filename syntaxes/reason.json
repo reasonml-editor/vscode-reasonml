@@ -1862,7 +1862,7 @@
     },
     "value-expression-record-path": {
       "begin": "\\b[[:lower:]][[:word:]]*\\b",
-      "end": "(?=[^[:space:]/\\.])",
+      "end": "(?=[^[:space:]\\.])(?!/\\*)",
       "patterns": [
         { "include": "#comment" },
         {
