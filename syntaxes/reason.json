@@ -721,7 +721,7 @@
     "module-item-let-value-param-label": {
       "patterns": [
         {
-          "begin": "\\b([[:lower:]][[:word:]]*)\\b(::)",
+          "begin": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*(::)",
           "end": "(?<=[[:space:]])",
           "beginCaptures": {
             "1": { "name": "constant.language" },
@@ -731,7 +731,7 @@
             { "include": "#pattern" },
             {
               "begin": "(=)",
-              "end": "(\\?)|(?=[[:space:]])",
+              "end": "(\\?)|(?<=[^[:space:]=][[:space:]])(?=[[:space:]]*+[^\\.])",
               "beginCaptures": {
                 "1": { "name": "keyword.other" }
               },
