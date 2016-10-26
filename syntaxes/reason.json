@@ -798,7 +798,7 @@
     },
     "module-item-module-type": {
       "begin": "\\b(module)\\b[[:space:]]*(?=\\b(type)\\b|$)",
-      "end": "(;)|(?=[\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "end": "(;)|(?=[\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
