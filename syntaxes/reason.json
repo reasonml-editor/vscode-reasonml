@@ -23,17 +23,7 @@
             { "include": "#attribute-identifier" }
           ]
         },
-        {
-          "begin": "(:)",
-          "end": "(?=\\])",
-          "beginCaptures": {
-            "1": { "name": "keyword.operator" }
-          },
-          "patterns": [
-            { "include": "#type-expression" }
-          ]
-        },
-        { "include": "#value-expression" }
+        { "include": "#attribute-payload" }
       ]
     },
     "attribute-identifier": {
@@ -49,6 +39,35 @@
           "name": "constant.language",
           "match": "\\b([[:alpha:]][[:word:]]*)\\b"
         }
+      ]
+    },
+    "attribute-payload": {
+      "patterns": [
+        {
+          "begin": "(:)",
+          "end": "(?=\\])",
+          "beginCaptures": {
+            "1": { "name": "keyword.operator" }
+          },
+          "patterns": [
+            { "include": "#module-expression" },
+            { "include": "#module-item-type" },
+            { "include": "#type-expression" }
+          ]
+        },
+        {
+          "begin": "([\\?])",
+          "end": "(?=\\])",
+          "beginCaptures": {
+            "1": { "name": "keyword.operator" }
+          },
+          "patterns": [
+            { "include": "#pattern-guard" },
+            { "include": "#pattern" }
+          ]
+        },
+        { "include": "#module-expression-block-item" },
+        { "include": "#value-expression" }
       ]
     },
     "class-item-inherit": {
@@ -128,16 +147,7 @@
             { "include": "#attribute-identifier" }
           ]
         },
-        {
-          "begin": "(:)",
-          "end": "(?=\\])",
-          "beginCaptures": {
-            "1": { "name": "keyword.operator" }
-          },
-          "patterns": [
-            { "include": "#type-expression" }
-          ]
-        }
+        { "include": "#attribute-payload" }
       ]
     },
     "jsx": {
