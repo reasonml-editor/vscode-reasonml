@@ -1466,7 +1466,7 @@
     },
     "value-expression-builtin": {
       "name": "keyword.operator",
-      "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b"
+      "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|raise|ref)\\b"
     },
     "value-expression-for": {
       "begin": "(?=\\b(for)\\b)",
