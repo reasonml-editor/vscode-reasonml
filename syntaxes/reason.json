@@ -1091,7 +1091,7 @@
     },
     "pattern-record-field": {
       "begin": "\\b([_][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
-      "end": "(?:(,)|(?=\\}))",
+      "end": "(,)|(?=\\})",
       "beginCaptures": {
         "1": { "name": "comment.line" },
         "2": { "name": "constant.language.field.reason" }
@@ -1780,7 +1780,7 @@
       "patterns": [
         {
           "begin": "(\\.\\.\\.)",
-          "end": "(?:(,)|(?=\\}))",
+          "end": "(,)|(?=\\})",
           "beginCaptures": {
             "1": { "name": "keyword.other" }
           },
@@ -1808,9 +1808,12 @@
         },
         {
           "begin": "\\b[[:upper:]][[:word:]]*\\b",
-          "end": "(?:(,)|(?=\\}))",
+          "end": "(,)|(?=\\})",
           "beginCaptures": {
             "1": { "name": "entity.name.class" }
+          },
+          "endCaptures": {
+            "1": { "name": "keyword.operator.reason" }
           },
           "patterns": [
             { "include": "#module-prefix-simple" },
@@ -1828,9 +1831,12 @@
         },
         {
           "begin": "\\b([[:lower:]][[:word:]]*)\\b",
-          "end": "(?:(,)|(?=\\}))",
+          "end": "(,)|(?=\\})",
           "beginCaptures": {
             "1": { "name": "constant.language" }
+          },
+          "endCaptures": {
+            "1": { "name": "keyword.operator.reason" }
           },
           "patterns": [
             {
