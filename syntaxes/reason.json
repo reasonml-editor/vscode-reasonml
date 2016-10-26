@@ -33,16 +33,7 @@
             { "include": "#type-expression" }
           ]
         },
-        {
-          "begin": "",
-          "end": "(?=\\])",
-          "patterns": [
-            {
-              "comment": "FIXME: should be module-items",
-              "include": "#value-expression"
-            }
-          ]
-        }
+        { "include": "#value-expression" }
       ]
     },
     "attribute-identifier": {
