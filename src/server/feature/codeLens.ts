@@ -1,7 +1,6 @@
 import { merlin, types } from "../../shared";
 import * as command from "../command";
 import Session from "../session";
-import * as rpc from "vscode-jsonrpc";
 import * as server from "vscode-languageserver";
 
 const annotateKinds = new Set([
@@ -23,7 +22,7 @@ export default function(session: Session): server.RequestHandler<server.CodeLens
     const response = await session.merlin.query(request, event.textDocument, 1);
     if (token.isCancellationRequested) return [];
 
-    if (response.class !== "return") return new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
+    if (response.class !== "return") return []; // new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
     const textDoc = await command.getTextDocument(session, event.textDocument);
     if (token.isCancellationRequested) return [];
 
