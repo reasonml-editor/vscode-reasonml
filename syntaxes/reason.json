@@ -1860,17 +1860,44 @@
         { "include": "#comment" },
         {
           "begin": "(\\.)",
-          "end": "\\(([[:lower:]][[:word:]]*)\\)|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+          "end": "(\\))|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
           "beginCaptures": {
             "1": { "name": "keyword.operator" }
           },
           "endCaptures": {
-            "1": { "name": "variable.parameter" },
+            "1": { "name": "entity.name.function" },
             "2": { "name": "entity.name.class" },
             "3": { "name": "constant.language" }
           },
           "patterns": [
-            { "include": "#comment" }
+            { "include": "#comment" },
+            {
+              "begin": "([\\(])",
+              "end": "(?=[\\)])",
+              "beginCaptures": {
+                "1": { "name": "entity.name.function" }
+              },
+              "patterns": [
+                { "include": "#comment" },
+                {
+                  "match": "\\b([[:lower:]][[:word:]]*)\\b(?=.*([\\.]))",
+                  "captures": {
+                    "1": { "name": "constant.language" },
+                    "2": { "name": "keyword.other" }
+                  }
+                },
+                {
+                  "match": "([\\.])",
+                  "name": "keyword.other"
+                },
+                {
+                  "match": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*",
+                  "captures": {
+                    "1": { "name": "variable.parameter" }
+                  }
+                }
+              ]
+            }
           ]
         }
       ]
