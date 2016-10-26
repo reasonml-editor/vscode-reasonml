@@ -1908,7 +1908,7 @@
           "patterns": [
             { "include": "#comment" },
             {
-              "match": "\\b([[:lower:]][[:word:]]*)\\b(?=.*([\\.]))",
+              "match": "\\b([[:lower:]][[:word:]]*)\\b(?=[^\\)]*([\\.]))",
               "captures": {
                 "1": { "name": "constant.language" },
                 "2": { "name": "keyword.other" }
