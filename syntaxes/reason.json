@@ -566,7 +566,7 @@
     },
     "module-item-let-module-bind-type": {
       "begin": "(:)",
-      "end": "(?=[;\\}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val)\\b)",
+      "end": "(?=[;\\}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator.reason" }
       },
