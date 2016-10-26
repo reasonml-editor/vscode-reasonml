@@ -675,7 +675,7 @@
     },
     "module-item-let-value-bind-pattern": {
       "begin": "(?<=and|external|let|method|rec)",
-      "end": "(?==)",
+      "end": "(?=[;}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
         { "include": "#comment" },
         { "include": "#module-item-let-value-bind-parens-params" },
