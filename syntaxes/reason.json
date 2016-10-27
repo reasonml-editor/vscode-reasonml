@@ -1888,7 +1888,7 @@
     },
     "value-expression-record-suffix": {
       "begin": "(\\.)",
-      "end": "(\\))|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+      "end": "(\\))|\\b([[:upper:]][[:word:]]*)\\b|\\b([[:lower:]][[:word:]]*)\\b|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.operator" }
       },
