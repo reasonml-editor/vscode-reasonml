@@ -1813,8 +1813,14 @@
             { "include": "#comment" },
             { "include": "#module-prefix-simple" },
             {
-              "match": "\\b[[:lower:]][[:word:]]*\\b",
-              "name": "constant.language"
+              "begin": "(?=[\\.])",
+              "end": "(?=[:,])",
+              "patterns": [
+                {
+                  "match": "\\b[[:lower:]][[:word:]]*\\b",
+                  "name": "constant.language"
+                }
+              ]
             },
             {
               "begin": "(:)",
