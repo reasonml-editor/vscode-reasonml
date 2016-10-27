@@ -948,19 +948,13 @@
           "patterns": [
             { "include": "#value-expression-literal-constructor-variant" },
             {
-              "begin": "[[:space:]]*+",
-              "end": "(?=[;\\)\\}]|\\|(?!\\|)|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
-              "beginCaptures": {
-                "1": { "name": "keyword.other" }
-              },
-              "patterns": [
-                {
-                  "match": "\\b(of)\\b",
-                  "name": "keyword.other"
-                },
-                { "include": "#type-expression" }
-              ]
-            }
+              "match": "([:])|\\b(of)\\b",
+              "captures": {
+                "1": { "name": "keyword.other" },
+                "2": { "name": "keyword.other" }
+              }
+            },
+            { "include": "#type-expression" }
           ]
         },
         {
