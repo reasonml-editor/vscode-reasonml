@@ -258,13 +258,7 @@
                 }
               ]
             },
-            {
-              "begin": "(?=[[:upper:]])",
-              "end": "(?=[:])|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
-              "patterns": [
-                { "include": "#module-path-simple" }
-              ]
-            },
+            { "include": "#module-path-simple" },
             {
               "begin": "([:])",
               "end": "(?=[\\)])|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val)\\b)",
