@@ -696,7 +696,7 @@
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
       "begin": "(:)(?![[:space:]]*[\\)])",
-      "end": "(?==(?!>)|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
+      "end": "(?==>?|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
@@ -1187,8 +1187,10 @@
       ]
     },
     "operator-infix-custom": {
-      "name": "keyword.other",
-      "match": "[#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*"
+      "match": "(=>)|([#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
+      "captures": {
+        "2": { "name": "keyword.other" }
+      }
     },
     "operator-infix-custom-hash": {
       "name": "keyword.other",
@@ -1242,13 +1244,17 @@
       ]
     },
     "type-expression": {
-      "comments": "FIXME: higher-rank, objects, poly-variants, etc.",
+      "patterns": [
+        { "include": "#type-expression-atomic" },
+        { "include": "#type-expression-arrow" }
+      ]
+    },
+    "type-expression-atomic": {
       "patterns": [
         { "include": "#attribute" },
         { "include": "#comment" },
         { "include": "#module-prefix-extended" },
         { "include": "#type-expression-label" },
-        { "include": "#type-expression-arrow" },
         { "include": "#type-expression-constructor" },
         { "include": "#type-expression-object" },
         { "include": "#type-expression-parens" },
