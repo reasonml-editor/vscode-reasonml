@@ -702,11 +702,24 @@
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
       "begin": "(:)(?![[:space:]]*[\\)])",
-      "end": "(?==(?!>)|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "end": "(?==(?!>)|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
       "patterns": [
+        {
+          "begin": "\\b(type)\\b|(?<=[:])[[:space:]]*+(?!\\b(type)\\b)(?=(?:[[:space:]]*[[:lower:]][[:word:]]*)*[\\.])",
+          "end": "([\\.])",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "endCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#pattern-variable" }
+          ]
+        },
         { "include": "#type-expression" }
       ]
     },
@@ -779,10 +792,7 @@
             "1": { "name": "keyword.other" }
           },
           "patterns": [
-            {
-              "name": "support.type",
-              "match": "\\b[[:lower:]][[:word:]]*\\b"
-            }
+            { "include": "#pattern-variable" }
           ]
         }
       ]
