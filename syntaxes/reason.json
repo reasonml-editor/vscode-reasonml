@@ -347,7 +347,7 @@
                   }
                 },
                 {
-                  "begin": "(:=)",
+                  "begin": "(:?=)",
                   "end": "(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|type|val|with)\\b)",
                   "patterns": [
                     { "include": "#module-expression" }
