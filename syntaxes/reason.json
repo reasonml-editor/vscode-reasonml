@@ -430,7 +430,7 @@
       ]
     },
     "module-prefix-extended": {
-      "begin": "(?=[[:upper:]])",
+      "begin": "(?=\\b[[:upper:]])",
       "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "endCaptures": {
         "1": { "name": "keyword.other" }
@@ -440,7 +440,7 @@
       ]
     },
     "module-prefix-simple": {
-      "begin": "(?=[[:upper:]])",
+      "begin": "(?=\\b[[:upper:]])",
       "end": "([\\.])|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "endCaptures": {
         "1": { "name": "keyword.other" }
