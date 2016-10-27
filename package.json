@@ -235,7 +235,7 @@
     "@types/pegjs": "0.0.28",
     "tslint": "^3.13.0",
     "typescript": "^2.0.6",
-    "vscode": "^1.0.1"
+    "vscode": "^1.0.3"
   },
   "dependencies": {
     "async": "^2.0.1",
