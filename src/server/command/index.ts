@@ -7,6 +7,7 @@ import getPrefix from "./getPrefix";
 import getText from "./getText";
 import getTextDocument from "./getTextDocument";
 import getType from "./getType";
+import getWordAtPosition from "./getWordAtPosition";
 
 export {
   getDocumentation,
@@ -18,4 +19,5 @@ export {
   getText,
   getTextDocument,
   getType,
+  getWordAtPosition,
 }

@@ -13,3 +13,7 @@ export const giveText: rpc.RequestType<client.Location, string, void> = {
 export const giveTextDocument: rpc.RequestType<client.TextDocumentIdentifier, types.TextDocumentData, void> = {
   method: "reason.client.giveTextDocument",
 };
+
+export const giveWordAtPosition: rpc.RequestType<types.LocatedPosition, string, void> = {
+  method: "reason.client.giveWordAtPosition",
+};
