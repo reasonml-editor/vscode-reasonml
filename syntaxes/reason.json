@@ -645,43 +645,61 @@
         { "include": "#value-expression" }
       ]
     },
-    "module-item-let-value-bind-name-params": {
-      "begin": "(?:\\G|^)[[:space:]]*(?!\\blazy\\b)(?!\\blet\\b)(?:\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]*)\\b)",
-      "end": "(?<!:)(?!::)(?=[;:\\}=]|\\b(class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
-      "beginCaptures": {
-        "1": { "name": "comment.line" },
-        "2": { "name": "entity.name.function" }
-      },
+    "module-item-let-value-bind-name-or-pattern": {
+      "begin": "(?<=and|external|let|method|rec)[[:space:]]*",
+      "end": "(?<=[^[:space:]])(?=[[:space:]]|[;:}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
         { "include": "#comment" },
-        { "include": "#module-item-let-value-param" }
+        {
+          "match": "\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+          "captures": {
+            "1": { "name": "comment.line" },
+            "2": { "name": "entity.name.function" }
+          }
+        },
+        { "include": "#module-item-let-value-bind-parens-params" },
+        { "comment": "#pattern" }
+      ]
+    },
+    "module-item-let-value-bind-params-type": {
+      "begin": "(?=[^[:space:]:=])",
+      "end": "(?=[;\\}=]|\\b(class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "patterns": [
+        { "include": "#comment" },
+        { "include": "#module-item-let-value-param" },
+        {
+          "begin": "(:)[[:space:]]*(?![[:space:]]*[\\)])",
+          "end": "(?=[;\\}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
+          "beginCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "endCaptures": {
+            "1": { "name": "keyword.other" }
+          },
+          "patterns": [
+            { "include": "#type-expression-atomic" }
+          ]
+        }
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
       "begin": "(?<=and|external|let|method|rec)",
       "end": "(?=[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
-        { "include": "#module-item-let-value-bind-name-params" },
-        { "include": "#module-item-let-value-bind-pattern" },
+        { "include": "#module-item-let-value-bind-name-or-pattern" },
+        { "include": "#module-item-let-value-bind-params-type" },
         { "include": "#module-item-let-value-bind-type" },
         { "include": "#module-item-let-value-bind-body" }
       ]
     },
     "module-item-let-value-bind-parens-params": {
-      "begin": "(?=\\([^\\)])",
-      "end": "(?!::)(?=[:=])|(?=[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "begin": "\\((?![\\)])",
+      "end": "\\)",
       "patterns": [
-        {
-          "begin": "\\G\\(",
-          "end": "\\)",
-          "patterns": [
-            { "include": "#operator" },
-            { "include": "#pattern-parens-lhs" },
-            { "include": "#type-annotation-rhs" },
-            { "include": "#pattern" }
-          ]
-        },
-        { "include": "#module-item-let-value-param" }
+        { "include": "#operator" },
+        { "include": "#pattern-parens-lhs" },
+        { "include": "#type-annotation-rhs" },
+        { "include": "#pattern" }
       ]
     },
     "module-item-let-value-bind-pattern": {
@@ -696,7 +714,7 @@
     "module-item-let-value-bind-type": {
       "comment": "FIXME: lookahead",
       "begin": "(:)(?![[:space:]]*[\\)])",
-      "end": "(?==>?|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
+      "end": "(?==[^>]|[;\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
