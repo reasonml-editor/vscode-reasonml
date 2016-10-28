@@ -45,55 +45,61 @@
         "reason.codelens.unicode": {
           "type": "boolean",
           "default": true,
-          "description": "Use unicode symbols in codelens"
+          "description": "Enable the use of unicode symbols in codelens."
         },
         "reason.server.languages": {
           "type": "array",
           "items": {
             "enum": [
-              "ocaml",
               "reason"
             ]
           },
           "default": [
             "reason"
           ],
-          "maxItems": 2,
+          "maxItems": 1,
           "uniqueItems": true,
-          "description": "The list of languages to activate support for in the server session"
+          "description": "The list of languages enable support for in the language server."
         },
         "reason.debounce.linter": {
           "type": "integer",
           "default": 500,
-          "description": "How long to idle (in milliseconds) after keypress before refreshing linter diagnostics. A smaller value will refresh diagnostics more quickly."
+          "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
         },
         "reason.path.ocamlfind": {
           "type": "string",
-          "default": "ocamlfind"
+          "default": "ocamlfind",
+          "description": "The path to the `ocamlfind` binary."
         },
         "reason.path.ocamlmerlin": {
           "type": "string",
-          "default": "ocamlmerlin"
+          "default": "ocamlmerlin",
+          "description": "The path to the `ocamlmerlin` binary."
         },
         "reason.path.opam": {
           "type": "string",
-          "default": "opam"
+          "default": "opam",
+          "description": "The path to the `opam` binary."
         },
         "reason.path.rebuild": {
           "type": "string",
-          "default": "rebuild"
+          "default": "rebuild",
+          "description": "The path to the `rebuild` binary."
         },
         "reason.path.refmt": {
           "type": "string",
-          "default": "refmt"
+          "default": "refmt",
+          "description": "The path to the `refmt` binary."
         },
         "reason.path.refmterr": {
           "type": "string",
-          "default": "refmterr"
+          "default": "refmterr",
+          "description": "The path to the `refmterr` binary."
         },
         "reason.path.rtop": {
           "type": "string",
-          "default": "rtop"
+          "default": "rtop",
+          "description": "The path to the `rtop` binary."
         }
       }
     },
