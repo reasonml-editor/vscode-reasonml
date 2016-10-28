@@ -659,7 +659,7 @@
           }
         },
         { "include": "#module-item-let-value-bind-parens-params" },
-        { "comment": "#pattern" }
+        { "include": "#pattern" }
       ]
     },
     "module-item-let-value-bind-params-type": {
