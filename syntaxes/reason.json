@@ -648,11 +648,11 @@
     },
     "module-item-let-value-bind-name-or-pattern": {
       "begin": "(?<=and|external|let|method|rec)[[:space:]]*",
-      "end": "(?<=[^[:space:]])(?=[[:space:]]|[;:}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "end": "(?<=[^[:space:]])|(?=[[:space:]]|[;:}=]|\\b(and|as|class|constraint|exception|external|for|include|inherit|let|method|module|nonrec|open|private|rec|switch|try|type|val|while|with)\\b)",
       "patterns": [
         { "include": "#comment" },
         {
-          "match": "\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]*)\\b",
+          "match": "(?:\\b([_][[:word:]]+)\\b|\\b([[:lower:]][[:word:]]*)\\b)",
           "captures": {
             "1": { "name": "comment.line" },
             "2": { "name": "entity.name.function" }
@@ -672,9 +672,6 @@
           "begin": "(:)[[:space:]]*(?![[:space:]]*[\\)])",
           "end": "(?=[;\\}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|val|with)\\b)",
           "beginCaptures": {
-            "1": { "name": "keyword.other" }
-          },
-          "endCaptures": {
             "1": { "name": "keyword.other" }
           },
           "patterns": [
