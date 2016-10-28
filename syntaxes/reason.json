@@ -869,7 +869,7 @@
           },
           "patterns": [
             { "include": "#comment" },
-            { "include": "#module-expression" }
+            { "include": "#signature-expression" }
           ]
         }
       ]
@@ -1224,6 +1224,30 @@
     },
     "signature-expression": {
       "patterns": [
+        {
+          "comment": "FIXME: scan for :upper: to disambiguate type/signature in hover",
+          "begin": "(?=\\([[:space:]]*[[:upper:]][[:word:]]*[[:space:]]*:)",
+          "end": "(?=[;])",
+          "patterns": [
+            {
+              "begin": "(?=\\()",
+              "end": "(?==>)",
+              "patterns": [
+                { "include": "#module-item-let-module-param" }
+              ]
+            },
+            {
+              "begin": "(=>)",
+              "end": "(?=[;\\(])",
+              "beginCaptures": {
+                "1": { "name": "keyword.other" }
+              },
+              "patterns": [
+                { "include": "#module-expression" }
+              ]
+            }
+          ]
+        },
         {
           "begin": "\\b(module)\\b[[:space:]]*\\b(type)\\b([[:space:]]*\\b(of)\\b)?",
           "end": "(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
