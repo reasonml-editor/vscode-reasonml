@@ -1181,9 +1181,9 @@
       ]
     },
     "operator-infix-custom": {
-      "match": "(=>)|([#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
+      "match": "([#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
       "captures": {
-        "2": { "name": "keyword.other" }
+        "1": { "name": "keyword.other" }
       }
     },
     "operator-infix-custom-hash": {
