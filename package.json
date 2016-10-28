@@ -139,6 +139,11 @@
         "path": "./syntaxes/reason-hover-info.json"
       },
       {
+        "language": "reason.hover.signature",
+        "scopeName": "source.reason.hover.signature",
+        "path": "./syntaxes/reason-hover-signature.json"
+      },
+      {
         "language": "reason.hover.type",
         "scopeName": "source.reason.hover.type",
         "path": "./syntaxes/reason-hover-type.json"
@@ -199,6 +204,9 @@
       },
       {
         "id": "reason.hover.info"
+      },
+      {
+        "id": "reason.hover.signature"
       },
       {
         "id": "reason.hover.type"
