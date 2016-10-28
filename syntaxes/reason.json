@@ -708,7 +708,7 @@
             "1": { "name": "keyword.other" }
           },
           "endCaptures": {
-            "1": { "name": "keyword.other" }
+            "1": { "name": "entity.name.function" }
           },
           "patterns": [
             { "include": "#pattern-variable" }
@@ -1239,6 +1239,10 @@
     },
     "type-expression": {
       "patterns": [
+        {
+          "match": "([\\.])",
+          "name": "entity.name.function"
+        },
         { "include": "#type-expression-atomic" },
         { "include": "#type-expression-arrow" }
       ]
