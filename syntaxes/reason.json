@@ -1232,7 +1232,7 @@
           "patterns": [
             {
               "begin": "(?=\\()",
-              "end": "(?==>)",
+              "end": "(?=[;]|=>)",
               "patterns": [
                 { "include": "#module-item-let-module-param" }
               ]
