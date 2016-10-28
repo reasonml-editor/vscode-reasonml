@@ -1777,7 +1777,7 @@
     },
     "value-expression-parens-lhs": {
       "begin": "(?:\\(|(,))",
-      "end": "(?=(?:[?,:\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b))",
+      "end": "(?=(?:[?,:\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val|with)\\b))",
       "beginCaptures": {
         "1": { "name": "keyword.other" }
       },
