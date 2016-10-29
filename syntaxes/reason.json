@@ -166,7 +166,7 @@
             "2": { "name": "keyword.other" }
           },
           "patterns": [
-            { "include": "#value-expression-atomic" }
+            { "include": "#value-expression-atomic-with-paths" }
           ]
         },
         {
@@ -762,8 +762,7 @@
                 "1": { "name": "storage.type" }
               },
               "patterns": [
-                { "include": "#value-expression-atomic" },
-                { "include": "#record-path-suffix" }
+                { "include": "#value-expression-atomic-with-paths" }
               ]
             }
           ]
@@ -1636,6 +1635,13 @@
         { "include": "#value-expression-while" }
       ]
     },
+    "value-expression-atomic-with-paths": {
+      "patterns": [
+        { "include": "#value-expression-atomic" },
+        { "include": "#module-path-prefix-simple" },
+        { "include": "#record-path-suffix" }
+      ]
+    },
     "value-expression-block": {
       "begin": "\\{",
       "end": "\\}",
@@ -1706,8 +1712,7 @@
           },
           "patterns": [
             { "include": "#comment" },
-            { "include": "#value-expression-atomic" },
-            { "include": "#record-path" }
+            { "include": "#value-expression-atomic-with-paths" }
           ]
         },
         {
@@ -1718,8 +1723,7 @@
           },
           "patterns": [
             { "include": "#comment" },
-            { "include": "#value-expression-atomic" },
-            { "include": "#record-path" }
+            { "include": "#value-expression-atomic-with-paths" }
           ]
         },
         { "include": "#value-expression-block" }
@@ -1782,8 +1786,7 @@
             { "include": "#value-expression" }
           ]
         },
-        { "include": "#value-expression-atomic" },
-        { "include": "#record-path" }
+        { "include": "#value-expression-atomic-with-paths" }
       ]
     },
     "value-expression-lazy": {
@@ -2006,8 +2009,7 @@
       },
       "patterns": [
         { "include": "#comment" },
-        { "include": "#value-expression-atomic" },
-        { "include": "#record-path" }
+        { "include": "#value-expression-atomic-with-paths" }
       ]
     },
     "value-expression-switch-body": {
@@ -2064,8 +2066,7 @@
       },
       "patterns": [
         { "include": "#comment" },
-        { "include": "#value-expression-atomic" },
-        { "include": "#record-path" }
+        { "include": "#value-expression-atomic-with-paths" }
       ]
     },
     "value-expression-while": {
@@ -2087,7 +2088,7 @@
       },
       "patterns": [
         { "include": "#comment" },
-        { "include": "#value-expression-atomic" }
+        { "include": "#value-expression-atomic-with-paths" }
       ]
     },
     "value-expression-record-look": {
