@@ -1031,10 +1031,11 @@
         { "include": "#comment" },
         { "include": "#pattern-atomic" },
         {
-          "match": "[[:space:]]*+\\b(as)\\b|(\\|(?!\\|))[[:space:]]*+",
+          "match": "[[:space:]]*+(?:(\\|(?!\\|))|\\b(as)\\b|(\\.\\.\\.?))[[:space:]]*+",
           "captures": {
-            "1": { "name": "keyword.other" },
-            "2": { "name": "comment" }
+            "1": { "name": "comment" },
+            "2": { "name": "keyword.other" },
+            "3": { "name": "keyword.control.less message.error" }
           }
         }
       ]
