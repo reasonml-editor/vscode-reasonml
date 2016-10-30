@@ -37,7 +37,7 @@ export namespace format {
     return !/^\bswitch\b/g.test(content)
       ? content
       : content
-        .replace(/\|/g, `${indentation}  |`)
+        .replace(/\|/g, `${indentation}|`)
         .replace(/}$/g, `${indentation}}`);
   }
   export function indentPatterns(content: string): string {
