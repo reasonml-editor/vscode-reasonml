@@ -2069,13 +2069,20 @@
       ]
     },
     "value-expression-switch-head": {
-      "begin": "(?<=switch)[[:space:]]*+",
-      "end": "(?=[\\{])|(?=[;\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val|with)\\b)",
+      "begin": "(?<=switch)",
+      "end": "(?<!switch)(?=[\\{])|(?=[;\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.control" }
       },
       "patterns": [
         { "include": "#comment" },
+        {
+          "begin": "\\G[[:space:]]*+\\{",
+          "end": "\\}[[:space:]]*+",
+          "patterns": [
+            { "include": "#value-expression-block-item" }
+          ]
+        },
         { "include": "#value-expression-atomic-with-paths" }
       ]
     },
@@ -2115,13 +2122,20 @@
       ]
     },
     "value-expression-try-head": {
-      "begin": "(?<=try)[[:space:]]*+",
-      "end": "(?=[\\{])|(?=[;\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val|with)\\b)",
+      "begin": "(?<=try)",
+      "end": "(?<!try)(?=[\\{])|(?=[;\\)]|\\b(and|as|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.control" }
       },
       "patterns": [
         { "include": "#comment" },
+        {
+          "begin": "\\G[[:space:]]*+\\{",
+          "end": "\\}[[:space:]]*+",
+          "patterns": [
+            { "include": "#value-expression-block-item" }
+          ]
+        },
         { "include": "#value-expression-atomic-with-paths" }
       ]
     },
