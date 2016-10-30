@@ -1508,17 +1508,18 @@
     },
     "type-expression-polymorphic-variant": {
       "comment": "FIXME: proper parsing",
-      "begin": "(\\[)",
+      "begin": "(\\[)([<>])?",
       "end": "(\\])",
       "captures": {
-        "1": { "name": "entity.name.function" }
+        "1": { "name": "entity.name.function" },
+        "2": { "name": "keyword.control.less" }
       },
       "patterns": [
         {
-          "match": "([<>|])|\\b(of)\\b",
+          "match": "\\b(of)\\b|([&])",
           "captures": {
-            "1": { "name": "keyword.control.less" },
-            "2": { "name": "keyword.other" }
+            "1": { "name": "keyword.other" },
+            "2": { "name": "keyword.control.less" }
           }
         },
         { "include": "#value-expression-literal-constructor-variant-polymorphic" },
