@@ -5,6 +5,7 @@ export const ignore = new RegExp([
   /^No documentation available/,
   /^Not a valid identifier/,
   /^Not in environment '.*'/,
+  /^The initially opened module\.$/,
   /^didn't manage to find/,
 ].map((rx) => rx.source).join("|"));
 
