@@ -836,7 +836,7 @@
     "module-item-type-bind-body": {
       "comment": "FIXME: parsing",
       "begin": "(\\+?=)",
-      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "end": "(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|rec|type|val|with)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.control.less" }
       },
@@ -847,17 +847,17 @@
     "module-item-type-bind-body-item": {
       "patterns": [
         {
+          "match": "(=)|\\b(private)\\b",
+          "captures": {
+            "1": { "name": "keyword.control.less" },
+            "2": { "name": "storage.modifier message.error" }
+          }
+        },
+        {
           "comment": "FIXME: specialized version of variant rule that also scans for (",
           "match": "\\b([[:upper:]][[:word:]]*)\\b(?![[:space:]]*[\\.\\(])",
           "captures": {
             "1": { "name": "constant.language" }
-          }
-        },
-        {
-          "comment": "FIXME: add separate rule; parsing",
-          "match": "(?:\\G|^)[[:space:]]*\\b(private)\\b",
-          "captures": {
-            "1": { "name": "keyword.other" }
           }
         },
         {
@@ -946,7 +946,7 @@
       "begin": "\\b(constraint)\\b",
       "end": "(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "keyword.other" }
+        "1": { "name": "storage.modifier message.error" }
       },
       "patterns": [
         {
@@ -1512,14 +1512,14 @@
       "end": "(\\])",
       "captures": {
         "1": { "name": "entity.name.function" },
-        "2": { "name": "keyword.control.less" }
+        "2": { "name": "keyword.control.less message.error" }
       },
       "patterns": [
         {
           "match": "\\b(of)\\b|([&])",
           "captures": {
             "1": { "name": "keyword.other" },
-            "2": { "name": "keyword.control.less" }
+            "2": { "name": "keyword.control.less message.error" }
           }
         },
         { "include": "#value-expression-literal-constructor-variant-polymorphic" },
