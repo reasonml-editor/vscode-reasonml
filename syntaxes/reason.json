@@ -1309,7 +1309,7 @@
         { "include": "#comment" },
         {
           "comment": "FIXME: scan for :upper: or `val` to disambiguate types from signatures for hover",
-          "begin": "\\((?=[[:space:]]*(\\b(val)\\b|[^'[:lower:]]))",
+          "begin": "\\((?=[[:space:]]*(\\b(val)\\b|[^'\\[<[:lower:]]))",
           "end": "\\)|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|with)\\b)",
           "patterns": [
             { "include": "#comment" },
