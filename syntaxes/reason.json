@@ -1718,23 +1718,20 @@
         "1": { "name": "keyword.other" }
       },
       "patterns": [
-        { "include": "#value-expression-fun-pattern-match-rule" }
-      ]
-    },
-    "value-expression-fun-pattern-match-rule": {
-      "begin": "(\\|(?!\\|))?",
-      "end": "(?=[;\\)\\}]|\\|(?!\\|)|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
-      "beginCaptures": {
-        "1": { "name": "comment" }
-      },
-      "patterns": [
         { "include": "#value-expression-fun-pattern-match-rule-lhs" },
         { "include": "#value-expression-fun-pattern-match-rule-rhs" }
       ]
     },
     "value-expression-fun-pattern-match-rule-lhs": {
-      "begin": "(?<=fun)|(?<=[^\\|][\\|])",
-      "end": "(?==>)|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "begin": "(?=\\|(?!\\|))|(?<=fun)",
+      "end": "(\\|)|(?==>)|(?=[;\\)\\}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "applyEndPatternLast": true,
+      "beginCaptures": {
+        "1": { "name": "comment" }
+      },
+      "endCaptures": {
+        "1": { "name": "comment" }
+      },
       "patterns": [
         { "include": "#module-item-let-value-param" }
       ]
@@ -2089,11 +2086,8 @@
       ]
     },
     "value-expression-switch-pattern-match-rule-lhs": {
-      "begin": "(\\|)(?!\\|)",
+      "begin": "(?=\\|(?!\\|))",
       "end": "(?==>|[;\\)\\}])",
-      "beginCaptures": {
-        "1": { "name": "comment" }
-      },
       "patterns": [
         { "include": "#pattern-guard" },
         { "include": "#pattern" }
