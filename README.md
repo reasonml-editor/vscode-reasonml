@@ -4,6 +4,10 @@ Reason support for Visual Studio Code
 
 ![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
 
+## Discussion
+
+There is an `#editorsupport` channel on the Reason [discord server](https://discord.gg/reasonml). If you would like to discuss an idea or need help or have other feedback you can usually find me (@freebroccolo) idling there.
+
 ## Features
 
 - highlighting
