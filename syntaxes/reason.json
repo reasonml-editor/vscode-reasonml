@@ -847,7 +847,7 @@
     "module-item-type-bind-body-item": {
       "patterns": [
         {
-          "match": "(=)|\\b(private)\\b",
+          "match": "(=)(?!>)|\\b(private)\\b",
           "captures": {
             "1": { "name": "keyword.control.less" },
             "2": { "name": "storage.modifier message.error" }
