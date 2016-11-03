@@ -247,7 +247,7 @@
     "@types/lokijs": "^1.2.30",
     "@types/node": "^6.0.40",
     "@types/pegjs": "0.0.28",
-    "tslint": "^3.13.0",
+    "tslint": "^3.15.1",
     "typescript": "^2.0.6",
     "vscode": "^1.0.3"
   },
