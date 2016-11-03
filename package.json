@@ -17,9 +17,10 @@
     "vscode": "^1.5.0"
   },
   "categories": [
-    "Debuggers",
+    "Formatters",
     "Languages",
-    "Linters"
+    "Linters",
+    "Snippets"
   ],
   "icon": "assets/logo.png",
   "activationEvents": [
