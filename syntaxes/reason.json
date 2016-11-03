@@ -1891,29 +1891,78 @@
       ]
     },
     "value-expression-literal-string": {
-      "begin": "\"",
-      "end": "\"|(?:[^\\\\\\n]$)",
-      "contentName": "string.double",
       "patterns": [
         {
-          "comment": "FIXME: make escapes into separate rule",
-          "match": "\\\\[\\\\\"'ntbr ]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7]",
-          "name": "constant.character"
+          "begin": "(?<![[:alpha:]])js_expr(?!=[[:word:]])",
+          "end": "(?<=\")|([|])([_[:lower:]]*)?(})|(?=[^[:space:]\"{])",
+          "endCaptures": {
+            "1": { "name": "keyword.control.flow message.error" },
+            "2": { "name": "constant.language" },
+            "3": { "name": "keyword.control.flow message.error" }
+          },
+          "patterns": [
+            {
+              "begin": "({)([_[:lower:]]*)?([|])",
+              "end": "(?=[|]\\2})",
+              "beginCaptures": {
+                "1": { "name": "keyword.control.flow message.error" },
+                "2": { "name": "constant.language" },
+                "3": { "name": "keyword.control.flow message.error" }
+              },
+              "patterns": [
+                { "include": "source.js" }
+              ]
+            },
+            {
+              "begin": "\"",
+              "end": "\"",
+              "patterns": [
+                { "include": "source.js" }
+              ]
+            }
+          ]
         },
         {
-          "match": "(@)([ \\[\\],.]|\\\\n)",
-          "captures": {
-            "1": { "name": "keyword.control.less" },
-            "2": { "name": "constant.language" }
-          }
+          "begin": "({)([_[:lower:]]*)?([|])",
+          "end": "([|])(\\2)(})",
+          "beginCaptures": {
+            "1": { "name": "keyword.control.flow message.error" },
+            "2": { "name": "constant.language" },
+            "3": { "name": "keyword.control.flow message.error" }
+          },
+          "endCaptures": {
+            "1": { "name": "keyword.control.flow message.error" },
+            "2": { "name": "constant.language" },
+            "3": { "name": "keyword.control.flow message.error" }
+          },
+          "contentName": "string.double"
         },
         {
-          "comment": "FIXME: don't highlight in external strings",
-          "match": "(%)([ads])?",
-          "captures": {
-            "1": { "name": "constant.language" },
-            "2": { "name": "variable.other.readwrite.instance string.other.link" }
-          }
+          "begin": "\"",
+          "end": "\"|(?:[^\\\\\\n]$)",
+          "contentName": "string.double",
+          "patterns": [
+            {
+              "comment": "FIXME: make escapes into separate rule",
+              "match": "\\\\[\\\\\"'ntbr ]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7]",
+              "name": "constant.character"
+            },
+            {
+              "match": "(@)([ \\[\\],.]|\\\\n)",
+              "captures": {
+                "1": { "name": "keyword.control.less" },
+                "2": { "name": "constant.language" }
+              }
+            },
+            {
+              "comment": "FIXME: don't highlight in external strings",
+              "match": "(%)([ads])?",
+              "captures": {
+                "1": { "name": "constant.language" },
+                "2": { "name": "variable.other.readwrite.instance string.other.link" }
+              }
+            }
+          ]
         }
       ]
     },
