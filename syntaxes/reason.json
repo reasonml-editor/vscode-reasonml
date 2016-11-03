@@ -1043,6 +1043,10 @@
     },
     "pattern-atomic": {
       "patterns": [
+        {
+          "match": "exception",
+          "name": "keyword.other"
+        },
         { "include": "#value-expression-literal" },
         { "include": "#module-path-simple-prefix" },
         { "include": "#pattern-list" },
