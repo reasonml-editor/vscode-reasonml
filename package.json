@@ -24,7 +24,6 @@
   ],
   "icon": "assets/logo.png",
   "activationEvents": [
-    "onLanguage:ocaml",
     "onLanguage:reason"
   ],
   "main": "./out/src/extension",
