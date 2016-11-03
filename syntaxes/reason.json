@@ -163,7 +163,7 @@
           "end": "(?<![=])(?=[/>[:lower:]])",
           "beginCaptures": {
             "1": { "name": "constant.language support.property-value entity.name.filename variable.interpolation" },
-            "2": { "name": "keyword.control.less" }
+            "2": { "name": "markup.raw keyword.control.less message.error" }
           },
           "patterns": [
             { "include": "#value-expression-atomic-with-paths" }
@@ -669,7 +669,7 @@
               "begin": "(=)",
               "end": "(\\?)|(?<=[^[:space:]=][[:space:]])(?=[[:space:]]*+[^\\.])",
               "beginCaptures": {
-                "1": { "name": "keyword.control.less" }
+                "1": { "name": "markup.raw keyword.control.less message.error" }
               },
               "endCaptures": {
                 "1": { "name": "storage.type" }
@@ -994,7 +994,7 @@
       ]
     },
     "operator-infix-assign": {
-      "match": "(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])([=])(?![#\\-:!?.@*/&%^+<=>|~$\\\\])",
+      "match": "(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])(=)(?![#\\-:!?.@*/&%^+<=>|~$\\\\])",
       "name": "keyword.control.less message.error"
     },
     "operator-infix-builtin": {
@@ -1002,9 +1002,10 @@
       "name": "markup.raw keyword.control.less message.error"
     },
     "operator-infix-custom": {
-      "match": "([#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
+      "match": "(?:(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])([</]>)(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|([#\\-@*/&%^+<=>|$][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
       "captures": {
-        "1": { "name": "markup.raw keyword.control.less message.error" }
+        "1": { "name": "keyword.control" },
+        "2": { "name": "markup.raw keyword.control.less message.error" }
       }
     },
     "operator-infix-custom-hash": {
