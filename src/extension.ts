@@ -14,7 +14,7 @@ const reasonConfiguration = {
       action: {
         indentAction: vscode.IndentAction.IndentOutdent,
         appendText: "| ",
-      }
+      },
     },
     {
       beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
@@ -57,7 +57,7 @@ const reasonConfiguration = {
       action: {
         indentAction: vscode.IndentAction.None,
         appendText: "| ",
-      }
+      },
     },
     {
       beforeText: /^\s*\btype\b.*=(.*[^;\\{<]\s*)?$/,
@@ -65,7 +65,7 @@ const reasonConfiguration = {
       action: {
         indentAction: vscode.IndentAction.None,
         appendText: "  | ",
-      }
+      },
     },
     {
       beforeText: /^(\t|[ ]{2})*[\|]([^=])*(?:$|=>.*[^\s;\{]\s*$)/m,
