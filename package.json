@@ -259,7 +259,7 @@
     "pegjs": "^0.10.0",
     "vscode-jsonrpc": "^2.4.0",
     "vscode-languageclient": "^2.6.0",
-    "vscode-languageserver": "^2.5.0",
+    "vscode-languageserver": "^2.6.0",
     "vscode-languageserver-types": "^1.0.3"
   },
   "extensionDependencies": []
