@@ -1142,7 +1142,8 @@
               "captures": {
                 "1": { "name": "variable.parameter string.other.link variable.language" }
               }
-            }
+            },
+            { "include": "#value-expression" }
           ]
         }
       ]
