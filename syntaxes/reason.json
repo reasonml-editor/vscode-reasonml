@@ -1834,7 +1834,7 @@
       "name": "constant.language"
     },
     "value-expression-literal-character": {
-      "match": "(')([[:space:]]|[[:graph:]]|\\\\[\\\\\"'ntbr]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7])(')",
+      "match": "(')([[:space:]]|[[:graph:]]|\\\\[\\\\\"'ntbr]|\\\\[[:digit:]][[:digit:]][[:digit:]]|\\\\x[[:xdigit:]][[:xdigit:]]|\\\\o[0-3][0-7][0-7])(')",
       "captures": {
         "2": { "name": "constant.character" }
       }
@@ -1864,11 +1864,11 @@
     "value-expression-literal-numeric": {
       "patterns": [
         {
-          "match": "([-])?([0-9][_0-9]*)(?:(\\.)([_0-9]*))?(?:([eE])([\\-\\+])?([0-9][_0-9]*))?(?![xX])",
+          "match": "([-])?([[:digit:]][_[:digit:]]*)(?:(\\.)([_[:digit:]]*))?(?:([eE])([\\-\\+])?([[:digit:]][_[:digit:]]*))?(?![xX])",
           "captures": {
             "1": { "name": "keyword.control.less" },
             "2": { "name": "constant.numeric" },
-            "3": {},
+            "3": { "name": "variable.interpolation keyword.operator keyword.control message.error" },
             "4": { "name": "constant.numeric" },
             "5": { "name": "keyword.control.less" },
             "6": { "name": "keyword.control.less" },
@@ -1876,12 +1876,12 @@
           }
         },
         {
-          "match": "([-])?(0[xX])([0-9A-Fa-f][_0-9A-Fa-f]*)(?:(\\.)([_0-9A-Fa-f]*))?(?:([pP])([\\-\\+])?([0-9][_0-9]*))?",
+          "match": "([-])?(0[xX])([[:xdigit:]][_[:xdigit:]]*)(?:(\\.)([_[:xdigit:]]*))?(?:([pP])([\\-\\+])?([[:digit:]][_[:digit:]]*))?",
           "captures": {
             "1": { "name": "keyword.control.less" },
             "2": { "name": "keyword.control.less" },
             "3": { "name": "constant.numeric" },
-            "4": {},
+            "4": { "name": "variable.interpolation keyword.operator keyword.control message.error" },
             "5": { "name": "constant.numeric" },
             "6": { "name": "keyword.control.less" },
             "7": { "name": "keyword.control.less" },
@@ -1960,7 +1960,7 @@
           "patterns": [
             {
               "comment": "FIXME: make escapes into separate rule",
-              "match": "\\\\[\\\\\"'ntbr ]|\\\\[0-9][0-9][0-9]|\\\\x[0-9A-Fa-f][0-9A-Fa-f]|\\\\o[0-3][0-7][0-7]",
+              "match": "\\\\[\\\\\"'ntbr ]|\\\\[[:digit:]][[:digit:]][[:digit:]]|\\\\x[[:xdigit:]][[:xdigit:]]|\\\\o[0-3][0-7][0-7]",
               "name": "constant.character"
             },
             {
