@@ -1920,6 +1920,7 @@
             {
               "begin": "({)([_[:lower:]]*)?([|])",
               "end": "(?=[|]\\2})",
+              "contentName": "meta.separator",
               "beginCaptures": {
                 "1": { "name": "keyword.control.flow message.error" },
                 "2": { "name": "constant.language" },
@@ -1932,6 +1933,7 @@
             {
               "begin": "\"",
               "end": "\"",
+              "contentName": "meta.separator",
               "patterns": [
                 { "include": "source.js" }
               ]
