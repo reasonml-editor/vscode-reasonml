@@ -1036,7 +1036,7 @@
           "captures": {
             "1": { "name": "comment" },
             "2": { "name": "keyword.other" },
-            "3": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
+            "3": { "name": "keyword.control" }
           }
         }
       ]
@@ -1858,7 +1858,7 @@
       "match": "(,)|(\\.\\.\\.)",
       "captures": {
         "1": { "name": "variable.interpolation keyword.operator keyword.control message.error" },
-        "2": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
+        "2": { "name": "keyword.control" }
       }
     },
     "value-expression-literal-numeric": {
@@ -2031,7 +2031,7 @@
           "begin": "(\\.\\.\\.)",
           "end": "(,)|(?=})",
           "beginCaptures": {
-            "1": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
+            "1": { "name": "keyword.control" }
           },
           "endCaptures": {
             "1": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
