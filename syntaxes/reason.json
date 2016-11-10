@@ -391,7 +391,7 @@
             {
               "begin": "\"",
               "end": "\"|(?:[^\\\\\\n]$)",
-              "name": "string.double",
+              "name": "string.double string.regexp",
               "patterns": [
                 {
                   "match": "(?:(%)(.*?)|(caml.*?))(?=\"|(?:[^\\\\\\n]$))",
@@ -1941,7 +1941,7 @@
         {
           "begin": "({)([_[:lower:]]*)?([|])",
           "end": "([|])(\\2)(})",
-          "name": "string.double",
+          "name": "string.double string.regexp",
           "beginCaptures": {
             "1": { "name": "keyword.control.flow message.error" },
             "2": { "name": "constant.language" },
@@ -1956,7 +1956,7 @@
         {
           "begin": "\"",
           "end": "\"|(?:[^\\\\\\n]$)",
-          "name": "string.double",
+          "name": "string.double string.regexp",
           "patterns": [
             {
               "comment": "FIXME: make escapes into separate rule",
