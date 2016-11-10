@@ -661,7 +661,7 @@
           "end": "(?<=[[:space:]])",
           "beginCaptures": {
             "1": { "name": "constant.language support.property-value entity.name.filename markup.inserted" },
-            "2": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
+            "2": { "name": "keyword.control" }
           },
           "patterns": [
             { "include": "#pattern" },
@@ -1426,7 +1426,7 @@
       "end": "(?<==>)",
       "beginCaptures": {
         "1": { "name": "constant.language support.property-value entity.name.filename markup.inserted" },
-        "2": { "name": "variable.interpolation keyword.operator keyword.control message.error" }
+        "2": { "name": "keyword.control" }
       },
       "patterns": [
         { "include": "#type-expression" },
@@ -1810,7 +1810,7 @@
       "end": "(?![[:space:]])",
       "beginCaptures": {
         "1": { "name": "constant.language support.property-value entity.name.filename markup.inserted" },
-        "2": { "name": "variable.interpolation keyword.operator keyword.control message.error" },
+        "2": { "name": "keyword.control" },
         "3": { "name": "storage.type" }
       },
       "patterns": [
