@@ -258,7 +258,7 @@
     "lokijs": "^1.4.1",
     "pegjs": "^0.10.0",
     "vscode-jsonrpc": "^2.4.0",
-    "vscode-languageclient": "^2.6.1",
+    "vscode-languageclient": "^2.6.2",
     "vscode-languageserver": "^2.6.1",
     "vscode-languageserver-types": "^1.0.3"
   },
