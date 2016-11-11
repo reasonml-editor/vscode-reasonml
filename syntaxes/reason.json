@@ -868,8 +868,8 @@
           }
         },
         {
-          "begin": "(\\|)(?!\\|)[[:space:]]*",
-          "end": "(?=[;\\)}]|\\|(?!\\|)|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+          "begin": "(\\|)(?![#\\-:!?.@*/&%^+<=>|~$\\\\])[[:space:]]*",
+          "end": "(?=[;\\)}]|\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\])|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
           "beginCaptures": {
             "1": { "name": "comment" }
           },
@@ -887,7 +887,7 @@
         },
         {
           "comment": "FIXME: remove this once the pretty printer no longer outputs 'of'",
-          "match": "(:)|([\\|])|\\b(of)\\b",
+          "match": "(:)|(\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|\\b(of)\\b",
           "captures": {
             "1": { "name": "keyword.control.less message.error variable.interpolation" },
             "2": { "name": "comment" },
@@ -1032,7 +1032,7 @@
         { "include": "#comment" },
         { "include": "#pattern-atomic" },
         {
-          "match": "[[:space:]]*+(?:(\\|(?!\\|))|\\b(as)\\b|(\\.\\.\\.?))[[:space:]]*+",
+          "match": "[[:space:]]*+(?:(\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|\\b(as)\\b|(\\.\\.\\.?))[[:space:]]*+",
           "captures": {
             "1": { "name": "comment" },
             "2": { "name": "keyword.other" },
@@ -1522,8 +1522,8 @@
       },
       "patterns": [
         {
-          "begin": "([|])?(?![|])[[:space:]]*",
-          "end": "(?=[;)}\\]]|\\|(?!\\|)|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+          "begin": "(\\|)?(?![#\\-:!?.@*/&%^+<=>|~$\\\\])[[:space:]]*",
+          "end": "(?=[;)}\\]]|\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\])|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
           "beginCaptures": {
             "1": { "name": "comment" }
           },
@@ -1753,8 +1753,8 @@
       ]
     },
     "value-expression-fun-pattern-match-rule-lhs": {
-      "begin": "(?=\\|(?!\\|))|(?<=fun)",
-      "end": "(\\|)|(?==>)|(?=[;\\)}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
+      "begin": "(?=\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|(?<=fun)",
+      "end": "(\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|(?==>)|(?=[;\\)}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "applyEndPatternLast": true,
       "beginCaptures": {
         "1": { "name": "comment" }
@@ -1768,7 +1768,7 @@
     },
     "value-expression-fun-pattern-match-rule-rhs": {
       "begin": "(=>)",
-      "end": "(?=[;\\)}]|\\|(?!\\|)|\\b(and)\\b)",
+      "end": "(?=[;\\)}]|\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\])|\\b(and)\\b)",
       "beginCaptures": {
         "1": { "name": "keyword.control.less" }
       },
@@ -1910,7 +1910,7 @@
       "patterns": [
         {
           "begin": "(?<![[:alpha:]])js_expr(?!=[[:word:]])",
-          "end": "(?<=\")|([|])([_[:lower:]]*)?(})|(?=[^[:space:]\"{])",
+          "end": "(?<=\")|(\\|)([_[:lower:]]*)?(})|(?=[^[:space:]\"{])",
           "endCaptures": {
             "1": { "name": "keyword.control.flow message.error" },
             "2": { "name": "constant.language" },
@@ -1918,8 +1918,8 @@
           },
           "patterns": [
             {
-              "begin": "({)([_[:lower:]]*)?([|])",
-              "end": "(?=[|]\\2})",
+              "begin": "({)([_[:lower:]]*)?(\\|)",
+              "end": "(?=\\|\\2})",
               "contentName": "meta.separator",
               "beginCaptures": {
                 "1": { "name": "keyword.control.flow message.error" },
@@ -1941,8 +1941,8 @@
           ]
         },
         {
-          "begin": "({)([_[:lower:]]*)?([|])",
-          "end": "([|])(\\2)(})",
+          "begin": "({)([_[:lower:]]*)?(\\|)",
+          "end": "(\\|)(\\2)(})",
           "name": "string.double string.regexp",
           "beginCaptures": {
             "1": { "name": "keyword.control.flow message.error" },
@@ -2158,7 +2158,7 @@
       ]
     },
     "value-expression-switch-pattern-match-rule-lhs": {
-      "begin": "(?=\\|(?!\\|))",
+      "begin": "(?=\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))",
       "end": "(?==>|[;\\)}])",
       "patterns": [
         { "include": "#pattern-guard" },
@@ -2167,7 +2167,7 @@
     },
     "value-expression-switch-pattern-match-rule-rhs": {
       "begin": "(=>)",
-      "end": "(?=}|\\|(?!\\|))",
+      "end": "(?=}|\\|(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))",
       "beginCaptures": {
         "1": { "name": "keyword.control.less" }
       },
