@@ -161,7 +161,7 @@
         {
           "begin": "\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*(=)",
           "end": "(?<![=])(?=[/>[:lower:]])",
-          "name": "meta.separator",
+          "comment": "meta.separator",
           "beginCaptures": {
             "1": { "name": "constant.language support.property-value entity.name.filename markup.inserted" },
             "2": { "name": "keyword.control.less" }
@@ -173,7 +173,7 @@
         {
           "match": "(\\b([[:lower:]][[:word:]]*)\\b[[:space:]]*+)",
           "captures": {
-            "1": { "name": "meta.separator" },
+            "1": { "comment": "meta.separator" },
             "2": { "name": "constant.language support.property-value entity.name.filename markup.inserted" }
           }
         }
@@ -183,7 +183,7 @@
       "begin": "((>))",
       "end": "(?=</)",
       "beginCaptures": {
-        "1": { "name": "meta.separator" },
+        "1": { "comment": "meta.separator" },
         "2": { "name": "punctuation.definition.tag.end.js" }
       },
       "patterns": [
@@ -199,18 +199,18 @@
       "end": "((/>))|(?=</)",
       "applyEndPatternLast": true,
       "beginCaptures": {
-        "1": { "name": "meta.separator" },
+        "1": { "comment": "meta.separator" },
         "2": { "name": "punctuation.definition.tag.begin.js" }
       },
       "endCaptures": {
-        "1": { "name": "meta.separator" },
+        "1": { "comment": "meta.separator" },
         "2": { "name": "punctuation.definition.tag.end.js" }
       },
       "patterns": [
         {
           "begin": "\\G",
           "end": "(?=[[:space:]/>])[[:space:]]*+",
-          "name": "meta.separator",
+          "comment": "meta.separator",
           "patterns": [
             { "include": "#module-path-simple" },
             {
@@ -227,7 +227,7 @@
       "begin": "\\G(/>)|(</)",
       "end": "(>)",
       "applyEndPatternLast": true,
-      "name": "meta.separator",
+      "comment": "meta.separator",
       "beginCaptures": {
         "1": { "name": "punctuation.definition.tag.end.js" },
         "2": { "name": "punctuation.definition.tag.begin.js" }
@@ -1015,7 +1015,7 @@
     "operator-infix-custom": {
       "match": "(?:(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])((<>))(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|([#\\-@*/&%^+<=>|$\\\\][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
       "captures": {
-        "1": { "name": "meta.separator" },
+        "1": { "comment": "meta.separator" },
         "2": { "name": "punctuation.definition.tag.begin.js" },
         "3": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
       }
@@ -1936,7 +1936,7 @@
             {
               "begin": "({)([_[:lower:]]*)?(\\|)",
               "end": "(?=\\|\\2})",
-              "contentName": "meta.separator",
+              "comment": "meta.separator",
               "beginCaptures": {
                 "1": { "name": "keyword.control.flow message.error" },
                 "2": { "name": "constant.language" },
@@ -1949,7 +1949,7 @@
             {
               "begin": "\"",
               "end": "\"",
-              "contentName": "meta.separator",
+              "comment": "meta.separator",
               "patterns": [
                 { "include": "source.js" }
               ]
