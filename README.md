@@ -37,13 +37,19 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
 
 ## Getting Started
 
-### Editor Configuration
+### Recommended Syntax Themes
 
-- [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula) syntax theme (recommended)
-- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai) syntax theme (recommended)
-- [Reason](https://github.com/facebook/reason#installing-via-opam) (`1.4.0` or newer)
+Although syntax highlighting should display well in most themes we recommend and test with the following:
+
+- [Atom One Dark](https://marketplace.visualstudio.com/items?itemName=freebroccolo.theme-atom-one-dark)
+- Dark+ (default theme)
+- [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
+- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai)
+- [Oceanic Next](https://marketplace.visualstudio.com/items?itemName=naumovs.theme-oceanicnext)
 
 ### Reason Configuration
+
+- [Reason](https://github.com/facebook/reason#installing-via-opam) (`1.4.0` or newer)
 
 Nothing is required apart from the standard Reason install steps linked above.
 As long as `opam` is configured correctly and `ocamlmerlin` is in your path, all
