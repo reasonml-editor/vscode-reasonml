@@ -1414,6 +1414,10 @@
         { "include": "#comment" },
         { "include": "#module-path-extended-prefix" },
         { "include": "#type-expression-label" },
+        {
+          "match": "\\b(as)\\b",
+          "name": "variable.other.class.js variable.interpolation storage.modifier message.error"
+        },
         { "include": "#type-expression-constructor" },
         { "include": "#type-expression-object" },
         { "include": "#type-expression-parens" },
