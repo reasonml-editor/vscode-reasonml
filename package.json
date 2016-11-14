@@ -254,7 +254,7 @@
   "dependencies": {
     "async": "^2.0.1",
     "glob": "^7.0.6",
-    "lodash": "^4.16.6",
+    "lodash": "^4.17.0",
     "lokijs": "^1.4.1",
     "pegjs": "^0.10.0",
     "vscode-jsonrpc": "^2.4.0",
