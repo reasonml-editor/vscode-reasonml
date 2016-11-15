@@ -572,7 +572,7 @@
       ]
     },
     "module-item-let-value-bind-name-or-pattern": {
-      "begin": "(?<=[^[:word:]]and|^and|[^[:word]]external|^external|[^[:word]]let|^let|[^[:word]]method|^method|[^[:word]]rec|^rec)[[:space:]]*",
+      "begin": "(?<=[^[:word:]]and|^and|[^[:word:]]external|^external|[^[:word:]]let|^let|[^[:word:]]method|^method|[^[:word:]]rec|^rec)[[:space:]]*",
       "end": "(?<=[^[:space:]])|(?=[[:space:]]|[;:}=]|\\b(and|as|class|constraint|exception|external|for|include|inherit|let|method|module|nonrec|open|private|rec|switch|try|type|val|while|with)\\b)",
       "patterns": [
         { "include": "#comment" },
@@ -588,7 +588,7 @@
       ]
     },
     "module-item-let-value-bind-name-params-type-body": {
-      "begin": "(?<=[^[:word:]]and|^and|[^[:word]]external|^external|[^[:word]]let|^let|[^[:word]]method|^method|[^[:word]]rec|^rec)",
+      "begin": "(?<=[^[:word:]]and|^and|[^[:word:]]external|^external|[^[:word:]]let|^let|[^[:word:]]method|^method|[^[:word:]]rec|^rec)",
       "end": "(?=[;}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
         { "include": "#module-item-let-value-bind-name-or-pattern" },
@@ -626,7 +626,7 @@
       ]
     },
     "module-item-let-value-bind-pattern": {
-      "begin": "(?<=[^[:word:]]and|^and|[^[:word]]external|^external|[^[:word]]let|^let|[^[:word]]method|^method|[^[:word]]rec|^rec)",
+      "begin": "(?<=[^[:word:]]and|^and|[^[:word:]]external|^external|[^[:word:]]let|^let|[^[:word:]]method|^method|[^[:word:]]rec|^rec)",
       "end": "(?=[;:}=]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "patterns": [
         { "include": "#comment" },
