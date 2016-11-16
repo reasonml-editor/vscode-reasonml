@@ -248,7 +248,7 @@
     "@types/node": "^6.0.40",
     "@types/pegjs": "0.0.28",
     "tslint": "^3.15.1",
-    "typescript": "^2.0.10",
+    "typescript": "2.0.10",
     "vscode": "^1.0.3"
   },
   "dependencies": {
