@@ -577,7 +577,7 @@
       "patterns": [
         { "include": "#comment" },
         {
-          "match": "\\b(?:([_][[:word:]]+)|([[:lower:]][[:word:]]*))\\b",
+          "match": "\\b(?:(_)|([[:lower:]][[:word:]]*|_[[:word:]]+))\\b",
           "captures": {
             "1": { "name": "comment" },
             "2": { "name": "entity.name.function" }
