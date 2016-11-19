@@ -1014,7 +1014,7 @@
       "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control.less message.error"
     },
     "operator-infix-custom": {
-      "match": "(?:(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])((<>))(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|([#\\-@*/&%^+<=>|$\\\\][#\\-:!?.@*/&%^+<=>|~$\\\\]*)",
+      "match": "(?:(?<![#\\-:!?.@*/&%^+<=>|~$\\\\])((<>))(?![#\\-:!?.@*/&%^+<=>|~$\\\\]))|([#\\-@*/&%^+<=>$\\\\][#\\-:!?.@*/&%^+<=>|~$\\\\]*|[|][#\\-:!?.@*/&%^+<=>|~$\\\\]+)",
       "captures": {
         "1": { "comment": "meta.separator" },
         "2": { "name": "punctuation.definition.tag.begin.js" },
