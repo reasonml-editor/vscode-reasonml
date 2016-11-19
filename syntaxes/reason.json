@@ -1057,7 +1057,7 @@
     "pattern-atomic": {
       "patterns": [
         {
-          "match": "exception",
+          "match": "\\b(exception)\\b",
           "name": "keyword.other"
         },
         { "include": "#value-expression-literal" },
