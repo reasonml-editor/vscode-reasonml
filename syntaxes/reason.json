@@ -402,7 +402,7 @@
             { "include": "#attribute" },
             {
               "begin": "\"",
-              "end": "\"|(?:[^\\\\\\n]$)",
+              "end": "(?<!\\\\)\"",
               "name": "string.double string.regexp",
               "patterns": [
                 {
