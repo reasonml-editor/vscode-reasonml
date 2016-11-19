@@ -1067,7 +1067,7 @@
       ]
     },
     "value-builtin": {
-      "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b",
+      "match": "\\b(assert|decr|failwith|fprintf|ignore|incr|land|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b",
       "name": "keyword.operator"
     },
     "value-fun": {
