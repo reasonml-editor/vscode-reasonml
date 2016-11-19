@@ -1691,7 +1691,7 @@
       ]
     },
     "value-expression-builtin": {
-      "match": "\\b(assert|decr|failwith|fprintf|incr|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b|\\b(raise)\\b",
+      "match": "\\b(assert|decr|failwith|fprintf|incr|land|lazy|lor|lsl|lsr|lxor|mod|new|not|printf|ref)\\b|\\b(raise)\\b",
       "captures": {
         "1": { "name": "keyword.control message.error" },
         "2": { "name": "keyword.control.trycatch" }
