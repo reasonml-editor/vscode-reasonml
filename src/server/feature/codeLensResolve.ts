@@ -5,23 +5,16 @@ import * as server from "vscode-languageserver";
 
 export default function(session: Session): server.RequestHandler<types.CodeLens, types.CodeLens, void> {
   return async (event, token) => {
-    const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = event.data;
+    const data: types.SymbolInformation & { event: server.TextDocumentPositionParams, fileKind: "ml" | "re" } = event.data;
     const itemType = await command.getType(session, data.event, 1);
     if (token.isCancellationRequested) return event;
     if (itemType == null) return event;
-    let title = itemType.type;
-    if (session.settings.reason.codelens.unicode) {
-      if (/\.ml$/.test(data.event.textDocument.uri)) {
-        title = title.replace(/->/g, "→");
-      }
-      if (/\.re$/.test(data.event.textDocument.uri)) {
-        title = title.replace(/=>/g, "⇒");
-      }
-    }
-    if (/\.re$/.test(data.event.textDocument.uri)) {
-      title = title.replace(/ : /g, ": ");
-    }
-    event.command = { command: "", title };
+    event.command = { command: "", title: itemType.type };
+    if ("re" === data.fileKind) event.command.title = event.command.title.replace(/ : /g, ": ");
+    if (!session.settings.reason.codelens.unicode) return event;
+    if ("ml" === data.fileKind) event.command.title = event.command.title.replace(/->/g, "→");
+    if ("ml" === data.fileKind) event.command.title = event.command.title.replace(/\*/g, "×");
+    if ("re" === data.fileKind) event.command.title = event.command.title.replace(/=>/g, "⇒");
     return event;
   };
 }

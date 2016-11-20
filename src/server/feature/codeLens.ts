@@ -8,59 +8,50 @@ const annotateKinds = new Set([
 ]);
 
 export default function(session: Session): server.RequestHandler<server.CodeLensParams, types.CodeLens[], void> {
-  return async (event, token) => {
+  return async ({ textDocument }, token) => {
     const languages: Set<string> = new Set(session.settings.reason.server.languages);
-    if (languages.size === 0) return [];
+    if (languages.size < 1) return [];
 
-    const exclusions: string[] = [];
-    if (languages.has("ocaml")) exclusions.push("mli");
-    if (languages.has("reason")) exclusions.push("rei");
-    const pattern = new RegExp(`\.(?:${exclusions.join("|")})$`);
-    if (pattern.test(event.textDocument.uri)) return [];
+    const allowedFileKinds: string[] = [];
+    if (languages.has("ocaml")) allowedFileKinds.push("ml");
+    if (languages.has("reason")) allowedFileKinds.push("re");
+
+    const fileKindMatch = textDocument.uri.match(new RegExp(`\.(${allowedFileKinds.join("|")})$`));
+    if (fileKindMatch == null) return [];
+    const fileKind = fileKindMatch[1];
+    const isOCaml  = fileKind === "ml";
+    const isReason = fileKind === "re";
 
     const request = merlin.Query.outline();
-    const response = await session.merlin.query(request, event.textDocument, 1);
+    const response = await session.merlin.query(request, textDocument, 1);
     if (token.isCancellationRequested) return [];
 
     if (response.class !== "return") return []; // new rpc.ResponseError(-1, "onCodeLens: failed", undefined);
-    const textDoc = await command.getTextDocument(session, event.textDocument);
+    const textDoc = await command.getTextDocument(session, textDocument);
     if (token.isCancellationRequested) return [];
 
-    const symbols = merlin.Outline.intoCode(response.value, event.textDocument);
-    let codeLenses: types.CodeLens[] = [];
-    for (const item of symbols) {
-      if (item != null && annotateKinds.has(item.kind)) {
-        const params = {
-          position: types.Position.create(item.location.range.start.line, item.location.range.start.character),
-          textDocument: event.textDocument,
-        };
-        let matches: null | RegExpMatchArray = null;
+    const symbols = merlin.Outline.intoCode(response.value, textDocument);
+    const codeLenses: types.CodeLens[] = [];
+    let matches: null | RegExpMatchArray = null;
+    let textLine: null | string = null;
+    for (const { containerName, kind, location, name } of symbols) {
+      if (annotateKinds.has(kind)) {
+        const { range } = location;
+        const { start } = range;
+        const end = types.Position.create(start.line + 1, 0);
+        const { character, line } = start;
+        const position = types.Position.create(line, character);
+        const event = { position, textDocument };
         // reason requires computing some offsets first
-        if (/\.re$/.test(event.textDocument.uri)) {
-          const textLine = textDoc.getText().substring(
-            textDoc.offsetAt(item.location.range.start),
-            textDoc.offsetAt(item.location.range.end),
-          );
-          if (textLine != null) {
-            matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(?:(?:\(?([^\)]*)\)?(?:\s*::\s*(?:(\b\w+\b)|\((\b\w+\b):.*?\)=(\b\w+\b)))?|\((\b\w+\b)(?::.*?)?\))\s*)((?:(?:(\b\w+\b)(?:\s*::\s*(?:(\b\w+\b)|\((\b\w+\b):.*?\)=(\b\w+\b)))?|\((\b\w+\b)(?::.*?)?\))\s*)|(?::(?=[^:])(.*?=>)*)?(.*?=)\s*[^\s=;]+?\s*.*?;?$)/m);
-            if (matches != null) {
-              params.position.character += matches[1].length;
-              params.position.character += matches[2].length;
-              params.position.character += matches[3] ? matches[3].length : 0;
-              params.position.character += matches[4].length;
-            }
-          }
+        if (isReason
+        && (null != (textLine = textDoc.getText().substring(textDoc.offsetAt(start), textDoc.offsetAt(end)))) // tslint:disable-line no-conditional-assignment
+        && (null != (matches = textLine.match(/^\s*\b(and|let)\b(\s*)(\brec\b)?(\s*)(?:(?:\(?(?:[^\)]*)\)?(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)(?:(?:(?:(?:\b\w+\b)(?:\s*::\s*(?:(?:\b\w+\b)|\((?:\b\w+\b):.*?\)=(?:\b\w+\b)))?|\((?:\b\w+\b)(?::.*?)?\))\s*)|(?::(?=[^:])(?:.*?=>)*)?(?:.*?=)\s*[^\s=;]+?\s*.*?;?$)/m)))) { // tslint:disable-line no-conditional-assignment
+          event.position.character +=              matches[1].length;
+          event.position.character +=              matches[2].length;
+          event.position.character += matches[3] ? matches[3].length : 0;
+          event.position.character +=              matches[4].length;
         }
-        if (matches || /\.ml$/.test(event.textDocument.uri)) {
-          const data: types.SymbolInformation & { event: server.TextDocumentPositionParams } = {
-            containerName: item.containerName,
-            event: params,
-            kind: item.kind,
-            location: item.location,
-            name: item.name,
-          };
-          codeLenses.push({ data, range: item.location.range });
-        }
+        if (isOCaml || (null != (matches))) codeLenses.push({ data: { containerName, event, fileKind, kind, location, name }, range });
       }
     }
     return codeLenses;
