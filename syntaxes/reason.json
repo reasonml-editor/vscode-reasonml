@@ -1852,9 +1852,7 @@
     },
     "value-expression-literal-character": {
       "match": "(')([[:space:]]|[[:graph:]]|\\\\[\\\\\"'ntbr]|\\\\[[:digit:]][[:digit:]][[:digit:]]|\\\\x[[:xdigit:]][[:xdigit:]]|\\\\o[0-3][0-7][0-7])(')",
-      "captures": {
-        "2": { "name": "constant.character" }
-      }
+      "name": "constant.character"
     },
     "value-expression-literal-list-or-array": {
       "begin": "(\\[\\|?)(?![@%])",
