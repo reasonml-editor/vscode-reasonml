@@ -402,9 +402,10 @@
             { "include": "#attribute" },
             {
               "begin": "\"",
-              "end": "(?<!\\\\)\"",
+              "end": "\"",
               "name": "string.double string.regexp",
               "patterns": [
+                { "include": "#value-literal-string-escape" },
                 {
                   "match": "(?:(%)(.*?)|(caml.*?))(?=\"|(?:[^\\\\\\n]$))",
                   "captures": {
@@ -1947,7 +1948,7 @@
             },
             {
               "begin": "\"",
-              "end": "(?<!\\\\)\"",
+              "end": "\"",
               "comment": "meta.separator",
               "patterns": [
                 { "include": "source.js" }
@@ -1972,7 +1973,7 @@
         },
         {
           "begin": "\"",
-          "end": "(?<!\\\\)\"",
+          "end": "\"",
           "name": "string.double string.regexp",
           "patterns": [
             { "include": "#value-expression-literal-string-escape" }
