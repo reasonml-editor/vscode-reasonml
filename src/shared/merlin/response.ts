@@ -3,7 +3,7 @@ import * as json from "./json";
 export type MerlinNotification = {
   section: string;
   message: string;
-}
+};
 
 export type MerlinResponse<T> = {
   class: "return";

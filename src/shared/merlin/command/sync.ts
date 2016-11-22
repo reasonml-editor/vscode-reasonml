@@ -1,3 +1,5 @@
+// tslint:disable trailing-comma
+
 import * as ordinal from "../ordinal";
 
 export class Sync<I, O> {

@@ -1,11 +1,11 @@
 import * as types from "vscode-languageserver-types";
 
-export interface LocatedPosition {
+export interface ILocatedPosition {
   position: types.Position;
   uri: string;
 };
 export namespace LocatedPosition {
-  export function create(uri: string, position: types.Position): LocatedPosition {
+  export function create(uri: string, position: types.Position): ILocatedPosition {
     return { position, uri };
   }
 }

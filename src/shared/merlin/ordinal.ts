@@ -3,7 +3,7 @@ import * as types from "vscode-languageserver-types";
 export type ColumnLine = {
   col: number;
   line: number;
-}
+};
 
 export type Position
   = "start"

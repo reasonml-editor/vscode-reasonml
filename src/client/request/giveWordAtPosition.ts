@@ -2,7 +2,7 @@ import { remote, types } from "../../shared";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 
-async function handler({ position: positionWire, uri }: types.LocatedPosition): Promise<string> {
+async function handler({ position: positionWire, uri }: types.ILocatedPosition): Promise<string> {
   const textDocument = await vscode.workspace.openTextDocument(vscode.Uri.parse(uri));
   const positionCode = client.Protocol2Code.asPosition(positionWire);
   const range = textDocument.getWordRangeAtPosition(positionCode);

@@ -1,3 +1,5 @@
+// tslint:disable trailing-comma
+
 import * as data from "../data";
 import * as json from "../json";
 import { ColumnLine, Location, Position } from "../ordinal";

@@ -24,7 +24,7 @@ export interface ISettings {
       rtop: string;
     };
     server: {
-      languages: ("ocaml" | "reason")[];
+      languages: Array<"ocaml" | "reason">;
     };
   };
 }

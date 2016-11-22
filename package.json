@@ -241,10 +241,6 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
   "devDependencies": {
-    "@types/async": "2.0.33",
-    "@types/glob": "5.0.30",
-    "@types/lodash": "4.14.39",
-    "@types/lokijs": "1.2.30",
     "@types/node": "6.0.49",
     "@types/pegjs": "0.10.0",
     "tslint": "4.0.1",
@@ -252,15 +248,8 @@
     "vscode": "1.0.3"
   },
   "dependencies": {
-    "async": "2.1.4",
-    "glob": "7.1.1",
-    "lodash": "4.17.2",
-    "lokijs": "1.4.1",
-    "pegjs": "0.10.0",
-    "vscode-jsonrpc": "2.4.0",
-    "vscode-languageclient": "2.6.3",
-    "vscode-languageserver": "2.6.2",
-    "vscode-languageserver-types": "1.0.4"
+    "ocaml-language-server": "0.1.1",
+    "pegjs": "0.10.0"
   },
   "extensionDependencies": []
 }
