@@ -2,7 +2,8 @@
   "extends": "tslint:latest",
   "rules": {
     "curly": false,
-    "max-line-length": [ false ],
+    "max-classes-per-file": [false],
+    "max-line-length": [false],
     "no-namespace": false
   }
 }

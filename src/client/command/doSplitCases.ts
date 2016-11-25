@@ -1,6 +1,6 @@
-import { merlin, remote, types } from "../../shared";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import { merlin, remote, types } from "../../shared";
 
 async function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): Promise<boolean> {
   const [{ end, start }, content] = destruct;

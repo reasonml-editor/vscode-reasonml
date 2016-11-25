@@ -1,6 +1,6 @@
-import { remote, types } from "../../shared";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import { remote, types } from "../../shared";
 
 async function handler(event: types.TextDocumentIdentifier): Promise<types.TextDocumentData> {
   const codeDoc = await vscode.workspace.openTextDocument(vscode.Uri.parse(event.uri));

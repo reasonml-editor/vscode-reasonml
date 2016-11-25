@@ -1,7 +1,7 @@
 // tslint:disable object-literal-sort-keys
 
-import * as client from "./client";
 import * as vscode from "vscode";
+import * as client from "./client";
 
 const reasonConfiguration = {
   indentationRules: {

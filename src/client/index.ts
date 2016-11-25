@@ -1,8 +1,8 @@
-import * as command from "./command";
-import * as request from "./request";
 import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import * as command from "./command";
+import * as request from "./request";
 
 class ClientWindow implements vscode.Disposable {
   public readonly merlin: vscode.StatusBarItem;
