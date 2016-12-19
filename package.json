@@ -1,255 +1,255 @@
 {
-  "private": true,
-  "name": "reasonml",
-  "displayName": "Reason",
-  "description": "Reason language support",
-  "version": "0.0.91",
-  "publisher": "freebroccolo",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/freebroccolo/vscode-reasonml/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/freebroccolo/vscode-reasonml.git"
-  },
-  "engines": {
-    "vscode": "^1.5.0"
-  },
-  "categories": [
-    "Formatters",
-    "Languages",
-    "Linters",
-    "Snippets"
-  ],
-  "icon": "assets/logo.png",
-  "activationEvents": [
-    "onLanguage:reason"
-  ],
-  "main": "./out/src/extension",
-  "contributes": {
-    "commands": [
-      {
-        "command": "reason.caseSplit",
-        "title": "Reason: case split"
-      },
-      {
-        "command": "reason.showMerlinFiles",
-        "title": "Reason: show merlin files"
-      }
+    "private": true,
+    "name": "reasonml",
+    "displayName": "Reason",
+    "description": "Reason language support",
+    "version": "0.0.93",
+    "publisher": "freebroccolo",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/freebroccolo/vscode-reasonml/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/freebroccolo/vscode-reasonml.git"
+    },
+    "engines": {
+        "vscode": "^1.5.0"
+    },
+    "categories": [
+        "Formatters",
+        "Languages",
+        "Linters",
+        "Snippets"
     ],
-    "configuration": {
-      "type": "object",
-      "title": "Reason configuration",
-      "properties": {
-        "reason.codelens.unicode": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable the use of unicode symbols in codelens."
+    "icon": "assets/logo.png",
+    "activationEvents": [
+        "onLanguage:reason"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "reason.caseSplit",
+                "title": "Reason: case split"
+            },
+            {
+                "command": "reason.showMerlinFiles",
+                "title": "Reason: show merlin files"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "Reason configuration",
+            "properties": {
+                "reason.codelens.unicode": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Enable the use of unicode symbols in codelens."
+                },
+                "reason.server.languages": {
+                    "type": "array",
+                    "items": {
+                        "enum": [
+                            "reason"
+                        ]
+                    },
+                    "default": [
+                        "reason"
+                    ],
+                    "maxItems": 1,
+                    "uniqueItems": true,
+                    "description": "The list of languages enable support for in the language server."
+                },
+                "reason.debounce.linter": {
+                    "type": "integer",
+                    "default": 500,
+                    "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
+                },
+                "reason.path.ocamlfind": {
+                    "type": "string",
+                    "default": "ocamlfind",
+                    "description": "The path to the `ocamlfind` binary."
+                },
+                "reason.path.ocamlmerlin": {
+                    "type": "string",
+                    "default": "ocamlmerlin",
+                    "description": "The path to the `ocamlmerlin` binary."
+                },
+                "reason.path.opam": {
+                    "type": "string",
+                    "default": "opam",
+                    "description": "The path to the `opam` binary."
+                },
+                "reason.path.rebuild": {
+                    "type": "string",
+                    "default": "rebuild",
+                    "description": "The path to the `rebuild` binary."
+                },
+                "reason.path.refmt": {
+                    "type": "string",
+                    "default": "refmt",
+                    "description": "The path to the `refmt` binary."
+                },
+                "reason.path.refmterr": {
+                    "type": "string",
+                    "default": "refmterr",
+                    "description": "The path to the `refmterr` binary."
+                },
+                "reason.path.rtop": {
+                    "type": "string",
+                    "default": "rtop",
+                    "description": "The path to the `rtop` binary."
+                }
+            }
         },
-        "reason.server.languages": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "reason"
+        "grammars": [
+            {
+                "language": "ocaml",
+                "scopeName": "source.ocaml",
+                "path": "./syntaxes/ocaml.json"
+            },
+            {
+                "language": "ocaml.hover.info",
+                "scopeName": "source.ocaml.hover.info",
+                "path": "./syntaxes/ocaml-hover-info.json"
+            },
+            {
+                "language": "ocaml.hover.type",
+                "scopeName": "source.ocaml.hover.type",
+                "path": "./syntaxes/ocaml-hover-type.json"
+            },
+            {
+                "language": "ocaml.merlin",
+                "scopeName": "source.ocaml.merlin",
+                "path": "./syntaxes/merlin.json"
+            },
+            {
+                "language": "ocaml.ocamlbuild",
+                "scopeName": "source.ocaml.ocamlbuild",
+                "path": "./syntaxes/ocamlbuild.json"
+            },
+            {
+                "language": "ocaml.opam",
+                "scopeName": "source.ocaml.opam",
+                "path": "./syntaxes/opam.json"
+            },
+            {
+                "language": "reason",
+                "scopeName": "source.reason",
+                "path": "./syntaxes/reason.json"
+            },
+            {
+                "language": "reason.hover.info",
+                "scopeName": "source.reason.hover.info",
+                "path": "./syntaxes/reason-hover-info.json"
+            },
+            {
+                "language": "reason.hover.signature",
+                "scopeName": "source.reason.hover.signature",
+                "path": "./syntaxes/reason-hover-signature.json"
+            },
+            {
+                "language": "reason.hover.type",
+                "scopeName": "source.reason.hover.type",
+                "path": "./syntaxes/reason-hover-type.json"
+            }
+        ],
+        "languages": [
+            {
+                "id": "ocaml",
+                "aliases": [
+                    "OCaml"
+                ],
+                "extensions": [],
+                "configuration": "./ocaml.configuration.json"
+            },
+            {
+                "id": "ocaml.hover.info"
+            },
+            {
+                "id": "ocaml.hover.type"
+            },
+            {
+                "id": "ocaml.merlin",
+                "aliases": [
+                    "OCaml"
+                ],
+                "extensions": [
+                    "merlin"
+                ]
+            },
+            {
+                "id": "ocaml.ocamlbuild",
+                "aliases": [
+                    "OCaml"
+                ],
+                "extensions": [
+                    "_tags"
+                ]
+            },
+            {
+                "id": "ocaml.opam",
+                "aliases": [
+                    "OCaml"
+                ],
+                "extensions": [
+                    "opam"
+                ]
+            },
+            {
+                "id": "reason",
+                "aliases": [
+                    "Reason"
+                ],
+                "extensions": [
+                    ".re",
+                    ".rei"
+                ],
+                "configuration": "./reason.configuration.json"
+            },
+            {
+                "id": "reason.hover.info"
+            },
+            {
+                "id": "reason.hover.signature"
+            },
+            {
+                "id": "reason.hover.type"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "command": "reason.caseSplit",
+                    "group": "reason",
+                    "when": "editorTextFocus && resourceLangId == reason"
+                }
             ]
-          },
-          "default": [
-            "reason"
-          ],
-          "maxItems": 1,
-          "uniqueItems": true,
-          "description": "The list of languages enable support for in the language server."
         },
-        "reason.debounce.linter": {
-          "type": "integer",
-          "default": 500,
-          "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
-        },
-        "reason.path.ocamlfind": {
-          "type": "string",
-          "default": "ocamlfind",
-          "description": "The path to the `ocamlfind` binary."
-        },
-        "reason.path.ocamlmerlin": {
-          "type": "string",
-          "default": "ocamlmerlin",
-          "description": "The path to the `ocamlmerlin` binary."
-        },
-        "reason.path.opam": {
-          "type": "string",
-          "default": "opam",
-          "description": "The path to the `opam` binary."
-        },
-        "reason.path.rebuild": {
-          "type": "string",
-          "default": "rebuild",
-          "description": "The path to the `rebuild` binary."
-        },
-        "reason.path.refmt": {
-          "type": "string",
-          "default": "refmt",
-          "description": "The path to the `refmt` binary."
-        },
-        "reason.path.refmterr": {
-          "type": "string",
-          "default": "refmterr",
-          "description": "The path to the `refmterr` binary."
-        },
-        "reason.path.rtop": {
-          "type": "string",
-          "default": "rtop",
-          "description": "The path to the `rtop` binary."
-        }
-      }
+        "snippets": [
+            {
+                "language": "reason",
+                "path": "./snippets/reason.json"
+            }
+        ]
     },
-    "grammars": [
-      {
-        "language": "ocaml",
-        "scopeName": "source.ocaml",
-        "path": "./syntaxes/ocaml.json"
-      },
-      {
-        "language": "ocaml.hover.info",
-        "scopeName": "source.ocaml.hover.info",
-        "path": "./syntaxes/ocaml-hover-info.json"
-      },
-      {
-        "language": "ocaml.hover.type",
-        "scopeName": "source.ocaml.hover.type",
-        "path": "./syntaxes/ocaml-hover-type.json"
-      },
-      {
-        "language": "ocaml.merlin",
-        "scopeName": "source.ocaml.merlin",
-        "path": "./syntaxes/merlin.json"
-      },
-      {
-        "language": "ocaml.ocamlbuild",
-        "scopeName": "source.ocaml.ocamlbuild",
-        "path": "./syntaxes/ocamlbuild.json"
-      },
-      {
-        "language": "ocaml.opam",
-        "scopeName": "source.ocaml.opam",
-        "path": "./syntaxes/opam.json"
-      },
-      {
-        "language": "reason",
-        "scopeName": "source.reason",
-        "path": "./syntaxes/reason.json"
-      },
-      {
-        "language": "reason.hover.info",
-        "scopeName": "source.reason.hover.info",
-        "path": "./syntaxes/reason-hover-info.json"
-      },
-      {
-        "language": "reason.hover.signature",
-        "scopeName": "source.reason.hover.signature",
-        "path": "./syntaxes/reason-hover-signature.json"
-      },
-      {
-        "language": "reason.hover.type",
-        "scopeName": "source.reason.hover.type",
-        "path": "./syntaxes/reason-hover-type.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "ocaml",
-        "aliases": [
-          "OCaml"
-        ],
-        "extensions": [],
-        "configuration": "./ocaml.configuration.json"
-      },
-      {
-        "id": "ocaml.hover.info"
-      },
-      {
-        "id": "ocaml.hover.type"
-      },
-      {
-        "id": "ocaml.merlin",
-        "aliases": [
-          "OCaml"
-        ],
-        "extensions": [
-          "merlin"
-        ]
-      },
-      {
-        "id": "ocaml.ocamlbuild",
-        "aliases": [
-          "OCaml"
-        ],
-        "extensions": [
-          "_tags"
-        ]
-      },
-      {
-        "id": "ocaml.opam",
-        "aliases": [
-          "OCaml"
-        ],
-        "extensions": [
-          "opam"
-        ]
-      },
-      {
-        "id": "reason",
-        "aliases": [
-          "Reason"
-        ],
-        "extensions": [
-          ".re",
-          ".rei"
-        ],
-        "configuration": "./reason.configuration.json"
-      },
-      {
-        "id": "reason.hover.info"
-      },
-      {
-        "id": "reason.hover.signature"
-      },
-      {
-        "id": "reason.hover.type"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "command": "reason.caseSplit",
-          "group": "reason",
-          "when": "editorTextFocus && resourceLangId == reason"
-        }
-      ]
+    "scripts": {
+        "compile": "npm run ocamldoc:grammar:compile && tsc -watch -p ./",
+        "ocamldoc:grammar:compile": "mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
     },
-    "snippets": [
-      {
-        "language": "reason",
-        "path": "./snippets/reason.json"
-      }
-    ]
-  },
-  "scripts": {
-    "compile": "npm run ocamldoc:grammar:compile && tsc -watch -p ./",
-    "ocamldoc:grammar:compile": "mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
-  },
-  "devDependencies": {
-    "@types/node": "6.0.52",
-    "@types/pegjs": "0.10.0",
-    "tslint": "4.1.1",
-    "typescript": "^2.2.0-dev.20161215",
-    "vscode": "1.0.3"
-  },
-  "dependencies": {
-    "ocaml-language-server": "0.1.4",
-    "pegjs": "0.10.0"
-  },
-  "extensionDependencies": []
+    "devDependencies": {
+        "@types/node": "6.0.52",
+        "@types/pegjs": "0.10.0",
+        "tslint": "4.1.1",
+        "typescript": "^2.2.0-dev.20161215",
+        "vscode": "1.0.3"
+    },
+    "dependencies": {
+        "ocaml-language-server": "0.1.4",
+        "pegjs": "0.10.0"
+    },
+    "extensionDependencies": []
 }
