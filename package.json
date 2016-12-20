@@ -244,11 +244,11 @@
         "@types/node": "6.0.52",
         "@types/pegjs": "0.10.0",
         "tslint": "4.1.1",
-        "typescript": "^2.2.0-dev.20161215",
+        "typescript": "2.2.0-dev.20161215",
         "vscode": "1.0.3"
     },
     "dependencies": {
-        "ocaml-language-server": "0.1.6",
+        "ocaml-language-server": "0.1.7",
         "pegjs": "0.10.0"
     },
     "extensionDependencies": []
