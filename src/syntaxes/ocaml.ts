@@ -297,7 +297,7 @@ export class OCaml implements basis.ILanguage {
             0: { name: Scope.PUNCTUATION_EQUALS() },
           },
           patterns: [
-            include(this.literalObjectType),
+            include(this.literalClassType),
           ],
         },
         {
@@ -319,7 +319,7 @@ export class OCaml implements basis.ILanguage {
   }
 
   public bindClassType(): schema.Rule {
-    return this.bindClassWith(include(this.literalObjectType));
+    return this.bindClassWith(include(this.literalClassType));
   }
 
   public bindConstructor(): schema.Rule {
@@ -1028,6 +1028,10 @@ export class OCaml implements basis.ILanguage {
     return this.escapes(Token.APOSTROPHE);
   }
 
+  public literalClassType(): schema.Rule {
+    return this.literalObjectWith(this.declInherit(include(this.type)));
+  }
+
   public literalList(): schema.Rule {
     return {
       patterns: [
@@ -1118,10 +1122,6 @@ export class OCaml implements basis.ILanguage {
 
   public literalObjectTerm(): schema.Rule {
     return this.literalObjectWith(this.declInherit(include(this.term)));
-  }
-
-  public literalObjectType(): schema.Rule {
-    return this.literalObjectWith(this.declInherit(include(this.type)));
   }
 
   public operator(): string {
@@ -2095,6 +2095,7 @@ export class OCaml implements basis.ILanguage {
         },
         include(this.pathModulePrefixExtended),
         include(this.typeLabel),
+        include(this.typeObject),
         include(this.typeOperator),
         include(this.typeParens),
         include(this.typePolymorphicVariant),
@@ -2127,6 +2128,7 @@ export class OCaml implements basis.ILanguage {
                   Token.COMMA,
                   Token.EQUALS_SIGN,
                   Token.FULL_STOP,
+                  Token.GREATER_THAN_SIGN,
                   Token.HYPHEN_MINUS,
                   Token.LEFT_CURLY_BRACKET,
                   Token.LEFT_SQUARE_BRACKET,
@@ -2182,6 +2184,7 @@ export class OCaml implements basis.ILanguage {
                   Token.COMMA,
                   Token.EQUALS_SIGN,
                   Token.FULL_STOP,
+                  Token.GREATER_THAN_SIGN,
                   Token.HYPHEN_MINUS,
                   Token.LEFT_CURLY_BRACKET,
                   Token.LEFT_SQUARE_BRACKET,
@@ -2245,6 +2248,19 @@ export class OCaml implements basis.ILanguage {
       patterns: [
         include(this.pathModuleExtended),
         include(this.signatureConstraints),
+      ],
+    };
+  }
+
+  public typeObject(): schema.Rule {
+    return {
+      begin: this.ops(Token.LESS_THAN_SIGN),
+      end: this.ops(Token.GREATER_THAN_SIGN),
+      captures: {
+        0: { name: Scope.TERM_CONSTRUCTOR() },
+      },
+      patterns: [
+        include(this.type),
       ],
     };
   }
@@ -2358,10 +2374,10 @@ export class OCaml implements basis.ILanguage {
         literalBoolean: this.literalBoolean(),
         literalCharacter: this.literalCharacter(),
         literalCharacterEscape: this.literalCharacterEscape(),
+        literalClassType: this.literalClassType(),
         literalList: this.literalList(),
         literalNumber: this.literalNumber(),
         literalObjectTerm: this.literalObjectTerm(),
-        literalObjectType: this.literalObjectType(),
         literalRecord: this.literalRecord(),
         literalString: this.literalString(),
         literalStringEscape: this.literalStringEscape(),
@@ -2411,6 +2427,7 @@ export class OCaml implements basis.ILanguage {
         typeConstructor: this.typeConstructor(),
         typeLabel: this.typeLabel(),
         typeModule: this.typeModule(),
+        typeObject: this.typeObject(),
         typeOperator: this.typeOperator(),
         typeParens: this.typeParens(),
         typePolymorphicVariant: this.typePolymorphicVariant(),

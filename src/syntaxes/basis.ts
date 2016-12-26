@@ -185,17 +185,14 @@ export class Scope {
   }
 
   public static LITERAL_OBJECT(): string {
-    // return `entity.other.attribute-name.css constant.language constant.numeric ${this.STYLE_ITALICS()}`;
     return `${this.STYLE_DELIMITER} ${this.STYLE_ITALICS()}`;
   }
 
   public static LITERAL_SIGNATURE(): string {
-    // return `${this.STYLE_CONTROL()} ${this.STYLE_ITALICS()}`;
     return `${this.STYLE_DELIMITER()} ${this.STYLE_ITALICS()}`;
   }
 
   public static LITERAL_STRUCTURE(): string {
-    // return `entity.other.attribute-name.css constant.language constant.numeric ${this.STYLE_ITALICS()}`;
     return `${this.STYLE_DELIMITER()} ${this.STYLE_ITALICS()}`;
   }
 
@@ -248,11 +245,11 @@ export class Scope {
   }
 
   public static PUNCTUATION_APOSTROPHE(): string {
-    return `${this.STYLE_DELIMITER()} ${this.STYLE_BOLD()} ${this.STYLE_ITALICS()}`;
+    return `${this.VARIABLE_PATTERN()} ${this.STYLE_BOLD()} ${this.STYLE_ITALICS()}`;
   }
 
   public static PUNCTUATION_COLON(): string {
-    return `${this.STYLE_KEYWORD()} ${this.STYLE_BOLD()}`;
+    return `${this.STYLE_OPERATOR()} ${this.STYLE_BOLD()}`;
   }
 
   public static PUNCTUATION_COMMA(): string {
@@ -264,7 +261,7 @@ export class Scope {
   }
 
   public static PUNCTUATION_EQUALS(): string {
-    return `${this.STYLE_CONTROL()} ${this.STYLE_BOLD()}`;
+    return `support.type ${this.STYLE_BOLD()}`;
   }
 
   public static STYLE_BINDER(): string {
@@ -356,7 +353,7 @@ export class Scope {
   }
 
   public static VARIABLE_TYPE(): string {
-    return `support.type ${this.STYLE_ITALICS()}`;
+    return `${this.STYLE_CONTROL()} ${this.STYLE_ITALICS()}`;
   }
 
   public static VERTICAL_LINE(): string {
@@ -406,7 +403,7 @@ export interface IGrammar {
   literalList(): schema.Rule;
   literalNumber(): schema.Rule;
   literalObjectTerm(): schema.Rule;
-  literalObjectType(): schema.Rule;
+  literalClassType(): schema.Rule;
   literalRecord(): schema.Rule;
   literalString(): schema.Rule;
   literalStringEscape(): schema.Rule;
@@ -461,6 +458,7 @@ export interface IGrammar {
   typeConstructor(): schema.Rule;
   typeLabel(): schema.Rule;
   typeModule(): schema.Rule;
+  typeObject(): schema.Rule;
   typeOperator(): schema.Rule;
   typeParens(): schema.Rule;
   typePolymorphicVariant(): schema.Rule;
