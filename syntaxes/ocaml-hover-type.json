@@ -1,8 +1,7 @@
 {
   "scopeName": "source.ocaml.hover.type",
   "patterns": [
-    { "include": "source.ocaml#module-expression" },
-    { "include": "source.ocaml#module-item-type" },
-    { "include": "source.ocaml#type-expression" }
+    { "include": "source.ocaml#type" },
+    { "include": "source.ocaml#signature" }
   ]
 }
