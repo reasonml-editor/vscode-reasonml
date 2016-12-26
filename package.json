@@ -246,14 +246,14 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./ && script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "^6.0.51",
+    "@types/node": "6.0.53",
     "@types/pegjs": "0.10.0",
-    "tslint": "^4.0.2",
-    "typescript": "2.0.10",
+    "tslint": "4.2.0",
+    "typescript": "2.2.0-dev.20161215",
     "vscode": "1.0.3"
   },
   "dependencies": {
-    "ocaml-language-server": "^0.1.2",
+    "ocaml-language-server": "^0.1.7",
     "pegjs": "0.10.0"
   },
   "extensionDependencies": []
