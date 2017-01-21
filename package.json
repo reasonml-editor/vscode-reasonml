@@ -212,10 +212,10 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
   },
   "devDependencies": {
-    "@types/node": "6.0.53",
+    "@types/node": "^7.0.0",
     "@types/pegjs": "0.10.0",
-    "tslint": "4.2.0",
-    "typescript": "2.2.0-dev.20161215",
+    "tslint": "^4.3.1",
+    "typescript": "2.1.5",
     "vscode": "1.0.3"
   },
   "dependencies": {
