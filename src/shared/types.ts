@@ -23,4 +23,11 @@ export type TextDocumentData = {
   version: number;
 };
 
+export type UnformattedTextDocument = {
+  uri: string;
+  languageId: string;
+  version: number;
+  content: string;
+};
+
 export * from "vscode-languageserver-types";

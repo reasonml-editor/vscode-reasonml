@@ -2,6 +2,7 @@ import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import * as command from "./command";
+import * as lifecycle from "./lifecycle";
 import * as request from "./request";
 
 class ClientWindow implements vscode.Disposable {
@@ -53,6 +54,7 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
   command.registerAll(context, languageClient);
   request.registerAll(context, languageClient);
+  lifecycle.registerAll(context, languageClient);
   const window = new ClientWindow();
   const session = languageClient.start();
   context.subscriptions.push(window);
