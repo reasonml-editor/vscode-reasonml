@@ -11,10 +11,11 @@ async function execute(languageClient: client.LanguageClient, event: vscode.Text
   };
   const response = await languageClient.sendRequest(remote.server.giveFormatted, textDocument);
   if (response == null) return [];
+  const formatted = `${response}\n`;
   const fullRange = new vscode.Range(
     event.document.positionAt(0),
-    event.document.positionAt(textDocument.content.length - 1));
-  return [vscode.TextEdit.replace(fullRange, response)];
+    event.document.positionAt(textDocument.content.length));
+  return [vscode.TextEdit.replace(fullRange, formatted)];
 }
 
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
