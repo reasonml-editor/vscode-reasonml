@@ -5,8 +5,9 @@ import { remote, types } from "../../shared";
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   context.subscriptions.push(vscode.commands.registerTextEditorCommand("reason.showMerlinFiles", async (editor) => {
     const docURI: types.TextDocumentIdentifier = { uri: editor.document.uri.toString() };
-    const merlinFiles = await languageClient.sendRequest(remote.server.giveMerlinFiles, docURI);
-    const selected = await vscode.window.showQuickPick(merlinFiles);
+    const merlinFiles: string[] = await languageClient.sendRequest(remote.server.giveMerlinFiles, docURI);
+    const selected: string | undefined = await vscode.window.showQuickPick(merlinFiles);
+    if (selected == null) return;
     const textDocument = await vscode.workspace.openTextDocument(selected);
     await vscode.window.showTextDocument(textDocument);
   }));

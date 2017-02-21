@@ -53,6 +53,7 @@ export function register(context: vscode.ExtensionContext, languageClient: clien
   context.subscriptions.push(vscode.commands.registerTextEditorCommand("reason.caseSplit", async (editor): Promise<void> => {
     const textDocument = { uri: editor.document.uri.toString() };
     const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);
+    if (rangeCode == null) return;
     const range = types.Range.create(rangeCode.start, rangeCode.end);
     const params = { range, textDocument };
     try {
