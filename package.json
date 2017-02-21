@@ -47,24 +47,15 @@
           "default": true,
           "description": "Enable the use of unicode symbols in codelens."
         },
-        "reason.server.languages": {
-          "type": "array",
-          "items": {
-            "enum": [
-              "reason"
-            ]
-          },
-          "default": [
-            "reason"
-          ],
-          "maxItems": 1,
-          "uniqueItems": true,
-          "description": "The list of languages enable support for in the language server."
-        },
         "reason.debounce.linter": {
           "type": "integer",
           "default": 500,
           "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
+        },
+        "reason.formatOnSave": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run refmt automatically when a document is saved."
         },
         "reason.path.ocamlfind": {
           "type": "string",
@@ -100,6 +91,20 @@
           "type": "string",
           "default": "rtop",
           "description": "The path to the `rtop` binary."
+        },
+        "reason.server.languages": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "reason"
+            ]
+          },
+          "default": [
+            "reason"
+          ],
+          "maxItems": 1,
+          "uniqueItems": true,
+          "description": "The list of languages enable support for in the language server."
         }
       }
     },

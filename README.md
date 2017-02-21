@@ -15,7 +15,7 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
   - [x] basic highlighting for merlin, ocamlbuild, and opam files
 
 - editing
-  - [x] document formatting
+  - [x] document formatting (enable on save with `reason.formatOnSave`)
   - [x] completion and snippets
   - [x] [rename symbol](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol) (F2 or right click)
   - [x] [case splitting](#case-splitting)

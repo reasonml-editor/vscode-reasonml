@@ -20,6 +20,10 @@ async function execute(languageClient: client.LanguageClient, event: vscode.Text
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   context.subscriptions.push(
     vscode.workspace.onWillSaveTextDocument((event) => {
-      if (event.document.languageId === "reason") event.waitUntil(execute(languageClient, event));
+      if (event.document.languageId === "reason") {
+        if (vscode.workspace.getConfiguration("reason").get<boolean>("formatOnSave", false)) {
+          event.waitUntil(execute(languageClient, event));
+        }
+      }
     }));
 }
