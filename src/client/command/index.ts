@@ -9,7 +9,7 @@ import * as fixUnusedVariable from "./fixUnusedVariable";
 export function registerAll(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   doShowMerlinFiles.register(context, languageClient);
   doSplitCases.register(context, languageClient);
-  fixEqualsShouldBeArrow.register(context);
-  fixMissingSemicolon.register(context);
-  fixUnusedVariable.register(context);
+  fixEqualsShouldBeArrow.register(context, languageClient);
+  fixMissingSemicolon.register(context, languageClient);
+  fixUnusedVariable.register(context, languageClient);
 }

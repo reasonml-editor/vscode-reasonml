@@ -52,14 +52,14 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
     },
   };
   const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
-  command.registerAll(context, languageClient);
-  request.registerAll(context, languageClient);
-  lifecycle.registerAll(context, languageClient);
   const window = new ClientWindow();
   const session = languageClient.start();
   context.subscriptions.push(window);
   context.subscriptions.push(session);
   await languageClient.onReady();
+  command.registerAll(context, languageClient);
+  request.registerAll(context, languageClient);
+  lifecycle.registerAll(context, languageClient);
   window.merlin.text = "$(hubot) [merlin]";
   window.merlin.tooltip = "merlin server online";
 }

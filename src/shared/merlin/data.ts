@@ -1,6 +1,6 @@
 import * as types from "vscode-languageserver-types";
-import * as remote from "../remote";
 import * as ordinal from "./ordinal";
+import * as remote from "../remote";
 
 export namespace Case {
   export type Destruct = [{ end: ordinal.ColumnLine; start: ordinal.ColumnLine }, string];

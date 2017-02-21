@@ -3,9 +3,6 @@ import * as parser from "./parser";
 import * as remote from "./remote";
 import * as types from "./types";
 
-/**
- * Structured configuration settings for the session.
- */
 export interface ISettings {
   reason: {
     codelens: {
@@ -26,6 +23,33 @@ export interface ISettings {
     server: {
       languages: Array<"ocaml" | "reason">;
     };
+  };
+}
+export namespace ISettings {
+  export const defaults: ISettings = {
+    reason: {
+      codelens: {
+        unicode: true,
+      },
+      debounce: {
+        linter: 500,
+      },
+      path: {
+        ocamlfind: "ocamlfind",
+        ocamlmerlin: "ocamlmerlin",
+        opam: "opam",
+        rebuild: "rebuild",
+        refmt: "refmt",
+        refmterr: "refmterr",
+        rtop: "rtop",
+      },
+      server: {
+        languages: [
+          "ocaml",
+          "reason",
+        ],
+      },
+    },
   };
 }
 

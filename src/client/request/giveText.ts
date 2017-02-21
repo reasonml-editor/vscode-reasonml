@@ -1,14 +1,16 @@
 import * as vscode from "vscode";
-import * as client from "vscode-languageclient";
+import { LanguageClient } from "vscode-languageclient";
 import { remote, types } from "../../shared";
 
-async function handler({ range, uri }: types.Location): Promise<string> {
-  const textDocument = await vscode.workspace.openTextDocument(vscode.Uri.parse(uri));
-  const content = textDocument.getText(client.Protocol2Code.asRange(range));
-  return content;
-}
+function handler(client: LanguageClient): ({ range, uri }: types.Location) => Promise<string> {
+  return async ({range, uri}) => {
+    const textDocument = await vscode.workspace.openTextDocument(vscode.Uri.parse(uri));
+    const content = textDocument.getText(client.protocol2CodeConverter.asRange(range));
+    return content;
+  }
+};
 
-export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
+export function register(context: vscode.ExtensionContext, client: LanguageClient): void {
   void context; // tslint:disable-line
-  languageClient.onRequest(remote.client.giveText, handler);
+  client.onRequest(remote.client.giveText.method, handler(client));
 }
