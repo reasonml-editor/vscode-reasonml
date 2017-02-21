@@ -92,7 +92,13 @@ assert-plus@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-1.0.0.tgz#f12e0f3c5d77b0b1cdd9146942e4e96c1e4dd525"
 
-async@2.1.4, async@^2.0.1:
+async@2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.1.5.tgz#e587c68580994ac67fc56ff86d3ac56bdbe810bc"
+  dependencies:
+    lodash "^4.14.0"
+
+async@^2.0.1:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/async/-/async-2.1.4.tgz#2d2160c7788032e4dd6cbe2502f1f9a2c8f6cde4"
   dependencies:
@@ -1333,13 +1339,17 @@ lodash.values@~2.4.1:
   dependencies:
     lodash.keys "~2.4.1"
 
-lodash@4.17.2, lodash@^4.14.0:
+lodash@4.17.4:
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
+
+lodash@^4.14.0:
   version "4.17.2"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.2.tgz#34a3055babe04ce42467b607d700072c7ff6bf42"
 
-lokijs@1.4.1:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/lokijs/-/lokijs-1.4.1.tgz#ea17be92d2ea7caba1c816d6c2006424e8db0bfe"
+lokijs@1.4.3:
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/lokijs/-/lokijs-1.4.3.tgz#f2a47ba8d6991c92d6da6a5b35be79b674453abb"
 
 loud-rejection@^1.0.0:
   version "1.6.0"
@@ -1547,18 +1557,18 @@ object.omit@^2.0.0:
     is-extendable "^0.1.1"
 
 ocaml-language-server@0.2.0:
-  version "0.1.7"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-0.1.7.tgz#ccb21bd1175c3d4ad598bdd75da839ef299d7527"
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-0.2.0.tgz#f9ae38396f893863ed52c1a29fb45b42236e1a36"
   dependencies:
-    async "2.1.4"
+    async "2.1.5"
     glob "7.1.1"
-    lodash "4.17.2"
-    lokijs "1.4.1"
+    lodash "4.17.4"
+    lokijs "1.4.3"
     pegjs "0.10.0"
-    vscode-jsonrpc "2.4.0"
-    vscode-languageclient "2.6.3"
-    vscode-languageserver "2.6.2"
-    vscode-languageserver-types "1.0.4"
+    vscode-jsonrpc "3.0.4"
+    vscode-languageclient "3.0.4"
+    vscode-languageserver "3.0.5"
+    vscode-languageserver-types "3.0.3"
 
 once@^1.3.0:
   version "1.4.0"
@@ -2265,20 +2275,9 @@ vinyl@^1.0.0:
     clone-stats "^0.0.1"
     replace-ext "0.0.1"
 
-vscode-jsonrpc@2.4.0, vscode-jsonrpc@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-2.4.0.tgz#51396030e13179555c939b791c29598058b8fbb4"
-
 vscode-jsonrpc@3.0.4, vscode-jsonrpc@^3.0.3:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-3.0.4.tgz#07fdae38e3122412faddf45756fba1d2cb1eb9c8"
-
-vscode-languageclient@2.6.3:
-  version "2.6.3"
-  resolved "https://registry.yarnpkg.com/vscode-languageclient/-/vscode-languageclient-2.6.3.tgz#9a35f5955464588d966895313f5164ce9b184f3f"
-  dependencies:
-    vscode-jsonrpc "^2.4.0"
-    vscode-languageserver-types "^1.0.4"
 
 vscode-languageclient@3.0.4:
   version "3.0.4"
@@ -2287,20 +2286,9 @@ vscode-languageclient@3.0.4:
     vscode-jsonrpc "^3.0.3"
     vscode-languageserver-types "^3.0.3"
 
-vscode-languageserver-types@1.0.4, vscode-languageserver-types@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-1.0.4.tgz#439a52f040c89cf6599d88ed9a1b5a9abdca11b7"
-
 vscode-languageserver-types@3.0.3, vscode-languageserver-types@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.0.3.tgz#303b2a307c20952ff5c1f5a608f3c91146028d47"
-
-vscode-languageserver@2.6.2:
-  version "2.6.2"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver/-/vscode-languageserver-2.6.2.tgz#c06d817a55c7c9e97bd0535424fc0d5754d61ea9"
-  dependencies:
-    vscode-jsonrpc "^2.4.0"
-    vscode-languageserver-types "^1.0.4"
 
 vscode-languageserver@3.0.5:
   version "3.0.5"
