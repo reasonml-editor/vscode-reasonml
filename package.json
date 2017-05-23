@@ -24,6 +24,7 @@
   ],
   "icon": "assets/logo.png",
   "activationEvents": [
+    "onLanguage:ocaml",
     "onLanguage:reason"
   ],
   "main": "./out/src/extension",
@@ -100,6 +101,7 @@
             ]
           },
           "default": [
+            "ocaml",
             "reason"
           ],
           "maxItems": 1,
@@ -109,6 +111,21 @@
       }
     },
     "grammars": [
+      {
+        "language": "ocaml",
+        "scopeName": "source.ocaml",
+        "path": "./syntaxes/ocaml.json"
+      },
+      {
+        "language": "ocaml.hover.info",
+        "scopeName": "source.ocaml.hover.info",
+        "path": "./syntaxes/ocaml-hover-info.json"
+      },
+      {
+        "language": "ocaml.hover.type",
+        "scopeName": "source.ocaml.hover.type",
+        "path": "./syntaxes/ocaml-hover-type.json"
+      },
       {
         "language": "ocaml.merlin",
         "scopeName": "source.ocaml.merlin",
@@ -146,6 +163,23 @@
       }
     ],
     "languages": [
+       {
+        "id": "ocaml",
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          ".ml",
+          ".mli"
+        ],
+        "configuration": "./ocaml.configuration.json"
+      },
+      {
+        "id": "ocaml.hover.info"
+      },
+      {
+        "id": "ocaml.hover.type"
+      },
       {
         "id": "ocaml.merlin",
         "aliases": [
@@ -211,11 +245,11 @@
     ]
   },
   "scripts": {
-    "compile": "npm run ocamldoc:grammar:compile && tsc -p ./",
+    "compile": "npm run ocamldoc:grammar:compile && tsc -p ./ && script/syntax.js",
     "lint": "tslint --project tsconfig.json --type-check",
     "ocamldoc:grammar:compile": "mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./"
+    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./ && script/syntax.js"
   },
   "devDependencies": {
     "@types/node": "7.0.22",
