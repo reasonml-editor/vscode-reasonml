@@ -185,7 +185,7 @@ export class Scope {
   }
 
   public static LITERAL_OBJECT(): string {
-    return `${this.STYLE_DELIMITER} ${this.STYLE_ITALICS()}`;
+    return `${this.STYLE_DELIMITER()} ${this.STYLE_ITALICS()}`;
   }
 
   public static LITERAL_SIGNATURE(): string {
