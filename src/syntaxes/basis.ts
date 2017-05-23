@@ -359,7 +359,7 @@ export class Scope {
   public static VERTICAL_LINE(): string {
     return `support.type ${this.STYLE_BOLD()}`;
   }
-};
+}
 
 export interface IGrammar {
   bindClassTerm(): schema.Rule;

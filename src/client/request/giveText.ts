@@ -7,8 +7,8 @@ function handler(client: LanguageClient): ({ range, uri }: types.Location) => Pr
     const textDocument = await vscode.workspace.openTextDocument(vscode.Uri.parse(uri));
     const content = textDocument.getText(client.protocol2CodeConverter.asRange(range));
     return content;
-  }
-};
+  };
+}
 
 export function register(context: vscode.ExtensionContext, client: LanguageClient): void {
   void context; // tslint:disable-line

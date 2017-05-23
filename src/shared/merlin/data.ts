@@ -1,19 +1,19 @@
 import * as types from "vscode-languageserver-types";
-import * as ordinal from "./ordinal";
 import * as remote from "../remote";
+import * as ordinal from "./ordinal";
 
 export namespace Case {
-  export type Destruct = [{ end: ordinal.ColumnLine; start: ordinal.ColumnLine }, string];
+  export type Destruct = [{ end: ordinal.IColumnLine; start: ordinal.IColumnLine }, string];
 }
 
 export namespace Completion {
-  export type Label = {
+  export interface ILabel {
     name: string;
     type: string;
-  };
+  }
   export type Context
     = null
-    | ["application", { argument_type: string; labels: Label[] }];
+    | ["application", { argument_type: string; labels: ILabel[] }];
   export type Kind
     = "#"
     | "Class"
@@ -44,32 +44,32 @@ export namespace Completion {
       }
     }
   }
-  export type Entry = {
+  export interface IEntry {
     name: string;
     kind: Kind;
     desc: string;
     info: string;
-  };
-  export function intoCode({ name: label, kind, desc: detail, info: documentation }: Entry): types.CompletionItem {
+  }
+  export function intoCode({ name: label, kind, desc: detail, info: documentation }: IEntry): types.CompletionItem {
     return {
       data: {
         documentation,
       },
       detail,
-      label,
       kind: Kind.intoCode(kind),
+      label,
     };
   }
 }
 
-export type ErrorReport = {
-  start: ordinal.ColumnLine;
-  end: ordinal.ColumnLine;
+export interface IErrorReport {
+  start: ordinal.IColumnLine;
+  end: ordinal.IColumnLine;
   valid: boolean;
   message: string;
-  type: ErrorReport.Type;
-};
-export namespace ErrorReport {
+  type: IErrorReport.Type;
+}
+export namespace IErrorReport {
   export type Type
   = "env"
   | "parser"
@@ -106,7 +106,7 @@ export namespace ErrorReport {
     const codeMatch = /^Warning\s*(\d+)?:/.exec(message);
     return codeMatch && codeMatch.length > 1 ? codeMatch[1] : "";
   }
-  export async function intoCode(session: any, { uri }: types.TextDocumentIdentifier, { end, message: original, start, type }: ErrorReport): Promise<types.Diagnostic> {
+  export async function intoCode(session: any, { uri }: types.TextDocumentIdentifier, { end, message: original, start, type }: IErrorReport): Promise<types.Diagnostic> {
     const range = {
       end: ordinal.Position.intoCode(end),
       start: ordinal.Position.intoCode(start),
@@ -150,16 +150,16 @@ export namespace Outline {
       }
     }
   }
-  export type Item = {
-    start: ordinal.ColumnLine;
-    end: ordinal.ColumnLine;
+  export interface IItem {
+    start: ordinal.IColumnLine;
+    end: ordinal.IColumnLine;
     name: string;
     kind: Kind;
-    children: Item[];
-  };
-  export function intoCode(outline: Item[], id: types.TextDocumentIdentifier): types.SymbolInformation[] {
+    children: IItem[];
+  }
+  export function intoCode(outline: IItem[], id: types.TextDocumentIdentifier): types.SymbolInformation[] {
     const symbols: types.SymbolInformation[] = [];
-    function traverse (children: Item[], scope: string): void {
+    function traverse(children: IItem[], scope: string): void {
       for (const item of children) {
         if (item) {
           const kind = Kind.intoCode(item.kind);
@@ -178,8 +178,8 @@ export namespace Outline {
     traverse(outline, "");
     return symbols;
   }
-};
-export type Outline = Outline.Item[];
+}
+export type Outline = Outline.IItem[];
 
 export type TailPosition
   = "call"
@@ -199,9 +199,9 @@ export namespace TailPosition {
   }
 }
 
-export type Type = {
+export interface IType {
   start: ordinal.Position;
   end: ordinal.Position;
   type: string;
   tail: TailPosition;
-};
+}

@@ -2438,6 +2438,6 @@ export class OCaml implements basis.ILanguage {
       },
     };
   }
-};
+}
 
 export default new OCaml().render();

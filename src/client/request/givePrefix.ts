@@ -10,7 +10,7 @@ async function handler(event: client.TextDocumentPositionParams): Promise<null |
     new vscode.Position(event.position.line, event.position.character));
   const match = pattern.exec(document.getText(range));
   return match ? match[0] : null;
-};
+}
 
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   void context; // tslint:disable-line

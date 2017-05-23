@@ -2,7 +2,7 @@
 
 import * as data from "../data";
 import * as json from "../json";
-import { ColumnLine, Location, Position } from "../ordinal";
+import { IColumnLine, ILocation, Position } from "../ordinal";
 
 export class Query<I, O> {
   public query: I;
@@ -31,7 +31,7 @@ export namespace Query {
       at: (position: Position) => ({
         with: {
           doc: () => new Query<
-            ["complete", "prefix", string, "at", Position, "with", "doc"], { entries?: data.Completion.Entry[] }
+            ["complete", "prefix", string, "at", Position, "with", "doc"], { entries?: data.Completion.IEntry[] }
           >(["complete", "prefix", text  , "at", position, "with", "doc"]),
         },
       }),
@@ -56,16 +56,16 @@ export namespace Query {
 
   // enclosing
   export const enclosing = (position: Position) => new Query<
-    ["enclosing", Position], Location[]
+    ["enclosing", Position], ILocation[]
   >(["enclosing", position]);
 
   // errors
-  export const errors = () => new Query<["errors"], data.ErrorReport[]>(["errors"]);
+  export const errors = () => new Query<["errors"], data.IErrorReport[]>(["errors"]);
 
   // locate
   export const locate = (name: null | string, kind: "ml" | "mli") => ({
     at: (position: Position) => new Query<
-      ["locate", null | string, ("ml" | "mli"), "at", Position], { file: string; pos: ColumnLine }
+      ["locate", null | string, ("ml" | "mli"), "at", Position], { file: string; pos: IColumnLine }
     >(["locate", name         , kind          , "at", position]),
   });
 
@@ -73,7 +73,7 @@ export namespace Query {
   export namespace occurrences {
     export namespace ident {
       export const at = (position: Position) => new Query<
-        ["occurrences", "ident", "at", Position], Location[]
+        ["occurrences", "ident", "at", Position], ILocation[]
       >(["occurrences", "ident", "at", position]);
     }
   }
@@ -106,7 +106,7 @@ export namespace Query {
     });
     export namespace enclosing {
       export const at = (position: Position) => new Query<
-        ["type", "enclosing", "at", Position], data.Type[]
+        ["type", "enclosing", "at", Position], data.IType[]
       >(["type", "enclosing", "at", position]);
     }
   }

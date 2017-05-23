@@ -1,26 +1,26 @@
 import * as json from "./json";
 
-export type MerlinNotification = {
+export interface IMerlinNotification {
   section: string;
   message: string;
-};
+}
 
 export type MerlinResponse<T> = {
   class: "return";
   value: T;
-  notifications: MerlinNotification;
+  notifications: IMerlinNotification;
 } | {
   class: "failure";
   value: string;
-  notifications: MerlinNotification;
+  notifications: IMerlinNotification;
 } | {
   class: "error";
   value: string;
-  notifications: MerlinNotification;
+  notifications: IMerlinNotification;
 } | {
   class: "exception";
   value: json.Value;
-  notifications: MerlinNotification;
+  notifications: IMerlinNotification;
 };
 
 export type Response<T> = Promise<MerlinResponse<T>>;

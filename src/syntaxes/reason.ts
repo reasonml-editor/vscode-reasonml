@@ -221,6 +221,6 @@ export class Reason extends OCaml {
       },
     };
   }
-};
+}
 
 export default new Reason().render();

@@ -2,7 +2,7 @@ import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import { remote, types } from "../../shared";
 
-async function handler(event: types.TextDocumentIdentifier): Promise<types.TextDocumentData> {
+async function handler(event: types.TextDocumentIdentifier): Promise<types.ITextDocumentData> {
   const codeDoc = await vscode.workspace.openTextDocument(vscode.Uri.parse(event.uri));
   const content = codeDoc.getText();
   const languageId = codeDoc.languageId;
