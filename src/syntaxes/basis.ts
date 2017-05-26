@@ -309,7 +309,7 @@ export class Scope {
   }
 
   public static TERM_CONSTRUCTOR(): string {
-    return `entity.other.attribute-name.css constant.language constant.numeric ${this.STYLE_BOLD()}`;
+    return `constant.language constant.numeric entity.other.attribute-name.id.css ${this.STYLE_BOLD()}`;
   }
 
   public static TERM_FUN(): string {
