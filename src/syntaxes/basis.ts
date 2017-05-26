@@ -157,7 +157,7 @@ export class Scope {
   }
 
   public static ITEM_MODULE(): string {
-    return `markup.inserted constant.language support.property-value entity.name.filename ${this.STYLE_UNDERLINE()}`;
+    return `markup.inserted constant.language support.constant.property-value entity.name.filename ${this.STYLE_UNDERLINE()}`;
   }
 
   public static ITEM_OPEN(): string {
@@ -213,7 +213,7 @@ export class Scope {
   }
 
   public static NAME_FIELD(): string {
-    return `markup.inserted constant.language support.property-value entity.name.filename`;
+    return `markup.inserted constant.language support.constant.property-value entity.name.filename`;
   }
 
   public static NAME_FUNCTION(): string {
@@ -345,7 +345,7 @@ export class Scope {
   }
 
   public static VALUE_MODULE(): string {
-    return "markup.inserted constant.language support.property-value entity.name.filename";
+    return "markup.inserted constant.language support.constant.property-value entity.name.filename";
   }
 
   public static VARIABLE_PATTERN(): string {
