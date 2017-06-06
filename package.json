@@ -48,6 +48,11 @@
           "default": true,
           "description": "Enable the use of unicode symbols in codelens."
         },
+        "reason.codelens.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Specifies whether the code lens is shown."
+        },
         "reason.debounce.linter": {
           "type": "integer",
           "default": 500,
