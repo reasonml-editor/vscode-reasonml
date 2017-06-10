@@ -217,7 +217,6 @@ export class Reason extends OCaml {
         typeRecord: this.typeRecord(),
         variableModule: this.variableModule(),
         variablePattern: this.variablePattern(),
-        variableType: this.variableType(),
       },
     };
   }

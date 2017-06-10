@@ -58,6 +58,7 @@ export const Token = {
   CLASS: "class",
   COLON: ":",
   COMMA: ",",
+  COMMERCIAL_AT: "@",
   CONSTRAINT: "constraint",
   DO: "do",
   DONE: "done",
@@ -104,6 +105,7 @@ export const Token = {
   OF: "of",
   OPEN: "open",
   OR: "or",
+  PERCENT_SIGN: "%",
   PLUS_SIGN: "\\+",
   PRIVATE: "private",
   QUESTION_MARK: "\\?",
@@ -262,6 +264,10 @@ export class Scope {
 
   public static PUNCTUATION_EQUALS(): string {
     return `support.type ${this.STYLE_BOLD()}`;
+  }
+
+  public static PUNCTUATION_PERCENT_SIGN(): string {
+    return `${this.STYLE_OPERATOR()} ${this.STYLE_BOLD()}`;
   }
 
   public static STYLE_BINDER(): string {
@@ -465,7 +471,6 @@ export interface IGrammar {
   typeRecord(): schema.Rule;
   variableModule(): schema.Rule;
   variablePattern(): schema.Rule;
-  variableType(): schema.Rule;
 }
 
 export interface IRender {
