@@ -619,7 +619,7 @@ export class OCaml implements basis.ILanguage {
         },
         {
           begin: lastWords(Token.OPEN),
-          end: lookAhead(words(Token.IN)),
+          end: this.declEndItemWith(lookAhead(words(Token.IN))),
           patterns: [
             include(this.pathModuleSimple),
           ],
