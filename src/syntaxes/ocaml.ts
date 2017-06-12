@@ -583,7 +583,10 @@ export class OCaml implements basis.ILanguage {
               end:
               alt(
                 lookAhead(words(group(alt(Token.MODULE, Token.OPEN)))),
-                lookAhead(seq(this.identLower(), many(set(Class.space)), Token.COMMA)),
+                lookAhead(
+                  alt(
+                    seq(this.identLower(), many(set(Class.space)), Token.COMMA),
+                    complement(Class.space, Class.lower, Token.PERCENT_SIGN))),
                 capture(words(Token.REC)),
                 capture(this.identLower())),
               endCaptures: {
