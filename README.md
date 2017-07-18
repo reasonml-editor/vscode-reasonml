@@ -37,6 +37,8 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
 
 ## Getting Started
 
+**Note**: due to an existing problem, make sure that you're opening vscode from the [command-line](https://code.visualstudio.com/docs/setup/mac), at the root of your project!
+
 ### Recommended Syntax Themes
 
 Although syntax highlighting should display well in most themes we recommend and test with the following:
