@@ -51,14 +51,13 @@ Although syntax highlighting should display well in most themes we recommend and
 
 ### Reason Configuration
 
-- [Reason](https://github.com/facebook/reason#installing-via-opam) (`1.4.0` or newer)
+- [Reason](http://reasonml.github.io/guide/editor-tools/global-installation#recommended-through-npmyarn)
 
-Nothing is required apart from the standard Reason install steps linked above.
-As long as `opam` is configured correctly and `ocamlmerlin` is in your path, all
-features below should just work out of the box if your project is set up for
-merlin.
+Nothing is required apart from the standard Reason install steps linked above. The Reason isntallation steps also installs Merlin for you.
 
 ### Merlin Configuration
+
+**Configured for you already if you've installed Reason above & plan to use it for JS compilation. Skip this step.**
 
 This extension relies heavily on [merlin](https://github.com/the-lambda-church/merlin) so you will
 need to have your project set up for that in order to enable completion and hover info. See the
