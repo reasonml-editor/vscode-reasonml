@@ -53,7 +53,7 @@ Although syntax highlighting should display well in most themes we recommend and
 
 - [Reason](http://reasonml.github.io/guide/editor-tools/global-installation#recommended-through-npmyarn)
 
-Nothing is required apart from the standard Reason install steps linked above. The Reason isntallation steps also installs Merlin for you.
+Nothing is required apart from the standard Reason install steps linked above. The Reason installation steps also installs Merlin for you.
 
 ### Merlin Configuration
 
