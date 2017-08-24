@@ -37,8 +37,6 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
 
 ## Getting Started
 
-**Note: due to an existing problem, make sure that you're opening vscode from the [command-line](https://code.visualstudio.com/docs/setup/mac), at the root of your project**!
-
 ### Recommended Syntax Themes
 
 Although syntax highlighting should display well in most themes we recommend and test with the following:
@@ -64,6 +62,22 @@ need to have your project set up for that in order to enable completion and hove
 Merlin [wiki](https://github.com/the-lambda-church/merlin/wiki/project-configuration) for details on
 how to do that. Basically you need to have a `.merlin` file in your project root which lists the
 source directories, libraries, and extensions used.
+
+### Installation
+
+**Note**: due to an existing problem, make sure that you're opening vscode from the [command-line](https://code.visualstudio.com/docs/setup/mac), at the root of your project!
+
+Install this Visual Studio Code extension [just like any other extension](https://code.visualstudio.com/docs/editor/extension-gallery).
+
+Search for `reasonml` and install `Reason <version> by Darin Morrison`.
+
+To enable formatting on save, add the following to `Code > Preferences > Settings`:
+
+```
+{
+  "reason.formatOnSave": "true"
+}
+```
 
 ## Advanced Features
 
