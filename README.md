@@ -75,7 +75,7 @@ To enable formatting on save, add the following to `Code > Preferences > Setting
 
 ```
 {
-  "reason.formatOnSave": "true"
+  "reason.formatOnSave": true
 }
 ```
 
