@@ -102,6 +102,7 @@
           "type": "array",
           "items": {
             "enum": [
+              "ocaml",
               "reason"
             ]
           },
