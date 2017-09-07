@@ -126,7 +126,7 @@ export class OCaml implements basis.ILanguage {
       patterns: [
         {
           begin: this.lastOps(Token.PERCENT_SIGN),
-          end: alt(capture(this.ops(set(Token.COLON, Token.QUESTION_MARK))), lookAhead(seq(set(Class.space), complement(Class.space)))),
+          end: alt(capture(this.ops(set(Token.COLON, Token.QUESTION_MARK))), lookBehind(set(Class.space))),
           endCaptures: {
             1: { name: Scope.STYLE_OPERATOR() },
           },
@@ -166,6 +166,7 @@ export class OCaml implements basis.ILanguage {
             },
           ],
         },
+        include(this.term),
       ],
     };
   }
