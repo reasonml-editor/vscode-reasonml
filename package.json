@@ -107,7 +107,6 @@
             ]
           },
           "default": [
-            "ocaml",
             "reason"
           ],
           "maxItems": 1,
