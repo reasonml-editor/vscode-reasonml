@@ -1,3 +1,7 @@
+## 1.0.0
+
+* Fix highlighting for punned arguments.
+
 ## 0.0.99
 
 * Fix bug with format-on-save.
