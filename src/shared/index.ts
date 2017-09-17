@@ -12,6 +12,7 @@ export interface ISettings {
       linter: number;
     };
     path: {
+      bsb: string;
       ocamlfind: string;
       ocamlmerlin: string;
       opam: string;
@@ -35,6 +36,7 @@ export namespace ISettings {
         linter: 500,
       },
       path: {
+        bsb: "bsb",
         ocamlfind: "ocamlfind",
         ocamlmerlin: "ocamlmerlin",
         opam: "opam",

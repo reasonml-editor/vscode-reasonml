@@ -63,6 +63,11 @@
           "default": false,
           "description": "Run refmt automatically when a document is saved."
         },
+        "reason.path.bsb": {
+          "type": "string",
+          "default": "bsb",
+          "description": "The path to the `bsb` binary."
+        },
         "reason.path.ocamlfind": {
           "type": "string",
           "default": "ocamlfind",
