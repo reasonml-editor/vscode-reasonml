@@ -6,10 +6,14 @@ import * as types from "./types";
 export interface ISettings {
   reason: {
     codelens: {
+      enabled: boolean;
       unicode: boolean;
     };
     debounce: {
       linter: number;
+    };
+    diagnostics: {
+      tool: Array<"merlin" | "bsb" | "both">;
     };
     path: {
       bsb: string;
@@ -30,10 +34,14 @@ export namespace ISettings {
   export const defaults: ISettings = {
     reason: {
       codelens: {
+        enabled: true,
         unicode: true,
       },
       debounce: {
         linter: 500,
+      },
+      diagnostics: {
+        tool: ["merlin"],
       },
       path: {
         bsb: "bsb",

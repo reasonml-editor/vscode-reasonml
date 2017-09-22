@@ -58,6 +58,22 @@
           "default": 500,
           "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
         },
+        "reason.diagnostics.tool": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "merlin",
+              "bsb",
+              "both"
+            ]
+          },
+          "default": [
+            "merlin"
+          ],
+          "maxItems": 1,
+          "uniqueItems": true,
+          "description": "The tool that will be used for diagnostics. \"both\" will use \"merlin\" while editing, and \"bsb\" when saving."
+        },
         "reason.formatOnSave": {
           "type": "boolean",
           "default": false,
