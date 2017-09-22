@@ -5,15 +5,15 @@ import * as types from "./types";
 
 export interface ISettings {
   reason: {
+    bsb: {
+      enabled: boolean;
+    };
     codelens: {
       enabled: boolean;
       unicode: boolean;
     };
     debounce: {
       linter: number;
-    };
-    diagnostics: {
-      tool: Array<"merlin" | "bsb" | "both">;
     };
     path: {
       bsb: string;
@@ -33,15 +33,15 @@ export interface ISettings {
 export namespace ISettings {
   export const defaults: ISettings = {
     reason: {
+      bsb: {
+        enabled: false,
+      },
       codelens: {
         enabled: true,
         unicode: true,
       },
       debounce: {
         linter: 500,
-      },
-      diagnostics: {
-        tool: ["merlin"],
       },
       path: {
         bsb: "bsb",
