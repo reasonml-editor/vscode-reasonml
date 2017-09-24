@@ -5,13 +5,18 @@ import * as types from "./types";
 
 export interface ISettings {
   reason: {
+    bsb: {
+      enabled: boolean;
+    };
     codelens: {
+      enabled: boolean;
       unicode: boolean;
     };
     debounce: {
       linter: number;
     };
     path: {
+      bsb: string;
       ocamlfind: string;
       ocamlmerlin: string;
       opam: string;
@@ -28,13 +33,18 @@ export interface ISettings {
 export namespace ISettings {
   export const defaults: ISettings = {
     reason: {
+      bsb: {
+        enabled: false,
+      },
       codelens: {
+        enabled: true,
         unicode: true,
       },
       debounce: {
         linter: 500,
       },
       path: {
+        bsb: "bsb",
         ocamlfind: "ocamlfind",
         ocamlmerlin: "ocamlmerlin",
         opam: "opam",

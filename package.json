@@ -43,6 +43,11 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.bsb.enabled": {
+          "type": "boolean",
+          "default": false,
+          "description": "Specifies whether `bsb` is used to get diagnostics."
+        },
         "reason.codelens.unicode": {
           "type": "boolean",
           "default": true,
@@ -62,6 +67,11 @@
           "type": "boolean",
           "default": false,
           "description": "Run refmt automatically when a document is saved."
+        },
+        "reason.path.bsb": {
+          "type": "string",
+          "default": "bsb",
+          "description": "The path to the `bsb` binary."
         },
         "reason.path.ocamlfind": {
           "type": "string",
