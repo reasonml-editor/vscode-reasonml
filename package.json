@@ -117,9 +117,10 @@
             ]
           },
           "default": [
+            "ocaml",
             "reason"
           ],
-          "maxItems": 1,
+          "maxItems": 2,
           "uniqueItems": true,
           "description": "The list of languages enable support for in the language server."
         }
