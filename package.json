@@ -14,7 +14,7 @@
     "url": "https://github.com/freebroccolo/vscode-reasonml.git"
   },
   "engines": {
-    "vscode": "^1.12.2"
+    "vscode": "1.16.1"
   },
   "categories": [
     "Formatters",
@@ -267,19 +267,19 @@
     "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./ && script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "7.0.22",
+    "@types/node": "8.0.31",
     "@types/pegjs": "0.10.0",
-    "tslint": "5.3.2",
-    "typescript": "2.3.3",
-    "vscode": "1.1.0"
+    "tslint": "5.7.0",
+    "typescript": "2.5.3",
+    "vscode": "1.1.5"
   },
   "dependencies": {
-    "ocaml-language-server": "1.0.0",
+    "ocaml-language-server": "1.0.1",
     "pegjs": "0.10.0",
-    "vscode-jsonrpc": "3.2.0",
-    "vscode-languageclient": "3.2.2",
-    "vscode-languageserver": "3.2.2",
-    "vscode-languageserver-types": "3.2.0"
+    "vscode-jsonrpc": "3.4.1",
+    "vscode-languageclient": "3.4.5",
+    "vscode-languageserver": "3.4.3",
+    "vscode-languageserver-types": "3.4.0"
   },
   "extensionDependencies": []
 }
