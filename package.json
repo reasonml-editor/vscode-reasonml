@@ -14,7 +14,7 @@
     "url": "https://github.com/freebroccolo/vscode-reasonml.git"
   },
   "engines": {
-    "vscode": "1.16.1"
+    "vscode": "^1.16.0"
   },
   "categories": [
     "Formatters",
