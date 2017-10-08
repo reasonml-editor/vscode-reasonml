@@ -48,13 +48,14 @@ Although syntax highlighting should display well in most themes we recommend and
 - [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai)
 - [Oceanic Next](https://marketplace.visualstudio.com/items?itemName=naumovs.theme-oceanicnext)
 
-### Reason Configuration
+### Configurations
+#### Reason
 
 - [Reason](http://reasonml.github.io/guide/editor-tools/global-installation#recommended-through-npmyarn)
 
 The Reason installation steps also installs Merlin for you, so you can skip the Merlin installation in the next section.
 
-### Merlin Configuration
+#### Merlin
 
 **Configured for you already if you've installed Reason above & plan to use it for JS compilation. Skip this step.**
 
@@ -64,9 +65,17 @@ Merlin [wiki](https://github.com/the-lambda-church/merlin/wiki/project-configura
 how to do that. Basically you need to have a `.merlin` file in your project root which lists the
 source directories, libraries, and extensions used.
 
-### Bsb Configuration
+#### Bsb
 
-You can optionally start [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) from the editor itself, and have the command-line errors appear inside the editor. Merlin's diagnosis is best-effort and can sometimes be wrong; bsb's diagnosis is 100% correct. **bsb diagnosis also works on Windows**.
+You can optionally start [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) from the editor itself, and have the command-line errors appear inside the editor. Add the following to `Code > Preferences > Settings`:
+
+```
+{
+  "reason.bsb.enabled": true
+}
+```
+
+Merlin's diagnosis is best-effort and can sometimes be wrong; bsb's diagnosis is 100% correct. **bsb diagnosis also works on Windows**.
 
 ### Installation
 
