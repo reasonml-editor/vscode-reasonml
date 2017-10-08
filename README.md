@@ -34,6 +34,7 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
     - ⇧⌘M to toggle diagnostics panel
     - F8 to loop through diagnostics for current file
     - Click on lightbulb icon for suggested fixes
+  - [x] built-in support for showing BuckleScript's [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) errors inline, as a companion to merlin's diagnosis.
 
 ## Getting Started
 
@@ -62,6 +63,10 @@ need to have your project set up for that in order to enable completion and hove
 Merlin [wiki](https://github.com/the-lambda-church/merlin/wiki/project-configuration) for details on
 how to do that. Basically you need to have a `.merlin` file in your project root which lists the
 source directories, libraries, and extensions used.
+
+### Bsb Configuration
+
+You can optionally start [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) from the editor itself, and have the command-line errors appear inside the editor. Merlin's diagnosis is best-effort and can sometimes be wrong; bsb's diagnosis is 100% correct. **bsb diagnosis also works on Windows**.
 
 ### Installation
 
