@@ -196,8 +196,7 @@
         ],
         "extensions": [
           ".ml",
-          ".mli",
-          ".mly"
+          ".mli"
         ],
         "configuration": "./ocaml.configuration.json"
       },
