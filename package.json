@@ -43,11 +43,6 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
-        "reason.bsb.enabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Specifies whether `bsb` is used to get diagnostics."
-        },
         "reason.codelens.unicode": {
           "type": "boolean",
           "default": true,
@@ -62,6 +57,22 @@
           "type": "integer",
           "default": 500,
           "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
+        },
+        "reason.diagnostics.tools": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "merlin",
+              "bsb"
+            ]
+          },
+          "default": [
+            "merlin",
+            "bsb"
+          ],
+          "maxItems": 2,
+          "uniqueItems": true,
+          "description": "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
         },
         "reason.formatOnSave": {
           "type": "boolean",
