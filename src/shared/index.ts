@@ -28,6 +28,7 @@ export interface ISettings {
     server: {
       languages: Array<"ocaml" | "reason">;
     };
+    useWSL: boolean;
   };
 }
 export namespace ISettings {
@@ -59,6 +60,7 @@ export namespace ISettings {
           "reason",
         ],
       },
+      useWSL: false,
     },
   };
 }
