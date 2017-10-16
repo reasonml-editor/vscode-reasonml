@@ -134,6 +134,11 @@
           "maxItems": 2,
           "uniqueItems": true,
           "description": "The list of languages enable support for in the language server."
+        },
+        "reason.useWSL": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, will call all tools from Windows Subsystem Linux."
         }
       }
     },
