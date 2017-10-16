@@ -1,6 +1,6 @@
+import { remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import { remote } from "../../shared";
 
 async function execute(languageClient: client.LanguageClient, event: vscode.TextDocumentWillSaveEvent): Promise<vscode.TextEdit[]> {
   const textDocument = {

@@ -1,6 +1,6 @@
+import { remote, types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import { LanguageClient } from "vscode-languageclient";
-import { remote, types } from "../../shared";
 
 function handler(client: LanguageClient): ({ range, uri }: types.Location) => Promise<string> {
   return async ({range, uri}) => {

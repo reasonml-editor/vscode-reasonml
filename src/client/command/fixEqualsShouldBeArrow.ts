@@ -1,6 +1,6 @@
+import { types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import { types } from "../../shared";
 
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   context.subscriptions.push(

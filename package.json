@@ -294,16 +294,14 @@
     ]
   },
   "scripts": {
-    "compile": "npm run ocamldoc:grammar:compile && tsc -p ./ && node script/syntax.js",
+    "compile": "tsc -p ./ && node script/syntax.js",
     "lint": "tslint --project tsconfig.json --type-check",
-    "ocamldoc:grammar:compile": "shx mkdir -p out/src/shared/parser/ocamldoc && pegjs -o out/src/shared/parser/ocamldoc/grammar.js src/shared/parser/ocamldoc/grammar.pegjs",
     "postinstall": "node ./node_modules/vscode/bin/install",
-    "vscode:prepublish": "npm run ocamldoc:grammar:compile && tsc -p ./ && script/syntax.js"
+    "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
     "@types/node": "8.0.34",
     "@types/pegjs": "0.10.0",
-    "shx": "0.2.2",
     "tslint": "5.7.0",
     "typescript": "2.5.3",
     "vscode": "1.1.6"
