@@ -314,5 +314,7 @@
     "vscode-languageserver": "3.4.3",
     "vscode-languageserver-types": "3.4.0"
   },
-  "extensionDependencies": []
+  "extensionDependencies": [
+    "patrys.vscode-code-outline"
+  ]
 }
