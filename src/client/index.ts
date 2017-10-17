@@ -30,7 +30,7 @@ class ErrorHandler {
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
-  const module = context.asAbsolutePath(path.join("node_modules", "ocaml-language-server"));
+  const module = context.asAbsolutePath(path.join("node_modules", "ocaml-language-server", "out", "server"));
   const transport = client.TransportKind.ipc;
   const run = { module, transport };
   const debug = { module, transport, options: { execArgv: [ "--nolazy", "--inspect=6004" ] } };
