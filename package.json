@@ -67,8 +67,7 @@
             ]
           },
           "default": [
-            "merlin",
-            "bsb"
+            "merlin"
           ],
           "maxItems": 2,
           "uniqueItems": true,
