@@ -209,7 +209,7 @@
       {
         "id": "ocaml.merlin",
         "aliases": [
-          "OCaml"
+          "Merlin"
         ],
         "extensions": [
           "merlin"
@@ -218,7 +218,7 @@
       {
         "id": "ocaml.ocamlbuild",
         "aliases": [
-          "OCaml"
+          "OCamlbuild"
         ],
         "extensions": [
           "_tags"
@@ -227,7 +227,7 @@
       {
         "id": "ocaml.opam",
         "aliases": [
-          "OCaml"
+          "OPAM"
         ],
         "extensions": [
           "opam"
