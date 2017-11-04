@@ -299,10 +299,10 @@
     "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "8.0.34",
+    "@types/node": "8.0.47",
     "@types/pegjs": "0.10.0",
-    "tslint": "5.7.0",
-    "typescript": "2.5.3",
+    "tslint": "5.8.0",
+    "typescript": "2.6.1",
     "vscode": "1.1.6"
   },
   "dependencies": {
