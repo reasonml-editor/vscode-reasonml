@@ -5,6 +5,7 @@
     "max-classes-per-file": [false],
     "max-line-length": [false],
     "no-empty-interface": false,
+    "no-implicit-dependencies": false,
     "no-namespace": false
   }
 }
