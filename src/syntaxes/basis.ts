@@ -199,7 +199,7 @@ export class Scope {
   }
 
   public static META_COMMENT(): string {
-    return "comment constant.regexp";
+    return "comment constant.regexp meta.separator.markdown";
   }
 
   public static MODULE_FUNCTOR(): string {
@@ -339,7 +339,7 @@ export class Scope {
   }
 
   public static TERM_STRING(): string {
-    return "markup.punctuation.quote.beginning";
+    return "string beginning.punctuation.definition.quote.markdown";
   }
 
   public static TYPE_CONSTRUCTOR(): string {
