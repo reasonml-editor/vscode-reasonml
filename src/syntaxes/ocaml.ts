@@ -276,11 +276,27 @@ export class OCaml implements basis.ILanguage {
               group(
                 alt(
                   ...Object.keys(Token)
-                  // FIXME: "new" and "module" added here so that "[@@bs.new]"
-                  // and "[@@bs.module]" don't cause parsing to fail. The issue
-                  // is that "new" and "module" are keywords and the highlighter
-                  // assumes that identifiers and keywords are disjoint. We may
-                  // need to revisit this decision if further problems arise.
+                    .filter((key) => key !== "LOW_LINE")
+                    .map((key) => Token[key])))),
+            group(alt(complement(Token.APOSTROPHE), `$`)))),
+        seq(
+          this.boundary(),
+          lookAhead(set(Class.lower, `_`)),
+          this.ident())));
+  }
+
+  // FIXME: This is a duplicate version of identLower that allows more keywords
+  // as path components. For instance, we need this to be able to parse
+  // [@@bs.new] and [@@bs.module] properly.
+  public identLowerPath(): string {
+    return group(
+      seq(
+        negativeLookAhead(
+          seq(
+            words(
+              group(
+                alt(
+                  ...Object.keys(Token)
                     .filter((key) => key !== "LOW_LINE" && key !== "NEW" && key !== "MODULE")
                     .map((key) => Token[key])))),
             group(alt(complement(Token.APOSTROPHE), `$`)))),
@@ -1399,7 +1415,7 @@ export class OCaml implements basis.ILanguage {
               end:
               alt(
                 capture(this.ops(Token.FULL_STOP)),
-                capture(this.identLower()),
+                capture(this.identLowerPath()),
                 lookBehind(Token.RIGHT_PARENTHESIS),
                 lookBehind(Token.RIGHT_SQUARE_BRACKET)),
               beginCaptures: {
