@@ -1167,9 +1167,9 @@ lodash@4.17.4, lodash@^4.14.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
-lokijs@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/lokijs/-/lokijs-1.5.0.tgz#99e403d6a89e47e11ed0c5d499fb55a0603d5efc"
+lokijs@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/lokijs/-/lokijs-1.5.1.tgz#7e1b20217142ec2a68ecc5476cbb6c80fc3ffa56"
 
 loud-rejection@^1.0.0:
   version "1.6.0"
@@ -1347,14 +1347,14 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-ocaml-language-server@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.1.tgz#a838296f81fc9a7ccd29dc7c949b30af0fcd9d73"
+ocaml-language-server@1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.3.tgz#37a36fd48f6987425e5cd1b85c304139dbdd770d"
   dependencies:
     async "2.5.0"
     glob "7.1.2"
     lodash "4.17.4"
-    lokijs "1.5.0"
+    lokijs "1.5.1"
     pegjs "0.10.0"
     vscode-jsonrpc "3.4.1"
     vscode-languageclient "3.4.5"
