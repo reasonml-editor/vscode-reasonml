@@ -36,11 +36,11 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const debug = { module, transport, options: { execArgv: [ "--nolazy", "--inspect=6004" ] } };
   const serverOptions = { run, debug };
   const clientOptions: client.LanguageClientOptions = {
-    diagnosticCollectionName: "Reason",
-    documentSelector: reasonConfig.get<string[]>("server.languages", [ "reason" ]),
+    diagnosticCollectionName: "ocaml-language-server",
+    documentSelector: reasonConfig.get<string[]>("server.languages", [ "ocaml", "reason" ]),
     errorHandler: new ErrorHandler(),
     initializationOptions: reasonConfig,
-    outputChannelName: "Reason",
+    outputChannelName: "OCaml Language Server",
     stdioEncoding: "utf8",
     synchronize: {
       configurationSection: "reason",
