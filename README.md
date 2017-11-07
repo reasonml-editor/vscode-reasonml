@@ -69,10 +69,11 @@ source directories, libraries, and extensions used.
 
 You can optionally start [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) from the editor itself, and have the command-line errors appear inside the editor. Add the following to `Code > Preferences > Settings`:
 
-```
-{
-  "reason.bsb.enabled": true
-}
+```reason
+"reason.diagnostics.tools": [
+  "merlin",
+  "bsb"
+]
 ```
 
 Merlin's diagnosis is best-effort and can sometimes be wrong; bsb's diagnosis is 100% correct. **bsb diagnosis also works on Windows**.
