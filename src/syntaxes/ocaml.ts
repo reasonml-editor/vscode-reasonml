@@ -654,13 +654,13 @@ export class OCaml implements basis.ILanguage {
           end:
           alt(
             this.ops(alt(...startBody)),
-            this.declEndSans(Token.TYPE)),
+            this.declEnd()),
           endCaptures: {
             0: { name: Scope.PUNCTUATION_EQUALS() },
           },
           patterns: [
             {
-              begin: seq(this.lastOps(Token.COLON), lookAhead(alt(set(Class.space), words(Token.TYPE)))),
+              begin: this.lastOps(Token.COLON),
               end: alt(words(Token.TYPE), lookAhead(complement(Class.space))),
               endCaptures: {
                 0: { name: Scope.STYLE_CONTROL() },
@@ -1036,7 +1036,7 @@ export class OCaml implements basis.ILanguage {
               capture(Token.METHOD),
               capture(Token.LET)))),
         capture(opt("!"))),
-      end: seq(negativeLookBehind(Token.COLON), group(this.declEndItem())),
+      end: this.declEndItem(),
       beginCaptures: {
         1: { name: Scope.ITEM_VAL() },
         2: { name: Scope.ITEM_METHOD() },
