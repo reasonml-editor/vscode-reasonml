@@ -189,7 +189,7 @@
       }
     ],
     "languages": [
-       {
+      {
         "id": "ocaml",
         "aliases": [
           "OCaml"
@@ -275,19 +275,19 @@
         "owner": "ocaml",
         "fileLocation": "relative",
         "pattern": [
-        {
-          "regexp": "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "endColumn": 4
-        },
-        {
-          "regexp": "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
-          "severity": 1,
-          "message": 2,
-          "loop": true
-        }
+          {
+            "regexp": "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
+            "file": 1,
+            "line": 2,
+            "column": 3,
+            "endColumn": 4
+          },
+          {
+            "regexp": "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
+            "severity": 1,
+            "message": 2,
+            "loop": true
+          }
         ]
       }
     ]
@@ -299,7 +299,7 @@
     "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "8.0.47",
+    "@types/node": "8.0.50",
     "@types/pegjs": "0.10.0",
     "tslint": "5.8.0",
     "typescript": "2.6.1",
@@ -308,10 +308,10 @@
   "dependencies": {
     "ocaml-language-server": "1.0.6",
     "pegjs": "0.10.0",
-    "vscode-jsonrpc": "3.4.1",
-    "vscode-languageclient": "3.4.5",
-    "vscode-languageserver": "3.4.3",
-    "vscode-languageserver-types": "3.4.0"
+    "vscode-jsonrpc": "3.5.0",
+    "vscode-languageclient": "3.5.0",
+    "vscode-languageserver": "3.5.0",
+    "vscode-languageserver-types": "3.5.0"
   },
   "extensionDependencies": [
     "patrys.vscode-code-outline"
