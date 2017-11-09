@@ -10,15 +10,22 @@ const giveTextDocument = new client.RequestType<
   void
 >("reason.client.giveTextDocument");
 
-async function handler(event: types.TextDocumentIdentifier): Promise<types.ITextDocumentData> {
-  const codeDoc = await vscode.workspace.openTextDocument(vscode.Uri.parse(event.uri));
+async function handler(
+  event: types.TextDocumentIdentifier,
+): Promise<types.ITextDocumentData> {
+  const codeDoc = await vscode.workspace.openTextDocument(
+    vscode.Uri.parse(event.uri),
+  );
   const content = codeDoc.getText();
   const languageId = codeDoc.languageId;
   const version = codeDoc.version;
   return { content, languageId, version };
 }
 
-export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
+export function register(
+  context: vscode.ExtensionContext,
+  languageClient: client.LanguageClient,
+): void {
   void context; // tslint:disable-line
   languageClient.onRequest(giveTextDocument, handler);
 }

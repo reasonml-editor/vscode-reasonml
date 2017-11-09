@@ -10,12 +10,16 @@ const giveCaseAnalysis = new client.RequestType<
   void
 >("reason.server.giveCaseAnalysis");
 
-async function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): Promise<boolean> {
+async function execute(
+  editor: vscode.TextEditor,
+  destruct: merlin.Case.Destruct,
+): Promise<boolean> {
   const [{ end, start }, content] = destruct;
-  return editor.edit((editBuilder) => {
+  return editor.edit(editBuilder => {
     const range = new vscode.Range(
       new vscode.Position(start.line - 1, start.col),
-      new vscode.Position(end.line - 1, end.col));
+      new vscode.Position(end.line - 1, end.col),
+    );
     const cases = format(editor, content);
     editBuilder.replace(range, cases);
   });
@@ -41,12 +45,15 @@ export namespace format {
   export function deleteWhitespace(content: string): string {
     return content.replace(/\n$/, "");
   }
-  export function indentExpression(indentation: string, content: string): string {
+  export function indentExpression(
+    indentation: string,
+    content: string,
+  ): string {
     return !/^\bswitch\b/g.test(content)
       ? content
       : content
-        .replace(/\|/g, `${indentation}|`)
-        .replace(/}$/g, `${indentation}}`);
+          .replace(/\|/g, `${indentation}|`)
+          .replace(/}$/g, `${indentation}}`);
   }
   export function indentPatterns(content: string): string {
     return content.replace(/{(?!\s)/g, "{ ").replace(/([^\s])}/g, "$1 }");
@@ -56,23 +63,39 @@ export namespace format {
   }
 }
 
-export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
+export function register(
+  context: vscode.ExtensionContext,
+  languageClient: client.LanguageClient,
+): void {
   // FIXME: using the edit builder passed in to the command doesn't seem to work
-  context.subscriptions.push(vscode.commands.registerTextEditorCommand("reason.caseSplit", async (editor): Promise<void> => {
-    const textDocument = { uri: editor.document.uri.toString() };
-    const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);
-    if (rangeCode == null) return;
-    const range = types.Range.create(rangeCode.start, rangeCode.end);
-    const params = { range, textDocument };
-    try {
-      const response = await languageClient.sendRequest(giveCaseAnalysis, params);
-      if (response != null) await execute(editor, response);
-    } catch (err) { // FIXME: clean this up
-      // vscode.window.showErrorMessage(JSON.stringify(err));
-      const pattern = /Destruct not allowed on non-immediate type/;
-      if (pattern.test(err)) {
-        vscode.window.showWarningMessage("More type info needed for case split; try adding an annotation somewhere, e.g., (pattern: type).");
-      }
-    }
-  }));
+  context.subscriptions.push(
+    vscode.commands.registerTextEditorCommand(
+      "reason.caseSplit",
+      async (editor): Promise<void> => {
+        const textDocument = { uri: editor.document.uri.toString() };
+        const rangeCode = editor.document.getWordRangeAtPosition(
+          editor.selection.start,
+        );
+        if (rangeCode == null) return;
+        const range = types.Range.create(rangeCode.start, rangeCode.end);
+        const params = { range, textDocument };
+        try {
+          const response = await languageClient.sendRequest(
+            giveCaseAnalysis,
+            params,
+          );
+          if (response != null) await execute(editor, response);
+        } catch (err) {
+          // FIXME: clean this up
+          // vscode.window.showErrorMessage(JSON.stringify(err));
+          const pattern = /Destruct not allowed on non-immediate type/;
+          if (pattern.test(err)) {
+            vscode.window.showWarningMessage(
+              "More type info needed for case split; try adding an annotation somewhere, e.g., (pattern: type).",
+            );
+          }
+        }
+      },
+    ),
+  );
 }

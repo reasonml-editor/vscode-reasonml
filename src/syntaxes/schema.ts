@@ -12,8 +12,8 @@ export interface IMatchScopes {
   [key: string]: RuleSimple;
 }
 
-export type Rule
-  = RuleSimple
+export type Rule =
+  | RuleSimple
   | IRuleCapturing
   | IRuleDelimited
   | IRuleReference;
@@ -40,13 +40,15 @@ export interface IRuleReference {
   include: string;
 }
 
-export type RuleSimple = {
-  name: string;
-  patterns?: IPatterns;
-} | {
-  name?: string;
-  patterns: IPatterns;
-};
+export type RuleSimple =
+  | {
+      name: string;
+      patterns?: IPatterns;
+    }
+  | {
+      name?: string;
+      patterns: IPatterns;
+    };
 
 export interface IRepository {
   [key: string]: Rule;

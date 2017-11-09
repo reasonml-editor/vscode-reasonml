@@ -16,17 +16,9 @@
   "engines": {
     "vscode": "^1.16.0"
   },
-  "categories": [
-    "Formatters",
-    "Languages",
-    "Linters",
-    "Snippets"
-  ],
+  "categories": ["Formatters", "Languages", "Linters", "Snippets"],
   "icon": "assets/logo.png",
-  "activationEvents": [
-    "onLanguage:ocaml",
-    "onLanguage:reason"
-  ],
+  "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
@@ -56,22 +48,19 @@
         "reason.debounce.linter": {
           "type": "integer",
           "default": 500,
-          "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
+          "description":
+            "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
         },
         "reason.diagnostics.tools": {
           "type": "array",
           "items": {
-            "enum": [
-              "merlin",
-              "bsb"
-            ]
+            "enum": ["merlin", "bsb"]
           },
-          "default": [
-            "merlin"
-          ],
+          "default": ["merlin"],
           "maxItems": 2,
           "uniqueItems": true,
-          "description": "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
+          "description":
+            "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
         },
         "reason.formatOnSave": {
           "type": "boolean",
@@ -121,18 +110,13 @@
         "reason.server.languages": {
           "type": "array",
           "items": {
-            "enum": [
-              "ocaml",
-              "reason"
-            ]
+            "enum": ["ocaml", "reason"]
           },
-          "default": [
-            "ocaml",
-            "reason"
-          ],
+          "default": ["ocaml", "reason"],
           "maxItems": 2,
           "uniqueItems": true,
-          "description": "The list of languages enable support for in the language server."
+          "description":
+            "The list of languages enable support for in the language server."
         }
       }
     },
@@ -191,13 +175,8 @@
     "languages": [
       {
         "id": "ocaml",
-        "aliases": [
-          "OCaml"
-        ],
-        "extensions": [
-          ".ml",
-          ".mli"
-        ],
+        "aliases": ["OCaml"],
+        "extensions": [".ml", ".mli"],
         "configuration": "./ocaml.configuration.json"
       },
       {
@@ -208,40 +187,23 @@
       },
       {
         "id": "ocaml.merlin",
-        "aliases": [
-          "Merlin"
-        ],
-        "extensions": [
-          "merlin"
-        ]
+        "aliases": ["Merlin"],
+        "extensions": ["merlin"]
       },
       {
         "id": "ocaml.ocamlbuild",
-        "aliases": [
-          "OCamlbuild"
-        ],
-        "extensions": [
-          "_tags"
-        ]
+        "aliases": ["OCamlbuild"],
+        "extensions": ["_tags"]
       },
       {
         "id": "ocaml.opam",
-        "aliases": [
-          "OPAM"
-        ],
-        "extensions": [
-          "opam"
-        ]
+        "aliases": ["OPAM"],
+        "extensions": ["opam"]
       },
       {
         "id": "reason",
-        "aliases": [
-          "Reason"
-        ],
-        "extensions": [
-          ".re",
-          ".rei"
-        ],
+        "aliases": ["Reason"],
+        "extensions": [".re", ".rei"],
         "configuration": "./reason.configuration.json"
       },
       {
@@ -276,14 +238,16 @@
         "fileLocation": "relative",
         "pattern": [
           {
-            "regexp": "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
+            "regexp":
+              "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
             "file": 1,
             "line": 2,
             "column": 3,
             "endColumn": 4
           },
           {
-            "regexp": "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
+            "regexp":
+              "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
             "severity": 1,
             "message": 2,
             "loop": true
@@ -293,9 +257,9 @@
     ]
   },
   "scripts": {
-    "compile": "tsc -p ./ && node script/syntax.js",
+    "compile": "npm run lint && tsc -p ./ && node script/syntax.js",
     "format": "./node_modules/.bin/prettier --write \"src/**/*.ts\"",
-    "lint": "tslint --project tsconfig.json --type-check",
+    "lint": "tslint --project tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "vscode:prepublish": "node script/syntax.js"
   },
@@ -315,7 +279,5 @@
     "vscode-languageserver": "3.5.0",
     "vscode-languageserver-types": "3.5.0"
   },
-  "extensionDependencies": [
-    "patrys.vscode-code-outline"
-  ]
+  "extensionDependencies": ["patrys.vscode-code-outline"]
 }

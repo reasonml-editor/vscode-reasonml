@@ -91,7 +91,9 @@ const reasonConfiguration = {
 };
 
 export async function activate(context: vscode.ExtensionContext) {
-  context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
+  context.subscriptions.push(
+    vscode.languages.setLanguageConfiguration("reason", reasonConfiguration),
+  );
   await client.launch(context);
 }
 

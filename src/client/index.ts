@@ -8,7 +8,10 @@ import * as request from "./request";
 class ClientWindow implements vscode.Disposable {
   public readonly merlin: vscode.StatusBarItem;
   constructor() {
-    this.merlin = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right, 0);
+    this.merlin = vscode.window.createStatusBarItem(
+      vscode.StatusBarAlignment.Right,
+      0,
+    );
     this.merlin.text = "$(hubot) [loading]";
     this.merlin.command = "reason.showMerlinFiles";
     this.merlin.show();
@@ -30,14 +33,24 @@ class ErrorHandler {
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
-  const module = context.asAbsolutePath(path.join("node_modules", "ocaml-language-server", "bin", "server"));
+  const module = context.asAbsolutePath(
+    path.join("node_modules", "ocaml-language-server", "bin", "server"),
+  );
+  const options = { execArgv: ["--nolazy", "--inspect=6004"] };
   const transport = client.TransportKind.ipc;
   const run = { module, transport };
-  const debug = { module, transport, options: { execArgv: [ "--nolazy", "--inspect=6004" ] } };
+  const debug = {
+    module,
+    options,
+    transport,
+  };
   const serverOptions = { run, debug };
   const clientOptions: client.LanguageClientOptions = {
     diagnosticCollectionName: "ocaml-language-server",
-    documentSelector: reasonConfig.get<string[]>("server.languages", [ "ocaml", "reason" ]),
+    documentSelector: reasonConfig.get<string[]>("server.languages", [
+      "ocaml",
+      "reason",
+    ]),
     errorHandler: new ErrorHandler(),
     initializationOptions: reasonConfig,
     outputChannelName: "OCaml Language Server",
@@ -51,7 +64,11 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
       ],
     },
   };
-  const languageClient = new client.LanguageClient("Reason", serverOptions, clientOptions);
+  const languageClient = new client.LanguageClient(
+    "Reason",
+    serverOptions,
+    clientOptions,
+  );
   const window = new ClientWindow();
   const session = languageClient.start();
   context.subscriptions.push(window);

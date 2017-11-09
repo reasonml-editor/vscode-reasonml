@@ -33,15 +33,15 @@ export class Reason extends OCaml {
   }
 
   public bindTerm(): schema.Rule {
-    return this.bindTermWith(Token.EQUALS_SIGN, seq(Token.EQUALS_SIGN, Token.GREATER_THAN_SIGN));
+    return this.bindTermWith(
+      Token.EQUALS_SIGN,
+      seq(Token.EQUALS_SIGN, Token.GREATER_THAN_SIGN),
+    );
   }
 
   public comment(): schema.Rule {
     return {
-      patterns: [
-        include(this.commentBlock),
-        include(this.commentDoc),
-      ],
+      patterns: [include(this.commentBlock), include(this.commentDoc)],
     };
   }
 
@@ -68,13 +68,13 @@ export class Reason extends OCaml {
         // include(this.bindTerm),
         {
           begin: lookBehind(alt(Token.LEFT_CURLY_BRACKET, Token.COMMA)),
-          end:
-            alt(
-              capture(Token.COLON),
-              capture(Token.EQUALS_SIGN),
-              capture(Token.COMMA),
-              lookAhead(Token.RIGHT_CURLY_BRACKET),
-              capture(Token.LET)),
+          end: alt(
+            capture(Token.COLON),
+            capture(Token.EQUALS_SIGN),
+            capture(Token.COMMA),
+            lookAhead(Token.RIGHT_CURLY_BRACKET),
+            capture(Token.LET),
+          ),
           endCaptures: {
             1: { name: Scope.PUNCTUATION_COLON() },
             2: { name: Scope.PUNCTUATION_EQUALS() },
@@ -111,11 +111,17 @@ export class Reason extends OCaml {
   }
 
   public signatureLiteral(): schema.Rule {
-    return this.signatureLiteralWith(Token.LEFT_CURLY_BRACKET, Token.RIGHT_CURLY_BRACKET);
+    return this.signatureLiteralWith(
+      Token.LEFT_CURLY_BRACKET,
+      Token.RIGHT_CURLY_BRACKET,
+    );
   }
 
   public structureLiteral(): schema.Rule {
-    return this.structureLiteralWith(Token.LEFT_CURLY_BRACKET, Token.RIGHT_CURLY_BRACKET);
+    return this.structureLiteralWith(
+      Token.LEFT_CURLY_BRACKET,
+      Token.RIGHT_CURLY_BRACKET,
+    );
   }
 
   public typeRecord(): schema.Rule {
