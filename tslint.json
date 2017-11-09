@@ -1,6 +1,7 @@
 {
   "extends": "tslint:latest",
   "rules": {
+    "arrow-parens": false,
     "curly": false,
     "max-classes-per-file": [false],
     "max-line-length": [false],
