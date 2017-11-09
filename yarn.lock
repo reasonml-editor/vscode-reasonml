@@ -77,9 +77,9 @@ assert-plus@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/assert-plus/-/assert-plus-0.2.0.tgz#d74e1b87e7affc0db8aadb7021f3fe48101ab234"
 
-async@2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/async/-/async-2.5.0.tgz#843190fd6b7357a0b9e1c956edddd5ec8462b54d"
+async@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
     lodash "^4.14.0"
 
@@ -1153,19 +1153,19 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-ocaml-language-server@1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.6.tgz#00e0ef63b21541a2353acc383d28442db631f60f"
+ocaml-language-server@1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.8.tgz#f769aaa430fc5f17a6ebfa0081faa02436c1b8c3"
   dependencies:
-    async "2.5.0"
+    async "2.6.0"
     glob "7.1.2"
     lodash "4.17.4"
     lokijs "1.5.1"
     pegjs "0.10.0"
-    vscode-jsonrpc "3.4.1"
-    vscode-languageclient "3.4.5"
-    vscode-languageserver "3.4.3"
-    vscode-languageserver-types "3.4.0"
+    vscode-jsonrpc "3.5.0"
+    vscode-languageclient "3.5.0"
+    vscode-languageserver "3.5.0"
+    vscode-languageserver-types "3.5.0"
     vscode-uri "1.0.1"
 
 once@^1.3.0, once@^1.4.0:
@@ -1730,19 +1730,9 @@ vinyl@~2.0.1:
     remove-trailing-separator "^1.0.1"
     replace-ext "^1.0.0"
 
-vscode-jsonrpc@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-3.4.1.tgz#e2e0b9e121f71a2b5448058a34a3aef8376a5e91"
-
 vscode-jsonrpc@3.5.0, vscode-jsonrpc@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vscode-jsonrpc/-/vscode-jsonrpc-3.5.0.tgz#87239d9e166b2d7352245b8a813597804c1d63aa"
-
-vscode-languageclient@3.4.5:
-  version "3.4.5"
-  resolved "https://registry.yarnpkg.com/vscode-languageclient/-/vscode-languageclient-3.4.5.tgz#6230072ab0772085d09b48f99b79e7c421ddfbb7"
-  dependencies:
-    vscode-languageserver-protocol "^3.4.4"
 
 vscode-languageclient@3.5.0:
   version "3.5.0"
@@ -1750,27 +1740,16 @@ vscode-languageclient@3.5.0:
   dependencies:
     vscode-languageserver-protocol "^3.5.0"
 
-vscode-languageserver-protocol@^3.4.1, vscode-languageserver-protocol@^3.4.4, vscode-languageserver-protocol@^3.5.0:
+vscode-languageserver-protocol@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-protocol/-/vscode-languageserver-protocol-3.5.0.tgz#067c5cbe27709795398d119692c97ebba1452209"
   dependencies:
     vscode-jsonrpc "^3.5.0"
     vscode-languageserver-types "^3.5.0"
 
-vscode-languageserver-types@3.4.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.4.0.tgz#5043ae47ee4ac16af07bb3d0ca561235e0c0d2fa"
-
 vscode-languageserver-types@3.5.0, vscode-languageserver-types@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.5.0.tgz#e48d79962f0b8e02de955e3f524908e2b19c0374"
-
-vscode-languageserver@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver/-/vscode-languageserver-3.4.3.tgz#83fea96bc5e094549a0a5ce3ef76b53d7ad40508"
-  dependencies:
-    vscode-languageserver-protocol "^3.4.1"
-    vscode-uri "^1.0.1"
 
 vscode-languageserver@3.5.0:
   version "3.5.0"
