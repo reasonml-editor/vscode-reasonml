@@ -1,5 +1,9 @@
 {
   "editor.formatOnSave": true,
+  "editor.detectIndentation": false,
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.trimAutoWhitespace": true,
   "files.exclude": {
     "out": true,
     "syntaxes": true,
