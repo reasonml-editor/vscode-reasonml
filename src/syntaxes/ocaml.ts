@@ -1658,13 +1658,19 @@ export class OCaml implements basis.ILanguage {
             include(this.comment),
             include(this.pathModulePrefixSimple),
             {
-              begin: lookAhead(seq(".*", words(Token.WITH))),
-              end: words(Token.WITH),
-              endCaptures: {
-                0: { name: Scope.STYLE_OPERATOR() },
-              },
-              patterns: [include(this.term)],
+              match: this.identLower(),
+              name: `${Scope.NAME_FIELD()} ${Scope.STYLE_ITALICS()}`,
             },
+          ],
+        },
+        {
+          begin: lastWords(Token.WITH),
+          end: alt(capture(Token.COLON), capture(Token.EQUALS_SIGN)),
+          endCaptures: {
+            1: { name: Scope.PUNCTUATION_COLON() },
+            2: { name: Scope.PUNCTUATION_EQUALS() },
+          },
+          patterns: [
             {
               match: this.identLower(),
               name: `${Scope.NAME_FIELD()} ${Scope.STYLE_ITALICS()}`,
