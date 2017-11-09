@@ -2333,58 +2333,6 @@ export class OCaml implements basis.ILanguage {
             include(this.pathModulePrefixExtended),
           ],
         },
-        // FIXME: is this still needed? I don't see a way to make this work with infix extension nodes
-        // {
-        //   // FIXME: this is a hack to avoid treating `type`, etc., as part of the type expr
-        //   begin:
-        //   seq(
-        //     negativeLookBehind(
-        //       alt(
-        //         seq(complement(Class.word), Token.INHERIT),
-        //         seq("^", Token.INHERIT),
-        //         seq(complement(Class.word), Token.NONREC),
-        //         seq("^", Token.NONREC),
-        //         seq(complement(Class.word), Token.OF),
-        //         seq("^", Token.OF),
-        //         seq(complement(Class.word), Token.TYPE),
-        //         seq("^", Token.TYPE))),
-        //     lookBehind(set(Class.word))),
-        //   end:
-        //   alt(
-        //     lookAhead(alt(words(Token.OF), set(Class.upper))), // NOTE: needed to parse constructor decls
-        //     lookAhead(
-        //       alt(
-        //         seq(Token.LEFT_PARENTHESIS, negativeLookAhead(Token.ASTERISK)),
-        //         Token.ASTERISK,
-        //         Token.COLON,
-        //         Token.COMMA,
-        //         Token.EQUALS_SIGN,
-        //         Token.FULL_STOP,
-        //         Token.GREATER_THAN_SIGN,
-        //         Token.HYPHEN_MINUS,
-        //         Token.LEFT_CURLY_BRACKET,
-        //         Token.LEFT_SQUARE_BRACKET,
-        //         Token.PLUS_SIGN,
-        //         Token.RIGHT_CURLY_BRACKET,
-        //         Token.RIGHT_PARENTHESIS,
-        //         Token.RIGHT_SQUARE_BRACKET,
-        //         Token.SEMICOLON,
-        //         Token.VERTICAL_LINE)),
-        //     seq(
-        //       capture(this.identLower()), many(seq(Class.space)),
-        //       negativeLookAhead(
-        //         alt(
-        //           seq(Token.LEFT_PARENTHESIS, Token.ASTERISK),
-        //           set(Class.word)))),
-        //     this.declEnd()),
-        //   endCaptures: {
-        //     1: { name: Scope.TYPE_CONSTRUCTOR() },
-        //   },
-        //   patterns: [
-        //     include(this.comment),
-        //     include(this.pathModulePrefixExtended),
-        //   ],
-        // },
       ],
     };
   }
