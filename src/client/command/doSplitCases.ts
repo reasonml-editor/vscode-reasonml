@@ -1,6 +1,14 @@
-import { merlin, remote, types } from "ocaml-language-server";
+import { merlin, types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+
+// FIXME: delete this and use from "ocaml-language-server" instead
+const giveCaseAnalysis = new client.RequestType<
+  types.ITextDocumentRange,
+  null | merlin.Case.Destruct,
+  void,
+  void
+>("reason.server.giveCaseAnalysis");
 
 async function execute(editor: vscode.TextEditor, destruct: merlin.Case.Destruct): Promise<boolean> {
   const [{ end, start }, content] = destruct;
@@ -57,7 +65,7 @@ export function register(context: vscode.ExtensionContext, languageClient: clien
     const range = types.Range.create(rangeCode.start, rangeCode.end);
     const params = { range, textDocument };
     try {
-      const response = await languageClient.sendRequest(remote.server.giveCaseAnalysis, params);
+      const response = await languageClient.sendRequest(giveCaseAnalysis, params);
       if (response != null) await execute(editor, response);
     } catch (err) { // FIXME: clean this up
       // vscode.window.showErrorMessage(JSON.stringify(err));

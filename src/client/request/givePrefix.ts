@@ -1,6 +1,13 @@
-import { remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+
+// FIXME: delete this and use from "ocaml-language-server" instead
+const givePrefix = new client.RequestType<
+  client.TextDocumentPositionParams,
+  null | string,
+  void,
+  void
+>("reason.client.givePrefix");
 
 async function handler(event: client.TextDocumentPositionParams): Promise<null | string> {
   const document = await vscode.workspace.openTextDocument(vscode.Uri.parse(event.textDocument.uri));
@@ -14,5 +21,5 @@ async function handler(event: client.TextDocumentPositionParams): Promise<null |
 
 export function register(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   void context; // tslint:disable-line
-  languageClient.onRequest(remote.client.givePrefix, handler);
+  languageClient.onRequest(givePrefix, handler);
 }

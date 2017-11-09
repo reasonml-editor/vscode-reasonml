@@ -1,6 +1,14 @@
-import { remote } from "ocaml-language-server";
+import { types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+
+// FIXME: delete this and use from "ocaml-language-server" instead
+export const giveFormatted = new client.RequestType<
+  types.IUnformattedTextDocument,
+  null | string,
+  void,
+  void
+>("reason.server.giveFormatted");
 
 async function execute(languageClient: client.LanguageClient, event: vscode.TextDocumentWillSaveEvent): Promise<vscode.TextEdit[]> {
   const textDocument = {
@@ -9,7 +17,7 @@ async function execute(languageClient: client.LanguageClient, event: vscode.Text
     uri: event.document.uri.toString(),
     version: event.document.version,
   };
-  const response = await languageClient.sendRequest(remote.server.giveFormatted, textDocument);
+  const response = await languageClient.sendRequest(giveFormatted, textDocument, undefined);
   if (response == null) return [];
   const formatted = `${response}\n`;
   const fullRange = new vscode.Range(
