@@ -16,6 +16,7 @@ const {
   lookAhead,
   lookBehind,
   many,
+  manyOne,
   negativeLookAhead,
   negativeLookBehind,
   opt,
@@ -2011,7 +2012,7 @@ export class OCaml implements basis.ILanguage {
                   lookBehind(alt(Token.SEMICOLON, Token.LEFT_PARENTHESIS)),
                 ),
               ),
-              lookAhead(set(Class.space)),
+              lookAhead(alt(set(Class.space), words(Token.LET))),
             ),
             lastWords(
               Token.BEGIN,
@@ -2021,6 +2022,10 @@ export class OCaml implements basis.ILanguage {
               Token.STRUCT,
               Token.THEN,
               Token.TRY,
+            ),
+            seq(
+              this.lastOps(seq(Token.COMMERCIAL_AT, Token.COMMERCIAL_AT)),
+              manyOne(set(Class.space)),
             ),
           ),
           end: alt(
