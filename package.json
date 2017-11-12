@@ -264,15 +264,15 @@
     "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "8.0.50",
+    "@types/node": "8.0.51",
     "@types/pegjs": "0.10.0",
-    "prettier": "1.8.1",
+    "prettier": "1.8.2",
     "tslint": "5.8.0",
     "typescript": "2.6.1",
     "vscode": "1.1.6"
   },
   "dependencies": {
-    "ocaml-language-server": "1.0.8",
+    "ocaml-language-server": "1.0.11",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.5.0",
     "vscode-languageclient": "3.5.0",
