@@ -10,7 +10,7 @@
         "isDefault": true
       },
       "type": "npm",
-      "script": "compile",
+      "script": "build",
       "problemMatcher": ["$tslint5", "$tsc"]
     }
   ]
