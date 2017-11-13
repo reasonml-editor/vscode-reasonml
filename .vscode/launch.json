@@ -5,13 +5,15 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Extension",
       "type": "extensionHost",
       "request": "launch",
-      "name": "Launch Extension",
       "runtimeExecutable": "${execPath}",
       "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
       "outFiles": ["${workspaceFolder}/out/**/*.js"],
-      "preLaunchTask": "npm"
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "smartStep": true
     }
   ]
 }

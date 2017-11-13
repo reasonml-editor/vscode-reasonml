@@ -36,7 +36,7 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const module = context.asAbsolutePath(
     path.join("node_modules", "ocaml-language-server", "bin", "server"),
   );
-  const options = { execArgv: ["--nolazy", "--inspect=6004"] };
+  const options = { execArgv: ["--nolazy", "--inspect=6009"] };
   const transport = client.TransportKind.ipc;
   const run = { module, transport };
   const debug = {
