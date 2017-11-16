@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@types/node@8.0.51":
-  version "8.0.51"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.51.tgz#b31d716fb8d58eeb95c068a039b9b6292817d5fb"
+"@types/node@8.0.53":
+  version "8.0.53"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.53.tgz#396b35af826fa66aad472c8cb7b8d5e277f4e6d8"
 
 "@types/pegjs@0.10.0":
   version "0.10.0"
@@ -1153,9 +1153,9 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-ocaml-language-server@1.0.13:
-  version "1.0.13"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.13.tgz#2d497c15c3d987496fb9ed21ee211134bd6e166c"
+ocaml-language-server@1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.14.tgz#913fb1f285097a86543acf2c8baa41dc01741330"
   dependencies:
     async "2.6.0"
     glob "7.1.2"
@@ -1762,9 +1762,9 @@ vscode-uri@1.0.1, vscode-uri@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vscode-uri/-/vscode-uri-1.0.1.tgz#11a86befeac3c4aa3ec08623651a3c81a6d0bbc8"
 
-vscode@1.1.6:
-  version "1.1.6"
-  resolved "https://registry.yarnpkg.com/vscode/-/vscode-1.1.6.tgz#46ed1afa2c1b9d689f6394c8f16bd1d7190f75fb"
+vscode@1.1.7:
+  version "1.1.7"
+  resolved "https://registry.yarnpkg.com/vscode/-/vscode-1.1.7.tgz#a2c361026e099acedaa134ff2a9f03c25b7d30b3"
   dependencies:
     glob "^7.1.2"
     gulp-chmod "^2.0.0"
