@@ -1,14 +1,6 @@
-import { types } from "ocaml-language-server";
+import { remote, types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-
-// FIXME: delete this and use from "ocaml-language-server" instead
-const giveMerlinFiles = new client.RequestType<
-  types.TextDocumentIdentifier,
-  string[],
-  void,
-  void
->("reason.server.giveMerlinFiles");
 
 export function register(
   context: vscode.ExtensionContext,
@@ -22,7 +14,7 @@ export function register(
           uri: editor.document.uri.toString(),
         };
         const merlinFiles: string[] = await languageClient.sendRequest(
-          giveMerlinFiles,
+          remote.server.giveMerlinFiles,
           docURI,
         );
         const selected: string | undefined = await vscode.window.showQuickPick(
