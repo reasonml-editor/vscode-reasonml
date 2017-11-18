@@ -7,6 +7,13 @@
     "max-line-length": [false],
     "no-empty-interface": false,
     "no-implicit-dependencies": false,
-    "no-namespace": false
+    "no-namespace": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-pascal-case",
+      "allow-leading-underscore"
+    ]
   }
 }
