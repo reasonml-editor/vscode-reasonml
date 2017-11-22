@@ -61,6 +61,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
         vscode.workspace.createFileSystemWatcher("**/.merlin"),
         vscode.workspace.createFileSystemWatcher("**/*.ml"),
         vscode.workspace.createFileSystemWatcher("**/*.re"),
+        vscode.workspace.createFileSystemWatcher("**/command-exec"),
+        vscode.workspace.createFileSystemWatcher("**/command-exec.bat"),
       ],
     },
   };

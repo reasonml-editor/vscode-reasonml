@@ -29,6 +29,14 @@
       {
         "command": "reason.showMerlinFiles",
         "title": "Reason: show merlin files"
+      },
+      {
+        "command": "reason.showAvailableLibraries",
+        "title": "Reason: show ocamlfind libraries provided by dependencies"
+      },
+      {
+        "command": "reason.showProjectEnv",
+        "title": "Reason: show project environment."
       }
     ],
     "configuration": {
@@ -76,6 +84,16 @@
           "type": "string",
           "default": "ocamlfind",
           "description": "The path to the `ocamlfind` binary."
+        },
+        "reason.path.esy": {
+          "type": "string",
+          "default": "esy",
+          "description": "The path to the `esy` binary."
+        },
+        "reason.path.env": {
+          "type": "string",
+          "default": "env",
+          "description": "The path to the `env` command which prints the language server environment for debugging editor issues."
         },
         "reason.path.ocamlmerlin": {
           "type": "string",
