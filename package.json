@@ -24,19 +24,19 @@
     "commands": [
       {
         "command": "reason.caseSplit",
-        "title": "Reason: case split"
+        "title": "Reason: Case Split"
       },
       {
         "command": "reason.showMerlinFiles",
-        "title": "Reason: show merlin files"
+        "title": "Reason: Show Merlin Files"
       },
       {
         "command": "reason.showAvailableLibraries",
-        "title": "Reason: show ocamlfind libraries provided by dependencies"
+        "title": "Reason: Show Libraries Available via Dependencies"
       },
       {
         "command": "reason.showProjectEnv",
-        "title": "Reason: show project environment."
+        "title": "Reason: Show Environment"
       }
     ],
     "configuration": {
@@ -93,7 +93,8 @@
         "reason.path.env": {
           "type": "string",
           "default": "env",
-          "description": "The path to the `env` command which prints the language server environment for debugging editor issues."
+          "description":
+            "The path to the `env` command which prints the language server environment for debugging editor issues."
         },
         "reason.path.ocamlmerlin": {
           "type": "string",
