@@ -34,7 +34,9 @@ export const negativeLookAhead = (arg: string) => `(?!${arg})`;
 export const seq = (...rest: string[]) => rest.join("");
 export const set = (...rest: string[]) => `[${rest.join("")}]`;
 
-export const Class = {
+export const Class: {
+  [token: string]: string;
+} = {
   alnum: "[:alnum:]",
   alpha: "[:alpha:]",
   ascii: "[:ascii:]",
@@ -51,7 +53,9 @@ export const Class = {
   xdigit: "[:xdigit:]",
 };
 
-export const Token = {
+export const Token: {
+  [token: string]: string;
+} = {
   AND: "and",
   APOSTROPHE: "'",
   AS: "as",
