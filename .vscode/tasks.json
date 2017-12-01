@@ -7,13 +7,13 @@
       "identifier": "build",
       "type": "npm",
       "script": "build",
-      "isBackground": true,
+      "isBackground": false,
       "group": {
         "kind": "build",
         "isDefault": true
       },
       "presentation": {
-        "echo": true,
+        "echo": false,
         "reveal": "never",
         "focus": false,
         "panel": "dedicated"
