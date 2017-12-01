@@ -1,14 +1,6 @@
-import { types } from "ocaml-language-server";
+import { remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-
-// FIXME: delete this and use from "ocaml-language-server" instead
-export const giveFormatted = new client.RequestType<
-  types.IUnformattedTextDocument,
-  null | string,
-  void,
-  void
->("reason.server.giveFormatted");
 
 async function execute(
   languageClient: client.LanguageClient,
@@ -21,7 +13,7 @@ async function execute(
     version: event.document.version,
   };
   const response = await languageClient.sendRequest(
-    giveFormatted,
+    remote.server.giveFormatted,
     textDocument,
     undefined,
   );

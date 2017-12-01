@@ -1,6 +1,7 @@
-import { remote, types } from "ocaml-language-server";
+import { remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import * as LSP from "vscode-languageserver-protocol";
 
 export function register(
   context: vscode.ExtensionContext,
@@ -10,7 +11,7 @@ export function register(
     vscode.commands.registerTextEditorCommand(
       "reason.showMerlinFiles",
       async editor => {
-        const docURI: types.TextDocumentIdentifier = {
+        const docURI: LSP.TextDocumentIdentifier = {
           uri: editor.document.uri.toString(),
         };
         const merlinFiles: string[] = await languageClient.sendRequest(

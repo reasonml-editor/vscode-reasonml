@@ -1,6 +1,7 @@
-import { merlin, remote, types } from "ocaml-language-server";
+import { merlin, remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import * as LSP from "vscode-languageserver-protocol";
 
 async function execute(
   editor: vscode.TextEditor,
@@ -69,7 +70,7 @@ export function register(
           editor.selection.start,
         );
         if (rangeCode == null) return;
-        const range = types.Range.create(rangeCode.start, rangeCode.end);
+        const range = LSP.Range.create(rangeCode.start, rangeCode.end);
         const params = { range, textDocument };
         try {
           const response = await languageClient.sendRequest(

@@ -1,6 +1,7 @@
-import { remote, types } from "ocaml-language-server";
+import { remote } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import * as LSP from "vscode-languageserver-protocol";
 
 const SHOW_ALL_STR = "Show Entire Environment";
 export function register(
@@ -11,7 +12,7 @@ export function register(
     vscode.commands.registerTextEditorCommand(
       "reason.showProjectEnv",
       async editor => {
-        const docURI: types.TextDocumentIdentifier = {
+        const docURI: LSP.TextDocumentIdentifier = {
           uri: editor.document.uri.toString(),
         };
         const projectEnv: string[] = await languageClient.sendRequest(

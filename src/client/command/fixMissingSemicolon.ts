@@ -1,6 +1,6 @@
-import { types } from "ocaml-language-server";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import * as LSP from "vscode-languageserver-protocol";
 
 export function register(
   context: vscode.ExtensionContext,
@@ -12,7 +12,7 @@ export function register(
       async (
         editor: vscode.TextEditor,
         _: any,
-        [{ range: { end: position } }]: [types.Location],
+        [{ range: { end: position } }]: [LSP.Location],
       ): Promise<void> => {
         await editor.edit(editBuilder => {
           const editPosition = languageClient.protocol2CodeConverter.asPosition(

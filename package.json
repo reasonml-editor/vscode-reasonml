@@ -303,7 +303,7 @@
     "vscode-jsonrpc": "3.5.0",
     "vscode-languageclient": "3.5.0",
     "vscode-languageserver": "3.5.0",
-    "vscode-languageserver-types": "3.5.0"
+    "vscode-languageserver-protocol": "3.5.0"
   },
   "extensionDependencies": ["patrys.vscode-code-outline"]
 }
