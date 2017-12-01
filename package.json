@@ -54,7 +54,14 @@
           "description": "Specifies whether the code lens is shown."
         },
         "reason.debounce.linter": {
-          "type": "integer",
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "enum": ["Infinity"]
+            }
+          ],
           "default": 500,
           "description":
             "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
