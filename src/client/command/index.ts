@@ -1,6 +1,5 @@
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import * as doClearDiagnostics from "./doClearDiagnostics";
 import * as doShowAvailableLibraries from "./doShowAvailableLibraries";
 import * as doShowMerlinFiles from "./doShowMerlinFiles";
 import * as doShowProjectEnv from "./doShowProjectEnv";
@@ -13,7 +12,6 @@ export function registerAll(
   context: vscode.ExtensionContext,
   languageClient: client.LanguageClient,
 ): void {
-  doClearDiagnostics.register(context, languageClient);
   doShowMerlinFiles.register(context, languageClient);
   doShowProjectEnv.register(context, languageClient);
   doShowAvailableLibraries.register(context, languageClient);
