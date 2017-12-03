@@ -1153,9 +1153,9 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-ocaml-language-server@1.0.15:
-  version "1.0.15"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.15.tgz#20e8fd724d96756a50772cae21cf8c38a59a58d5"
+ocaml-language-server@1.0.16:
+  version "1.0.16"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.16.tgz#4575777ec410241fe4d0666826aa371d83782373"
   dependencies:
     async "2.6.0"
     glob "7.1.2"
@@ -1165,7 +1165,7 @@ ocaml-language-server@1.0.15:
     vscode-jsonrpc "3.5.0"
     vscode-languageclient "3.5.0"
     vscode-languageserver "3.5.0"
-    vscode-languageserver-types "3.5.0"
+    vscode-languageserver-protocol "3.5.0"
     vscode-uri "1.0.1"
 
 once@^1.3.0, once@^1.4.0:
@@ -1747,7 +1747,7 @@ vscode-languageserver-protocol@3.5.0, vscode-languageserver-protocol@^3.5.0:
     vscode-jsonrpc "^3.5.0"
     vscode-languageserver-types "^3.5.0"
 
-vscode-languageserver-types@3.5.0, vscode-languageserver-types@^3.5.0:
+vscode-languageserver-types@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.5.0.tgz#e48d79962f0b8e02de955e3f524908e2b19c0374"
 
