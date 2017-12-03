@@ -1135,8 +1135,8 @@ export class OCaml implements basis.ILanguage {
         include(this.literalList),
         include(this.literalNumber),
         include(this.literalObjectTerm),
+        include(this.literalString), // NOTE: string before record because of {| … |}
         include(this.literalRecord),
-        include(this.literalString),
         include(this.literalUnit),
       ],
     };
@@ -1164,10 +1164,7 @@ export class OCaml implements basis.ILanguage {
     return {
       begin: seq(negativeLookBehind(set(Class.word)), Token.APOSTROPHE),
       end: Token.APOSTROPHE,
-      captures: {
-        0: { name: Scope.PUNCTUATION_QUOTE() },
-      },
-      contentName: Scope.TERM_CHARACTER(),
+      name: Scope.TERM_CHARACTER(),
       patterns: [include(this.literalCharacterEscape)],
     };
   }
@@ -1216,13 +1213,28 @@ export class OCaml implements basis.ILanguage {
 
   public literalString(): schema.Rule {
     return {
+      patterns: [
+        {
       begin: Token.QUOTATION_MARK,
       end: Token.QUOTATION_MARK,
-      captures: {
-        0: { name: Scope.PUNCTUATION_QUOTE() },
-      },
-      contentName: Scope.TERM_STRING(),
+      name: Scope.TERM_STRING(),
       patterns: [include(this.literalStringEscape)],
+        },
+        {
+          begin: seq(
+            capture(Token.LEFT_CURLY_BRACKET),
+            capture(opt(many(set(Token.LOW_LINE, Class.lower)))),
+            capture(Token.VERTICAL_LINE),
+          ),
+          end: seq(
+            capture(Token.VERTICAL_LINE),
+            capture("\\2"),
+            capture(Token.RIGHT_CURLY_BRACKET),
+          ),
+          name: Scope.TERM_STRING(),
+          patterns: [include(this.literalStringEscape)],
+        },
+      ],
     };
   }
 
