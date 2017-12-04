@@ -15,7 +15,7 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
   - [x] basic highlighting for merlin, ocamlbuild, and opam files
 
 - editing
-  - [x] document formatting (enable on save with `reason.formatOnSave`)
+  - [x] document formatting (enable on save with `editor.formatOnSave`)
   - [x] completion and snippets
   - [x] [rename symbol](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol) (F2 or right click)
   - [x] [case splitting](#case-splitting)
@@ -90,7 +90,7 @@ To enable formatting on save, add the following to `Code > Preferences > Setting
 
 ```
 {
-  "reason.formatOnSave": true
+  "editor.formatOnSave": true
 }
 ```
 
