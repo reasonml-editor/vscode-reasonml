@@ -17,6 +17,7 @@
     "vscode": "^1.16.0"
   },
   "categories": ["Formatters", "Languages", "Linters", "Snippets"],
+  "keywords": ["language server", "lsp", "merlin", "ocaml", "reason"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
   "main": "./out/src/extension",
