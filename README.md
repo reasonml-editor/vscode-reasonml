@@ -84,7 +84,7 @@ Merlin's diagnosis is best-effort and can sometimes be wrong; bsb's diagnosis is
 
 Install this Visual Studio Code extension [just like any other extension](https://code.visualstudio.com/docs/editor/extension-gallery).
 
-Search for `reasonml` and install `Reason <version> by Darin Morrison`.
+Search for `reason` and install `Reason <version> by Darin Morrison`.
 
 To enable formatting on save, add the following to `Code > Preferences > Settings`:
 
