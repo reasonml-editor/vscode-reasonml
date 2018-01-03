@@ -2,7 +2,7 @@
   "private": true,
   "name": "reasonml",
   "displayName": "Reason",
-  "description": "Reason language support",
+  "description": "OCaml and Reason language support",
   "version": "1.0.17",
   "publisher": "freebroccolo",
   "license": "Apache-2.0",
@@ -17,7 +17,7 @@
     "vscode": "^1.16.0"
   },
   "categories": ["Formatters", "Languages", "Linters", "Snippets"],
-  "keywords": ["language server", "lsp", "merlin", "ocaml", "reason"],
+  "keywords": ["ocaml", "reason", "language server", "lsp", "merlin"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
   "main": "./out/src/extension",
@@ -306,5 +306,10 @@
     "vscode-languageserver": "3.5.0",
     "vscode-languageserver-protocol": "3.5.0"
   },
-  "extensionDependencies": ["patrys.vscode-code-outline"]
+  "extensionDependencies": ["patrys.vscode-code-outline"],
+  "__metadata": {
+    "id": "c7ccccce-e272-43df-883f-91f3de932890",
+    "publisherDisplayName": "Darin Morrison",
+    "publisherId": "d7d46b7f-d6a6-4bc5-8e41-f35d145c81de"
+  }
 }
