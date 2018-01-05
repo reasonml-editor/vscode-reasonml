@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "reasonml",
-  "displayName": "Reason",
+  "displayName": "OCaml and Reason IDE",
   "description": "OCaml and Reason language support",
   "version": "1.0.18",
   "publisher": "freebroccolo",
@@ -17,7 +17,7 @@
     "vscode": "^1.16.0"
   },
   "categories": ["Formatters", "Languages", "Linters", "Snippets"],
-  "keywords": ["ocaml", "reason", "language server", "lsp", "merlin"],
+  "keywords": ["ocaml", "reason", "ide", "lsp", "merlin"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
   "main": "./out/src/extension",
