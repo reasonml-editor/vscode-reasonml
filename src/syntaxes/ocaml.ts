@@ -1115,8 +1115,9 @@ export class OCaml implements basis.ILanguage {
 
   public lastOps(...rest: string[]): string {
     const result: string[] = [];
-    for (const token of rest)
+    for (const token of rest) {
       result.push(`[^${seq(...this.operatorTokens())}]${token}`, `^${token}`);
+    }
     return group(
       seq(
         lookBehind(group(alt(...result))),
@@ -1215,10 +1216,10 @@ export class OCaml implements basis.ILanguage {
     return {
       patterns: [
         {
-      begin: Token.QUOTATION_MARK,
-      end: Token.QUOTATION_MARK,
-      name: Scope.TERM_STRING(),
-      patterns: [include(this.literalStringEscape)],
+          begin: Token.QUOTATION_MARK,
+          end: Token.QUOTATION_MARK,
+          name: Scope.TERM_STRING(),
+          patterns: [include(this.literalStringEscape)],
         },
         {
           begin: seq(
