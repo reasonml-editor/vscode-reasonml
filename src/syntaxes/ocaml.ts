@@ -300,7 +300,7 @@ export class OCaml implements basis.ILanguage {
                 alt(
                   ...Object.keys(Token)
                     .filter(key => key !== "LOW_LINE")
-                    .map(key => Token[key]),
+                    .map(key => (Token as any)[key]),
                 ),
               ),
             ),
@@ -328,7 +328,7 @@ export class OCaml implements basis.ILanguage {
                       key =>
                         key !== "LOW_LINE" && key !== "NEW" && key !== "MODULE",
                     )
-                    .map(key => Token[key]),
+                    .map(key => (Token as any)[key]),
                 ),
               ),
             ),
