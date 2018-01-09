@@ -6,9 +6,7 @@ export function ref(f: (...args: any[]) => schema.Rule): string {
   return `#${f.name}`;
 }
 
-export function include(
-  f: (...args: any[]) => schema.Rule,
-): { include: string } {
+export function include(f: (...args: any[]) => schema.Rule): { include: string } {
   return { include: ref(f) };
 }
 
@@ -21,9 +19,7 @@ export const negativeLookBehind = (arg: string) => `(?<!${arg})`;
 export function lastWords(...rest: string[]): string {
   const result: string[] = [];
   for (const token of rest) result.push(`[^[:word:]]${token}`, `^${token}`);
-  return group(
-    seq(lookBehind(group(alt(...result))), negativeLookAhead(set(Class.word))),
-  );
+  return group(seq(lookBehind(group(alt(...result))), negativeLookAhead(set(Class.word))));
 }
 export const many = (arg: string) => `${arg}*`;
 export const manyOne = (arg: string) => `${arg}+`;

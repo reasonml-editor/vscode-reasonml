@@ -12,11 +12,7 @@ export interface IMatchScopes {
   [key: string]: RuleSimple;
 }
 
-export type Rule =
-  | RuleSimple
-  | IRuleCapturing
-  | IRuleDelimited
-  | IRuleReference;
+export type Rule = RuleSimple | IRuleCapturing | IRuleDelimited | IRuleReference;
 
 export interface IRuleCapturing {
   match: string;

@@ -33,10 +33,7 @@ export class Reason extends OCaml {
   }
 
   public bindTerm(): schema.Rule {
-    return this.bindTermWith(
-      Token.EQUALS_SIGN,
-      seq(Token.EQUALS_SIGN, Token.GREATER_THAN_SIGN),
-    );
+    return this.bindTermWith(Token.EQUALS_SIGN, seq(Token.EQUALS_SIGN, Token.GREATER_THAN_SIGN));
   }
 
   public comment(): schema.Rule {
@@ -111,17 +108,11 @@ export class Reason extends OCaml {
   }
 
   public signatureLiteral(): schema.Rule {
-    return this.signatureLiteralWith(
-      Token.LEFT_CURLY_BRACKET,
-      Token.RIGHT_CURLY_BRACKET,
-    );
+    return this.signatureLiteralWith(Token.LEFT_CURLY_BRACKET, Token.RIGHT_CURLY_BRACKET);
   }
 
   public structureLiteral(): schema.Rule {
-    return this.structureLiteralWith(
-      Token.LEFT_CURLY_BRACKET,
-      Token.RIGHT_CURLY_BRACKET,
-    );
+    return this.structureLiteralWith(Token.LEFT_CURLY_BRACKET, Token.RIGHT_CURLY_BRACKET);
   }
 
   public typeRecord(): schema.Rule {
@@ -133,11 +124,7 @@ export class Reason extends OCaml {
       name: `Reason`,
       scopeName: `source.reason`,
       fileTypes: [`.re`, `.rei`],
-      patterns: [
-        include(this.comment),
-        include(this.pragma),
-        include(this.decl),
-      ],
+      patterns: [include(this.comment), include(this.pragma), include(this.decl)],
       repository: {
         bindClassTerm: this.bindClassTerm(),
         bindClassType: this.bindClassType(),
