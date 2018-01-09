@@ -1456,10 +1456,16 @@ export class OCaml implements basis.ILanguage {
         },
         {
           begin: lastWords(Token.WITH),
-          end: alt(capture(Token.COLON), capture(Token.EQUALS_SIGN)),
+          end: alt(
+            capture(Token.COLON),
+            capture(Token.EQUALS_SIGN),
+            capture(Token.SEMICOLON),
+            lookAhead(Token.RIGHT_CURLY_BRACKET),
+          ),
           endCaptures: {
             1: { name: Scope.PUNCTUATION_COLON() },
             2: { name: Scope.PUNCTUATION_EQUALS() },
+            3: { name: Scope.STYLE_OPERATOR() },
           },
           patterns: [
             {
@@ -1469,7 +1475,16 @@ export class OCaml implements basis.ILanguage {
           ],
         },
         {
-          begin: this.lastOps(Token.COLON, Token.EQUALS_SIGN),
+          begin: this.lastOps(Token.COLON),
+          end: alt(capture(Token.SEMICOLON), capture(Token.EQUALS_SIGN), lookAhead(Token.RIGHT_CURLY_BRACKET)),
+          endCaptures: {
+            1: { name: Scope.STYLE_OPERATOR() },
+            2: { name: Scope.PUNCTUATION_EQUALS() },
+          },
+          patterns: [include(this.type)],
+        },
+        {
+          begin: this.lastOps(Token.EQUALS_SIGN),
           end: alt(Token.SEMICOLON, lookAhead(Token.RIGHT_CURLY_BRACKET)),
           endCaptures: {
             0: { name: Scope.STYLE_OPERATOR() },
