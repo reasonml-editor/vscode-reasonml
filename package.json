@@ -3,7 +3,7 @@
   "name": "reasonml",
   "displayName": "OCaml and Reason IDE",
   "description": "OCaml and Reason language support",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "publisher": "freebroccolo",
   "license": "Apache-2.0",
   "bugs": {
@@ -142,8 +142,7 @@
           "default": ["ocaml", "reason"],
           "maxItems": 2,
           "uniqueItems": true,
-          "description":
-            "The list of languages enable support for in the language server."
+          "description": "The list of languages enable support for in the language server."
         }
       }
     },
@@ -265,16 +264,14 @@
         "fileLocation": "relative",
         "pattern": [
           {
-            "regexp":
-              "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
+            "regexp": "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
             "file": 1,
             "line": 2,
             "column": 3,
             "endColumn": 4
           },
           {
-            "regexp":
-              "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
+            "regexp": "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
             "severity": 1,
             "message": 2,
             "loop": true
