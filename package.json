@@ -284,19 +284,20 @@
     ]
   },
   "scripts": {
-    "build": "npm run lint && tsc -p ./ && node script/syntax.js",
+    "build": "npm run prebuild && tsc -p ./ && node script/syntax.js",
     "format": "./node_modules/.bin/prettier --write \"src/**/*.ts\"",
     "lint": "tslint --project tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
+    "prebuild": "npm run format && npm run lint",
     "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "8.0.53",
+    "@types/node": "9.3.0",
     "@types/pegjs": "0.10.0",
-    "prettier": "1.8.2",
+    "prettier": "1.9.2",
     "tslint": "5.8.0",
-    "typescript": "2.6.1",
-    "vscode": "1.1.7"
+    "typescript": "2.6.2",
+    "vscode": "1.1.10"
   },
   "dependencies": {
     "ocaml-language-server": "1.0.16",

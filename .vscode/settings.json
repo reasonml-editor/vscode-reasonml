@@ -4,6 +4,7 @@
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
   "editor.trimAutoWhitespace": true,
+  "editor.wordWrapColumn": 120,
   "files.exclude": {
     "out": true,
     "syntaxes": true,

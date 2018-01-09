@@ -4,7 +4,10 @@
     "allowUnusedLabels": false,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["dom", "es2017"],
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "newLine": "LF",
@@ -23,7 +26,11 @@
     "sourceMap": true,
     "strict": true,
     "suppressImplicitAnyIndexErrors": false,
-    "target": "es2015"
+    "target": "esnext"
   },
-  "exclude": ["node_modules", ".vscode-test"]
+  "exclude": [
+    "node_modules",
+    "out",
+    ".vscode-test"
+  ]
 }
