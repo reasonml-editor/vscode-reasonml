@@ -42,8 +42,13 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
 
 Although syntax highlighting should display well in most themes we recommend and test with the following:
 
+#### Default Themes
+
+- Dark+ (*recommended*; this theme is the most thoroughly tested)
+
+#### Other Themes
+
 - [Atom One Dark](https://marketplace.visualstudio.com/items?itemName=freebroccolo.theme-atom-one-dark)
-- Dark+ (default theme)
 - [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
 - [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai)
 - [Oceanic Next](https://marketplace.visualstudio.com/items?itemName=naumovs.theme-oceanicnext)
