@@ -78,11 +78,6 @@
           "description":
             "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
         },
-        "reason.formatOnSave": {
-          "type": "boolean",
-          "default": false,
-          "description": "Run refmt automatically when a document is saved."
-        },
         "reason.path.bsb": {
           "type": "string",
           "default": "bsb",
