@@ -276,7 +276,7 @@
     ]
   },
   "scripts": {
-    "build": "npm run prebuild && tsc -p ./ && node script/syntax.js",
+    "build": "tsc -p ./ && node script/syntax.js",
     "format": "./node_modules/.bin/prettier --write \"src/**/*.ts\"",
     "lint": "tslint --project tsconfig.json",
     "postinstall": "node ./node_modules/vscode/bin/install",
