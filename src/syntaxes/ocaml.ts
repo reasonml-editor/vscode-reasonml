@@ -502,7 +502,7 @@ export class OCaml implements basis.ILanguage {
             include(this.comment),
             {
               match: words(Token.MODULE),
-              name: Scope.VALUE_MODULE(),
+              name: Scope.TERM_MODULE(),
             },
             {
               match: this.identUpper(),
@@ -550,7 +550,7 @@ export class OCaml implements basis.ILanguage {
             this.declEnd(),
           ),
           endCaptures: {
-            1: { name: Scope.VALUE_MODULE() },
+            1: { name: Scope.TERM_MODULE() },
             2: { name: Scope.ITEM_OPEN() },
             3: { name: Scope.PUNCTUATION_COLON() },
             4: { name: Scope.PUNCTUATION_EQUALS() },
@@ -1386,7 +1386,7 @@ export class OCaml implements basis.ILanguage {
       begin: words(Token.MODULE),
       end: lookAhead(Token.RIGHT_PARENTHESIS),
       beginCaptures: {
-        0: { name: Scope.VALUE_MODULE() },
+        0: { name: Scope.TERM_MODULE() },
       },
       patterns: [include(this.declModule)],
     };
@@ -1525,7 +1525,7 @@ export class OCaml implements basis.ILanguage {
           begin: lastWords(Token.WITH),
           end: words(group(alt(capture(Token.MODULE), capture(Token.TYPE)))),
           endCaptures: {
-            1: { name: Scope.VALUE_MODULE() },
+            1: { name: Scope.TERM_MODULE() },
             2: { name: Scope.STYLE_KEYWORD() },
           },
         },
@@ -1571,7 +1571,7 @@ export class OCaml implements basis.ILanguage {
           ),
           end: alt(words(Token.MODULE), negativeLookAhead(alt("$", set(Class.space), words(Token.MODULE)))),
           endCaptures: {
-            0: { name: Scope.VALUE_MODULE() },
+            0: { name: Scope.TERM_MODULE() },
           },
         },
         {
@@ -1808,7 +1808,7 @@ export class OCaml implements basis.ILanguage {
           ),
           endCaptures: {
             1: { name: Scope.ITEM_AND() },
-            2: { name: Scope.VALUE_LET() },
+            2: { name: Scope.TERM_LET() },
           },
           patterns: [include(this.comment)],
         },
@@ -1821,7 +1821,7 @@ export class OCaml implements basis.ILanguage {
           },
           endCaptures: {
             1: { name: Scope.ITEM_AND() },
-            2: { name: Scope.TERM_IN() },
+            2: { name: Scope.TERM_LET() },
           },
           patterns: [include(this.bindTerm)],
         },
@@ -2110,7 +2110,7 @@ export class OCaml implements basis.ILanguage {
       begin: words(Token.MODULE),
       end: lookAhead(Token.RIGHT_PARENTHESIS),
       beginCaptures: {
-        0: { name: Scope.VALUE_MODULE() },
+        0: { name: Scope.TERM_MODULE() },
       },
       patterns: [include(this.pathModuleExtended), include(this.signatureConstraints)],
     };

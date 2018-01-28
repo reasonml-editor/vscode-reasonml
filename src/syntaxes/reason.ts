@@ -76,7 +76,7 @@ export class Reason extends OCaml {
             1: { name: Scope.PUNCTUATION_COLON() },
             2: { name: Scope.PUNCTUATION_EQUALS() },
             3: { name: Scope.STYLE_OPERATOR() },
-            4: { name: Scope.VALUE_LET() },
+            4: { name: Scope.TERM_LET() },
           },
           patterns: [
             include(this.comment),

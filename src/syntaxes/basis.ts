@@ -334,6 +334,14 @@ export class Scope {
     return `${this.STYLE_BINDER()} ${this.STYLE_UNDERLINE()}`;
   }
 
+  public static TERM_LET(): string {
+    return `${this.STYLE_BINDER()} ${this.STYLE_UNDERLINE()}`;
+  }
+
+  public static TERM_MODULE(): string {
+    return "markup.inserted constant.language support.constant.property-value entity.name.filename";
+  }
+
   public static TERM_NUMBER(): string {
     return "constant.numeric";
   }
@@ -344,14 +352,6 @@ export class Scope {
 
   public static TYPE_CONSTRUCTOR(): string {
     return `entity.name.function ${this.STYLE_BOLD()}`;
-  }
-
-  public static VALUE_LET(): string {
-    return `${this.STYLE_BINDER()} ${this.STYLE_UNDERLINE()}`;
-  }
-
-  public static VALUE_MODULE(): string {
-    return "markup.inserted constant.language support.constant.property-value entity.name.filename";
   }
 
   public static VARIABLE_PATTERN(): string {
