@@ -11,7 +11,7 @@ export function register(context: vscode.ExtensionContext, languageClient: clien
       };
       const merlinFiles: string[] = await languageClient.sendRequest(remote.server.giveMerlinFiles, docURI);
       const selected: string | undefined = await vscode.window.showQuickPick(merlinFiles);
-      if (selected == null) return;
+      if (null == selected) return;
       const textDocument = await vscode.workspace.openTextDocument(selected);
       await vscode.window.showTextDocument(textDocument);
     }),

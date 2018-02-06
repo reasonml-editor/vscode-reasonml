@@ -13,7 +13,7 @@ export function register(context: vscode.ExtensionContext, languageClient: clien
       const projectEnv: string[] = await languageClient.sendRequest(remote.server.giveProjectEnv, docURI);
       const projectEnvWithAll = [SHOW_ALL_STR].concat(projectEnv);
       const selected = await vscode.window.showQuickPick(projectEnvWithAll);
-      if (selected === undefined || selected === null) return;
+      if (null == selected) return;
       const content = selected === SHOW_ALL_STR ? projectEnv.join("\n") : selected;
       const textDocument = await vscode.workspace.openTextDocument({
         content,

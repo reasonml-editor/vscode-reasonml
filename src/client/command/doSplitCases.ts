@@ -54,12 +54,12 @@ export function register(context: vscode.ExtensionContext, languageClient: clien
     vscode.commands.registerTextEditorCommand("reason.caseSplit", async (editor): Promise<void> => {
       const textDocument = { uri: editor.document.uri.toString() };
       const rangeCode = editor.document.getWordRangeAtPosition(editor.selection.start);
-      if (rangeCode == null) return;
+      if (null == rangeCode) return;
       const range = LSP.Range.create(rangeCode.start, rangeCode.end);
       const params = { range, textDocument };
       try {
         const response = await languageClient.sendRequest(remote.server.giveCaseAnalysis, params);
-        if (response != null) await execute(editor, response);
+        if (null != response) await execute(editor, response);
       } catch (err) {
         // FIXME: clean this up
         // vscode.window.showErrorMessage(JSON.stringify(err));
