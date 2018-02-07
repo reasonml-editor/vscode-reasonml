@@ -11,6 +11,8 @@
     "node_modules": true,
     "yarn.lock": true
   },
-  "search.exclude": {},
+  "search.exclude": {
+    "syntaxes": false
+  },
   "typescript.tsdk": "./node_modules/typescript/lib"
 }
