@@ -260,21 +260,22 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
-        "owner": "ocaml",
-        "fileLocation": "relative",
+        "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": [
           {
-            "regexp": "^File \"(.*)\", line (\\d+)(?:, characters (\\d+)-(\\d+))?:$",
+            "regexp":
+              "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
             "file": 1,
             "line": 2,
             "column": 3,
             "endColumn": 4
           },
           {
-            "regexp": "^(?:(?:Parse\\s+)?(Warning|[Ee]rror)(?:\\s+\\d+)?:)?\\s+(.*)$",
+            "regexp":
+              "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
             "severity": 1,
-            "message": 2,
-            "loop": true
+            "code": 2,
+            "message": 3
           }
         ]
       }
