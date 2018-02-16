@@ -213,7 +213,10 @@
           "end": "(?=[[:space:]/>])[[:space:]]*+",
           "comment": "meta.separator",
           "patterns": [
-            { "include": "#module-path-simple" },
+            {
+              "match": "\\b[[:upper:]][[:word:]]*\\b",
+              "name": "entity.name.tag.inline.any.class"
+            },
             {
               "match": "\\b[[:lower:]][[:word:]]*\\b",
               "name": "entity.name.tag.inline.any.html"
@@ -237,7 +240,10 @@
         "1": { "name": "punctuation.definition.tag.end.js" }
       },
       "patterns": [
-        { "include": "#module-path-simple" },
+        {
+          "match": "\\b[[:upper:]][[:word:]]*\\b",
+          "name": "entity.name.tag.inline.any.class"
+        },
         {
           "match": "\\b[[:lower:]][[:word:]]*\\b",
           "name": "entity.name.tag.inline.any.html"
