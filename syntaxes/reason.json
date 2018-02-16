@@ -1241,7 +1241,7 @@
         {
           "match": "\\b([[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
           "captures": {
-            "1": { "name": "variable.language string.other.link" }
+            "1": { "name": "variable.other" }
           }
         }
       ]
@@ -1647,7 +1647,7 @@
       "match": "(')([_[:lower:]][[:word:]]*)\\b(?!\\.[[:upper:]])",
       "captures": {
         "1": { "name": "comment" },
-        "2": { "name": "variable.parameter string.other.link variable.language" }
+        "2": { "name": "variable.parameter" }
       }
     },
     "value-expression": {
