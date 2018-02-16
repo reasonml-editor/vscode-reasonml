@@ -1811,7 +1811,8 @@
         "1": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
       },
       "patterns": [
-        { "include": "#module-item-let-value-param" }
+        { "include": "#pattern-guard" },
+        { "include": "#pattern" }
       ]
     },
     "value-expression-fun-pattern-match-rule-rhs": {
