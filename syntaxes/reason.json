@@ -88,7 +88,7 @@
       "begin": "\\b(method)\\b",
       "end": "(;)|(?=}|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type" }
+        "1": { "name": "keyword.other" }
       },
       "endCaptures": {
         "1": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
@@ -390,7 +390,7 @@
       "begin": "\\b(external)\\b",
       "end": "(;)|(?=}|\\b(class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type" }
+        "1": { "name": "keyword.other" }
       },
       "endCaptures": {
         "1": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
@@ -443,7 +443,7 @@
       "begin": "\\b(let)\\b",
       "end": "(;)|(?=}|\\b(class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type" }
+        "1": { "name": "keyword.other" }
       },
       "endCaptures": {
         "1": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
@@ -457,7 +457,7 @@
       "begin": "(?:\\G|^)[[:space:]]*\\b(module)\\b",
       "end": "(?=[;}]|\\b(class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "variable.other.class.js variable.interpolation keyword.control storage.type message.error" }
+        "1": { "name": "variable.other.class.js variable.interpolation keyword.other message.error" }
       },
       "patterns": [
         { "include": "#comment" },
@@ -470,7 +470,7 @@
       "begin": "\\b(and)\\b",
       "end": "(?=[;}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type" }
+        "1": { "name": "keyword.other" }
       },
       "patterns": [
         { "include": "#module-item-let-module-bind-name-params-type-body" }
@@ -562,7 +562,7 @@
       "begin": "\\b(and)\\b",
       "end": "(?=[;}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type" }
+        "1": { "name": "keyword.other" }
       },
       "patterns": [
         { "include": "#module-item-let-value-bind-name-params-type-body" }
@@ -777,7 +777,7 @@
       "begin": "\\b(module)\\b[[:space:]]*(?!\\b(type)\\b|$)",
       "end": "(;)|(?=}|\\b(and|class|constraint|exception|external|include|inherit|let|method|module|nonrec|open|private|rec|type|val|with)\\b)",
       "beginCaptures": {
-        "1": { "name": "storage.type message.error" }
+        "1": { "name": "keyword.other message.error" }
       },
       "endCaptures": {
         "1": { "name": "variable.other.class.js variable.interpolation keyword.operator keyword.control message.error" }
@@ -1326,7 +1326,7 @@
                   "begin": "\\b(module)\\b",
                   "end": "(?=:?=|[;\\)}]|\\b(and|class|constraint|exception|external|include|inherit|let|method|nonrec|open|private|type|val|with)\\b)",
                   "beginCaptures": {
-                    "1": { "name": "markup.inserted keyword.control storage.type variable.other.readwrite.instance" }
+                    "1": { "name": "markup.inserted keyword.control keyword.other variable.other.readwrite.instance" }
                   },
                   "patterns": [
                     { "include": "#comment" },
