@@ -1422,7 +1422,7 @@ export class OCaml implements basis.ILanguage {
     };
   }
 
-  public recordWithSep(...definiens: schema.Rule[]): schema.Rule {
+  public recordWith(...definiens: schema.Rule[]): schema.Rule {
     return {
       begin: Token.LEFT_CURLY_BRACKET,
       end: Token.RIGHT_CURLY_BRACKET,
@@ -1493,10 +1493,6 @@ export class OCaml implements basis.ILanguage {
         },
       ],
     };
-  }
-
-  public recordWith(...definiens: schema.Rule[]): schema.Rule {
-    return this.recordWithSep(...definiens);
   }
 
   public signature(): schema.Rule {
