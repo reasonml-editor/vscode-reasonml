@@ -51,7 +51,7 @@
         },
         "reason.codelens.enabled": {
           "type": "boolean",
-          "default": true,
+          "default": false,
           "description": "Specifies whether the code lens is shown."
         },
         "reason.debounce.linter": {

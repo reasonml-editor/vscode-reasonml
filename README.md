@@ -99,6 +99,11 @@ To enable formatting on save, add the following to `Code > Preferences > Setting
 }
 ```
 
+If you want to enable [codelens](https://code.visualstudio.com/blogs/2017/02/12/code-lens-roundup), add the following to `Code > Preferences > Settings`:
+```
+"reason.codelens.enabled": true
+```
+
 ## Advanced Features
 
 ### Case splitting
