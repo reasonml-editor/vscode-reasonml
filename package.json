@@ -298,7 +298,7 @@
     "vscode": "1.1.12"
   },
   "dependencies": {
-    "ocaml-language-server": "1.0.28",
+    "ocaml-language-server": "1.0.29",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.6.0",
     "vscode-languageclient": "4.0.0",
