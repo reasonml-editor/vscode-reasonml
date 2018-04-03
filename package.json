@@ -260,6 +260,7 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
+
         "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": [
           {
@@ -290,18 +291,18 @@
     "vscode:prepublish": "node script/syntax.js"
   },
   "devDependencies": {
-    "@types/node": "9.4.6",
+    "@types/node": "9.6.2",
     "@types/pegjs": "0.10.0",
     "prettier": "1.11.1",
     "tslint": "5.9.1",
-    "typescript": "2.7.2",
-    "vscode": "1.1.12"
+    "typescript": "2.8.1",
+    "vscode": "1.1.14"
   },
   "dependencies": {
-    "ocaml-language-server": "1.0.32",
+    "ocaml-language-server": "1.0.33",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.6.0",
-    "vscode-languageclient": "4.0.0",
+    "vscode-languageclient": "4.0.1",
     "vscode-languageserver": "4.0.0",
     "vscode-languageserver-protocol": "3.6.0"
   },
