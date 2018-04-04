@@ -54,6 +54,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
         vscode.workspace.createFileSystemWatcher("**/*.re"),
         vscode.workspace.createFileSystemWatcher("**/command-exec"),
         vscode.workspace.createFileSystemWatcher("**/command-exec.bat"),
+        vscode.workspace.createFileSystemWatcher("**/_build"),
+        vscode.workspace.createFileSystemWatcher("**/_build/*"),
       ],
     },
   };
