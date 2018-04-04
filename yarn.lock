@@ -1243,9 +1243,9 @@ object.omit@^2.0.0:
     for-own "^0.1.4"
     is-extendable "^0.1.1"
 
-ocaml-language-server@1.0.33:
-  version "1.0.33"
-  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.33.tgz#f064581a648438d1f5791509d88040eb5888c263"
+ocaml-language-server@1.0.34:
+  version "1.0.34"
+  resolved "https://registry.yarnpkg.com/ocaml-language-server/-/ocaml-language-server-1.0.34.tgz#8512b26c30a0c8684e1613ed0a4ae063418b382a"
   dependencies:
     async "2.6.0"
     deepmerge "2.1.0"
