@@ -1,3 +1,4 @@
+import flatMap = require("lodash.flatmap");
 import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
@@ -39,9 +40,15 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
     transport,
   };
   const serverOptions = { run, debug };
+  const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
+  const documentSelector = flatMap(languages, (language: string) => [
+    { language, scheme: "file" },
+    { language, scheme: "untitled" },
+  ]);
+
   const clientOptions: client.LanguageClientOptions = {
     diagnosticCollectionName: "ocaml-language-server",
-    documentSelector: reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]),
+    documentSelector,
     errorHandler: new ErrorHandler(),
     initializationOptions: reasonConfig,
     outputChannelName: "OCaml Language Server",
