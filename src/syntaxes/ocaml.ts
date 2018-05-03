@@ -2114,12 +2114,42 @@ export class OCaml implements basis.ILanguage {
 
   public typeObject(): schema.Rule {
     return {
-      begin: this.ops(Token.LESS_THAN_SIGN),
-      end: this.ops(Token.GREATER_THAN_SIGN),
+      begin: Token.LESS_THAN_SIGN,
+      end: Token.GREATER_THAN_SIGN,
       captures: {
-        0: { name: Scope.TERM_CONSTRUCTOR() },
+        0: { name: `${Scope.TERM_CONSTRUCTOR()} ${Scope.STYLE_BOLD()}` },
       },
-      patterns: [include(this.type)],
+      patterns: [
+        {
+          begin: lookBehind(alt(Token.LESS_THAN_SIGN, Token.SEMICOLON)),
+          end: alt(
+            capture(Token.COLON),
+            lookAhead(Token.GREATER_THAN_SIGN),
+          ),
+          endCaptures: {
+            1: { name: Scope.PUNCTUATION_COLON() },
+            3: { name: Scope.STYLE_OPERATOR() },
+            4: { name: Scope.STYLE_OPERATOR() },
+          },
+          patterns: [
+            include(this.comment),
+            include(this.pathModulePrefixSimple),
+            {
+              match: this.identLower(),
+              name: `${Scope.NAME_FIELD()} ${Scope.STYLE_ITALICS()}`,
+            },
+          ],
+        },
+        {
+          begin: this.lastOps(Token.COLON),
+          end: alt(capture(Token.SEMICOLON), lookAhead(Token.GREATER_THAN_SIGN)),
+          endCaptures: {
+            1: { name: Scope.STYLE_OPERATOR() },
+            2: { name: Scope.PUNCTUATION_EQUALS() },
+          },
+          patterns: [include(this.type)],
+        },
+      ],
     };
   }
 
