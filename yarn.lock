@@ -2,6 +2,16 @@
 # yarn lockfile v1
 
 
+"@types/lodash.flatmap@^4.5.3":
+  version "4.5.3"
+  resolved "http://registry.npm.taobao.org/@types/lodash.flatmap/download/@types/lodash.flatmap-4.5.3.tgz#039ad385339f06201c659d22bbfda6f310186174"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.108"
+  resolved "http://registry.npm.taobao.org/@types/lodash/download/@types/lodash-4.14.108.tgz#02656af3add2e5b3174f830862c47421c00ef817"
+
 "@types/node@9.6.2":
   version "9.6.2"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-9.6.2.tgz#e49ac1adb458835e95ca6487bc20f916b37aff23"
@@ -1066,6 +1076,10 @@ lodash.escape@^3.0.0:
   resolved "https://registry.yarnpkg.com/lodash.escape/-/lodash.escape-3.2.0.tgz#995ee0dc18c1b48cc92effae71a10aab5b487698"
   dependencies:
     lodash._root "^3.0.0"
+
+lodash.flatmap@^4.5.0:
+  version "4.5.0"
+  resolved "http://registry.npm.taobao.org/lodash.flatmap/download/lodash.flatmap-4.5.0.tgz#ef8cbf408f6e48268663345305c6acc0b778702e"
 
 lodash.isarguments@^3.0.0:
   version "3.1.0"

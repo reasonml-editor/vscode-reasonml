@@ -144,3 +144,5 @@ $RECYCLE.BIN/
 .history/
 *.vsix
 
+.history
+*.vsix

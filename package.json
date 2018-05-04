@@ -44,6 +44,21 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.command.useWSL": {
+          "type": "boolean",
+          "default": false,
+          "description": ""
+        },
+        "reason.command.shell": {
+          "type": "string",
+          "default": "bash",
+          "description": ""
+        },
+        "reason.command.shellargs": {
+          "type": "array",
+          "default": ["-ic"],
+          "description": ""
+        },
         "reason.codelens.unicode": {
           "type": "boolean",
           "default": true,
@@ -260,7 +275,6 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
-
         "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": [
           {
@@ -301,7 +315,7 @@
   },
   "dependencies": {
     "lodash.flatmap": "^4.5.0",
-    "ocaml-language-server": "1.0.34",
+    "ocaml-language-server": "git+https://github.com/raiscui/ocaml-language-server.git",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.6.0",
     "vscode-languageclient": "4.0.1",
