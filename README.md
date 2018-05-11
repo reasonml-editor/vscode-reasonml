@@ -1,4 +1,7 @@
-# vscode-reasonml
+# vscode-reasonml for WSL
+
+Fork from [vscode-reasonml](https://github.com/reasonml-editor/vscode-reasonml)
+make use in WSL right.
 
 Reason support for Visual Studio Code
 
@@ -10,31 +13,34 @@ There is an `#editorsupport` channel on the Reason [discord server](https://disc
 
 ## Features
 
-- highlighting
-  - [x] advanced syntax highlighting for reason
-  - [x] basic highlighting for merlin, ocamlbuild, and opam files
+* highlighting
 
-- editing
-  - [x] document formatting (enable on save with `editor.formatOnSave`)
-  - [x] completion and snippets
-  - [x] [rename symbol](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol) (F2 or right click)
-  - [x] [case splitting](#case-splitting)
+  * [x] advanced syntax highlighting for reason
+  * [x] basic highlighting for merlin, ocamlbuild, and opam files
 
-- navigation
-  - [x] [symbol outline for buffers](https://code.visualstudio.com/docs/editor/editingevolved#_goto-symbol) (⇧⌘O) (type `:` in list to sort items)
-  - [x] [symbol outline for project](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name) (⌘T) (supports regular expressions)
-  - [x] [jump-to-definition](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition) (⌃+click) and [code preview](https://code.visualstudio.com/docs/editor/editingevolved#_peek) (⌘+hover)
-  - [x] find references (⇧F12 or right click)
+* editing
 
-- static analysis
-  - [x] merlin integration with incremental edit synchronization
-  - [x] display types over definitions (disable with `editor.codeLens` setting)
-  - [x] display types and markdown-rendered docs on hover
-  - [x] [online linting and compiler diagnostics with suggested fixes](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
-    - ⇧⌘M to toggle diagnostics panel
-    - F8 to loop through diagnostics for current file
-    - Click on lightbulb icon for suggested fixes
-  - [x] built-in support for showing BuckleScript's [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) errors inline, as a companion to merlin's diagnosis.
+  * [x] document formatting (enable on save with `editor.formatOnSave`)
+  * [x] completion and snippets
+  * [x] [rename symbol](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol) (F2 or right click)
+  * [x] [case splitting](#case-splitting)
+
+* navigation
+
+  * [x] [symbol outline for buffers](https://code.visualstudio.com/docs/editor/editingevolved#_goto-symbol) (⇧⌘O) (type `:` in list to sort items)
+  * [x] [symbol outline for project](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name) (⌘T) (supports regular expressions)
+  * [x] [jump-to-definition](https://code.visualstudio.com/docs/editor/editingevolved#_go-to-definition) (⌃+click) and [code preview](https://code.visualstudio.com/docs/editor/editingevolved#_peek) (⌘+hover)
+  * [x] find references (⇧F12 or right click)
+
+* static analysis
+  * [x] merlin integration with incremental edit synchronization
+  * [x] display types over definitions (disable with `editor.codeLens` setting)
+  * [x] display types and markdown-rendered docs on hover
+  * [x] [online linting and compiler diagnostics with suggested fixes](https://code.visualstudio.com/docs/editor/editingevolved#_errors-warnings)
+    * ⇧⌘M to toggle diagnostics panel
+    * F8 to loop through diagnostics for current file
+    * Click on lightbulb icon for suggested fixes
+  * [x] built-in support for showing BuckleScript's [bsb](https://bucklescript.github.io/bucklescript/Manual.html#_bucklescript_build_system_code_bsb_code) errors inline, as a companion to merlin's diagnosis.
 
 ## Getting Started
 
@@ -44,19 +50,20 @@ Although syntax highlighting should display well in most themes we recommend and
 
 #### Default Themes
 
-- Dark+ (*recommended*; this theme is the most thoroughly tested)
+* Dark+ (_recommended_; this theme is the most thoroughly tested)
 
 #### Other Themes
 
-- [Atom One Dark](https://marketplace.visualstudio.com/items?itemName=freebroccolo.theme-atom-one-dark)
-- [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
-- [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai)
-- [Oceanic Next](https://marketplace.visualstudio.com/items?itemName=naumovs.theme-oceanicnext)
+* [Atom One Dark](https://marketplace.visualstudio.com/items?itemName=freebroccolo.theme-atom-one-dark)
+* [Dracula](https://marketplace.visualstudio.com/items?itemName=dracula-theme.theme-dracula)
+* [Flatland Monokai](https://marketplace.visualstudio.com/items?itemName=gerane.Theme-FlatlandMonokai)
+* [Oceanic Next](https://marketplace.visualstudio.com/items?itemName=naumovs.theme-oceanicnext)
 
 ### Configurations
+
 #### Reason
 
-- [Reason](https://reasonml.github.io/docs/en/global-installation.html#recommended-through-npm-yarn)
+* [Reason](https://reasonml.github.io/docs/en/global-installation.html#recommended-through-npm-yarn)
 
 The Reason installation steps also installs Merlin for you, so you can skip the Merlin installation in the next section.
 
@@ -100,6 +107,7 @@ To enable formatting on save, add the following to `Code > Preferences > Setting
 ```
 
 If you want to enable [codelens](https://code.visualstudio.com/blogs/2017/02/12/code-lens-roundup), add the following to `Code > Preferences > Settings`:
+
 ```
 "reason.codelens.enabled": true
 ```
@@ -114,15 +122,17 @@ For the examples below, `<cursor>` represents the position of the current VS Cod
 
 In order to introduce a `switch`, execute the following steps:
 
-1. select an identifier or move the cursor anywhere within its word range (as below)
-2. open the palette (⇧⌘P) and run `Reason: case split` (typing `case` should pull it up)
+1.  select an identifier or move the cursor anywhere within its word range (as below)
+2.  open the palette (⇧⌘P) and run `Reason: case split` (typing `case` should pull it up)
 
 ##### Before
+
 ```
 let foo (arg: list 'a) => a<cursor>rg;
 ```
 
 ##### After
+
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
@@ -135,6 +145,7 @@ let foo (arg: list 'a) => switch arg {
 The `switch` introduction functionality works with nested `switch` expressions:
 
 ##### Before
+
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
@@ -143,6 +154,7 @@ let foo (arg: list 'a) => switch arg {
 ```
 
 ##### After
+
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
@@ -158,6 +170,7 @@ let foo (arg: list 'a) => switch arg {
 The case split feature can be used to split an existing pattern further:
 
 ##### Before
+
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
@@ -166,6 +179,7 @@ let foo (arg: list 'a) => switch arg {
 ```
 
 ##### After
+
 ```
 let foo (arg: list 'a) => switch arg {
   | [] => failwith "<case>"
