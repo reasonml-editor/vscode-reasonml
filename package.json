@@ -16,10 +16,24 @@
   "engines": {
     "vscode": "^1.21.0"
   },
-  "categories": ["Formatters", "Programming Languages", "Linters", "Snippets"],
-  "keywords": ["ocaml", "reason", "ide", "lsp", "merlin"],
+  "categories": [
+    "Formatters",
+    "Programming Languages",
+    "Linters",
+    "Snippets"
+  ],
+  "keywords": [
+    "ocaml",
+    "reason",
+    "ide",
+    "lsp",
+    "merlin"
+  ],
   "icon": "assets/logo.png",
-  "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
+  "activationEvents": [
+    "onLanguage:ocaml",
+    "onLanguage:reason"
+  ],
   "main": "./out/src/extension",
   "contributes": {
     "commands": [
@@ -56,7 +70,9 @@
         },
         "reason.command.shellargs": {
           "type": "array",
-          "default": ["-ic"],
+          "default": [
+            "-ic"
+          ],
           "description": "shell args"
         },
         "reason.codelens.unicode": {
@@ -75,26 +91,34 @@
               "type": "integer"
             },
             {
-              "enum": ["Infinity"]
+              "enum": [
+                "Infinity"
+              ]
             }
           ],
           "default": 500,
-          "description":
-            "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
+          "description": "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
         },
         "reason.diagnostics.tools": {
           "type": "array",
           "items": {
-            "enum": ["merlin", "bsb"]
+            "enum": [
+              "merlin",
+              "bsb"
+            ]
           },
-          "default": ["merlin"],
+          "default": [
+            "merlin"
+          ],
           "maxItems": 2,
           "uniqueItems": true,
-          "description":
-            "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
+          "description": "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
         },
         "reason.format.width": {
-          "type": ["number", null],
+          "type": [
+            "number",
+            null
+          ],
           "default": null,
           "description": "Set the width of lines when formatting code with refmt"
         },
@@ -116,8 +140,7 @@
         "reason.path.env": {
           "type": "string",
           "default": "env",
-          "description":
-            "The path to the `env` command which prints the language server environment for debugging editor issues."
+          "description": "The path to the `env` command which prints the language server environment for debugging editor issues."
         },
         "reason.path.ocamlmerlin": {
           "type": "string",
@@ -152,9 +175,15 @@
         "reason.server.languages": {
           "type": "array",
           "items": {
-            "enum": ["ocaml", "reason"]
+            "enum": [
+              "ocaml",
+              "reason"
+            ]
           },
-          "default": ["ocaml", "reason"],
+          "default": [
+            "ocaml",
+            "reason"
+          ],
           "maxItems": 2,
           "uniqueItems": true,
           "description": "The list of languages enable support for in the language server."
@@ -216,8 +245,13 @@
     "languages": [
       {
         "id": "ocaml",
-        "aliases": ["OCaml"],
-        "extensions": [".ml", ".mli"],
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          ".ml",
+          ".mli"
+        ],
         "configuration": "./ocaml.configuration.json"
       },
       {
@@ -228,23 +262,40 @@
       },
       {
         "id": "ocaml.merlin",
-        "aliases": ["Merlin"],
-        "extensions": ["merlin"]
+        "aliases": [
+          "Merlin"
+        ],
+        "extensions": [
+          "merlin"
+        ]
       },
       {
         "id": "ocaml.ocamlbuild",
-        "aliases": ["OCamlbuild"],
-        "extensions": ["_tags"]
+        "aliases": [
+          "OCamlbuild"
+        ],
+        "extensions": [
+          "_tags"
+        ]
       },
       {
         "id": "ocaml.opam",
-        "aliases": ["OPAM"],
-        "extensions": ["opam"]
+        "aliases": [
+          "OPAM"
+        ],
+        "extensions": [
+          "opam"
+        ]
       },
       {
         "id": "reason",
-        "aliases": ["Reason"],
-        "extensions": [".re", ".rei"],
+        "aliases": [
+          "Reason"
+        ],
+        "extensions": [
+          ".re",
+          ".rei"
+        ],
         "configuration": "./reason.configuration.json"
       },
       {
@@ -275,19 +326,20 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
-        "fileLocation": ["relative", "${workspaceFolder}"],
+        "fileLocation": [
+          "relative",
+          "${workspaceFolder}"
+        ],
         "pattern": [
           {
-            "regexp":
-              "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
+            "regexp": "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
             "file": 1,
             "line": 2,
             "column": 3,
             "endColumn": 4
           },
           {
-            "regexp":
-              "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
+            "regexp": "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
             "severity": 1,
             "code": 2,
             "message": 3
@@ -306,7 +358,7 @@
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.3",
-    "@types/node": "10.0.3",
+    "@types/node": "10.0.8",
     "@types/pegjs": "0.10.0",
     "prettier": "1.12.1",
     "tslint": "5.10.0",
@@ -321,7 +373,9 @@
     "vscode-languageserver": "4.1.2",
     "vscode-languageserver-protocol": "3.7.1"
   },
-  "extensionDependencies": ["patrys.vscode-code-outline"],
+  "extensionDependencies": [
+    "patrys.vscode-code-outline"
+  ],
   "__metadata": {
     "id": "c7ccccce-e272-43df-883f-91f3de932890",
     "publisherDisplayName": "Darin Morrison",
