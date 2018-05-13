@@ -141,5 +141,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+.history/
+*.vsix
 
-
+.history
+*.vsix

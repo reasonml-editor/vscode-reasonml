@@ -18,7 +18,17 @@
         "focus": false,
         "panel": "dedicated"
       },
-      "problemMatcher": ["$tslint5", "$tsc"]
+      "problemMatcher": [
+        "$tslint5",
+        "$tsc"
+      ]
+    },
+    {
+      "type": "typescript",
+      "tsconfig": "tsconfig.json",
+      "problemMatcher": [
+        "$tsc"
+      ]
     }
   ]
 }

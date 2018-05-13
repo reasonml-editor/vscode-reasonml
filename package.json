@@ -1,22 +1,22 @@
 {
   "private": true,
-  "name": "reasonml",
-  "displayName": "OCaml and Reason IDE",
-  "description": "OCaml and Reason language support",
-  "version": "1.0.34",
-  "publisher": "freebroccolo",
+  "name": "reasonml-wsl",
+  "displayName": "OCaml and Reason IDE - for WSL",
+  "description": "OCaml and Reason language support,for WSL",
+  "version": "1.0.39",
+  "publisher": "raiscui",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/freebroccolo/vscode-reasonml/issues"
+    "url": "https://github.com/raiscui/vscode-reasonml/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/freebroccolo/vscode-reasonml.git"
+    "url": "https://github.com/raiscui/vscode-reasonml.git"
   },
   "engines": {
     "vscode": "^1.21.0"
   },
-  "categories": ["Formatters", "Languages", "Linters", "Snippets"],
+  "categories": ["Formatters", "Programming Languages", "Linters", "Snippets"],
   "keywords": ["ocaml", "reason", "ide", "lsp", "merlin"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
@@ -44,6 +44,21 @@
       "type": "object",
       "title": "Reason configuration",
       "properties": {
+        "reason.command.useWSL": {
+          "type": "boolean",
+          "default": false,
+          "description": "useWSL"
+        },
+        "reason.command.shell": {
+          "type": "string",
+          "default": "bash",
+          "description": "which shell"
+        },
+        "reason.command.shellargs": {
+          "type": "array",
+          "default": ["-ic"],
+          "description": "shell args"
+        },
         "reason.codelens.unicode": {
           "type": "boolean",
           "default": true,
@@ -260,7 +275,6 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
-
         "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": [
           {
@@ -292,21 +306,21 @@
   },
   "devDependencies": {
     "@types/lodash.flatmap": "^4.5.3",
-    "@types/node": "9.6.2",
+    "@types/node": "10.0.8",
     "@types/pegjs": "0.10.0",
-    "prettier": "1.11.1",
-    "tslint": "5.9.1",
-    "typescript": "2.8.1",
-    "vscode": "1.1.14"
+    "prettier": "1.12.1",
+    "tslint": "5.10.0",
+    "typescript": "2.8.3",
+    "vscode": "1.1.17"
   },
   "dependencies": {
     "lodash.flatmap": "^4.5.0",
-    "ocaml-language-server": "1.0.34",
+    "ocaml-language-server": "git+https://github.com/raiscui/ocaml-language-server.git",
     "pegjs": "0.10.0",
-    "vscode-jsonrpc": "3.6.0",
-    "vscode-languageclient": "4.0.1",
-    "vscode-languageserver": "4.0.0",
-    "vscode-languageserver-protocol": "3.6.0"
+    "vscode-jsonrpc": "3.6.1",
+    "vscode-languageclient": "4.1.3",
+    "vscode-languageserver": "4.1.2",
+    "vscode-languageserver-protocol": "3.7.1"
   },
   "extensionDependencies": ["patrys.vscode-code-outline"],
   "__metadata": {
