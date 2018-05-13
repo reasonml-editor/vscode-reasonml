@@ -3,6 +3,27 @@
 Fork from [vscode-reasonml](https://github.com/reasonml-editor/vscode-reasonml)
 make use in WSL right.
 
+---
+
+## changes:
+
+don't not change reason.path.\*
+
+add setting :
+
+```
+"reason.command.useWSL": true,
+"reason.command.shell": "C:\\WINDOWS\\System32\\bash.exe", "reason.command.shellargs": [ "-ic" ],
+```
+
+* `reason.command.shell` only accept single exe,default is "C:\\WINDOWS\\System32\\bash.exe",
+
+* the argument please put in `reason.command.shellargs`, default is ["-ic"]
+
+then , final command is like `C:\\WINDOWS\\System32\\bash.exe -ic xxx -xx`
+
+---
+
 Reason support for Visual Studio Code
 
 ![screenshot](https://github.com/freebroccolo/vscode-reasonml/raw/master/assets/screenshot.png)
