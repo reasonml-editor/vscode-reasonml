@@ -3,7 +3,7 @@
   "name": "reasonml-wsl",
   "displayName": "OCaml and Reason IDE - for WSL",
   "description": "OCaml and Reason language support,for WSL",
-  "version": "1.0.37",
+  "version": "1.0.38",
   "publisher": "raiscui",
   "license": "Apache-2.0",
   "bugs": {
