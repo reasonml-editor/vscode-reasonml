@@ -14,6 +14,19 @@
       "sourceMaps": true,
       "stopOnEntry": false,
       "smartStep": true
+    },
+    {
+      "name": "Attach to Process",
+      "type": "node",
+      "request": "attach",
+      "port": 6009,
+      "outFiles": [
+        "${workspaceFolder}/node_modules/ocaml-language-server/bin/**/*.js",
+        "${workspaceFolder}/node_modules/ocaml-language-server/lib/**/*.js"
+      ],
+      "sourceMaps": true,
+      "stopOnEntry": false,
+      "smartStep": true
     }
   ]
 }

@@ -44,7 +44,7 @@ export namespace format {
     return content.replace(/{(?!\s)/g, "{ ").replace(/([^\s])}/g, "$1 }");
   }
   export function insertPlaceholders(content: string): string {
-    return content.replace(/\(\?\?\)/g, `failwith("<case>")`);
+    return content.replace(/\(\?\?\)/g, `failwith "<case>"`);
   }
 }
 
