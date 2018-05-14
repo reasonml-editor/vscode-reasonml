@@ -85,7 +85,7 @@
         },
         "reason.path.bsb": {
           "type": "string",
-          "default": "bsb",
+          "default": "./node_modules/bs-platform/lib/bsb.exe",
           "description": "The path to the `bsb` binary."
         },
         "reason.path.ocamlfind": {
@@ -121,7 +121,7 @@
         },
         "reason.path.refmt": {
           "type": "string",
-          "default": "refmt",
+          "default": "./node_modules/bs-platform/lib/bsrefmt",
           "description": "The path to the `refmt` binary."
         },
         "reason.path.refmterr": {
