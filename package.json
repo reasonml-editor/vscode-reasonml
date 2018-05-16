@@ -121,7 +121,7 @@
         },
         "reason.path.refmt": {
           "type": "string",
-          "default": "./node_modules/bs-platform/lib/bsrefmt",
+          "default": "refmt",
           "description": "The path to the `refmt` binary."
         },
         "reason.path.refmterr": {
