@@ -301,7 +301,7 @@
   },
   "dependencies": {
     "lodash.flatmap": "^4.5.0",
-    "ocaml-language-server": "1.0.34",
+    "ocaml-language-server": "1.0.35",
     "pegjs": "0.10.0",
     "vscode-jsonrpc": "3.6.0",
     "vscode-languageclient": "4.0.1",
