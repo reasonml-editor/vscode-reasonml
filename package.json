@@ -16,7 +16,7 @@
   "engines": {
     "vscode": "^1.21.0"
   },
-  "categories": ["Formatters", "Languages", "Linters", "Snippets"],
+  "categories": ["Formatters", "Programming Languages", "Linters", "Snippets"],
   "keywords": ["ocaml", "reason", "ide", "lsp", "merlin"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
