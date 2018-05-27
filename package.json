@@ -109,6 +109,11 @@
           "default": "ocamlmerlin",
           "description": "The path to the `ocamlmerlin` binary."
         },
+        "reason.path.ocp-indent": {
+          "type": "string",
+          "default": "ocp-indent",
+          "description": "The path to the `ocp-indent` binary."
+        },
         "reason.path.opam": {
           "type": "string",
           "default": "opam",
