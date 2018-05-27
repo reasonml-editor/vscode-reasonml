@@ -2122,10 +2122,7 @@ export class OCaml implements basis.ILanguage {
       patterns: [
         {
           begin: lookBehind(alt(Token.LESS_THAN_SIGN, Token.SEMICOLON)),
-          end: alt(
-            capture(Token.COLON),
-            lookAhead(Token.GREATER_THAN_SIGN),
-          ),
+          end: alt(capture(Token.COLON), lookAhead(Token.GREATER_THAN_SIGN)),
           endCaptures: {
             1: { name: Scope.PUNCTUATION_COLON() },
             3: { name: Scope.STYLE_OPERATOR() },
