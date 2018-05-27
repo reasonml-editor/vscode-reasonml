@@ -17,7 +17,7 @@
     "vscode": "^1.21.0"
   },
   "categories": ["Formatters", "Programming Languages", "Linters", "Snippets"],
-  "keywords": ["ocaml", "reason", "ide", "lsp", "merlin"],
+  "keywords": ["ocaml", "reason", "bucklescript", "reasonml", "merlin"],
   "icon": "assets/logo.png",
   "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
   "main": "./out/src/extension",
