@@ -333,7 +333,6 @@
     "vscode-languageserver": "4.0.0",
     "vscode-languageserver-protocol": "3.6.0"
   },
-  "extensionDependencies": ["patrys.vscode-code-outline"],
   "__metadata": {
     "id": "c7ccccce-e272-43df-883f-91f3de932890",
     "publisherDisplayName": "Darin Morrison",
