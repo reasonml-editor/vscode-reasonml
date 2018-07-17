@@ -205,9 +205,7 @@
       {
         "scopeName": "markdown.reason.codeblock",
         "path": "./syntaxes/reason-markdown-codeblock.json",
-        "injectTo": [
-          "text.html.markdown"
-        ],
+        "injectTo": ["text.html.markdown"],
         "embeddedLanguages": {
           "meta.embedded.block.reason": "reason"
         }
@@ -215,9 +213,7 @@
       {
         "scopeName": "markdown.ocaml.codeblock",
         "path": "./syntaxes/ocaml-markdown-codeblock.json",
-        "injectTo": [
-          "text.html.markdown"
-        ],
+        "injectTo": ["text.html.markdown"],
         "embeddedLanguages": {
           "meta.embedded.block.ocaml": "ocaml"
         }
