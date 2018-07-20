@@ -7,6 +7,7 @@ import * as doSplitCases from "./doSplitCases";
 import * as fixEqualsShouldBeArrow from "./fixEqualsShouldBeArrow";
 import * as fixMissingSemicolon from "./fixMissingSemicolon";
 import * as fixUnusedVariable from "./fixUnusedVariable";
+import * as switchSigImpl from "./switchSigImpl";
 
 export function registerAll(context: vscode.ExtensionContext, languageClient: client.LanguageClient): void {
   doShowMerlinFiles.register(context, languageClient);
@@ -16,4 +17,5 @@ export function registerAll(context: vscode.ExtensionContext, languageClient: cl
   fixEqualsShouldBeArrow.register(context, languageClient);
   fixMissingSemicolon.register(context, languageClient);
   fixUnusedVariable.register(context, languageClient);
+  switchSigImpl.register(context);
 }

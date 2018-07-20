@@ -38,6 +38,10 @@
       {
         "command": "reason.showProjectEnv",
         "title": "Reason: Show Environment"
+      },
+      {
+        "command": "reason.switchSigImpl",
+        "title": "Reason: Switch Signature/Implementation"
       }
     ],
     "configuration": {
@@ -281,7 +285,6 @@
     "problemMatchers": [
       {
         "name": "ocamlc",
-
         "fileLocation": ["relative", "${workspaceFolder}"],
         "pattern": [
           {
