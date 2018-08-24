@@ -142,10 +142,10 @@
         "reason.server.languages": {
           "type": "array",
           "items": {
-            "enum": ["ocaml", "reason"]
+            "enum": ["ocaml", "reason", "imandra"]
           },
           "default": ["ocaml", "reason"],
-          "maxItems": 2,
+          "maxItems": 3,
           "uniqueItems": true,
           "description": "The list of languages enable support for in the language server."
         }
