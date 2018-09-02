@@ -40,7 +40,7 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
     transport,
   };
   const serverOptions = { run, debug };
-  const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
+  const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason", "imandra"]);
   const documentSelector = flatMap(languages, (language: string) => [
     { language, scheme: "file" },
     { language, scheme: "untitled" },
@@ -58,6 +58,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
       fileEvents: [
         vscode.workspace.createFileSystemWatcher("**/.merlin"),
         vscode.workspace.createFileSystemWatcher("**/*.ml"),
+        vscode.workspace.createFileSystemWatcher("**/*.iml"),
+        vscode.workspace.createFileSystemWatcher("**/*.ire"),
         vscode.workspace.createFileSystemWatcher("**/*.re"),
         vscode.workspace.createFileSystemWatcher("**/command-exec"),
         vscode.workspace.createFileSystemWatcher("**/command-exec.bat"),
