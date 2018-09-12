@@ -6,7 +6,7 @@
 	],
 	"repository": {
 		"reason-code-block": {
-			"begin": "\\b(re|reason|reasonml)\\b(\\s+[^`~]*)?$",
+			"begin": "(?<=(```|~~~))(re|reason|reasonml)(\\s+[^`~]*)?$",
 			"end": "(^|\\G)(?=\\s*[`~]{3,}\\s*$)",
 			"patterns": [
 				{
