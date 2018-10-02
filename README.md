@@ -59,6 +59,7 @@ Although syntax highlighting should display well in most themes we recommend and
 #### Reason
 
 - [Reason](https://reasonml.github.io/docs/en/installation)
+- [reason-cli](https://github.com/reasonml/reason-cli)
 
 The Reason installation steps also installs Merlin for you, so you can skip the Merlin installation in the next section.
 
