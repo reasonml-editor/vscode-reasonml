@@ -100,9 +100,15 @@
     "comment": {
       "name": "comment",
       "patterns": [
+        {	"include": "#comment-line"	},
         { "include": "#comment-block-doc" },
         {	"include": "#comment-block"	}
       ]
+    },
+    "comment-line": {
+      "name": "comment.line",
+      "begin": "(^[ \\t]+)?((//)(?:\\s*((@)internal)(?=\\s|$))?)",
+      "end": "(?=^)"
     },
     "comment-block": {
       "begin": "/\\*",
