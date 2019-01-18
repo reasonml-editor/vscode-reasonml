@@ -108,7 +108,10 @@
     "comment-line": {
       "name": "comment.line",
       "begin": "(^[ \\t]+)?((//))",
-      "end": "(?=^)"
+      "end": "(?=^)",
+      "patterns": [
+        {"include": "#comment" }
+      ]
     },
     "comment-block": {
       "begin": "/\\*",
