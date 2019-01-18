@@ -107,7 +107,7 @@
     },
     "comment-line": {
       "name": "comment.line",
-      "begin": "(^[ \\t]+)?((//)(?:\\s*((@)internal)(?=\\s|$))?)",
+      "begin": "(^[ \\t]+)?((//))",
       "end": "(?=^)"
     },
     "comment-block": {
