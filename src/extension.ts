@@ -87,7 +87,7 @@ const reasonConfiguration = {
       },
     },
   ],
-  wordPattern: /\\[^\s]+|[^\\\s\d(){}\[\]#.][^\\\s(){}\[\]#.]*/,
+  wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\"\,\.\<\>\/\?\s]+)/g,
 };
 
 export async function activate(context: vscode.ExtensionContext) {
