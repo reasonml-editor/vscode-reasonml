@@ -109,6 +109,11 @@
           "default": "ocamlmerlin",
           "description": "The path to the `ocamlmerlin` binary."
         },
+        "reason.path.ocamlmerlin-lsp": {
+          "type": "string",
+          "default": null,
+          "description": "The path to the `ocamlmerlin-lsp` binary."
+        },
         "reason.path.ocpindent": {
           "type": "string",
           "default": "ocp-indent",
