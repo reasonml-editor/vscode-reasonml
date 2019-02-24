@@ -36,11 +36,8 @@ class ErrorHandler {
 }
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
-  if (await isEsyProject()) {
-    return launchMerlinLsp(context, true);
-  } else {
-    return launchOCamlLanguageServer(context);
-  }
+  const isEasyProject = await isEsyProject();
+  return launchMerlinLsp(context, isEasyProject);
 }
 
 async function isEsyProject() {
