@@ -6,27 +6,32 @@ import * as vscode from "vscode";
 import { getFullTextRange } from "./utils";
 
 export function register() {
-  const configuration = vscode.workspace.getConfiguration("ocaml-reason-format");
+  const configuration = vscode.workspace.getConfiguration("reason");
   const rootPath = vscode.workspace.rootPath || "";
 
-     vscode.languages.registerDocumentFormattingEditProvider("ocaml", {
-    provideDocumentFormattingEdits(_document: vscode.TextDocument): vscode.TextEdit[] {
-      const formatterPath = configuration.get<string | undefined>("ocamlformat");
-      const formatter = formatterPath ? path.resolve(rootPath, formatterPath) : "ocamlformat";
-      const textEditor = vscode.window.activeTextEditor;
+  vscode.languages.registerDocumentFormattingEditProvider(
+    { scheme: "file", language: "ocaml" },
+    {
+      provideDocumentFormattingEdits(_document: vscode.TextDocument): vscode.TextEdit[] {
+        const formatterPath = configuration.get<string | undefined>("path.ocamlformat");
+        const formatter = formatterPath ? path.resolve(rootPath, formatterPath) : "ocamlformat";
+        const textEditor = vscode.window.activeTextEditor;
 
-      if (textEditor) {
-        const tempFileName = `/tmp/vscode-reasonml-${uuidv4()}`;
-        fs.writeFileSync(tempFileName, textEditor.document.getText(), "utf8");
-        const filePath = textEditor.document.fileName;
-        const formattedText = execSync(`cd ${rootPath} && ${formatter} --name=${filePath} ${tempFileName}`).toString();
-        fs.unlinkSync(tempFileName);
+        if (textEditor) {
+          const tempFileName = `/tmp/vscode-reasonml-${uuidv4()}.ml`;
+          fs.writeFileSync(tempFileName, textEditor.document.getText(), "utf8");
+          const filePath = textEditor.document.fileName;
+          const formattedText = execSync(
+            `cd ${rootPath} && ${formatter} --name=${filePath} ${tempFileName}`,
+          ).toString();
+          fs.unlinkSync(tempFileName);
 
-        const textRange = getFullTextRange(textEditor);
-        return [vscode.TextEdit.replace(textRange, formattedText)];
-      } else {
-        return [];
-      }
+          const textRange = getFullTextRange(textEditor);
+          return [vscode.TextEdit.replace(textRange, formattedText)];
+        } else {
+          return [];
+        }
+      },
     },
-  });
+  );
 }
