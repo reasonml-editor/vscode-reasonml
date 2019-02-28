@@ -1,5 +1,7 @@
 import { execSync } from "child_process";
+import * as fs from "fs";
 import * as path from "path";
+import { v4 as uuidv4 } from "uuid";
 import * as vscode from "vscode";
 import { getFullTextRange } from "./utils";
 
@@ -14,9 +16,11 @@ export function register() {
       const textEditor = vscode.window.activeTextEditor;
 
       if (textEditor) {
-        const text = textEditor.document.getText();
-        const formattedText = execSync(`${formatter} <<<'${text}'`).toString();
+        const tempFileName = `/tmp/vscode-refmt-${uuidv4()}`;
+        fs.writeFileSync(tempFileName, textEditor.document.getText(), "utf8");
+        const formattedText = execSync(`${formatter} ${tempFileName}`).toString();
         const textRange = getFullTextRange(textEditor);
+        fs.unlinkSync(tempFileName);
 
         return [vscode.TextEdit.replace(textRange, formattedText)];
       } else {
