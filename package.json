@@ -86,6 +86,11 @@
           "description":
             "The path to the `env` command which prints the language server environment for debugging editor issues."
         },
+        "reason.path.ocamlformat": {
+          "type": "string",
+          "default": "ocamlformat",
+          "description": "The path to the `ocamlformat` binary."
+        },
         "reason.path.ocamlmerlin": {
           "type": "string",
           "default": "ocamlmerlin",
@@ -95,11 +100,6 @@
           "type": "string",
           "default": null,
           "description": "The path to the `ocamlmerlin-lsp` binary."
-        },
-        "reason.path.ocpindent": {
-          "type": "string",
-          "default": "ocp-indent",
-          "description": "The path to the `ocp-indent` binary."
         },
         "reason.path.opam": {
           "type": "string",

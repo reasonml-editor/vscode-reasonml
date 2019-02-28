@@ -2,6 +2,8 @@
 
 import * as vscode from "vscode";
 import * as client from "./client";
+import { register as registerOcamlForamtter } from "./formatters/ocaml";
+import { register as registerReasonForamtter } from "./formatters/reason";
 
 const reasonConfiguration = {
   indentationRules: {
@@ -93,6 +95,8 @@ const reasonConfiguration = {
 export async function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
   await client.launch(context);
+  registerOcamlForamtter();
+  registerReasonForamtter();
 }
 
 export function deactivate() {
