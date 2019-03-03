@@ -1814,7 +1814,7 @@ export class OCaml implements basis.ILanguage {
         },
         {
           // let …
-          begin: alt(lastWords(Token.AND, Token.LET), capture(Token.LET)),
+          begin: alt(lastWords(Token.AND, Token.LET), words(capture(Token.LET))),
           end: alt(words(group(alt(capture(Token.AND), capture(Token.IN)))), this.declEndSans(Token.AND, Token.IN)),
           beginCaptures: {
             1: { name: Scope.TERM_LET() },
