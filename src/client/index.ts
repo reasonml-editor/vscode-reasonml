@@ -37,7 +37,7 @@ class ErrorHandler {
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const isEasyProject = await isEsyProject();
-  return launchMerlinLsp(context, isEasyProject);
+  return launchMerlinLsp(context, { useEsy: isEasyProject });
 }
 
 async function isEsyProject() {
@@ -73,7 +73,7 @@ async function isEsyProject() {
   return false;
 }
 
-function getMerlinLspOptions(useEsy: boolean) {
+function getMerlinLspOptions(options: { useEsy: boolean }) {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
   let ocamlmerlinLsp = reasonConfig.get<string | null>("path.ocamlmerlin-lsp", null);
   if (ocamlmerlinLsp == null) {
@@ -81,7 +81,7 @@ function getMerlinLspOptions(useEsy: boolean) {
   }
 
   let run;
-  if (useEsy) {
+  if (options.useEsy) {
     run = {
       args: ["exec-command", "--include-current-env", ocamlmerlinLsp],
       command: process.platform === "win32" ? "esy.cmd" : "esy",
@@ -118,8 +118,8 @@ function getMerlinLspOptions(useEsy: boolean) {
   return serverOptions;
 }
 
-export async function launchMerlinLsp(context: vscode.ExtensionContext, useEsy: boolean): Promise<void> {
-  const serverOptions = getMerlinLspOptions(useEsy);
+export async function launchMerlinLsp(context: vscode.ExtensionContext, options: { useEsy: boolean }): Promise<void> {
+  const serverOptions = getMerlinLspOptions(options);
   const reasonConfig = vscode.workspace.getConfiguration("reason");
 
   const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
