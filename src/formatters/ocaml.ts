@@ -15,8 +15,6 @@ export function register() {
         const textEditor = vscode.window.activeTextEditor;
         const formatter = getFormatter(configuration, "ocamlformat");
 
-        console.log(formatter);
-
         if (!formatter) return [];
 
         if (textEditor) {
