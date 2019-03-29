@@ -35,11 +35,6 @@ class ErrorHandler {
   }
 }
 
-export async function launch(context: vscode.ExtensionContext): Promise<void> {
-  const isEasyProject = await isEsyProject();
-  return launchMerlinLsp(context, { useEsy: isEasyProject });
-}
-
 async function isEsyProject() {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
   const forceEsy = reasonConfig.get<boolean>("forceEsy", false);
@@ -73,23 +68,74 @@ async function isEsyProject() {
   return false;
 }
 
-function getMerlinLspOptions(options: { useEsy: boolean }) {
-  const reasonConfig = vscode.workspace.getConfiguration("reason");
-  let ocamlmerlinLsp = reasonConfig.get<string | null>("path.ocamlmerlin-lsp", null);
-  if (ocamlmerlinLsp == null) {
-    ocamlmerlinLsp = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
+async function isBSProject() {
+  // TODO: we need to use workspace.workspaceFolders here and run LSP server per
+  // root. For now we'll just run LSP per workspace.
+  const root = vscode.workspace.rootPath;
+  if (root == null) {
+    return false;
   }
+
+  const bsconfigJson = path.join(root, "bsconfig.json");
+
+  if (await exists(bsconfigJson)) {
+    return true;
+  }
+
+  return false;
+}
+
+export async function launch(context: vscode.ExtensionContext): Promise<void> {
+  const isEasyProject = await isEsyProject();
+  const isBucklescriptProject = await isBSProject();
+  return launchMerlinLsp(context, {
+    isBucklescriptProject,
+    useEsy: isEasyProject,
+  });
+}
+
+function getPrebuiltExecutablesPath() {
+  return path.join(__dirname, `../../../executables/${process.platform}`);
+}
+
+function getMerlinLspPath(isBucklescriptProject: boolean) {
+  const reasonConfig = vscode.workspace.getConfiguration("reason");
+  let merlinLspPath = reasonConfig.get<string | null>("path.ocamlmerlin-lsp", null);
+
+  if (merlinLspPath == null) {
+    merlinLspPath = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
+
+    if (isBucklescriptProject) {
+      merlinLspPath = path.join(getPrebuiltExecutablesPath(), merlinLspPath);
+    }
+  }
+
+  return merlinLspPath;
+}
+
+function getMerlinReasonDir() {
+  const reasonConfig = vscode.workspace.getConfiguration("reason");
+  const merlinReasonPath = reasonConfig.get<string | null>("path.ocamlmerlin-reason", null);
+
+  if (merlinReasonPath == null) return getPrebuiltExecutablesPath();
+
+  return path.dirname(merlinReasonPath);
+}
+
+function getMerlinLspOptions(options: { useEsy: boolean; isBucklescriptProject: boolean }) {
+  const merlinLsp = getMerlinLspPath(options.isBucklescriptProject);
+  const merlinReasonDir = getMerlinReasonDir();
 
   let run;
   if (options.useEsy) {
     run = {
-      args: ["exec-command", "--include-current-env", ocamlmerlinLsp],
+      args: ["exec-command", "--include-current-env", merlinLsp],
       command: process.platform === "win32" ? "esy.cmd" : "esy",
     };
   } else {
     run = {
       args: [],
-      command: ocamlmerlinLsp,
+      command: merlinLsp,
     };
   }
 
@@ -101,6 +147,7 @@ function getMerlinLspOptions(options: { useEsy: boolean }) {
           ...process.env,
           MERLIN_LOG: "-",
           OCAMLRUNPARAM: "b",
+          PATH: merlinReasonDir,
         },
       },
     },
@@ -111,6 +158,7 @@ function getMerlinLspOptions(options: { useEsy: boolean }) {
           ...process.env,
           MERLIN_LOG: "-",
           OCAMLRUNPARAM: "b",
+          PATH: merlinReasonDir,
         },
       },
     },
@@ -118,7 +166,10 @@ function getMerlinLspOptions(options: { useEsy: boolean }) {
   return serverOptions;
 }
 
-export async function launchMerlinLsp(context: vscode.ExtensionContext, options: { useEsy: boolean }): Promise<void> {
+export async function launchMerlinLsp(
+  context: vscode.ExtensionContext,
+  options: { useEsy: boolean; isBucklescriptProject: boolean },
+): Promise<void> {
   const serverOptions = getMerlinLspOptions(options);
   const reasonConfig = vscode.workspace.getConfiguration("reason");
 
