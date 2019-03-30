@@ -146,6 +146,7 @@ function getMerlinLspOptions(options: { useEsy: boolean; isBucklescriptProject: 
         env: {
           ...process.env,
           MERLIN_LOG: "-",
+          OCAMLFIND_CONF: "/dev/null",
           OCAMLRUNPARAM: "b",
           PATH: merlinReasonDir,
         },
@@ -157,6 +158,7 @@ function getMerlinLspOptions(options: { useEsy: boolean; isBucklescriptProject: 
         env: {
           ...process.env,
           MERLIN_LOG: "-",
+          OCAMLFIND_CONF: "/dev/null",
           OCAMLRUNPARAM: "b",
           PATH: merlinReasonDir,
         },
