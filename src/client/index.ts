@@ -1,14 +1,10 @@
-import * as fs from "fs";
 import flatMap = require("lodash.flatmap");
 import * as path from "path";
-import { promisify } from "util";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import * as command from "./command";
 import * as request from "./request";
-
-const exists = promisify(fs.exists);
-const readFile = promisify(fs.readFile);
+import { getEsyConfig, isBucklescriptProject } from "../utils";
 
 const isWin = process.platform === "win32";
 
@@ -35,78 +31,7 @@ class ErrorHandler {
   }
 }
 
-async function isBucklescriptProject() {
-  // TODO: we need to use workspace.workspaceFolders here and run LSP server per
-  // root. For now we'll just run LSP per workspace.
-  const root = vscode.workspace.rootPath;
-  if (root == null) {
-    return false;
-  }
-
-  const bsconfigJson = path.join(root, "bsconfig.json");
-
-  if (await exists(bsconfigJson)) {
-    return true;
-  }
-
-  return false;
-}
-
-async function isEsyProject() {
-  const reasonConfig = vscode.workspace.getConfiguration("reason");
-  const forceEsy = reasonConfig.get<boolean>("forceEsy", false);
-  if (forceEsy) {
-    return true;
-  }
-
-  // TODO: we need to use workspace.workspaceFolders here and run LSP server per
-  // root. For now we'll just run LSP per workspace.
-  const root = vscode.workspace.rootPath;
-  if (root == null) {
-    return false;
-  }
-
-  const esyJson = path.join(root, "esy.json");
-  const packageJson = path.join(root, "package.json");
-  if (await exists(esyJson)) {
-    return true;
-  } else if (await exists(packageJson)) {
-    // package.json could be unrelated to esy, check if it has "esy" config
-    // then.
-    try {
-      const data = await readFile(packageJson, "utf8");
-      const json = JSON.parse(data);
-      return json.esy != null;
-    } catch (_e) {
-      return false;
-    }
-  }
-
-  return false;
-}
-
-async function getEsyConfig() {
-  const root = vscode.workspace.rootPath;
-  if (root == null) {
-    return false;
-  }
-
-  let configFile = path.join(root, "esy.json");
-  let isConfigFileExists = await exists(configFile);
-  if (!isConfigFileExists) {
-    configFile = path.join(root, "package.json");
-  }
-
-  try {
-    const data = await readFile(configFile, "utf8");
-    return JSON.parse(data);
-  } catch (_e) {
-    return null;
-  }
-}
-
-async function isEsyConfiguredProperly() {
-  const esyConfig = await getEsyConfig();
+async function isEsyConfiguredProperly(esyConfig: any) {
   const requiredDependencies = ["ocaml", "@opam/merlin-lsp"];
 
   if (!esyConfig) {
@@ -124,9 +49,9 @@ async function isEsyConfiguredProperly() {
   });
 }
 
-async function isConfuguredProperly(isEsyProject: boolean) {
-  if (isEsyProject) {
-    return await isEsyConfiguredProperly();
+async function isConfuguredProperly(esyConfig: any) {
+  if (esyConfig) {
+    return await isEsyConfiguredProperly(esyConfig);
   }
 
   if (isBucklescriptProject()) return true;
@@ -138,12 +63,12 @@ async function isConfuguredProperly(isEsyProject: boolean) {
 }
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
-  const isEasyProject = await isEsyProject();
+  const esyConfig = await getEsyConfig();
 
-  if (!isConfuguredProperly(isEasyProject)) return;
+  if (!isConfuguredProperly(esyConfig)) return;
 
   return launchMerlinLsp(context, {
-    useEsy: isEasyProject,
+    useEsy: !!esyConfig,
   });
 }
 

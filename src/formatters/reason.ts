@@ -4,7 +4,7 @@ import * as os from "os";
 import * as path from "path";
 import { v4 as uuidv4 } from "uuid";
 import * as vscode from "vscode";
-import { getFormatter, getFullTextRange } from "./utils";
+import { getFormatter, getFullTextRange } from "../utils";
 
 export function register() {
   const configuration = vscode.workspace.getConfiguration("reason");
@@ -12,9 +12,9 @@ export function register() {
   vscode.languages.registerDocumentFormattingEditProvider(
     { scheme: "file", language: "reason" },
     {
-      provideDocumentFormattingEdits(_document: vscode.TextDocument): vscode.TextEdit[] {
+      async provideDocumentFormattingEdits(_document: vscode.TextDocument): Promise<vscode.TextEdit[]> {
         const textEditor = vscode.window.activeTextEditor;
-        const formatter = getFormatter(configuration, "refmt");
+        const formatter = await getFormatter(configuration, "refmt");
 
         if (!formatter) return [];
 
