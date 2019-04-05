@@ -2,9 +2,9 @@ import flatMap = require("lodash.flatmap");
 import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
+import { getEsyConfig, isBucklescriptProject } from "../utils";
 import * as command from "./command";
 import * as request from "./request";
-import { getEsyConfig, isBucklescriptProject } from "../utils";
 
 const isWin = process.platform === "win32";
 
@@ -31,7 +31,7 @@ class ErrorHandler {
   }
 }
 
-async function isEsyConfiguredProperly(esyConfig: any) {
+function isEsyConfiguredProperly(esyConfig: any) {
   const requiredDependencies = ["ocaml", "@opam/merlin-lsp"];
 
   if (!esyConfig) {
@@ -49,9 +49,9 @@ async function isEsyConfiguredProperly(esyConfig: any) {
   });
 }
 
-async function isConfuguredProperly(esyConfig: any) {
+function isConfuguredProperly(esyConfig: any) {
   if (esyConfig) {
-    return await isEsyConfiguredProperly(esyConfig);
+    return isEsyConfiguredProperly(esyConfig);
   }
 
   if (isBucklescriptProject()) return true;

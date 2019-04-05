@@ -1,8 +1,8 @@
 import { execSync } from "child_process";
-import * as path from "path";
-import * as vscode from "vscode";
-import { promisify } from "util";
 import * as fs from "fs";
+import * as path from "path";
+import { promisify } from "util";
+import * as vscode from "vscode";
 
 const exists = promisify(fs.exists);
 const readFile = promisify(fs.readFile);
@@ -31,7 +31,7 @@ export async function getEsyConfig() {
   }
 
   let configFile = path.join(root, "esy.json");
-  let isConfigFileExists = await exists(configFile);
+  const isConfigFileExists = await exists(configFile);
   if (!isConfigFileExists) {
     configFile = path.join(root, "package.json");
   }
@@ -68,7 +68,7 @@ function getExecutablePath(executable: string) {
 export async function getFormatter(configuration: vscode.WorkspaceConfiguration, formatterName: string) {
   const rootPath = vscode.workspace.rootPath || "";
   const formatterPath = configuration.get<string | undefined>(`path.${formatterName}`) || formatterName;
-  let esyConfig = await getEsyConfig();
+  const esyConfig = await getEsyConfig();
 
   if (esyConfig) {
     if (!esyConfig.devDependencies[`@opam/${formatterName}`]) {
