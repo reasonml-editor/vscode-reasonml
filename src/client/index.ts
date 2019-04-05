@@ -35,6 +35,23 @@ class ErrorHandler {
   }
 }
 
+async function isBucklescriptProject() {
+  // TODO: we need to use workspace.workspaceFolders here and run LSP server per
+  // root. For now we'll just run LSP per workspace.
+  const root = vscode.workspace.rootPath;
+  if (root == null) {
+    return false;
+  }
+
+  const bsconfigJson = path.join(root, "bsconfig.json");
+
+  if (await exists(bsconfigJson)) {
+    return true;
+  }
+
+  return false;
+}
+
 async function isEsyProject() {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
   const forceEsy = reasonConfig.get<boolean>("forceEsy", false);
@@ -68,8 +85,62 @@ async function isEsyProject() {
   return false;
 }
 
+async function getEsyConfig() {
+  const root = vscode.workspace.rootPath;
+  if (root == null) {
+    return false;
+  }
+
+  let configFile = path.join(root, "esy.json");
+  let isConfigFileExists = await exists(configFile);
+  if (!isConfigFileExists) {
+    configFile = path.join(root, "package.json");
+  }
+
+  try {
+    const data = await readFile(configFile, "utf8");
+    return JSON.parse(data);
+  } catch (_e) {
+    return null;
+  }
+}
+
+async function isEsyConfiguredProperly() {
+  const esyConfig = await getEsyConfig();
+  const requiredDependencies = ["ocaml", "@opam/merlin-lsp"];
+
+  if (!esyConfig) {
+    vscode.window.showInformationMessage("LSP is unable to start. Couldn't find esy configuration");
+    return false;
+  }
+
+  return requiredDependencies.every(dependency => {
+    if (!esyConfig.devDependencies[dependency]) {
+      vscode.window.showInformationMessage(`LSP is unable to start. Add "${dependency}" to your devDependencies`);
+      return false;
+    }
+
+    return true;
+  });
+}
+
+async function isConfuguredProperly(isEsyProject: boolean) {
+  if (isEsyProject) {
+    return await isEsyConfiguredProperly();
+  }
+
+  if (isBucklescriptProject()) return true;
+
+  vscode.window.showInformationMessage(
+    "LSP is unable to start. Extension couldn't detect type of the project. Provide esy or bucklescript configuration. More in README.",
+  );
+  return false;
+}
+
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const isEasyProject = await isEsyProject();
+
+  if (!isConfuguredProperly(isEasyProject)) return;
 
   return launchMerlinLsp(context, {
     useEsy: isEasyProject,
