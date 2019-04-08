@@ -19,7 +19,7 @@ export function register() {
         if (!formatter) return [];
 
         if (textEditor) {
-          const tempFileName = path.join(os.tmpdir(), `vscode-reasonml-refmt-${uuidv4()}.ml`);
+          const tempFileName = path.join(os.tmpdir(), `vscode-reasonml-refmt-${uuidv4()}.re`);
           fs.writeFileSync(tempFileName, textEditor.document.getText(), "utf8");
           try {
             const formattedText = execSync(`${formatter} ${tempFileName}`).toString();
