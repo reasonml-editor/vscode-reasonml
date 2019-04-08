@@ -36,6 +36,10 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
+    "commands": [{
+      "command": "reason.restart",
+      "title": "VSCode Reason: Restart Merlin Language Server"
+    }],
     "configuration": {
       "type": "object",
       "title": "Reason configuration",

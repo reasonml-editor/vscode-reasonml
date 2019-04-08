@@ -92,11 +92,17 @@ const reasonConfiguration = {
   wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\"\,\.\<\>\/\?\s]+)/g,
 };
 
-export async function activate(context: vscode.ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
+  function start() {
+    client.launch(context);
+  }
+
   context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
-  await client.launch(context);
   registerOcamlForamtter();
   registerReasonForamtter();
+
+  vscode.commands.registerCommand("reason.restart", start);
+  start();
 }
 
 export function deactivate() {

@@ -95,6 +95,8 @@ function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
   const usePkgManager = options.useEsy || options.useOpam;
   const pth = usePkgManager ? process.env.PATH : `${getPrebuiltExecutablesPath()}:${process.env.PATH}`;
 
+  console.log(options);
+
   let run;
   if (options.useEsy) {
     run = {
