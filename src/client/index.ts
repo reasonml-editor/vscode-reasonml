@@ -2,7 +2,7 @@ import flatMap = require("lodash.flatmap");
 import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import { getEsyConfig, isBucklescriptProject } from "../utils";
+import { getEsyConfig, getOpamConfig, isBucklescriptProject } from "../utils";
 import * as command from "./command";
 import * as request from "./request";
 
@@ -49,12 +49,14 @@ function isEsyConfiguredProperly(esyConfig: any) {
   });
 }
 
-function isConfuguredProperly(esyConfig: any) {
+function isConfiguredProperly(esyConfig: any, opamConfig: any) {
   if (esyConfig) {
     return isEsyConfiguredProperly(esyConfig);
   }
 
   if (isBucklescriptProject()) return true;
+
+  if (!!opamConfig) return true;
 
   vscode.window.showInformationMessage(
     "LSP is unable to start. Extension couldn't detect type of the project. Provide esy or bucklescript configuration. More in README.",
@@ -64,11 +66,13 @@ function isConfuguredProperly(esyConfig: any) {
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
   const esyConfig = await getEsyConfig();
+  const opamConfig = await getOpamConfig();
 
-  if (!isConfuguredProperly(esyConfig)) return;
+  if (!isConfiguredProperly(esyConfig, opamConfig)) return;
 
   return launchMerlinLsp(context, {
     useEsy: !!esyConfig,
+    useOpam: !!opamConfig,
   });
 }
 
@@ -76,25 +80,31 @@ function getPrebuiltExecutablesPath() {
   return path.join(__dirname, `../../../executables/${process.platform}`);
 }
 
-function getMerlinLspPath(useEsy: boolean) {
+function getMerlinLspPath(options: { useEsy: boolean; useOpam: boolean }) {
   let merlinLspPath = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
 
-  if (!useEsy) {
+  if (!options.useEsy && !options.useOpam) {
     merlinLspPath = path.join(getPrebuiltExecutablesPath(), merlinLspPath);
   }
 
   return merlinLspPath;
 }
 
-function getMerlinLspOptions(options: { useEsy: boolean }) {
-  const merlinLsp = getMerlinLspPath(options.useEsy);
-  const pth = options.useEsy ? process.env.PATH : `${getPrebuiltExecutablesPath()}:${process.env.PATH}`;
+function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
+  const merlinLsp = getMerlinLspPath(options);
+  const usePkgManager = options.useEsy || options.useOpam;
+  const pth = usePkgManager ? process.env.PATH : `${getPrebuiltExecutablesPath()}:${process.env.PATH}`;
 
   let run;
   if (options.useEsy) {
     run = {
       args: ["exec-command", "--include-current-env", merlinLsp],
       command: process.platform === "win32" ? "esy.cmd" : "esy",
+    };
+  } else if (options.useOpam) {
+    run = {
+      args: ["exec", "--", merlinLsp],
+      command: "opam",
     };
   } else {
     run = {
@@ -132,7 +142,10 @@ function getMerlinLspOptions(options: { useEsy: boolean }) {
   return serverOptions;
 }
 
-export async function launchMerlinLsp(context: vscode.ExtensionContext, options: { useEsy: boolean }): Promise<void> {
+export async function launchMerlinLsp(
+  context: vscode.ExtensionContext,
+  options: { useEsy: boolean; useOpam: boolean },
+): Promise<void> {
   const serverOptions = getMerlinLspOptions(options);
   const reasonConfig = vscode.workspace.getConfiguration("reason");
 
