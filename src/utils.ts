@@ -45,6 +45,20 @@ export async function getEsyConfig() {
   }
 }
 
+export async function getOpamConfig() {
+  const root = vscode.workspace.rootPath;
+  if (root == null) {
+    return false;
+  }
+
+  const configFile = path.join(root, "_opam");
+  const isConfigFileExists = await exists(configFile);
+  if (!isConfigFileExists) {
+    return null;
+  }
+  return configFile;
+}
+
 export function getFullTextRange(textEditor: vscode.TextEditor) {
   const firstLine = textEditor.document.lineAt(0);
   const lastLine = textEditor.document.lineAt(textEditor.document.lineCount - 1);
