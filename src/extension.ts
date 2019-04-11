@@ -121,37 +121,53 @@ function generateEsyConfig() {
     return null;
   }
 
-  const ocamlVersion = semver.gtr("6.0.0", bsPlatformVersion) ? "4.02.x" : "4.06.x";
-
-  return JSON.stringify(
-    {
-      name: packageJsonConfig.name,
-      version: packageJsonConfig.version,
-      devDependencies: {
-        "@opam/merlin-lsp": "*",
-        ocaml: ocamlVersion,
-      },
-      resolutions: {
-        "@opam/merlin-lsp": "github:ocaml/merlin:merlin-lsp.opam#517f577",
-      },
-      comments: [
-        "This file is used to help esy install the required binaries for vscode-reasonml extension",
-        "The `ocaml` package version will have to be updated if you change bs-platform in package.json to a version that",
-        "depends on a different version of the OCaml compiler (for example, from 4.02 to 4.06).",
-      ],
-    },
-    null,
-    "  ",
-  );
-
+  const baseEsyConfig = {
+    name: packageJsonConfig.name,
+    version: packageJsonConfig.version,
+    comments: [
+      "This file is used to help esy install the required binaries for vscode-reasonml extension",
+      "The `ocaml` package version will have to be updated if you change bs-platform in package.json to a version that",
+      "depends on a different version of the OCaml compiler (for example, from 4.02 to 4.06).",
+    ],
+  };
+  /* tslint:disable:object-literal-key-quotes */
+  const esyConfig = semver.gtr("6.0.0", bsPlatformVersion)
+    ? {
+        ...baseEsyConfig,
+        devDependencies: {
+          "@opam/merlin-lsp": "*",
+          ocaml: "4.2.x",
+        },
+        resolutions: {
+          "@opam/ppx_deriving": {
+            source: "github:ocaml-ppx/ppx_deriving:opam#71e61a2",
+            override: {
+              build: ["ocaml pkg/build.ml native=true native-dynlink=true"],
+            },
+          },
+          "@opam/merlin-lsp": "github:Khady/merlin:merlin-lsp.opam#9325d1d",
+        },
+      }
+    : {
+        ...baseEsyConfig,
+        devDependencies: {
+          "@opam/merlin-lsp": "*",
+          ocaml: "4.06.x",
+        },
+        resolutions: {
+          "@opam/merlin-lsp": "github:ocaml/merlin:merlin-lsp.opam#517f577",
+        },
+      };
+  /* tslint:disable:object-literal-key-quotes */
+  return JSON.stringify(esyConfig, null, "  ");
 }
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
   function start() {
     client.launch(context);
   }
 
-  function init() {
+  async function init() {
     if (!isBucklescriptProject) return;
 
     const rootPath = vscode.workspace.rootPath;
@@ -164,8 +180,32 @@ export function activate(context: vscode.ExtensionContext) {
       return;
     }
 
-    fs.writeFileSync(esyJsonPath, esyConfig);
-    vscode.window.showInformationMessage("All good. Now run `esy`");
+    const choice = await vscode.window.showQuickPick(
+      [
+        {
+          description: "An `esy.json` file will be created on the root of the project.",
+          label: "Yes",
+        },
+        {
+          description: "The extension will not provide any diagnostics without it.",
+          label: "No",
+        },
+      ],
+      { placeHolder: "`esy.json` was not found in the project. Do you want the extension to create one for you?" },
+    );
+
+    if (choice && choice.label === "Yes") {
+      fs.writeFileSync(esyJsonPath, esyConfig);
+      vscode.window.showQuickPick(
+        [
+          {
+            description: "",
+            label: "Ok",
+          },
+        ],
+        { placeHolder: "All good. Now run `esy`" },
+      );
+    }
   }
 
   context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
