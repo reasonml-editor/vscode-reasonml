@@ -1,5 +1,4 @@
 import flatMap = require("lodash.flatmap");
-import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import { getEsyConfig, getOpamConfig, isBucklescriptProject } from "../utils";
@@ -76,24 +75,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   });
 }
 
-function getPrebuiltExecutablesPath() {
-  return path.join(__dirname, `../../../executables/${process.platform}`);
-}
-
-function getMerlinLspPath(options: { useEsy: boolean; useOpam: boolean }) {
-  let merlinLspPath = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
-
-  if (!options.useEsy && !options.useOpam) {
-    merlinLspPath = path.join(getPrebuiltExecutablesPath(), merlinLspPath);
-  }
-
-  return merlinLspPath;
-}
-
 function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
-  const merlinLsp = getMerlinLspPath(options);
-  const usePkgManager = options.useEsy || options.useOpam;
-  const pth = usePkgManager ? process.env.PATH : `${getPrebuiltExecutablesPath()}:${process.env.PATH}`;
+  const merlinLsp = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
 
   let run;
   if (options.useEsy) {
@@ -122,7 +105,6 @@ function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
           MERLIN_LOG: "-",
           OCAMLFIND_CONF: "/dev/null",
           OCAMLRUNPARAM: "b",
-          PATH: pth,
         },
       },
     },
@@ -134,7 +116,6 @@ function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
           MERLIN_LOG: "-",
           OCAMLFIND_CONF: "/dev/null",
           OCAMLRUNPARAM: "b",
-          PATH: pth,
         },
       },
     },

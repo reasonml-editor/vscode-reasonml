@@ -1,9 +1,13 @@
 // tslint:disable object-literal-sort-keys
 
+import * as fs from "fs";
+import * as path from "path";
+import * as semver from "semver";
 import * as vscode from "vscode";
 import * as client from "./client";
 import { register as registerOcamlForamtter } from "./formatters/ocaml";
 import { register as registerReasonForamtter } from "./formatters/reason";
+import { isBucklescriptProject } from "./utils";
 
 const reasonConfiguration = {
   indentationRules: {
@@ -92,9 +96,76 @@ const reasonConfiguration = {
   wordPattern: /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\"\,\.\<\>\/\?\s]+)/g,
 };
 
+function getPackageJsonConfig() {
+  const rootPath = vscode.workspace.rootPath;
+  if (!rootPath) return;
+
+  const packageJsonPath = path.join(rootPath, "package.json");
+
+  try {
+    const packageJsonString = fs.readFileSync(packageJsonPath, "utf-8");
+    return JSON.parse(packageJsonString);
+  } catch (_e) {
+    return null;
+  }
+}
+
+function generateEsyConfig() {
+  const packageJsonConfig = getPackageJsonConfig();
+  if (!packageJsonConfig) return null;
+
+  const bsPlatformVersion = packageJsonConfig.devDependencies ? packageJsonConfig.devDependencies["bs-platform"] : null;
+
+  if (!bsPlatformVersion) {
+    // TODO: Show notification;
+    return null;
+  }
+
+  const ocamlVersion = semver.gtr("6.0.0", bsPlatformVersion) ? "4.02.x" : "4.06.x";
+
+  return JSON.stringify(
+    {
+      name: packageJsonConfig.name,
+      version: packageJsonConfig.version,
+      devDependencies: {
+        "@opam/merlin-lsp": "*",
+        ocaml: ocamlVersion,
+      },
+      resolutions: {
+        "@opam/merlin-lsp": "github:ocaml/merlin:merlin-lsp.opam#517f577",
+      },
+      comments: [
+        "This file is used to help esy install the required binaries for vscode-reasonml extension",
+        "The `ocaml` package version will have to be updated if you change bs-platform in package.json to a version that",
+        "depends on a different version of the OCaml compiler (for example, from 4.02 to 4.06).",
+      ],
+    },
+    null,
+    "  ",
+  );
+
+}
+
 export function activate(context: vscode.ExtensionContext) {
   function start() {
     client.launch(context);
+  }
+
+  function init() {
+    if (!isBucklescriptProject) return;
+
+    const rootPath = vscode.workspace.rootPath;
+    if (!rootPath) return;
+
+    const esyJsonPath = path.join(rootPath, "esy.json");
+    const esyConfig = generateEsyConfig();
+    if (!esyConfig) {
+      vscode.window.showInformationMessage("bs-platform not found in devDependencies");
+      return;
+    }
+
+    fs.writeFileSync(esyJsonPath, esyConfig);
+    vscode.window.showInformationMessage("All good. Now run `esy`");
   }
 
   context.subscriptions.push(vscode.languages.setLanguageConfiguration("reason", reasonConfiguration));
@@ -102,6 +173,7 @@ export function activate(context: vscode.ExtensionContext) {
   registerReasonForamtter();
 
   vscode.commands.registerCommand("reason.restart", start);
+  vscode.commands.registerCommand("reason.init", init);
   start();
 }
 
