@@ -1,6 +1,7 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
+import * as semver from "semver";
 import { promisify } from "util";
 import * as vscode from "vscode";
 
@@ -105,4 +106,67 @@ export async function getFormatter(configuration: vscode.WorkspaceConfiguration,
   }
 
   return formatter;
+}
+
+function getPackageJsonConfig(rootPath: string) {
+  const packageJsonPath = path.join(rootPath, "package.json");
+
+  try {
+    const packageJsonString = fs.readFileSync(packageJsonPath, "utf-8");
+    return JSON.parse(packageJsonString);
+  } catch (_e) {
+    return null;
+  }
+}
+
+export function generateEsyConfig(rootPath: string) {
+  const packageJsonConfig = getPackageJsonConfig(rootPath);
+  if (!packageJsonConfig) return null;
+
+  const bsPlatformVersion = packageJsonConfig.devDependencies ? packageJsonConfig.devDependencies["bs-platform"] : null;
+
+  if (!bsPlatformVersion) {
+    // TODO: Show notification;
+    return null;
+  }
+
+  const baseEsyConfig = {
+    name: packageJsonConfig.name,
+    version: packageJsonConfig.version,
+    comments: [
+      "This file is used to help esy install the required binaries for vscode-reasonml extension",
+      "The `ocaml` package version will have to be updated if you change bs-platform in package.json to a version that",
+      "depends on a different version of the OCaml compiler (for example, from 4.02 to 4.06).",
+    ],
+  };
+  /* tslint:disable:object-literal-key-quotes */
+  const esyConfig = semver.gtr("6.0.0", bsPlatformVersion)
+    ? {
+        ...baseEsyConfig,
+        devDependencies: {
+          "@opam/merlin-lsp": "*",
+          ocaml: "4.2.x",
+        },
+        resolutions: {
+          "@opam/ppx_deriving": {
+            source: "github:ocaml-ppx/ppx_deriving:opam#71e61a2",
+            override: {
+              build: ["ocaml pkg/build.ml native=true native-dynlink=true"],
+            },
+          },
+          "@opam/merlin-lsp": "github:Khady/merlin:merlin-lsp.opam#9325d1d",
+        },
+      }
+    : {
+        ...baseEsyConfig,
+        devDependencies: {
+          "@opam/merlin-lsp": "*",
+          ocaml: "4.06.x",
+        },
+        resolutions: {
+          "@opam/merlin-lsp": "github:ocaml/merlin:merlin-lsp.opam#517f577",
+        },
+      };
+  /* tslint:disable:object-literal-key-quotes */
+  return JSON.stringify(esyConfig, null, "  ");
 }
