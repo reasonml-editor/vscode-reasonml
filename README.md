@@ -101,6 +101,8 @@ To enable formatting on save, add the following to `Code > Preferences > Setting
 }
 ```
 
+For formatting, make sure you have `ocp-indent` (for OCaml) and `refmt` (for ReasonML), installed and available in your `PATH`, otherwise this extension will currently crash ([issue](#142)).
+
 If you want to enable [codelens](https://code.visualstudio.com/blogs/2017/02/12/code-lens-roundup), add the following to `Code > Preferences > Settings`:
 ```
 "reason.codelens.enabled": true
