@@ -1,11 +1,8 @@
 import flatMap = require("lodash.flatmap");
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
-import { getEsyConfig, getOpamConfig, isBucklescriptProject } from "../utils";
 import * as command from "./command";
 import * as request from "./request";
-
-const isWin = process.platform === "win32";
 
 class ClientWindow implements vscode.Disposable {
   public readonly merlin: vscode.StatusBarItem;
@@ -30,106 +27,40 @@ class ErrorHandler {
   }
 }
 
-function isEsyConfiguredProperly(esyConfig: any) {
-  const requiredDependencies = ["ocaml", "@opam/merlin-lsp"];
-
-  if (!esyConfig) {
-    vscode.window.showInformationMessage("LSP is unable to start. Couldn't find esy configuration");
-    return false;
-  }
-
-  return requiredDependencies.every(dependency => {
-    if (!esyConfig.devDependencies[dependency]) {
-      vscode.window.showInformationMessage(`LSP is unable to start. Add "${dependency}" to your devDependencies`);
-      return false;
-    }
-
-    return true;
-  });
-}
-
-function isConfiguredProperly(esyConfig: any, opamConfig: any) {
-  if (esyConfig) {
-    return isEsyConfiguredProperly(esyConfig);
-  }
-
-  if (isBucklescriptProject()) return true;
-
-  if (!!opamConfig) return true;
-
-  vscode.window.showInformationMessage(
-    "LSP is unable to start. Extension couldn't detect type of the project. Provide esy or bucklescript configuration. More in README.",
-  );
-  return false;
-}
-
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
-  const esyConfig = await getEsyConfig();
-  const opamConfig = await getOpamConfig();
-
-  if (!isConfiguredProperly(esyConfig, opamConfig)) return;
-
-  return launchMerlinLsp(context, {
-    useEsy: !!esyConfig,
-    useOpam: !!opamConfig,
-  });
+  return launchMerlinLsp(context);
 }
 
-function getMerlinLspOptions(options: { useEsy: boolean; useOpam: boolean }) {
-  const merlinLsp = isWin ? "ocamlmerlin-lsp.exe" : "ocamlmerlin-lsp";
-
-  let run;
-  if (options.useEsy) {
-    run = {
-      args: ["exec-command", "--include-current-env", merlinLsp],
-      command: process.platform === "win32" ? "esy.cmd" : "esy",
-    };
-  } else if (options.useOpam) {
-    run = {
-      args: ["exec", "--", merlinLsp],
-      command: "opam",
-    };
-  } else {
-    run = {
-      args: [],
-      command: merlinLsp,
-    };
-  }
-
-  const serverOptions: client.ServerOptions = {
-    debug: {
-      ...run,
-      options: {
-        env: {
-          ...process.env,
-          MERLIN_LOG: "-",
-          OCAMLFIND_CONF: "/dev/null",
-          OCAMLRUNPARAM: "b",
-        },
-      },
-    },
-    run: {
-      ...run,
-      options: {
-        env: {
-          ...process.env,
-          MERLIN_LOG: "-",
-          OCAMLFIND_CONF: "/dev/null",
-          OCAMLRUNPARAM: "b",
-        },
+function getMerlinLspOptions(lsp: string) {
+  let run = {
+    args: [],
+    command: lsp,
+    options: {
+      env: {
+        ...process.env,
+        MERLIN_LOG: "-",
+        OCAMLFIND_CONF: "/dev/null",
+        OCAMLRUNPARAM: "b",
       },
     },
   };
-  return serverOptions;
+
+  return {
+    debug: run,
+    run: run,
+  };
 }
 
-export async function launchMerlinLsp(
-  context: vscode.ExtensionContext,
-  options: { useEsy: boolean; useOpam: boolean },
-): Promise<void> {
-  const serverOptions = getMerlinLspOptions(options);
+export async function launchMerlinLsp(context: vscode.ExtensionContext): Promise<void> {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
+  const lsp = reasonConfig.get<string | undefined>(`path.ocamlmerlin-lsp`);
 
+  if (!lsp) {
+    vscode.window.showInformationMessage("reason.path.ocamlmerlin-lsp is not specified");
+    return;
+  }
+
+  const serverOptions = getMerlinLspOptions(lsp);
   const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
   const documentSelector = flatMap(languages, (language: string) => [
     { language, scheme: "file" },
