@@ -60,13 +60,35 @@ If you are using `esy`, you can use this configuration:
 "devDependencies": {
   "@opam/merlin-lsp": "*",
   "@opam/reason": "3.4.0", // if you are using reason
-  "ocaml": "4.06.1" // version of compiler in your project
+  "ocaml": "4.06.x" // version of compiler in your project
 },
 "resolutions": {
   "@opam/merlin-lsp": "ocaml/merlin:merlin-lsp.opam#f431006"
 }
 
 Then run `esy exec-command which ocamlmerlin-lsp` and `esy exec-command which ocamlmerlin-reason` to get paths to binaries.
+
+#### bs-platfrom <= 5
+
+Bucklescript 5 and earlier using `OCaml 4.02.3` and you will have problems with compliling `merlin-lsp`. But it can be solved with a couple of well placed pins:
+
+```json
+// esy.json
+"devDependencies": {
+  "@opam/merlin-lsp": "*",
+  "@opam/reason": "3.4.0",
+  "ocaml": "4.2.x"
+},
+"resolutions": {
+  "@opam/ppx_deriving": {
+    "source": "github:ocaml-ppx/ppx_deriving:opam#71e61a2",
+    "override": {
+      "build": ["ocaml pkg/build.ml native=true native-dynlink=true"]
+    }
+  },
+  "@opam/merlin-lsp": "github:Khady/merlin:merlin-lsp.opam#9325d1d"
+}
+```
 
 ### Recommended Syntax Themes
 
