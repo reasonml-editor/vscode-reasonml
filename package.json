@@ -36,8 +36,7 @@
   ],
   "main": "./out/src/extension",
   "contributes": {
-    "commands": [
-      {
+    "commands": [{
         "command": "reason.restart",
         "title": "VSCode Reason: Restart Merlin Language Server"
       },
@@ -58,20 +57,20 @@
           "default": null,
           "description": "Set the width of lines when formatting code with refmt"
         },
-        "reason.path.esy": {
+        "reason.path.ocamlmerlin-lsp": {
           "type": "string",
-          "default": "esy",
-          "description": "The path to the `esy` binary."
+          "default": null,
+          "description": "The path to the `ocamlmerlin-lsp` binary."
+        },
+        "reason.path.ocamlmerlin-reason": {
+          "type": "string",
+          "default": null,
+          "description": "The path to the `ocamlmerlin-reason` binary."
         },
         "reason.path.ocamlformat": {
           "type": "string",
           "default": "ocamlformat",
           "description": "The path to the `ocamlformat` binary."
-        },
-        "reason.path.ocamlmerlin-lsp": {
-          "type": "string",
-          "default": null,
-          "description": "The path to the `ocamlmerlin-lsp` binary."
         },
         "reason.path.refmt": {
           "type": "string",
@@ -80,8 +79,7 @@
         }
       }
     },
-    "grammars": [
-      {
+    "grammars": [{
         "language": "ocaml",
         "scopeName": "source.ocaml",
         "path": "./syntaxes/ocaml.json"
@@ -152,8 +150,7 @@
         }
       }
     ],
-    "languages": [
-      {
+    "languages": [{
         "id": "ocaml",
         "aliases": [
           "OCaml"
@@ -218,36 +215,31 @@
         "id": "reason.hover.type"
       }
     ],
-    "snippets": [
-      {
-        "language": "reason",
-        "path": "./snippets/reason.json"
-      }
-    ],
-    "problemMatchers": [
-      {
-        "name": "ocamlc",
-        "fileLocation": [
-          "relative",
-          "${workspaceFolder}"
-        ],
-        "pattern": [
-          {
-            "regexp": "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
-            "file": 1,
-            "line": 2,
-            "column": 3,
-            "endColumn": 4
-          },
-          {
-            "regexp": "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
-            "severity": 1,
-            "code": 2,
-            "message": 3
-          }
-        ]
-      }
-    ]
+    "snippets": [{
+      "language": "reason",
+      "path": "./snippets/reason.json"
+    }],
+    "problemMatchers": [{
+      "name": "ocamlc",
+      "fileLocation": [
+        "relative",
+        "${workspaceFolder}"
+      ],
+      "pattern": [{
+          "regexp": "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "endColumn": 4
+        },
+        {
+          "regexp": "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
+          "severity": 1,
+          "code": 2,
+          "message": 3
+        }
+      ]
+    }]
   },
   "scripts": {
     "build": "tsc -p ./ && node script/syntax.js",

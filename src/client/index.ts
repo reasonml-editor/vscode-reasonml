@@ -1,4 +1,5 @@
 import flatMap = require("lodash.flatmap");
+import * as path from "path";
 import * as vscode from "vscode";
 import * as client from "vscode-languageclient";
 import * as command from "./command";
@@ -31,7 +32,8 @@ export async function launch(context: vscode.ExtensionContext): Promise<void> {
   return launchMerlinLsp(context);
 }
 
-function getMerlinLspOptions(lsp: string) {
+function getMerlinLspOptions(lsp: string, reason: string | undefined) {
+  let envPath = reason ? `${path.dirname(reason)}:${process.env.PATH}` : process.env.PATH;
   let run = {
     args: [],
     command: lsp,
@@ -41,6 +43,7 @@ function getMerlinLspOptions(lsp: string) {
         MERLIN_LOG: "-",
         OCAMLFIND_CONF: "/dev/null",
         OCAMLRUNPARAM: "b",
+        PATH: envPath,
       },
     },
   };
@@ -54,13 +57,14 @@ function getMerlinLspOptions(lsp: string) {
 export async function launchMerlinLsp(context: vscode.ExtensionContext): Promise<void> {
   const reasonConfig = vscode.workspace.getConfiguration("reason");
   const lsp = reasonConfig.get<string | undefined>(`path.ocamlmerlin-lsp`);
+  const reason = reasonConfig.get<string | undefined>(`path.ocamlmerlin-reason`);
 
   if (!lsp) {
     vscode.window.showInformationMessage("reason.path.ocamlmerlin-lsp is not specified");
     return;
   }
 
-  const serverOptions = getMerlinLspOptions(lsp);
+  const serverOptions = getMerlinLspOptions(lsp, reason);
   const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
   const documentSelector = flatMap(languages, (language: string) => [
     { language, scheme: "file" },
