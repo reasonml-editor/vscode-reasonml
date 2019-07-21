@@ -3,7 +3,7 @@
   "name": "reasonml",
   "displayName": "OCaml and Reason IDE",
   "description": "OCaml and Reason language support",
-  "version": "1.0.38",
+  "version": "1.1.0",
   "publisher": "freebroccolo",
   "license": "Apache-2.0",
   "bugs": {
@@ -16,143 +16,70 @@
   "engines": {
     "vscode": "^1.21.0"
   },
-  "categories": ["Formatters", "Programming Languages", "Linters", "Snippets"],
-  "keywords": ["ocaml", "reason", "bucklescript", "reasonml", "merlin"],
+  "categories": [
+    "Formatters",
+    "Programming Languages",
+    "Linters",
+    "Snippets"
+  ],
+  "keywords": [
+    "ocaml",
+    "reason",
+    "bucklescript",
+    "reasonml",
+    "merlin"
+  ],
   "icon": "assets/logo.png",
-  "activationEvents": ["onLanguage:ocaml", "onLanguage:reason"],
+  "activationEvents": [
+    "onLanguage:ocaml",
+    "onLanguage:reason"
+  ],
   "main": "./out/src/extension",
   "contributes": {
-    "commands": [
-      {
-        "command": "reason.caseSplit",
-        "title": "Reason: Case Split"
+    "commands": [{
+        "command": "reason.restart",
+        "title": "VSCode Reason: Restart Merlin Language Server"
       },
       {
-        "command": "reason.showMerlinFiles",
-        "title": "Reason: Show Merlin Files"
-      },
-      {
-        "command": "reason.showAvailableLibraries",
-        "title": "Reason: Show Libraries Available via Dependencies"
-      },
-      {
-        "command": "reason.showProjectEnv",
-        "title": "Reason: Show Environment"
+        "command": "reason.init",
+        "title": "VSCode Reason: Initialize"
       }
     ],
     "configuration": {
       "type": "object",
       "title": "Reason configuration",
       "properties": {
-        "reason.codelens.unicode": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable the use of unicode symbols in codelens."
-        },
-        "reason.codelens.enabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Specifies whether the code lens is shown."
-        },
-        "reason.debounce.linter": {
-          "oneOf": [
-            {
-              "type": "integer"
-            },
-            {
-              "enum": ["Infinity"]
-            }
-          ],
-          "default": 500,
-          "description":
-            "How long to idle (in milliseconds) after keypresses before refreshing linter diagnostics. Smaller values refresh diagnostics more quickly."
-        },
-        "reason.diagnostics.tools": {
-          "type": "array",
-          "items": {
-            "enum": ["merlin", "bsb"]
-          },
-          "default": ["merlin"],
-          "maxItems": 2,
-          "uniqueItems": true,
-          "description":
-            "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
-        },
         "reason.format.width": {
-          "type": ["number", null],
+          "type": [
+            "number",
+            null
+          ],
           "default": null,
           "description": "Set the width of lines when formatting code with refmt"
         },
-        "reason.path.bsb": {
+        "reason.path.ocamlmerlin-lsp": {
           "type": "string",
-          "default": "./node_modules/bs-platform/lib/bsb.exe",
-          "description": "The path to the `bsb` binary."
+          "default": null,
+          "description": "The path to the `ocamlmerlin-lsp` binary."
         },
-        "reason.path.ocamlfind": {
+        "reason.path.ocamlmerlin-reason": {
           "type": "string",
-          "default": "ocamlfind",
-          "description": "The path to the `ocamlfind` binary."
+          "default": null,
+          "description": "The path to the `ocamlmerlin-reason` binary."
         },
-        "reason.path.esy": {
+        "reason.path.ocamlformat": {
           "type": "string",
-          "default": "esy",
-          "description": "The path to the `esy` binary."
-        },
-        "reason.path.env": {
-          "type": "string",
-          "default": "env",
-          "description":
-            "The path to the `env` command which prints the language server environment for debugging editor issues."
-        },
-        "reason.path.ocamlmerlin": {
-          "type": "string",
-          "default": "ocamlmerlin",
-          "description": "The path to the `ocamlmerlin` binary."
-        },
-        "reason.path.ocpindent": {
-          "type": "string",
-          "default": "ocp-indent",
-          "description": "The path to the `ocp-indent` binary."
-        },
-        "reason.path.opam": {
-          "type": "string",
-          "default": "opam",
-          "description": "The path to the `opam` binary."
-        },
-        "reason.path.rebuild": {
-          "type": "string",
-          "default": "rebuild",
-          "description": "The path to the `rebuild` binary."
+          "default": "ocamlformat",
+          "description": "The path to the `ocamlformat` binary."
         },
         "reason.path.refmt": {
           "type": "string",
           "default": "refmt",
           "description": "The path to the `refmt` binary."
-        },
-        "reason.path.refmterr": {
-          "type": "string",
-          "default": "refmterr",
-          "description": "The path to the `refmterr` binary."
-        },
-        "reason.path.rtop": {
-          "type": "string",
-          "default": "rtop",
-          "description": "The path to the `rtop` binary."
-        },
-        "reason.server.languages": {
-          "type": "array",
-          "items": {
-            "enum": ["ocaml", "reason"]
-          },
-          "default": ["ocaml", "reason"],
-          "maxItems": 2,
-          "uniqueItems": true,
-          "description": "The list of languages enable support for in the language server."
         }
       }
     },
-    "grammars": [
-      {
+    "grammars": [{
         "language": "ocaml",
         "scopeName": "source.ocaml",
         "path": "./syntaxes/ocaml.json"
@@ -205,7 +132,9 @@
       {
         "scopeName": "markdown.reason.codeblock",
         "path": "./syntaxes/reason-markdown-codeblock.json",
-        "injectTo": ["text.html.markdown"],
+        "injectTo": [
+          "text.html.markdown"
+        ],
         "embeddedLanguages": {
           "meta.embedded.block.reason": "reason"
         }
@@ -213,17 +142,23 @@
       {
         "scopeName": "markdown.ocaml.codeblock",
         "path": "./syntaxes/ocaml-markdown-codeblock.json",
-        "injectTo": ["text.html.markdown"],
+        "injectTo": [
+          "text.html.markdown"
+        ],
         "embeddedLanguages": {
           "meta.embedded.block.ocaml": "ocaml"
         }
       }
     ],
-    "languages": [
-      {
+    "languages": [{
         "id": "ocaml",
-        "aliases": ["OCaml"],
-        "extensions": [".ml", ".mli"],
+        "aliases": [
+          "OCaml"
+        ],
+        "extensions": [
+          ".ml",
+          ".mli"
+        ],
         "configuration": "./ocaml.configuration.json"
       },
       {
@@ -234,23 +169,40 @@
       },
       {
         "id": "ocaml.merlin",
-        "aliases": ["Merlin"],
-        "extensions": ["merlin"]
+        "aliases": [
+          "Merlin"
+        ],
+        "extensions": [
+          "merlin"
+        ]
       },
       {
         "id": "ocaml.ocamlbuild",
-        "aliases": ["OCamlbuild"],
-        "extensions": ["_tags"]
+        "aliases": [
+          "OCamlbuild"
+        ],
+        "extensions": [
+          "_tags"
+        ]
       },
       {
         "id": "ocaml.opam",
-        "aliases": ["OPAM"],
-        "extensions": ["opam"]
+        "aliases": [
+          "OPAM"
+        ],
+        "extensions": [
+          "opam"
+        ]
       },
       {
         "id": "reason",
-        "aliases": ["Reason"],
-        "extensions": [".re", ".rei"],
+        "aliases": [
+          "Reason"
+        ],
+        "extensions": [
+          ".re",
+          ".rei"
+        ],
         "configuration": "./reason.configuration.json"
       },
       {
@@ -263,50 +215,37 @@
         "id": "reason.hover.type"
       }
     ],
-    "menus": {
-      "editor/context": [
+    "snippets": [{
+      "language": "reason",
+      "path": "./snippets/reason.json"
+    }],
+    "problemMatchers": [{
+      "name": "ocamlc",
+      "fileLocation": [
+        "relative",
+        "${workspaceFolder}"
+      ],
+      "pattern": [{
+          "regexp": "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "endColumn": 4
+        },
         {
-          "command": "reason.caseSplit",
-          "group": "reason",
-          "when": "editorTextFocus && resourceLangId == reason"
+          "regexp": "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
+          "severity": 1,
+          "code": 2,
+          "message": 3
         }
       ]
-    },
-    "snippets": [
-      {
-        "language": "reason",
-        "path": "./snippets/reason.json"
-      }
-    ],
-    "problemMatchers": [
-      {
-        "name": "ocamlc",
-
-        "fileLocation": ["relative", "${workspaceFolder}"],
-        "pattern": [
-          {
-            "regexp":
-              "^\\s*\\bFile\\b\\s*\"(.*)\",\\s*\\bline\\b\\s*(\\d+),\\s*\\bcharacters\\b\\s*(\\d+)-(\\d+)\\s*:\\s*$",
-            "file": 1,
-            "line": 2,
-            "column": 3,
-            "endColumn": 4
-          },
-          {
-            "regexp":
-              "^(?:\\s*\\bParse\\b\\s*)?\\s*\\b([Ee]rror|Warning)\\b\\s*(?:\\(\\s*\\bwarning\\b\\s*(\\d+)\\))?\\s*:\\s*(.*)$",
-            "severity": 1,
-            "code": 2,
-            "message": 3
-          }
-        ]
-      }
-    ]
+    }]
   },
   "scripts": {
     "build": "tsc -p ./ && node script/syntax.js",
+    "watch": "tsc -p ./ -w",
     "format": "./node_modules/.bin/prettier --write \"src/**/*.ts\"",
-    "lint": "tslint --project tsconfig.json",
+    "lint": "true",
     "postinstall": "node ./node_modules/vscode/bin/install",
     "prebuild": "npm run format && npm run lint",
     "vscode:prepublish": "node script/syntax.js"
@@ -315,15 +254,18 @@
     "@types/lodash.flatmap": "^4.5.3",
     "@types/node": "9.6.2",
     "@types/pegjs": "0.10.0",
+    "@types/uuid": "^3.4.4",
     "prettier": "1.11.1",
     "tslint": "5.9.1",
     "typescript": "2.8.1",
     "vscode": "1.1.14"
   },
   "dependencies": {
+    "@types/semver": "^6.0.0",
     "lodash.flatmap": "^4.5.0",
-    "ocaml-language-server": "1.0.35",
     "pegjs": "0.10.0",
+    "semver": "^6.0.0",
+    "uuid": "^3.3.2",
     "vscode-jsonrpc": "3.6.0",
     "vscode-languageclient": "4.0.1",
     "vscode-languageserver": "4.0.0",

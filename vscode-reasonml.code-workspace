@@ -1,12 +1,7 @@
 {
-  "folders": [
-    {
-      "path": "../ocaml-language-server"
-    },
-    {
-      "path": "."
-    }
-  ],
+  "folders": [{
+    "path": "."
+  }],
   "settings": {
     "typescript.tsdk": "./node_modules/typescript/lib"
   }

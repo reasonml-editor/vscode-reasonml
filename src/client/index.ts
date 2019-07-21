@@ -29,29 +29,53 @@ class ErrorHandler {
 }
 
 export async function launch(context: vscode.ExtensionContext): Promise<void> {
-  const reasonConfig = vscode.workspace.getConfiguration("reason");
-  const module = context.asAbsolutePath(path.join("node_modules", "ocaml-language-server", "bin", "server"));
-  const options = { execArgv: ["--nolazy", "--inspect=6009"] };
-  const transport = client.TransportKind.ipc;
-  const run = { module, transport };
-  const debug = {
-    module,
-    options,
-    transport,
+  return launchMerlinLsp(context);
+}
+
+function getMerlinLspOptions(lsp: string, reason: string | undefined) {
+  let envPath = reason ? `${path.dirname(reason)}:${process.env.PATH}` : process.env.PATH;
+  let run = {
+    args: [],
+    command: lsp,
+    options: {
+      env: {
+        ...process.env,
+        MERLIN_LOG: "-",
+        OCAMLFIND_CONF: "/dev/null",
+        OCAMLRUNPARAM: "b",
+        PATH: envPath,
+      },
+    },
   };
-  const serverOptions = { run, debug };
+
+  return {
+    debug: run,
+    run: run,
+  };
+}
+
+export async function launchMerlinLsp(context: vscode.ExtensionContext): Promise<void> {
+  const reasonConfig = vscode.workspace.getConfiguration("reason");
+  const lsp = reasonConfig.get<string | undefined>(`path.ocamlmerlin-lsp`);
+  const reason = reasonConfig.get<string | undefined>(`path.ocamlmerlin-reason`);
+
+  if (!lsp) {
+    vscode.window.showInformationMessage("reason.path.ocamlmerlin-lsp is not specified");
+    return;
+  }
+
+  const serverOptions = getMerlinLspOptions(lsp, reason);
   const languages = reasonConfig.get<string[]>("server.languages", ["ocaml", "reason"]);
   const documentSelector = flatMap(languages, (language: string) => [
     { language, scheme: "file" },
     { language, scheme: "untitled" },
   ]);
-
   const clientOptions: client.LanguageClientOptions = {
-    diagnosticCollectionName: "ocaml-language-server",
+    diagnosticCollectionName: "ocamlmerlin-lsp",
     documentSelector,
     errorHandler: new ErrorHandler(),
     initializationOptions: reasonConfig,
-    outputChannelName: "OCaml Language Server",
+    outputChannelName: "Merlin Language Server",
     stdioEncoding: "utf8",
     synchronize: {
       configurationSection: "reason",
