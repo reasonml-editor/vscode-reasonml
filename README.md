@@ -176,3 +176,19 @@ let foo (arg: list 'a) => switch arg {
   | [_] | [_, _, ..._] => failwith "<case>"
 };
 ```
+
+## FAQ
+
+- How do I enable emmet in ReasonReact files?
+
+Add this in your `settings.json`:
+```json
+"emmet.includeLanguages": {
+    "reason": "javascriptreact"
+}
+```
+
+Plus if it's not already there, consider adding:
+```json
+"emmet.triggerExpansionOnTab": true,
+```
