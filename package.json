@@ -78,10 +78,16 @@
           "description":
             "Specifies which tool or tools will be used to get diagnostics. If you choose both \"merlin\" and \"bsb\", merlin will be used while editing and bsb when saving."
         },
+        "reason.format.ocamltool": {
+          "enum": ["ocp-indent", "ocamlformat"],
+          "default": "ocamlformat",
+          "description":
+            "Specifies which tool will be used to format OCaml sources. (Reason always uses refmt.)"
+        },
         "reason.format.width": {
           "type": ["number", null],
           "default": null,
-          "description": "Set the width of lines when formatting code with refmt"
+          "description": "Set the width of lines when formatting code with refmt. (Has no effect on OCaml sources.)"
         },
         "reason.path.bsb": {
           "type": "string",
@@ -103,6 +109,11 @@
           "default": "env",
           "description":
             "The path to the `env` command which prints the language server environment for debugging editor issues."
+        },
+        "reason.path.ocamlformat": {
+          "type": "string",
+          "default": "ocamlformat",
+          "description": "The path to the `ocamlformat` binary."
         },
         "reason.path.ocamlmerlin": {
           "type": "string",
