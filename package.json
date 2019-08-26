@@ -203,6 +203,17 @@
         "path": "./syntaxes/reason-hover-type.json"
       },
       {
+        "language": "graphql",
+        "scopeName": "ppx.graphql",
+        "path": "./syntaxes/graphql.json",
+        "injectTo": [
+          "source.reason"
+        ],
+        "embeddedLanguages": {
+          "meta.embedded.block.graphql": "graphql"
+        }
+      },
+      {
         "scopeName": "markdown.reason.codeblock",
         "path": "./syntaxes/reason-markdown-codeblock.json",
         "injectTo": ["text.html.markdown"],
